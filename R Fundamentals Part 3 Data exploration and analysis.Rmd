@@ -1,0 +1,435 @@
+---
+title: 'R Fundamentals Part 3: Data exploration and analysis'
+author: "Rochelle Terman, Evan Muzzall, Dillon Niederhut"
+date: "October 23, 2016"
+output:
+  word_document:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+ 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(width=120)
+```
+
+# Learning objectives
+1. Day 2 subsetting review
+2. Data exploration and analysis in R
+3. Data exploration and plotting
+4. Statistical testing
+5. ggplot2
+
+# 1.  Day 2 review 
+Set your working directory to the R-Fundamentals folder
+```{r, eval=FALSE}
+getwd()
+setwd("/Users/E/Desktop/R-Fundamentals-master")
+```
+
+Read in the `animals` data frame you created on Day 1
+```{r}
+animals <- read.csv("/Users/E/Desktop/R-Fundamentals-master/animals.csv", header=TRUE, stringsAsFactors=FALSE)
+str(animals)
+head(animals)
+```
+```{r, eval=FALSE}
+animals
+```
+
+# 2.  Data exploration and analysis in R
+Research design, data collection, exploration, visualization, and analysis are fundamental aspects of research. Learning how to explore and analyze data will help you "think with the data" so that you become able to formulate better research designs and more efficient data collection protocols for your own research.
+
+Furthermore, when you read peer-reviewed work in your field, having an understanding of basic summaries, plots, and statistical tests will help you better grasp arguments that the authors are making and will allow you to more critically evaluate their rationale. 
+
+Our focus is on data analysis in R, which usually proceeds in two steps:
+1) exploration/graphing
+2) statistical testing/inference
+
+Data exploration often means graphing your data to see if it is possible to visualize any obvious (or not so obvious) trends. 
+
+Statistical inference is employed to test relationships that might be illustrated by your plots. 
+
+## 2.  Data exploration and analysis in R/ hypothesis testing
+You will frequently encounter hypotheses in the peer-reviewed literature and in test results in R. The simplest way to think about hypothesis testing is that you have two hypotheses: the null (Ho) and the alternative (Ha). 
+
+The null hypothesis can be thought of as ***NO DIFFERENCE***.
+
+The alternative hypothesis can be thought of as ***SOME SORT OF DIFFERENCE***.
+
+Should your test fail to achieve statistical significance you ***FAIL TO REJECT THE NULL HYPOTHESIS***. Should your test achieve statistical significance, you ***REJECT THE NULL HYPOTHESIS***. These are your only two options! (more on this in section # 4 below).
+
+# 3. Data exploration and plotting/ 
+## 3. Data exploration and plotting/ `summary()`
+It is often useful to first summarize your data. In R, this can be done in a variety of ways. 
+
+`summary()` provides a six-number summary of a data frame
+```{r, eval=FALSE}
+?summary
+```
+```{r}
+summary(animals)
+```
+
+## 3. Data exploration and plotting/ `describe()` and `describeBy()`
+`describe()` and `describeBy()` from the 'psych' R package provide more in-depth summary information. However, we are going to subset the data so that it only includes the numeric variables within the `describe()` call. 
+
+Remember, we installed the 'psych' package on Day 1, so all we have to do is call it into our environment.
+```{r}
+library(psych)
+```
+```{r, eval=FALSE}
+?describe
+```
+```{r}
+str(animals)
+describe(animals[,c(3:5)])
+```
+We can also subset these summary statistics to create simpler tables. Let's assign this output to an object first:
+```{r}
+animals_describe <- describe(animals[,c(3:5)])
+animals_describe
+```
+If we just want "median", "sd", skew", "kurtosis", and "se", we could subset our data frame like this:
+```{r}
+animals_simple <- animals_describe[c(5, 4, 11:13)]
+animals_simple
+```
+Saving summary tables is convenient in this fashion:
+```{r, eval=FALSE}
+write.csv(animals_simple, "animals_simple.csv", row.names=TRUE)
+#`row.names=TRUE` ensures that row names "Weight", "Height", and "Progress" labels are printed.
+```
+Check your working directory for the new .CSV file! 
+
+We can also describe our data by a grouping variable using `describeBy()`:
+```{r, eval=FALSE}
+?describeBy
+```
+```{r}
+#Output summary statistics by one grouping variable:
+summary_sub <- describeBy(animals[,c(3:5)], animals$Name)
+summary_sub
+
+#If we just want to view Cats, Dogs, or Pigs, we can type:
+summary_sub$Cat
+summary_sub$Dog
+summary_sub$Pig
+
+#We can also view just the means for Dogs, we can type:
+summary_sub$Dog[[3]] #Here, double bracket subsetting is used to return just the value from a list.
+
+#If we just want the Height mean for Dogs (8.5), we can type:
+summary_sub$Dog[[3]][2]
+
+#Or the medians for Pigs:
+summary_sub$Pig[[5]]
+```
+
+## 3. Data exploration and plotting/ `table()`
+We can view frequencies for of categorical data like Cat, Dog, and Pig with `table()`
+```{r, eval=FALSE}
+?table
+```
+```{r}
+table(animals$Name) # get frequencies for Cat, Dog, and Pig
+table(animals$Name, animals$Healthy) #get frequencies for Cat, Dog, and Pig by column "Healthy".
+```
+
+Wow! Only 2/7 cats are healthy.  
+3/6 dogs are healthy.  
+6/7 pigs are healthy!  
+
+##  3.  Data exploration and plotting/ `hist()`
+Histograms are a handy way to quickly illustrate the distribution shape of a particular variable. Let's visualize the "Height" variable from the `animals` data frame:
+```{r, eval=FALSE}
+?hist
+```
+```{r}
+hist(animals$Weight, col="violetred")
+```
+The `col=` argument specifies the color of the bars. Look at the colors you can choose from in base R using `colors()`
+```{r, eval=FALSE}
+colors() 
+```
+We can change the title and the x-axis label with `main` and `xlab`, respectively. `las` can be used to change the orientation of the axis text:
+```{r}
+hist(animals$Weight, 
+     col="violetred",
+     main="Histogram of animal weight",
+     xlab="Animal weight",
+     las=1)
+```
+
+# ***Challenge 1***
+1. Using the `iris` dataset, create a histogram of one of the numeric variables. 
+2. Use `table()` to count the numbers of the three different iris flower species. 
+
+##  3.  Data exploration and plotting/ `plot()`
+What if we want to know more about the relationships between two numeric variables? Here, base `plot()` is useful. This creates a scatterplot.
+```{r, eval=FALSE}
+?plot
+```
+First, let's coerce "Name" from character to factor data type:
+```{r}
+animals$Name <- factor(animals$Name)
+str(animals)
+```
+Then, identify two variables you want to plot on the x and y axes:
+```{r, eval=FALSE}
+animals$Weight
+animals$Height
+```
+Now, we can plot animal "Weight" versus "Height":
+```{r}
+plot(animals$Weight, animals$Height,    
+    xlab="Weight (kg)",   # change x axis label
+    ylab="Height (cm)",   # change y axis label
+    main="Animal weights and heights",   # add plot title
+    las=1, # make all axis text parallel to x-axis
+    col=as.integer(animals$Name),   # change point colors to correspond to animal names
+    pch=as.integer(animals$Name),   # change point symbols to correspond to animal names
+    cex=2)   # change point size 
+```
+
+However, our points are falling ourside the plot boundaries! We can change that with `xlim` and `ylim`:
+```{r}
+plot(animals$Weight, animals$Height,    
+    xlab="Weight (kg)",   # change x axis label
+    ylab="Height (cm)",   # change y axis label
+    main="Animal weights and heights",   # add plot title
+    las=1, # make all axis text parallel to x-axis
+    col=as.integer(animals$Name),   # change point colors to match animal names
+    pch=as.integer(animals$Name),   # change point symbols to match animal names
+    cex=2,   # change point size 
+    xlim=c(3,8),  # adjust range of x axis
+    ylim=c(4,11))  # adjust range of y axis
+
+# That looks better! We can also add a legend:
+
+legend("topright", inset=.0, title="Animal", cex=1,
+       c("Cat","Dog","Pig"), col=c(1,2,3), pch=c(1,2,3),
+       horiz=FALSE)
+```
+
+> NOTE: One drawback of R Studio is that its in-environment graphics look a little strange sometimes. However, to save it as a beautiful .PNG file, we wrap our plotting and legend instructions by `png()` and `dev.off()` lines of code. We can specify figure characteristics inside `png()` such as the dimensions and resolution of the image, while `dev.off()` writes the file to disk.
+
+```{r, eval=FALSE}
+?png
+```
+Highlight and run all of this code at once:
+```{r, eval=FALSE}
+png("Animal weights and heights.png", height=6, width=6, units="in", res=300)
+plot(animals$Weight, animals$Height,    
+    xlab="Weight (kg)", ylab="Height (cm)", 
+    main="Animal weights and heights", las=1,
+    col=as.integer(animals$Name), pch=as.integer(animals$Name), 
+    cex=2, xlim=c(3,8), ylim=c(3,11))
+legend("topright", inset=.0, title="Animal", cex=1,
+       c("Cat","Dog","Pig"), col=c(1,2,3), pch=c(1,2,3),
+       horiz=FALSE)
+dev.off()
+```
+Voila! Check your working directory - we now have a publishable quality figure that can be copy and pasted into your manuscript :) 
+
+# ***Challenge 2***
+1. Using the `iris` dataset, plot two numeric variables and export the graph to your working directory as a .PNG file. 
+
+##  3.  Data exploration fand plotting/ `boxplot()`
+Boxplots also are useful because you can graphically represent a numeric variable as parsed by a factor. The idea is similar to `hist()` and `plot()` except the syntax is slightly different. These are often referred to as "Tukey boxplots":
+```{r, eval=FALSE}
+?boxplot
+```
+```{r}
+boxplot(animals$Height ~ animals$Name)
+```
+The tilde `~` means "as parsed by" or "as divided by" some category (in our case Height as parsed by Cat, Dog, and Pig). It means we want to look at animal Height by Name. 
+
+Remember your six number summary from Day 2? A Tukey boxplot represents a 5 number summary (minus the mean). 
+
+The "whiskers" of these box and whisker plots represent the minimum and maximum values. 
+
+The lower and upper borders of the rectangle represent the first and third quartiles.
+
+The thick horizontal black bar represents the median! 
+
+We can also change colors by specifying a vector of color names with a length of 3 (one for each box). Other base plotting features are applicable as well:
+```{r}
+boxplot(animals$Height ~ animals$Name,
+        col=c("aquamarine", "goldenrod", "salmon"),
+        las=1, main="Animal boxplots", xlab="Name", ylab="Height")
+#That looks better! 
+```
+We can also save our figures as .PDF files:
+```{r, eval=FALSE}
+?pdf
+```
+```{r, eval=FALSE}
+pdf("animals boxplot.pdf", 6, 6)
+boxplot(animals$Height ~ animals$Name,
+        col=c("aquamarine", "goldenrod", "salmon"),
+        las=1, main="Animal boxplots", xlab="Name", ylab="Height")
+dev.off()
+```
+Check your working directory again - you now have a .PDF of your boxplots! 
+
+# ***Challenge 3***
+1. Create boxplots for one of the numeric variables in the `iris` dataset and export it to your working directory as a .PDF. 
+
+# 4.  Statistical testing
+Now that we have sufficiently explored our data, it is time to test some of the relationships identified by it. 
+
+***Hypothesis testing*** is central to research. How can you tell if the differences you observe are real or not? We answer the question through hypothesis formulation and significance testing as measured by p-values. 
+
+Suppose we want to see if Height differenecs between Cat, Dog, and Pig are significantly different between the three groups.  
+
+We can define our ***NULL HYPOTHESIS*** to state that there are no real Height differences between our animals.
+
+We can also define our ***ALTERNATIVE HYPOTHESIS*** to state that there are _some kind of_ differences between our animals. We do not specify the nature of the differences, but just that they exist.  
+
+These hypotheses are gauged by statistical significance as indicated by a "p-value". A p-value signifies how likely differences are actually real instead of due to random chance. The standard cutoff value is p<0.05. 
+
+If p>0.05, you ***FAIL TO REJECT THE NULL HYPOTHESIS***! This means that the null hypothesis holds true and that there is "no difference" between your groups. 
+
+If p<0.05, you ***REJECT THE NULL HYPOTHESIS*** of "no difference" and by default you accept the alternative hypothesis and whatever "differences" it specified. This is a "statistically significant" difference.
+
+For example, look at your boxplots. Cat and Pig medians appear similar for Height, but their standard deviations differ greatly (the position of the median and the distribution shape of the boxes). However, they both seem different from Dog...
+
+Might there be formal significant statistical differences between the means of Cat/Pig and Dog? 
+
+Well, we can test those assumptions with "mean comparisons" such as t-tests and analysis of variance (ANOVA)!
+
+##  4.  Statistical testing/ `t.test()`
+A "t.test" formally compares two (and only two) group means for statistically significant differences at a standard p-value cutoff of p<0.05. 
+
+The null hypothesis states that there are no actual mean differences between the two groups. 
+
+Let's first subset our data into `Cat`, `Dog`, and `Pig` data frames.
+```{r}
+Cat <- animals[animals$Name=="Cat",]
+Cat
+
+Dog <- animals[animals$Name=="Dog",]
+Dog
+
+Pig <- animals[animals$Name=="Pig",]
+Pig
+```
+Now, we can compare Height means between two of the three animals. 
+```{r, eval=FALSE}
+?t.test
+```
+```{r}
+t.test(Cat$Height, Pig$Height)
+# The p-value is 0.88 - we FAIL TO REJECT the null hypothesis (aka, there is no actual difference between Cat and Pig means for Height). We accept the conditions of the null hypothesis that state there are no between-group differences. 
+```
+What about between Cat and Dog?
+```{r}
+t.test(Cat$Height, Dog$Height)
+# p=0.39 so again we FAIL TO REJECT the null hypothesis
+```
+
+# ***Challenge 4***
+1. Subset the `iris` dataset by species and perform a t-test between two of the species on one of the numeric variables. 
+
+##  4.  Statistical testing/ `aov()` and `TukeyHSD()`
+What about if we want to compare more than two groups? Doing a bunch of pairwise t-tests (i.e., "multiple comparisons" for cat v. dog, cat v. pig, dog v. pig) is not ideal because it becomes more difficult to adjust for the "family wise error rate", or the influence of the other variables that are not being tested. 
+
+When we want to compare _more than two group means at once_ (i.e., Cat, Dog, _and_ Pig), we can use an analysis of variance (ANOVA). This is called by `aov()` in R. 
+
+We can follow `aov()` with a "Tukey test of Honest Significant Difference" to find out between exactly which groups the differences (if any) exist. This is called with `TukeyHSD` in R.
+
+Let's try! Note the slightly different syntax - we now specify only the column headings, and enter the name of our data frame in the "data" argument. Let's call our object `aov1`:
+```{r}
+aov1 <- aov(Height ~ Name, data = animals)
+
+#Use `summary()` to access the useful information from our `aov1` model:
+summary(aov1)
+```
+We receive a non-significant p-value. However, we can still follow this up with a TukeyHSD test to see between which between-group differences are responsible for the differences! 
+```{r}
+TukeyHSD(aov1)
+#This allows us to see mean Height differences bewteen the three animals. 
+```
+
+# ***Challenge 5***
+1. Using the `iris` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three flower species. 
+
+##  4.  Statistical testing/ `cor.test()`
+Correlation is a useful way to see if two numeric variables are related. "Pearson's r" is the default coefficient in `cor.test()`.
+
+Investigate if Cat Height and Cat Weight are correlated:
+```{r, eval=FALSE}
+?cor.test
+```
+```{r}
+cor.test(Cat$Height, Cat$Weight)
+```
+Almost! Cat Height and Weight are NEGATIVELY correlated (r = -0.69) and are almost statistically significant (p=0.08). 
+
+##  4.  Statistical testing/ `lm()`
+So, Cat Height and Weight seem to be related at an adjusted p-value cutoff of p<0.10 for example. 
+
+Now what? Linear regression is a convenient way to see if one numeric variable can be used to predict another. Do you think Cat Weight can be used to predict Cat Height? Again, note the altered syntax:
+```{r, eval=FALSE}
+?lm
+```
+```{r}
+lin.model1 <- lm(Height ~ Weight, data=Cat)
+summary(lin.model1)
+```
+`lm()` output is dense! Check out [the yhat blog for fitting and interpreting linear models](http://blog.yhat.com/posts/r-lm-summary.html)
+
+You can also pull items out of return objects using `names()`. To extract the residuals we would use the dollar sign operator `$` and type:
+```{r}
+names(lin.model1)
+```
+```{r, eval=FALSE}
+lin.model1$residuals
+```
+```{r}
+hist(lin.model1$residuals, col="skyblue") # residuals should be approximately normal when plotted
+```
+
+# ***Challenge 6***
+1. Using the `mtcars` dataset, create boxplots for one numeric variable as parsed by a factor variable. 
+
+*(hint: use `?mtcars` to view the variable names)*
+
+*(hinthint: can you surmise a relationship about something like engine size and miles per gallon?)*
+ 
+*(hinthinthint: you can also use `cor.test()` to see if two variables are related)*
+
+2. Create a scatterplot of two variables using `plot()`.
+
+3. Can one of these variables be used to predict another in a linear regression model? 
+
+# 5.  ggplot2
+The "ggplot2" R package is another powerful way to graph your data. The syntax is similar to what we used in "dplyr", except instead of a pipe `%>%`, we use a plus-symbol `+`:
+```{r, eval=FALSE}
+install.packages("ggplot2", dependencies=TRUE)
+?ggplot
+```
+```{r}
+library(ggplot2)
+mtcars$cyl <- factor(mtcars$cyl) # first, coerce "cyl" to factor data type
+ggplot(mtcars, aes(x=cyl, y=mpg, fill=cyl)) + 
+         geom_boxplot()
+```
+Note the different syntax again. You need three things to make a ggplot:
+1. A dataset (`mtcars`)  
+2. aesthetics `aes()` - this is where you specify your axes and colors
+3. A geom - this is where you tell R if you want a scatterplot, boxplots, etc.
+
+Let's create a scatterplot using the `iris` data:
+```{r}
+data(iris)
+ggplot(iris, aes(x=Petal.Length, y=Petal.Width, color=Species)) + 
+  geom_point() + theme(legend.position="top")
+```
+
+# ***Challenge 7***
+1. Use "ggplot2" to create a boxplot or scatterplot using the `mtcars` or `iris` dataset.
+2. Export this plot to your working directory as a .PNG or .PDF file. 

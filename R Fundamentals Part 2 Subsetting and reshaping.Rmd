@@ -1,0 +1,626 @@
+---
+title: 'R Fundamentals Part 2: Subsetting and reshaping'
+author: "Shinhye Choi, Rochelle Terman, Evan Muzzall, Dillon Niederhut"
+date: "October 23, 2016"
+output:
+  word_document:
+    toc: yes
+  html_document:
+    toc: yes
+    toc_float: yes
+---
+  
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(width=120)
+```
+
+# Learning objectives
+1. Day 1 review
+2. Loading data from files
+3. Subsetting in base R
+4. Missing data (NA)
+5. Merging data
+6. Subsetting with the dplyr R package
+7. Tidying/reshaping data with the tidyr R package
+
+# 1.  Day 1 review
+1. Set your working directory
+2. The assignment operator `<-`
+3. Atomic data types: numeric, character, logical
+4. Data structures: vector, list, matrix, data frame
+5. Save your work: `write.csv()` and `sink()`
+
+# 2.  Loading data from files
+Set your working directory
+```{r}
+getwd()
+setwd("/Users/E/Desktop/R-Fundamentals-master")
+```
+Install the VIM package and retrieve it into your R instance
+```{r, eval=FALSE}
+install.packages("VIM", dependencies=TRUE)
+library(VIM)
+```
+Load the sleep dataset from the VIM package. This dataset looks at sleep patterns in various species of mammals and contains missing (`NA`) values. See the link below for the original research article.  
+
+[Allison and Chichetti 1976](http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf)
+
+> NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. You should have 62 rows and 10 columns.  
+
+```{r, eval=FALSE}
+?sleep # Click the "Mammal sleep data" link. You DO NOT want "Student's Sleep Data".
+```
+
+```{r}
+library(VIM)
+data(sleep)
+dim(sleep) # 62 rows, 10 columns
+head(sleep)
+str(sleep)
+```
+We can save this dataframe to a .CSV cile with `write.csv()`. It will save to our working directory:
+```{r, eval=FALSE}
+?write.csv
+?read.csv
+```
+```{r}
+write.csv(sleep, "sleep_VIM.csv", row.names=FALSE)
+```
+We can load it from the file in our working directory via the `read.csv()` command:
+```{r, eval=FALSE}
+sleep <- read.csv("/Users/E/Desktop/R-Fundamentals/sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
+```
+
+> Notice that `stringsAsFactors=FALSE`. If set to `TRUE`, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set `stringsAsFactors=FALSE` and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. 
+
+When dealing with Microsoft Excel files (.XLSX), you might find it more convenient to save them first as .CSV files in Excel and then import them using `read.csv()`. 
+
+Other functions also work to import data from files, such as `load()`. You might also have success with the "xlsx" R package and its `read.xlsx()` command for directly importing Excel files. 
+
+Also, the "foreign" R package has commands for loading data from SAS, SPSS, Stata, etc.
+
+# 2.  Loading data from files/ inspecting the data frame
+Remember from Part 1 that we can learn a lot about data in R. For dataframes, the following commands are common:
+```{r, eval=FALSE}
+str(sleep)    # returns the structure of the dataframe
+dim(sleep)    # dataframe dimensions
+rownames(sleep)   #row names (they have not been named and default to character type)
+nrow(sleep)   # number of rows
+ncol(sleep)   # number of columns
+unique(sleep)   # show rows with unique data
+```
+`names()` and `colnames()` both return column names of the data frame:
+```{r}
+names(sleep)  
+colnames(sleep)
+```
+We can also check which indices are true. Let's convert the "Span" column to a logical vector where missing data is coded as `NA` while present data is marked `TRUE`.
+```{r, eval=FALSE}
+?as.logical
+```
+```{r}
+new_Span <- as.logical(sleep$Span)
+new_Span
+```
+Now we can see which data are missing (`NA`) and which cells have data present (`TRUE`).
+
+`which()` will return the rows numbers that have data present:
+```{r, eval=FALSE}
+?which
+```
+```{r}
+which(new_Span)
+```
+
+# 3.  Subsetting in base R
+Efficiently subsetting your data will save you time and stress. Fortunately, there are several different ways to subset data in base R.
+
+##  3.  Subsetting in base R/ `$`
+Remember from Part 1 that the dollar sign operator `$` will extract only a single vector/column within the data frame:
+```{r, eval=FALSE}
+?"$" # Remember that we must wrap symbols in quotation marks to view their help pages
+```
+```{r}
+sleep$Dream #Returns only the "Dream" vector from the `sleep` data frame.
+```
+However, you might find subsetting using ***bracket notation*** `[ , ]` along with variable names, positive and negative integers, and/or logical values is easier because you can subset multiple elements at once. 
+
+##  3.  Subsetting in base R/ `[,c(Variable Names)]`
+You can subset your data by specifying variable names within bracket notation and using the `c()` command to create a column name character vector of names you want to keep.
+
+We can create a new dataframe object `sleep_varnames` that includes only "BodyWgt" and "BrainWgt" variable names from the `sleep` data frame:
+```{r, eval=FALSE}
+?"["
+```
+```{r}
+sleep_varnames <- sleep[,c("BodyWgt", "BrainWgt")]
+str(sleep_varnames)
+head(sleep_varnames)
+```
+
+> Notice that the comma is still included within the bracket notation before the vector of column names. This indicates that we want ALL of the rows corresponding to these two columns. This is the same when we only want to subset rows and include ALL columns (see below). 
+
+##  3.  Subsetting in base R/ two-dimensional subsetting `[c(x:y), c(x:y)]`
+When you subset your data in two dimensions, you subset both the rows and columns.
+
+Remember that in bracket notation `[ , ]` everything ***before*** the comma refers to rows, and everything ***after*** the comma refers to columns!
+
+##  3.  Subsetting in base R/ logical tests
+We can also use logical tests to subset our data. For example, what if we want to include only the rows that have a value of 1 for "Exp"? We can use the relational operator `==`:
+```{r, eval=FALSE}
+?"=="
+```
+```{r}
+sleep_logical <- sleep[sleep$Exp == 1,]
+sleep_logical
+```
+Only rows with values of 1 for "Exp" are returned! 
+
+What if we want to subset the data so it includes only the rows that have a value of 1 ***and*** 3 for Exp and 2 for "Danger"? We would use the "and" `&` logical operator:
+```{r, eval=FALSE}
+?"&"
+```
+```{r}
+sleep_logical2 <- sleep[sleep$Exp == c(1,3) & sleep$Danger == 2,]
+sleep_logical2
+```
+We can subset a dataframe that includes only rows with "Exp" = 2 ***and*** 3 and only "BodyWgt", "BrainWgt", and "Exp" columns. 
+```{r, eval=FALSE}
+str(sleep)
+```
+```{r}
+sleep_2d <- sleep[sleep$Exp == c(2,3), c("BodyWgt", "BrainWgt", "Exp")]
+sleep_2d
+```
+
+> NOTE: see how we have the column names listed after the comma? When we only want to call rows, we still must include the comma to tell R that we want ALL of the columns! For example, if we want to specify only rows that have values of 2 and 3 for "Exp" and want all of the columns, we still must include the column inside our bracket notation after the specified rows:
+
+```{r}
+sleep_rows_only <- sleep[sleep$Exp == c(2,3),]
+sleep_rows_only
+```
+
+##  3.  Subsetting in base R/ subsetting with positive integers `[,c(x:y)]`
+Subsetting by ***positive*** integers works as well. This will ***include*** only the column numbers specified, rather than typing out their names.
+
+Let's create an object `sleep_posint` that includes only "NonD", "Sleep", and "Exp" columns. 
+
+First use `str()` to see which integer values these columns represent. Because we only want the 3rd, 5th, and 9th columns, we type:
+```{r, eval=FALSE}
+str(sleep)
+sleep_posint <- sleep[,c(3,5,9)]
+str(sleep_posint)
+head(sleep_posint)
+```
+
+##  3.  Subsetting in base R/ subsetting with negative integers `[,-c(x:y)]`
+Subsetting by ***negative*** integers will ***exclude*** the specified columns. Notice the `-` symbol before `c()` inside our bracket notation.
+
+We can create an object called `sleep_negint` that includes everything ***except*** columns 1 and 2 ("BodyWgt" and "BrainWgt"):
+```{r}
+str(sleep)
+sleep_negint <- sleep[,-c(1,2)]
+str(sleep_negint)
+head(sleep_negint)
+```
+
+##  3.  Subsetting in base R/ lists and double bracket `[[]]` notation
+You can also subset lists. 
+```{r, eval=FALSE}
+?"[["
+```
+Create an examlpe list:
+```{r}
+example_list <- list(TRUE, "string data", 5)
+example_list
+```
+Single brackets `[]` will return the list container as well as its value:
+```{r}
+example_list[1]
+```
+However, double brackets will return only the value:
+```{r}
+example_list[[1]]
+```
+
+# ***Challenge 1***
+1. How many ways can you subset the `iris` dataset using column names and positive and negative integers? Type and run `data(iris)` to load the dataset.
+
+# 4.  Missing data (NA)
+Identifying missing data can be important for subsetting purposes. R codes missing values as `NA`. Identifying missing data is important because dealing with it might be necessary to run basic tests like `mean()`
+```{r, eval=FALSE}
+?NA
+```
+```{r}
+mean(sleep$NonD)    # This returns NA because R is unsure how to deal with NA cells for the `mean()` computation.
+```
+However, we can use `na.rm = TRUE` to properly calculate the mean of the NonD column by now excluding the NAs. 
+```{r, eval=FALSE}
+?mean # Scroll down to `na.rm`
+```
+```{r}
+mean(sleep$NonD, na.rm=TRUE) #Now `mean()` returns the mean!
+```
+While `na.rm()` nor `str()` will not tell us which data are missing in a convenient way, `is.na()` does. Wrap the name of your data frame in `is.na()` to return logical values. Missing data is coded as `TRUE`, while present data are coded as `FALSE`
+```{r, eval=FALSE}
+?is.na
+is.na(sleep)
+```
+Data are coded as missing in many different ways besides `NA`, so don't be surprised if you see some other signifier. 
+
+## 4.  Missing data (NA)/ recoding missing data
+Let's recode NA values in place to say "NONE":
+```{r}
+sleep[is.na(sleep)] <- "NONE"
+```
+```{r, eval=FALSE}
+sleep
+```
+They now say "NONE".
+
+However, for R to handle them correctly, we want to recode them to say `NA`. We can do this with a combination of the name of our data set, bracket notation, our relational operator `==` and our old friend the assignment operator `<-` ! 
+```{r}
+sleep[sleep == "NONE"] <- NA
+```
+```{r, eval=FALSE}
+sleep
+```
+
+> NOTE: here `<NA>` and `NA` are synonymous and R will treat them both as missing. `<NA>` with less than/greater than symbols is handy because it will let you know which values you have manually recoded to missing.
+
+We can also subset only rows without any missing data using bracket notation. `complete.cases()` will find rows with no missing values.
+```{r, eval=FALSE}
+?complete.cases
+```
+```{r}
+sleep_no_NA <- sleep[complete.cases(sleep),]  
+```
+Remember to include the comma here to tell R you want ALL of the columns for these rows :) 
+```{r, eval=FALSE}
+sleep_no_NA
+```
+Then, test it to see if it contains missing values. All cells are `FALSE`
+```{r,eval=FALSE}
+is.na(sleep_no_NA)
+```
+
+```{r, eval=FALSE}
+# Conversely, we can subset the sleep data to include only rows with missing data by adding the logical bash operator `!` (not). 
+?"!"
+```
+```{r}
+sleep_NA <- sleep[!complete.cases(sleep),]
+```
+```{r, eval=FALSE}
+sleep_NA # All rows have at least one cell with missing data
+is.na(sleep_NA) # Now we see TRUE values where data is missing
+```
+
+# ***Challenge 2***
+1. How many different ways can you subset the `sleep` dataset using logical tests for `NA` data?
+
+# 5.  Merging data
+Merging data is useful when we want to combine two different dataframes that share a vector/column.
+
+We will now create a new data frame called `sleep_ratios` in which we will compute ***three*** ratios from data in `sleep`:  
+
+1) Body to Brain weight ratio ("*Body_Brain*")  
+2) Body Weight to Gestation Period ratio ("*Body_Gest*")  
+3) Brain Weight to Gestation Period ratio ("*Brain_Gest*")  
+
+First, we will create and subset our new object `sleep_ratios` to contain the "BodyWgt" and "BrainWgt" columns from the `sleep` data frame.
+```{r}
+sleep_ratios <- sleep[,c("BodyWgt", "BrainWgt")]
+str(sleep_ratios) # This data frame only contains "BodyWgt" and "BrainWgt"
+```
+Then, we will add to `sleep_ratios` three columns that contain the computations. 
+
+1) Add the *Body_Brain* ratio:
+```{r}
+sleep_ratios$Body_Brain <- sleep$BodyWgt/sleep$BrainWgt
+head(sleep_ratios)
+str(sleep_ratios)
+```
+
+2) Add the *Body_Gest* ratio:
+```{r}
+sleep_ratios$Body_Gest <- sleep$BodyWgt/as.numeric(sleep$Gest) # note that to perform division here, we coerce "Gest" to `as.numeric()` type
+head(sleep_ratios)
+str(sleep_ratios)
+```
+
+3) Add the *Brain_Gest* ratio: 
+```{r}
+sleep_ratios$Brain_Gest <- sleep$BrainWgt/as.numeric(sleep$Gest) # note that to perform division here, we parse "Gest" `as.numeric()` type
+head(sleep_ratios)
+str(sleep_ratios)
+```
+Finally, we can merge these new columns to our `sleep` data frame by matching the "BodyWgt" and "BrainWgt" columns with the ones from the `sleep_ratios` data frame via the `merge()` function: 
+```{r, eval=FALSE}
+?merge #Click the "Merge two data frames" link
+```
+The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match:
+```{r}
+sleep_and_sleep_ratios <- merge(sleep, sleep_ratios, by=c("BodyWgt", "BrainWgt"))
+head(sleep_and_sleep_ratios)
+str(sleep_and_sleep_ratios)
+#What happened here? 
+```
+
+## 5.  Merging data/ `cbind()` and `rbind()`
+Other useful functions include `cbind()` and `rbind()`.  
+
+`cbind()` will bind two data frames by their columns and will simply add all of the columns in the `sleep_ratios` data frame to the end of the `sleep` data frame.
+```{r, eval=FALSE}
+?cbind
+?rbind # Click the "Combine R Objects by Rows or Columns" link
+```
+```{r}
+cbind_sleep <- cbind(sleep, sleep_ratios)
+head(cbind_sleep)
+str(cbind_sleep)   
+```
+We now have duplicate column names for BodyWgt and BrainWgt! This is bad and we recommend making sure your names are unique. 
+
+`rbind()` will add more rows to the `sleep` dataframe. Let's start by creating a new row. Create a vector that contains 10 elements to be added to the `sleep` data frame (remember that the `sleep` data frame contains 10 columns). 
+```{r, eval=FALSE}
+?rbind # Click "Combine R objects by rows or colums" link
+```
+```{r}
+ncol(sleep) 
+rbind_for_sleep <- c("This", "is", "how", "rbind", "works", "This", "is", "how", "rbind", "works")
+rbind_for_sleep
+
+#Now, `rbind()` it to the `sleep` data frame
+sleep_rbind <- rbind(sleep, rbind_for_sleep)
+```
+```{r, eval=FALSE}
+sleep_rbind #We have successfully added another row!
+```
+
+# ***Challenge 3*** 
+1. Load your `animals` dataset from Day 1 using `read.csv()`.
+2. Create a subsetted data frame called `cats_dogs` that contains only cats and dogs.
+3. Create a subsetted data frame that only contains healthy pigs!  
+
+# 6.  Subsetting with the dplyr R package
+The "dplyr" R package uses a different syntax to subset your data in perhaps a more efficient way than base R. dplyr's strength is specifically in its subsetting functions. It uses the pipe symbol `%>%` to pass the output of a function into the input of another. 
+
+Also, you do not need to include quotation marks `" "` when specifying column names. Furthermore, the pipe symbol saves you from having to write lots of nested parentheses. You might even find this code easier to read! 
+
+**Fun Fact**: You might have encountered pipes before in the Unix shell. In R, a pipe symbol is `%>%` while in the shell it is `|`. But the concept is the same! 
+
+> NOTE: remember that `|` in R specifies an "or" logical operator.
+
+```{r, eval=FALSE}
+?"|"
+```
+Data frames in dplyr are called "tibbles". All you have to do is "pipe in" functions to your dataset.
+```{r, eval=FALSE}
+install.packages('dplyr', dependencies=TRUE)
+library(dplyr)
+```
+First, we will use `sample()` to create some toy data containing some various gross domestic product information for North America. By not specifying `stringsAsFactors=FALSE`, R will automatically convert "Country" and "Region" to factor data types. This is fine for this example. 
+
+Set your seed to "1" so that we all get the sample resampled data:
+```{r}
+set.seed(1)
+gdp <- data.frame(Country=sample(c("Canada", "Mexico", "USA"), 50, replace=TRUE),
+                  Region = sample(c("coastal", "inland", "mountain", "riverine"), 50, replace=TRUE),
+                  Year = sample(2011:2015, 50, replace=TRUE),
+                  Pop = sample(1000:50000, 50, replace=FALSE),
+                  GDP = sample(4000:100000, 50, replace=FALSE), 
+                  Poverty = sample(1:10, 50, replace=TRUE))
+head(gdp)
+```
+```{r, eval=FALSE}
+gdp
+```
+`glimpse()` is dplyr's version of base R's `str()`:
+```{r}
+library(dplyr)
+```
+```{r, eval=FALSE}
+?glimpse #Click the "Get a glimpse of your data" link
+```
+```{r}
+library(dplyr)
+glimpse(gdp)
+```
+Now, sort the table alphabetically by Country and descending by Year (most recent Year first) using base R's `order()` command. Note that descending order for the Year column is specified by the `-` symbol.
+
+Also, we are overwriting our `gdp` data frame instead of creating a new object.
+```{r, eval=FALSE}
+?order #Click the "Fast row reordering of a data.table by reference" link
+```
+```{r}
+gdp <- gdp[order(gdp$Country, -gdp$Year),]
+head(gdp)
+```
+```{r, eval=FALSE}
+gdp
+```
+
+## 6.  Subsetting with the dplyr R package/ `select()` and `filter()`
+The dataset `gdp` is the first item to go into the definition for our subsetted data frame called `country_year` followed by pipe `%>%`. All of our other functions will be "piped in" after it.
+
+`select()` then chooses the columns we want to include in our subsetting operation. If we want to include only Country, Region, and Year, we would type:
+```{r, eval=FALSE}
+?select #Click the "Select/rename variables by name" link
+```
+```{r}
+country_year <- gdp %>% select(Country, Region, Year)
+head(country_year)
+glimpse(country_year)
+```
+```{r}
+country_year
+```
+`filter()` chooses the rows you want to include. What if we are only interested in the Canada data? We can use `filter()` to select only rows with data for Canada.
+```{r, eval=FALSE}
+?filter #Click "Return rows with matching conditions" link
+```
+```{r}
+canada <- gdp %>%
+  filter(Country == "Canada") %>%
+  select(Region, Year, Pop, GDP, Poverty)
+head(canada)
+canada
+```
+
+> ***Note:*** The order of operations is very important in this case. If we used `select()` first, `filter()` would not be able to find the Country variable since we would have removed it in the previous step.
+
+## 6.  Subsetting with the dplyr R package/ apply-split-combine `group_by()`
+Apply/split/combine saves us trouble when we want to add a new column to our existing dataframe.
+
+We want to ***split*** our data into groups (in this case countries), ***apply*** some calculations on that group, then  ***combine*** the results together afterwards. 
+
+More helpful, however, is the `group_by()` function, which will essentially use every unique criteria that we could have used in `filter()`. `group_by()` even allows us to pass in multiple arguments!
+
+We can create a nice summary table using a combination of the `group_by()` and `summarize()` functions.
+
+Let's say we want to take the mean and standard deviations of GDP for each country, and then add those values into a new column in a new data frame called `gdp_by_country`.
+```{r, eval=FALSE}
+?group_by
+?summarize
+```
+```{r}
+gdp_by_country <- gdp %>%
+  group_by(Country, Region, Year) %>%
+  summarize(MeanGDP = mean(GDP),
+            sdGDP = sd(GDP))
+head(gdp_by_country)
+#Why do you think some rows have `NA` for the `sdGDP` column? (hint: because they have only 1 observation! For any sort of variance computation to be calculated, it must have at least 2 entries).
+```
+Notice how dplyr only prints out the columns that fit in your console and a truncated number of rows. 
+```{r, eval=FALSE}
+gdp
+```
+
+This can be changed in the options settings:
+```{r}
+options(dplyr.print_max=99999)
+```
+```{r, eval=FALSE}
+gdp
+```
+
+## 6.  Subsetting with the dplyr R package/ apply-split-combine `mutate()`
+We can use `mutate()` to add a new column to our original `gdp` dataframe. `mutate()` is similar to `summarize()` except you do not need to create a new object. Let's also add a new column "GDP_Pop", which contains "GDP" divided by "Pop".
+```{r, eval=FALSE}
+?mutate
+```
+```{r}
+gdp <- gdp %>%
+  group_by(Country, Year) %>%
+  mutate(MeanGDP = mean(GDP),
+         sdGDP = sd(GDP),
+         GDP_Pop = GDP/Pop)
+head(gdp)
+```
+
+# 6.  Subsetting with the dplyr R package/ `arrange()`
+We can also arrange our data frame with `arrange()`. This is similar to `order()` in base R, or `sort` in MS Excel.
+
+Let's sort our tibble alphabetically (by default) by "Region". All we have to do is pipe in `arrange()` from our previous example.
+```{r, eval=FALSE}
+?arrange
+```
+```{r}
+gdp <- gdp %>%
+  group_by(Country, Year) %>%
+  mutate(MeanGDP = mean(GDP),
+         sdGDP = sd(GDP),
+         GDP_Pop = GDP/Pop) %>%
+  arrange(Country, -Year, Region)
+head(gdp)
+```
+```{r, eval=FALSE}
+gdp
+```
+
+# ***Challenge 4***
+1. Use dplyr to add the medians of BodyWgt and BrainWgt to the `sleep` data frame. You have not yet seen how to calculate the median. How do you think you might find out how to do so? 
+
+# 7.  Tidying/reshaping data with the tidyr R package
+For our final example, we are going quickly create some data in "wide" format so that we can convert it to "long" and then to "medium" formats.
+
+"Wide" format generally refers to data where values (e.g., GDP, Pop) are spread out across columns. You might also hear this referred to as "multivariate" format. 
+
+"Long" format refers to data that has one column for the values, and the other columns are ID variables. You might also hear this referred to as "univariate" format". 
+
+"Medium" format is somewhere in between! 
+
+In R, some functions are explicitly written for long format data, and others for wide format data so it is useful to know how to tidy your data. 
+
+The two most important properties of tidy data are:
+1) Each column is a variable.
+2) Each row is an observation.
+
+First, let's install and call the 'tidyr' package.
+```{r, eval=FALSE}
+install.packages("tidyr", dependencies=TRUE)
+library(tidyr)
+```
+
+Now let's create some "wide" format toy data for medal counts from the Olympics.
+```{r}
+set.seed(1)
+medals_wide <- data.frame(
+  country = c("Canada",  "Mexico",  "USA" ),
+  gold_2012 = sample(1:5, 3, replace=TRUE),
+  silver_2012 = sample(6:10, 3, replace=TRUE),
+  bronze_2012 = sample(11:15, 3, replace=TRUE),
+  gold_2016 = sample(1:5, 3, replace=TRUE),
+  silver_2016 = sample(6:10, 3, replace=TRUE),
+  bronze_2016 = sample(11:15, 3, replace=TRUE)
+  )
+medals_wide
+```
+
+## 7.  Tidying/reshaping data with the tidyr R package/ `gather()`
+We can use `gather()` to combine the observation variables (gold, silver, bronze) into a single variable by year. This is similar to "melting" your data from wide to long format in the "reshape2" R package.
+```{r, eval=FALSE}
+?gather
+```
+```{r}
+library(tidyr)
+glimpse(medals_wide)
+medals_long <- medals_wide %>%
+  gather(obstype_year, obs_values, 2:7) 
+medals_long
+```
+Notice that we put 3 arguments into the `gather()` function: 
+1. The name the new column for the new ID variable (`obstype_year`), 
+2. The name for the new amalgamated observation variable (`obs_value`), 
+3. The indices of the old observation variables (`2:7`, signalling columns 2 through 7) that we want to gather into one variable (medal types and years). Notice that we don't want to melt down column 1 (country), as this is the "ID"  variable.
+
+## 7.  Tidying/reshaping data with the tidyr R package/ `separate()`
+You will also notice that in our "long" dataset, "obstype" actually contains 2 pieces of information: "medal type" (gold, silver, or bronze) and "year".
+
+`separate()` can be used to split "obstype" (gold, silver, or bronze) back into medal type and year columns. We want to separate it at the underscore `_`:
+```{r, eval=FALSE}
+?separate
+```
+```{r}
+medals_long_sep <- medals_long %>%
+  separate(obstype_year, into = c("obs_type", "year"), sep = "_") %>%
+  mutate(year = as.integer(year))
+medals_long_sep
+glimpse(medals_long_sep) #We have successfully separated "obs_type" and "year"! :) 
+```
+
+## 7.  Tidying/reshaping data with the tidyr R package/ `spread()`
+You can spread this dataset into 'medium' format using `spread()`
+```{r, eval=FALSE}
+?spread
+```
+```{r}
+medals_medium <- medals_long_sep %>%
+  spread(obs_type, obs_values)
+medals_medium
+```
+ 
+# Acknowledgements
+[Wickham H, Grolemund G. 2016. R for Data Science](http://r4ds.had.co.nz/)
