@@ -11,7 +11,6 @@
 
 <meta name="author" content="Evan Muzzall, Rochelle Terman, Dillon Niederhut" />
 
-<meta name="date" content="2016-11-10" />
 
 <title>R Fundamentals Part 1: Introduction</title>
 
@@ -216,23 +215,37 @@ div.tocify {
 
 <h1 class="title toc-ignore">R Fundamentals Part 1: Introduction</h1>
 <h4 class="author"><em>Evan Muzzall, Rochelle Terman, Dillon Niederhut</em></h4>
-<h4 class="date"><em>November 10, 2016</em></h4>
+<h4 class="date"><em>December 6, 2016</em></h4>
 
 </div>
 
 
-<div id="learning-objectives" class="section level1">
-<h1>Learning objectives</h1>
+<p>This is an R markdown (.Rmd) file. It allows you create documents of various kinds. Check out the <a href="http://rmarkdown.rstudio.com/authoring_quick_tour.html">R Markdown Quick Tour</a></p>
+<div id="workshop-goals" class="section level1">
+<h1>Workshop goals</h1>
+<p>The goals of this workshop are divided into four parts:<br />
+Part 1) Introduction to R, data types, data structures<br />
+Part 2) Importing, subsetting, and merging data; identifying missing data<br />
+Part 3) Data exploration and statistical testing<br />
+Part 4) For-loops and functions</p>
+</div>
+<div id="part-1-learning-objectives" class="section level1">
+<h1>Part 1 Learning objectives</h1>
 <ol start="0" style="list-style-type: decimal">
-<li>Front matter</li>
-<li>Introduction: What is R Studio?, objects, global environment, packages, variable assignment, help</li>
-<li>Atomic data types: numeric, character, and logical</li>
-<li>Data type coercion</li>
-<li>Data structures: vector, list, matrix, data.frame</li>
+<li>Front matter<br />
+</li>
+<li>Introduction: What is RStudio?, objects, global environment, packages, variable assignment, help<br />
+</li>
+<li>Atomic data types: numeric, character, and logical<br />
+</li>
+<li>Data type coercion<br />
+</li>
+<li>Data structures: vector, list, matrix, data frame<br />
+</li>
 <li>Saving your work</li>
 </ol>
 <div id="front-matter-pre-introduction" class="section level2">
-<h2>0. Front matter/ Pre-introduction</h2>
+<h2>0. Front matter: Pre-introduction</h2>
 <p>Start by having the class go to our github page at <a href="github.com/dlab-berkeley/R-Fundamentals" class="uri">github.com/dlab-berkeley/R-Fundamentals</a> to get the course materials by:</p>
 <ol style="list-style-type: decimal">
 <li><p>clicking the green <code>download zip</code> button on the right hand side of the screen, or</p></li>
@@ -241,35 +254,37 @@ div.tocify {
 <p>While everything is downloading, you can go on to:</p>
 </div>
 <div id="front-matter-introduction-to-the-class" class="section level2">
-<h2>0. Front matter/ Introduction to the class</h2>
-<p>These materials are meant to be guides for you, <strong><em>the instructor</em></strong>. Your students will retain more of this content if they type these commands themselves than if they simply enter them off this markdown file.</p>
+<h2>0. Front matter: Introduction to the class</h2>
+<p>These materials are meant to be guides for you, <strong>the instructor</strong>. Your students will retain more of this content if they type these commands themselves than if they simply enter them off this markdown file.</p>
+</div>
+<div id="about-the-uc-berkeley-social-sciences-data-laboratory-d-lab" class="section level2">
+<h2>About the UC Berkeley Social Sciences Data Laboratory (D-Lab)</h2>
 <blockquote>
-<p>D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide students with practical training, staff support, resources, and space to enable them to use R for their own research applications. Our services cater to all skill levels and no programming, statistical, or computer science background is necessary. We offer these services in the form of workshops such as this one, one-to-one consulting, and working groups that cover a variety of topics and programming languages:</p>
-</blockquote>
-<blockquote>
-<p><a href="http://dlab.berkeley.edu/calendar-node-field-date">D-Lab Workshop Calendar</a><br />
+<p>D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as this one, one-to-one consulting, and working groups that cover a variety of topics and programming languages.<br />
+<a href="http://dlab.berkeley.edu/calendar-node-field-date">D-Lab Workshop Calendar</a><br />
 <a href="http://dlab.berkeley.edu/consulting">D-Lab Consulting</a><br />
 <a href="http://dlab.berkeley.edu/working-groups">D-lab Working Groups</a></p>
 </blockquote>
-<p>It is a good idea to start off the class by explpaining to folks why you (the instructor) use R. Also describe in general why social scientists use R as well as some of its pitfalls. Then, break the ice by going around the room and asking each student to state their name, department, and why they want to learn R. Common responses include:</p>
+<p>It is a good idea to start off the class by explpaining to folks why you (the instructor) use R. As the instructor, you should also describe in general why social scientists use R as well as some of its pitfalls. Then, break the ice by going around the room and asking each student to state their name, department, and why they want to learn R. Common responses include:</p>
 <ol style="list-style-type: decimal">
 <li>Other programs are too expensive</li>
 <li>I saw a pretty graph someone made in R</li>
 <li>My field uses analytical packages written for R</li>
 <li>I have a deep and burning desire for open and reproducible research</li>
+<li>It is open-sourced with strong community support and help and is used by virtually all academic disciplines as well as the private sector</li>
 </ol>
-<p>As the instructor, you should draw on your own experiences to include further examples and advice, especially for students who do not fall into one of the four categories above and/or are just beginning to learn R.</p>
-<p><strong><em>If you are a student and you are looking at this markdown file</em></strong>, please use this as a guide if you have fallen behind, can’t see the screen very well, or want to review these materials.</p>
+<p>Be sure to draw on your own experiences to include further examples and advice, especially for students who do not fall into one of the five categories above and/or are just beginning to learn R. Be sure to discuss a motivating example personal to you.</p>
+<p><strong>If you are a student and you are looking at this R markdown file</strong>, please use this as a guide if you have fallen behind, can’t see the screen very well, or want to review these materials.</p>
+<p>Remember, our goal is to teach you research applications in R. Check out the UC Berkeley <a href="http://statistics.berkeley.edu/">Department of Statistics</a>, <a href="https://www.stat.berkeley.edu/biostat/">Interdepartmental Group in Biostatistics</a>, and <a href="https://cs.berkeley.edu/">EECS</a>.</p>
 </div>
 </div>
-<div id="introduction-what-is-r-studio" class="section level1">
-<h1>1. Introduction/ what is R Studio?</h1>
-<p>R is old programming language based on the “S” and “S-PLUS” languages and is both <em>functional</em> and <em>object oriented</em>. These themes make R very flexible.</p>
+<div id="introduction---what-is-rstudio" class="section level1">
+<h1>1. Introduction - what is RStudio?</h1>
+<p>R is old programming language based on the “S” and “S-PLUS” language and graphics user interface (GUI) and is both <em>functional</em> and <em>object oriented</em>. These themes make R highly extensible.</p>
 <p>However, we do not need to think of R exclusively in these terms. At D-Lab, we want to provide you with basic programming competencies so you can get started on your own research!</p>
 <p>RStudio is an interactive R environment that permits the user to enter and save code and data for exploration, manipulation, plotting, and testing.</p>
-<p>You can <a href="https://www.rstudio.com/products/rstudio/download/">download R Studio here</a></p>
-<p>If this installation says that you are lacking the binary files, <a href="https://cran.r-project.org/mirrors.html">download R binary files here</a></p>
-<p>After opening R Stuio, by default you should see four windows after opening a new script:</p>
+<p>You can <a href="https://www.rstudio.com/products/rstudio/download/">download RStudio here</a></p>
+<p>After opening RStudio, by default you should see four windows after opening a new script:</p>
 <p>Open a new script. <code>*PC:* Ctrl + Shift + N</code> <code>*MAC:* command + shift + N</code></p>
 <p>Top left window: enter code in this savable <code>script</code> file</p>
 <p>Bottom left window: code output is displayed here in the <code>console</code></p>
@@ -278,39 +293,89 @@ div.tocify {
 <p>control + 1, 2, 3, 4 will keyboard shortcut between these windows</p>
 <p>To run a line of code: <code>*MAC*: command + return</code> <code>*PC*: Ctrl + r</code></p>
 <p>To clear your console <code>*MAC*: control + l</code> <code>*PC*: Ctrl + l</code></p>
-<p><strong><em>Commenting your script file</em></strong>: Using a hashtag <code>#</code> will tell R that you do not want that particular line or block of code to be run. This is handy for making notes to yourself! You can even add hashtags after lines of runable code - on the same line!</p>
-<p>In the console, the prompt <code>&gt;</code> looks like a greater than symbol. If your prompt begins to look like a <code>+</code> symbol by mistake, simply click in your console and press the <code>esc</code> key on your keyboard to return to <code>&gt;</code>.</p>
-<p>R uses <code>+</code> when code is broken up across multiple lines and R is still expecting more code. A line of code does not usually stop until it finds an appropriate stop parameter, often a closed parenthesis <code>)</code> or closed bracket<code>]</code>.</p>
-<p><strong><em>NOTE:</em></strong> the name of your script file is in the tab at the top of your script window - the name defaults to <code>Untitled1</code>. If the name is red and followed by an asterisk <code>*</code> it means <strong><em>your script is not saved</em></strong>. Save your script by clicking “File” then “Save”, or <code>command + s</code> (Mac) or <code>Ctrl + s</code> (PC).</p>
-<div id="introduction-package-installation" class="section level2">
-<h2>1. Introduction/ package installation</h2>
+<p><strong>Commenting your script file</strong>: Using a hashtag <code>#</code> will tell R that you do not want that particular line or block of code to be run. This is handy for making notes to yourself! You can even add hashtags after lines of runable code - on the same line!</p>
+<p>In the console, the prompt <code>&gt;</code> looks like a greater than symbol. If your prompt begins to look like a <code>+</code> symbol by mistake, simply click in your console and press the <code>esc</code> key on your keyboard to return to <code>&gt;</code>. R uses <code>+</code> when code is broken up across multiple lines and R is still expecting more code. A line of code does not usually stop until R finds an appropriate stop parameter, often a closed parenthesis <code>)</code>, closed bracket<code>]</code>, or other statement.</p>
+<p><strong>NOTE:</strong> the name of your script file is in the tab at the top of your script window - the name defaults to <code>Untitled1</code>. If the name is red and followed by an asterisk <code>*</code> it means <strong>your script is not saved</strong>. Save your script by clicking “File” then “Save”, or <code>command + s</code> (Mac) or <code>Ctrl + s</code> (PC).</p>
+<blockquote>
+<p>It is generally good to keep RStudio and your packages up to date!</p>
+</blockquote>
+<div id="introduction---package-installation" class="section level2">
+<h2>1. Introduction - package installation</h2>
 <p>Many people write clever software that makes R smarter/better/faster/stronger. You can install packages by clicking the “Packages” tab in the bottom-right window, clicking install, and then searching for the package you wish to install.</p>
 <p>Packages can also be installed through the command line using <code>install.packages()</code>. The package name must be wrapped in quotation marks so that R knows it is searching for that particular package named <code>&quot;psych&quot;</code>, rather than previously defined data named psych:</p>
 <pre class="r"><code>install.packages(&quot;psych&quot;, dependencies=TRUE)</code></pre>
-<p>Anytime you want to utilize a previously installed package, you must retreive it with <code>library()</code> when you begin a new R session. You do not need to reinstall packages each time you quit and restart your R session</p>
-<pre class="r"><code>library(psych)</code></pre>
-<pre><code>## Warning: package 'psych' was built under R version 3.2.5</code></pre>
+<p>Anytime you want to utilize a previously installed package, you must retreive it with <code>library()</code> when you begin a new R session. You do not need to reinstall packages each time you quit and restart your R session.</p>
+<p>See <code>?update.packages</code> for help updating packages.</p>
+<pre class="r"><code>library(psych)
+# the psych package is now loaded in our current R instance</code></pre>
 </div>
-<div id="introduction-objects" class="section level2">
-<h2>1. Introduction/ objects</h2>
+<div id="introduction---objects" class="section level2">
+<h2>1. Introduction - objects</h2>
 <p>Objects are special data structures that allow you to enter data into R. Objects are stored in R’s memory and can be retrieved (“called”) when you need them.</p>
 <p>You define objects through <code>variable assignment</code> and they are stored in your <code>global environment</code>.</p>
 </div>
-<div id="introduction-the-r-global-environment" class="section level2">
-<h2>1. Introduction/ the R global environment</h2>
+<div id="introduction---the-r-global-environment" class="section level2">
+<h2>1. Introduction - the R global environment</h2>
 <p>Objects in R are stored in your global environment. <code>ls()</code> will list previously defined objects in your environment.</p>
 <pre class="r"><code>ls() #There is currently nothing in our global environment</code></pre>
 <pre><code>## character(0)</code></pre>
 <p>Click the “Environment” tab in the upper-right window - it says “Environment is empty”.</p>
 </div>
-<div id="introduction-variable-assignment" class="section level2">
-<h2>1. Introduction/ variable assignment</h2>
-<p>You define objects through variable assignment using the <strong><em>assignment operator</em></strong> <code>&lt;-</code></p>
+<div id="introduction---variable-assignment" class="section level2">
+<h2>1. Introduction - variable assignment</h2>
+<p>You define objects through variable assignment using the <strong>assignment operator</strong> <code>&lt;-</code></p>
 <p>This is a “less than” <code>&lt;</code> symbol immediately followed by a hyphen <code>-</code></p>
-<p><strong><em>Object definition requires three pieces of information</em></strong>:<br />
+<p><strong>Object definition/variable assignment requires three pieces of information</strong>:<br />
 1) object_name<br />
 2) <code>&lt;-</code><br />
-3) definition</p>
+3) definition/assignment</p>
+<p><a href="https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031">Brunsdon and Comber 2015, page 15</a> offer a useful summary table of logical operators in R. We will talk more about these symbols in Parts 2, 3, and 4.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Logical operator</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>==</td>
+<td>Equal</td>
+</tr>
+<tr class="even">
+<td>!=</td>
+<td>Not equal</td>
+</tr>
+<tr class="odd">
+<td>&gt;</td>
+<td>Greater than</td>
+</tr>
+<tr class="even">
+<td>&lt;</td>
+<td>Less than</td>
+</tr>
+<tr class="odd">
+<td>&gt;=</td>
+<td>Greater than or equal</td>
+</tr>
+<tr class="even">
+<td>&lt;=</td>
+<td>Less than or equal</td>
+</tr>
+<tr class="odd">
+<td>!</td>
+<td>Not (goes in front of other expressions)</td>
+</tr>
+<tr class="even">
+<td>&amp;</td>
+<td>And (combines expressions)</td>
+</tr>
+<tr class="odd">
+<td><code>|</code></td>
+<td>Or (combines expressions)</td>
+</tr>
+</tbody>
+</table>
 <p>Let’s define an object named <code>numeric_oject</code> and define it as the number 4:</p>
 <pre class="r"><code>numeric_object &lt;- 4
 ls()</code></pre>
@@ -319,7 +384,7 @@ ls()</code></pre>
 <p>“Call” (retrieve) the data contained wihtin the object by typing its name into your script and running the line of code</p>
 <pre class="r"><code>numeric_object # 4 is returned</code></pre>
 <pre><code>## [1] 4</code></pre>
-<p>Let’s try another example, this time using character data. Note that character data is <strong><em>always</em></strong> contained within quotation marks <code>&quot; &quot;</code></p>
+<p>Let’s try another example, this time using character data. Note that character data is <strong>always</strong> contained within quotation marks <code>&quot; &quot;</code></p>
 <pre class="r"><code>welcome_object &lt;- &quot;Welcome to the D-Lab&quot;
 ls()</code></pre>
 <pre><code>## [1] &quot;numeric_object&quot; &quot;welcome_object&quot;</code></pre>
@@ -327,11 +392,10 @@ ls()</code></pre>
 <pre class="r"><code>welcome_object</code></pre>
 <pre><code>## [1] &quot;Welcome to the D-Lab&quot;</code></pre>
 </div>
-<div id="introduction-variable-assignment-naming-r-objects" class="section level2">
-<h2>1. Introduction/ variable assignment/ naming R objects</h2>
-<p>Object names can be anything, but are always case sensitive. However, they cannot begin with a number and generally do not begin with symbols.</p>
-<p>However you choose to name your objects, be consistent and use brief descriptions of their contents.</p>
-<p>Names must be <strong><em>unique</em></strong>. If you resuse an old name, the old object definition will be overwritten.</p>
+<div id="introduction---variable-assignment---naming-r-objects" class="section level2">
+<h2>1. Introduction - variable assignment - naming R objects</h2>
+<p>Object names can be anything, but are always case sensitive. However, they cannot begin with a number and generally do not begin with symbols. However you choose to name your objects, be consistent and use brief descriptions of their contents.</p>
+<p>Names must be <strong>unique</strong>. If you resuse an old name, the old object definition will be overwritten.</p>
 <p>Let’s overwrite the object <code>welcome_object</code> from above.</p>
 <pre class="r"><code>welcome_object &lt;- &quot;Welcome to Barrows Hall&quot; </code></pre>
 <p>See how the definition of <code>welcome_object</code> changed in your global environment window? However, there are still only two objects in your global environment.</p>
@@ -346,9 +410,9 @@ ls() </code></pre>
 <pre class="r"><code>welcome_object2</code></pre>
 <pre><code>## [1] &quot;Welcome to the D-Lab in Barrows Hall&quot;</code></pre>
 </div>
-<div id="introduction-variable-assignment-class" class="section level2">
-<h2>1. Introduction/ variable assignment/ <code>class()</code></h2>
-<p>Each object in R has a <code>class()</code> that summarizes the type of the data stored within the object.</p>
+<div id="introduction---variable-assignment---class" class="section level2">
+<h2>1. Introduction - variable assignment - <code>class()</code></h2>
+<p>Each object in R has a <code>class()</code> that summarizes the type of the data stored within the object. We will talk more about data types below.</p>
 <pre class="r"><code>class(numeric_object)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <pre class="r"><code>class(welcome_object)</code></pre>
@@ -356,8 +420,8 @@ ls() </code></pre>
 <pre class="r"><code>class(welcome_object2)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
-<div id="introduction-variable-assignment-rm" class="section level2">
-<h2>1. Introduction/ variable assignment/ <code>rm()</code></h2>
+<div id="introduction---variable-assignment---rm" class="section level2">
+<h2>1. Introduction - variable assignment - <code>rm()</code></h2>
 <p>We remove individual variables from our environment with <code>rm()</code>. For example, to remove <code>numeric_object</code>, we type:</p>
 <pre class="r"><code>rm(numeric_object)
 ls()</code></pre>
@@ -369,8 +433,8 @@ ls()</code></pre>
 <pre><code>## character(0)</code></pre>
 <p>Now, all objects are gone from our global environment.</p>
 </div>
-<div id="introduction-help" class="section level2">
-<h2>1. Introduction/ help</h2>
+<div id="introduction---help" class="section level2">
+<h2>1. Introduction - help</h2>
 <p>A single question mark <code>?</code> will call the help pages. Notice that we must wrap symbols in quotation marks to access their help page:</p>
 <pre class="r"><code>?&quot;&lt;-&quot;
 ?ls
@@ -378,41 +442,48 @@ ls()</code></pre>
 ?rm
 ?iris</code></pre>
 <blockquote>
-<p>NOTE: We will use the <code>iris</code> dataset in Parts 2, 3, and 4</p>
+<p>NOTE: We will use the <code>iris</code> dataset in Parts 2, 3, and 4 of this workshop series.</p>
 </blockquote>
-<p>Double question marks ?? will lead you to coding walkthroughs called “vignettes”:</p>
+<p>Double question marks ?? will lead you to coding walkthroughs called “vignettes”. These usually come with preloaded data and examples:</p>
 <pre class="r"><code>??&quot;&lt;-&quot;
 ??rm
 ??iris</code></pre>
-<p>If you have questions that don’t seem to be answered by the help pages and vignettes, we recommend to type your question into Google along with the name of one of the many community based resources:<br />
+<p>If you have questions that don’t seem to be answered by the help pages and vignettes, we recommend to type your question into Google along with the name of one of the many community based resources, browse their contents, or use their built-in search tools:<br />
 <a href="http://statmethods.net/">Quick-R</a><br />
 <a href="http://www.ats.ucla.edu/stat/r/">UCLA idre</a><br />
 <a href="https://www.r-bloggers.com/">R-bloggers</a><br />
 <a href="http://stackoverflow.com/questions/tagged/r">Stack Overflow - R</a></p>
 </div>
-<div id="introduction-living-in-r" class="section level2">
-<h2>1. Introduction/ living in R</h2>
+<div id="introduction--living-in-r" class="section level2">
+<h2>1. Introduction -living in R</h2>
 <p>Like in Unix, in R you are always in a directory. Your actions are all relative to that directory. You will find this useful for loading data from files and when you save your output it will be located here.</p>
 <p>Figure out where you are with <code>getwd()</code></p>
 <pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;/Users/E/Desktop/R-Fundamentals-master&quot;</code></pre>
+<pre><code>## [1] &quot;/Users/evanmuzzall/Desktop/R-Fundamentals-master&quot;</code></pre>
 <p>Tell R you would like to set your working directory to the R-Fundamentals folder you just downloaded with <code>setwd()</code>. Follow the format as shown by <code>getwd()</code></p>
-<p>My computer is named “E” and my “R-Fundamentals-master” folder is located on the Desktop, so the file path would look like this:</p>
-<pre class="r"><code>setwd(&quot;/Users/E/Desktop/R-Fundamentals&quot;)
+<p>My computer is named “evanmuzzall” and my “R-Fundamentals-master” folder is located on the Desktop, so the file path would look like this:</p>
+<pre class="r"><code>setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals-master&quot;)
 getwd()</code></pre>
 <p>Note the subtle difference between Mac and PC users:</p>
 <pre class="r"><code>setwd(&quot;/Users/MacName/Desktop/R-Fundamentals-master&quot;)   
-setwd(&quot;C:/Users/PCName/Desktop/R-Fundamentals-master&quot;)  #C:/...</code></pre>
+setwd(&quot;C:/Users/PCName/Desktop/R-Fundamentals-master&quot;)  # note that PC users must use &quot;C:/...&quot;</code></pre>
 <p>You can view the contents of your working directory with <code>dir()</code>.</p>
 <pre class="r"><code>dir()</code></pre>
-<pre><code>## [1] &quot;animals.csv&quot;                                             &quot;animals.txt&quot;                                            
-## [3] &quot;basket.csv&quot;                                              &quot;R Fundamentals Part 1 Introduction.Rmd&quot;                 
-## [5] &quot;R Fundamentals Part 2 Subsetting and reshaping.Rmd&quot;      &quot;R Fundamentals Part 3 Data exploration and analysis.Rmd&quot;
-## [7] &quot;R Fundamentals Part 4 For-loops and functions.Rmd&quot;       &quot;R_Fundamentals_Part_1_Introduction.Rmd&quot;</code></pre>
+<pre><code>##  [1] &quot;animals.csv&quot;                                            
+##  [2] &quot;basket.csv&quot;                                             
+##  [3] &quot;LICENSE&quot;                                                
+##  [4] &quot;R Fundamentals Part 1 Introduction.Rmd&quot;                 
+##  [5] &quot;R Fundamentals Part 2 Subsetting and reshaping.Rmd&quot;     
+##  [6] &quot;R Fundamentals Part 3 Data exploration and analysis.Rmd&quot;
+##  [7] &quot;R Fundamentals Part 4 For-loops and functions.Rmd&quot;      
+##  [8] &quot;R_Fundamentals_Part_1_Introduction.docx&quot;                
+##  [9] &quot;R_Fundamentals_Part_1_Introduction.Rmd&quot;                 
+## [10] &quot;R_Fundamentals_Part_1.docx&quot;                             
+## [11] &quot;README.md&quot;</code></pre>
 </div>
 </div>
 <div id="challenge-1" class="section level1">
-<h1>1. <strong><em>Challenge 1</em></strong></h1>
+<h1><strong>Challenge 1</strong></h1>
 <ol style="list-style-type: decimal">
 <li>Define two numeric objects</li>
 <li>Define a character object</li>
@@ -422,10 +493,10 @@ setwd(&quot;C:/Users/PCName/Desktop/R-Fundamentals-master&quot;)  #C:/...</code>
 </ol>
 </div>
 <div id="atomic-data-types-in-r" class="section level1">
-<h1>2. Atomic data types in R/</h1>
+<h1>2. Atomic data types in R</h1>
 <p>Numeric, character, and logical (aka “boolean”) data types all exist at the atomic level. Normally this means that they cannot be broken down any further and are the raw inputs for commands in R. Other R objects are frequently built upon these atomic types.</p>
-<div id="atomic-data-types-in-r-numeric" class="section level2">
-<h2>2. Atomic data types in R/ numeric</h2>
+<div id="atomic-data-types-in-r---numeric" class="section level2">
+<h2>2. Atomic data types in R - numeric</h2>
 <p>Numeric data are numbers and integers. You may also hear numeric data referred to as <code>float</code> or <code>double</code> data types. By default, R stores everything as <code>doubles</code> (64 bit floating point numbers) which makes R very memory hungry.</p>
 <p>Define an object called <code>num</code> and then check its class</p>
 <pre class="r"><code>num &lt;- 2 * pi
@@ -434,28 +505,28 @@ num</code></pre>
 <pre class="r"><code>class(num)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <p>Standard mathematical operators apply to the creation of numeric data: <code>+</code> <code>-</code> <code>*</code> <code>^</code> <code>**</code> <code>/</code> <code>%*% (matrix multiplication)</code> <code>%/% (integer division)</code> <code>%% (modular division)</code></p>
-<pre class="r"><code>5 + 2</code></pre>
+<pre class="r"><code>5 + 2  </code></pre>
 <pre><code>## [1] 7</code></pre>
-<pre class="r"><code>5 - 2</code></pre>
+<pre class="r"><code>5 - 2  </code></pre>
 <pre><code>## [1] 3</code></pre>
-<pre class="r"><code>5 * 2</code></pre>
+<pre class="r"><code>5 * 2  </code></pre>
 <pre><code>## [1] 10</code></pre>
-<pre class="r"><code>5 ^ 2</code></pre>
+<pre class="r"><code>5 ^ 2  </code></pre>
 <pre><code>## [1] 25</code></pre>
-<pre class="r"><code>5 ** 2 # same as ^</code></pre>
+<pre class="r"><code>5 ** 2 # same as ^  </code></pre>
 <pre><code>## [1] 25</code></pre>
-<pre class="r"><code>5 / 2</code></pre>
+<pre class="r"><code>5 / 2  </code></pre>
 <pre><code>## [1] 2.5</code></pre>
-<pre class="r"><code>5 %*% 2</code></pre>
+<pre class="r"><code>5 %*% 2  </code></pre>
 <pre><code>##      [,1]
 ## [1,]   10</code></pre>
-<pre class="r"><code>5 %/% 2</code></pre>
+<pre class="r"><code>5 %/% 2  </code></pre>
 <pre><code>## [1] 2</code></pre>
-<pre class="r"><code>5 %% 2</code></pre>
+<pre class="r"><code>5 %% 2  </code></pre>
 <pre><code>## [1] 1</code></pre>
 </div>
-<div id="atomic-data-types-in-r-character" class="section level2">
-<h2>2. Atomic data types in R/ character</h2>
+<div id="atomic-data-types-in-r---character" class="section level2">
+<h2>2. Atomic data types in R - character</h2>
 <p>Character (aka string or text) data are always contained within quotation marks <code>&quot; &quot;</code>. Character handling in R is fairly close to character handling in a Unix terminal.</p>
 <p>Let’s create an object called <code>char</code> and define it with some character data:</p>
 <pre class="r"><code>char &lt;- &quot;This is character data&quot;
@@ -465,8 +536,8 @@ char</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <p>Character data have some useful commands such as <code>paste()</code>, <code>substr()</code>, <code>strsplit()</code>, and <code>gsub()</code></p>
 </div>
-<div id="atomic-data-types-in-r-character-paste" class="section level2">
-<h2>2. Atomic data types in R/ character/ <code>paste()</code></h2>
+<div id="atomic-data-types-in-r---character---paste" class="section level2">
+<h2>2. Atomic data types in R - character - <code>paste()</code></h2>
 <p>Use <code>paste()</code> to combine/concatenate character data. This will paste together separate words to form a sentence.</p>
 <pre class="r"><code>char2 &lt;- paste(&quot;Hey&quot;, &quot;momma&quot;, &quot;I'm&quot;, &quot;a&quot;, &quot;string&quot;)
 char2</code></pre>
@@ -479,15 +550,16 @@ char2</code></pre>
 char3 </code></pre>
 <pre><code>## [1] &quot;Hey momma I'm a string&quot;</code></pre>
 <p>Note here that R is not a zero-indexed language - lists begin at the number 1. The one and only element in this object is the sentence “Hey momma I’m a string”.</p>
+<p>Also see <code>?grep</code> for more tools.</p>
 </div>
-<div id="atomic-data-types-in-r-character-arguments" class="section level2">
-<h2>2. Atomic data types in R/ character/ “arguments”</h2>
-<p><code>sep=&quot;&quot;</code> is what is called an argument. This is a command within the parentheses of another command <code>paste(sep=&quot;&quot;)</code></p>
-<p>Most commands require one or two arguments to be defined in order for the command to properly run. You will find that commands are full of default and optional arguments that you can manipulate. Use <code>?</code> to get their definitions.</p>
+<div id="atomic-data-types-in-r---character---arguments" class="section level2">
+<h2>2. Atomic data types in R - character - “arguments”</h2>
+<p>Arguments go inside of the parentheses of R commands. Unnamed arguments are things like the number 4. <code>sep=&quot;&quot;</code> is what is called a named argument. This is a command within the parentheses of another command <code>paste()</code></p>
+<p>Most commands require one or two arguments to be defined in order for the command to properly run. You will find that commands are full of default and optional arguments that you can manipulate.</p>
 <p>Return to line 300 above and put a space between the quotation marks so that <code>sep=&quot; &quot;</code>. This will ensure the words in your sentence will be separated by a blankspace.</p>
 </div>
-<div id="atomic-data-types-in-r-character-substr" class="section level2">
-<h2>2. Atomic data types in R/ character/ <code>substr()</code></h2>
+<div id="atomic-data-types-in-r---character---substr" class="section level2">
+<h2>2. Atomic data types in R - character - <code>substr()</code></h2>
 <p><code>substr()</code> lets you extract text from certain character positions in character data. If we want to extract just the first four characters of the <code>char2</code> object we type:</p>
 <pre class="r"><code>substr(char2, 1, 4)</code></pre>
 <pre><code>## [1] &quot;Hey &quot;</code></pre>
@@ -497,9 +569,10 @@ char3 </code></pre>
 char2 </code></pre>
 <pre><code>## [1] &quot;Yes momma I'm a string&quot;</code></pre>
 <p>What changed?</p>
+<p>You will also see that <code>=</code> is frequently used in place of the assignment operator. This works the same, but we recommend using the assignment operator for consistency. Arguments and functions frequently use <code>=</code> and it is best to consistently assign your variables with <code>&lt;-</code></p>
 </div>
-<div id="atomic-data-types-in-r-character-strsplit" class="section level2">
-<h2>2. Atomic data types in R/ character/ <code>strsplit()</code></h2>
+<div id="atomic-data-types-in-r---character---strsplit" class="section level2">
+<h2>2. Atomic data types in R - character - <code>strsplit()</code></h2>
 <p>You can separate characters with <code>strsplit()</code>. We can break the sentence in <code>char2</code> apart at its whitespaces with <code>strsplit()</code>. Note the use of <code>&quot; &quot;</code> to tell R that we want to separate the sentence at the blank spaces between the words.</p>
 <pre class="r"><code>char4 &lt;- strsplit(char2, &quot; &quot;)
 char4  </code></pre>
@@ -507,8 +580,8 @@ char4  </code></pre>
 ## [1] &quot;Yes&quot;    &quot;momma&quot;  &quot;I'm&quot;    &quot;a&quot;      &quot;string&quot;</code></pre>
 <p>We are now back to our original words!</p>
 </div>
-<div id="atomic-data-types-in-r-character-gsub" class="section level2">
-<h2>2. Atomic data types in R/ character/ <code>gsub()</code></h2>
+<div id="atomic-data-types-in-r---character---gsub" class="section level2">
+<h2>2. Atomic data types in R - character - <code>gsub()</code></h2>
 <p>You can also substitute with <code>gsub()</code>. Let’s say we want to substitute all periods <code>.</code> in <code>char2</code> with <code>X</code>. We would type:</p>
 <pre class="r"><code>gsub(&quot;.&quot;, &quot;X&quot;, char2)</code></pre>
 <pre><code>## [1] &quot;XXXXXXXXXXXXXXXXXXXXXX&quot;</code></pre>
@@ -524,14 +597,15 @@ char2 &lt;- gsub(&quot;[m]&quot;, &quot;X&quot;, char2)
 char2</code></pre>
 <pre><code>## [1] &quot;Yes XoXXa I'X a string&quot;</code></pre>
 </div>
-<div id="atomic-data-types-in-r-logical" class="section level2">
-<h2>Atomic data types in R/ logical</h2>
+<div id="atomic-data-types-in-r---logical" class="section level2">
+<h2>Atomic data types in R - logical</h2>
 <p>Logical (boolean) data are dichotomous TRUE/FALSE values. R internally stores <code>FALSE</code> as 0 and <code>TRUE</code> as 1. Define a logical object:</p>
 <pre class="r"><code>bool_object &lt;- TRUE
 bool_object</code></pre>
 <pre><code>## [1] TRUE</code></pre>
 <pre class="r"><code>class(bool_object)</code></pre>
 <pre><code>## [1] &quot;logical&quot;</code></pre>
+<p>We recommend to always spell out <code>TRUE</code> and <code>FALSE</code> instead of abbreviating them <code>T</code> and <code>F</code> which might be mistaken for previously defined objects. R has many reserved words that you should avoid using. See <code>?reserved</code> for more information.</p>
 <p>Note that logical data also take on numeric properties</p>
 <pre class="r"><code>bool_object + 1</code></pre>
 <pre><code>## [1] 2</code></pre>
@@ -542,9 +616,9 @@ bool_object</code></pre>
 <pre class="r"><code>FALSE - TRUE</code></pre>
 <pre><code>## [1] -1</code></pre>
 </div>
-<div id="atomic-data-types-in-r-logical-logical-tests" class="section level2">
-<h2>2. Atomic data types in R/ logical/ logical tests</h2>
-<p>Logical tests are helpful in R if you want to check for equivalence. This is useful for removing missing data and subsetting. Note the use of the double equals <code>==</code> sign.</p>
+<div id="atomic-data-types-in-r---logical---logical-tests" class="section level2">
+<h2>2. Atomic data types in R - logical - logical tests</h2>
+<p>Logical tests are helpful in R if you want to check for equivalence. Logical tests compare two objects and return a logical output. This is useful for removing missing data and subsetting (you will learn more about this in Part 2). Note the use of the double equals <code>==</code> sign.</p>
 <pre class="r"><code>?&quot;==&quot;
 ?&quot;&amp;&quot;
 ?&quot;|&quot;
@@ -568,16 +642,48 @@ bool_object</code></pre>
 </div>
 </div>
 <div id="challenge-2" class="section level1">
-<h1>2. <strong><em>Challenge 2</em></strong></h1>
+<h1><strong>Challenge 2</strong></h1>
 <ol style="list-style-type: decimal">
-<li>Define a numeric object and check its class</li>
-<li>Define a boolean object and check its class</li>
+<li>Define a numeric object as 2 and check its class</li>
+<li>Define a boolean object as “2” and check its class</li>
+<li>Use <code>==</code> to compare your numeric and boolean object. Are they equivalent? Why or why not?</li>
 <li>Define a character object that uses <code>paste()</code> to combine more than one word into a sentence. Then use <code>substr()</code> to redefine a part of this sentence. Finally, use <code>gsub()</code> to substitute part of this new sentence with a new word.</li>
 </ol>
 </div>
-<div id="data-testing-and-type-coercion-is.type" class="section level1">
-<h1>3. Data testing and type coercion/ <code>is.type()</code></h1>
+<div id="data-testing-and-type-coercion---is.type" class="section level1">
+<h1>3. Data testing and type coercion - <code>is.type()</code></h1>
 <p>“Type coercion” refers to changing the data from one type to another.</p>
+<p><a href="https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031">Brunsdon and Comber 2015, page 102</a> also offer an excellent summary table of logical functions in R.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Logical function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>any(x)</td>
+<td><code>TRUE</code> if any in a vector of conditions <code>x</code> is true</td>
+</tr>
+<tr class="even">
+<td>all(x)</td>
+<td><code>TRUE</code> if all of a vector of conditions <code>x</code> is true</td>
+</tr>
+<tr class="odd">
+<td>is.numeric(x)</td>
+<td><code>TRUE</code> if <code>x</code> contains a numeric value</td>
+</tr>
+<tr class="even">
+<td>is.character(x)</td>
+<td><code>TRUE</code> if <code>x</code> contains a character value</td>
+</tr>
+<tr class="odd">
+<td>is.logical(x)</td>
+<td><code>TRUE</code> if <code>x</code> contains a true or false value</td>
+</tr>
+</tbody>
+</table>
 <p>Often it is handy to see what types of data you are working with. Similar to <code>class()</code> we can see what data type an object is with <code>is.type</code>. A logical response is returned:</p>
 <pre class="r"><code>is.numeric(num) </code></pre>
 <pre><code>## [1] TRUE</code></pre>
@@ -587,9 +693,71 @@ bool_object</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <pre class="r"><code>class(char2)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
-<div id="data-testing-and-type-coercion-as.type" class="section level2">
-<h2>Data testing and type coercion/ <code>as.type()</code></h2>
-<p>You can change data types with <code>as.type()</code></p>
+<div id="data-testing-and-type-coercion---as.type" class="section level2">
+<h2>Data testing and type coercion - <code>as.type()</code></h2>
+<p>You can change data types with <code>as.type()</code>.</p>
+<p><a href="https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031">Brunsdon and Comber 2015, page 102</a> also offer an excellent summary table of data types in R.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Test</th>
+<th>Conversion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>character</td>
+<td>is.character</td>
+<td>as.character</td>
+</tr>
+<tr class="even">
+<td>complex</td>
+<td>is.complex</td>
+<td>as.complex</td>
+</tr>
+<tr class="odd">
+<td>double</td>
+<td>is.double</td>
+<td>as.double</td>
+</tr>
+<tr class="even">
+<td>expression</td>
+<td>is.expression</td>
+<td>as.expression</td>
+</tr>
+<tr class="odd">
+<td>integer</td>
+<td>is.integer</td>
+<td>as.integer</td>
+</tr>
+<tr class="even">
+<td>list</td>
+<td>is.list</td>
+<td>as.list</td>
+</tr>
+<tr class="odd">
+<td>logical</td>
+<td>is.logical</td>
+<td>as.logical</td>
+</tr>
+<tr class="even">
+<td>numeric</td>
+<td>is.numeric</td>
+<td>as.numeric</td>
+</tr>
+<tr class="odd">
+<td>single</td>
+<td>is.single</td>
+<td>as.single</td>
+</tr>
+<tr class="even">
+<td>raw</td>
+<td>is.raw</td>
+<td>as.raw</td>
+</tr>
+</tbody>
+</table>
 <pre class="r"><code># Create some character data
 char_data &lt;- &quot;9&quot;
 class(char_data)</code></pre>
@@ -600,14 +768,15 @@ as.numeric(char_data)</code></pre>
 <pre class="r"><code>class(char_data)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 <pre class="r"><code># What happened here? Why did `char_data` not change classes? (hint: we did not overwrite the object!)
+
 char.data &lt;- as.numeric(char_data)
 class(char.data)</code></pre>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
 <pre class="r"><code>char.data</code></pre>
 <pre><code>## [1] 9</code></pre>
 </div>
-<div id="data-testing-and-type-coercion-as.integer-and-l" class="section level2">
-<h2>Data testing and type coercion/ <code>as.integer()</code> and <code>L</code></h2>
+<div id="data-testing-and-type-coercion---as.integer-and-l" class="section level2">
+<h2>Data testing and type coercion - <code>as.integer()</code> and <code>L</code></h2>
 <p>You can change numeric type to integer type using <code>as.integer()</code> and <code>L</code></p>
 <pre class="r"><code>num &lt;- 4
 class(num)</code></pre>
@@ -630,11 +799,11 @@ char.num   #Note that the word three is contained within &quot; &quot; </code></
 as.integer(char.num)</code></pre>
 <pre><code>## Warning: NAs introduced by coercion</code></pre>
 <pre><code>## [1] NA</code></pre>
-<p>Why did this fail? Can R change character data to numbers? Why not? (hint: R does not know how to automatically coerce words to numbers). As you can see, trying to coerce data types can lead to weird behavior sometimes.</p>
+<p>Why did this fail? Can R change character data to numbers? Why not? (hint: R has no protocol for automatically coerce words to numbers). As you can see, trying to coerce data types can lead to weird behavior sometimes.</p>
 </div>
 </div>
 <div id="challenge-3" class="section level1">
-<h1>3. <strong><em>Challenge 3</em></strong></h1>
+<h1><strong>Challenge 3</strong></h1>
 <ol style="list-style-type: decimal">
 <li>Create a character object and check its type using <code>is.type</code><br />
 </li>
@@ -646,19 +815,19 @@ as.integer(char.num)</code></pre>
 </ol>
 </div>
 <div id="data-structures" class="section level1">
-<h1>4. Data structures/</h1>
-<p>There are several kinds of data structures in R. These four are the most common:</p>
+<h1>4. Data structures</h1>
+<p>There are several kinds of data structures in R. Data structures are collections of data objects (e.g., numeric, character, and logical vectors, lists, and matrices) that work together. These four are the most common:</p>
 <ol style="list-style-type: decimal">
 <li>vector</li>
 <li>list</li>
 <li>matrix</li>
 <li>dataframe</li>
 </ol>
-<div id="data-structures-vector" class="section level2">
-<h2>4. Data structures/ vector</h2>
-<p>A <strong><em>VECTOR</em></strong> is an ordered group of the same kind of data. Vectors are one-dimensional and homogenous, and are thus referred to by their type (e.g., character vector, numeric vector, logical vector).</p>
+<div id="data-structures---vector" class="section level2">
+<h2>4. Data structures - vector</h2>
+<p>A <strong>VECTOR</strong> is an ordered group of the same kind of data. “Ordered” means that their position matters. Vectors are one-dimensional and homogenous, and are thus referred to by their type (e.g., character vector, numeric vector, logical vector).</p>
 <p>Create a numeric vector by combining/concatenating elements with <code>c()</code></p>
-<pre class="r"><code>?c()</code></pre>
+<pre class="r"><code>?c</code></pre>
 <pre class="r"><code>numeric_vector &lt;- c(3, 5, 6, 5, 3)
 numeric_vector</code></pre>
 <pre><code>## [1] 3 5 6 5 3</code></pre>
@@ -681,28 +850,29 @@ logical_vector2</code></pre>
 <pre><code>## [1] 1 0 3 0</code></pre>
 <p>Since the number of elements in the first vector (four) is a multiple of the length of the second vector (two), the second vector gets concatenated against itself two times. This is called “recycling”.</p>
 </div>
-<div id="data-structures-vector-seq" class="section level2">
-<h2>4. Data structures/ vector/ <code>seq()</code></h2>
-<p>You might need to create vectors that are sequences of numbers. You can do this via <code>seq()</code>. Here we specify a vector from zero to the length of our object <code>logical_vector2</code> (eight). The argument <code>by</code> tells R that we want only the even numbers!</p>
+<div id="data-structures---vector---seq" class="section level2">
+<h2>4. Data structures - vector - <code>seq()</code></h2>
+<p>You might need to create vectors that are sequences of numbers. You can do this via <code>seq()</code>. Here we specify a vector from zero to the length of our object <code>logical_vector2</code> (eight). The argument <code>by=2</code> tells R that we want only the even numbers!</p>
 <pre class="r"><code>?length</code></pre>
 <pre class="r"><code>length(logical_vector2)</code></pre>
 <pre><code>## [1] 8</code></pre>
 <pre class="r"><code>seq(from=0,to=length(logical_vector2),by=2)</code></pre>
 <pre><code>## [1] 0 2 4 6 8</code></pre>
 </div>
-<div id="data-structures-vector-1" class="section level2">
-<h2>4. Data structures/ vector/ <code>:</code></h2>
+<div id="data-structures---vector--" class="section level2">
+<h2>4. Data structures - vector - <code>:</code></h2>
 <p>R also gives you a shorthand operator for creating sequences in whole number increments of 1. This is the colon symbol <code>:</code></p>
 <pre class="r"><code>0:8</code></pre>
 <pre><code>## [1] 0 1 2 3 4 5 6 7 8</code></pre>
-<pre class="r"><code>c(28:36)</code></pre>
+<pre class="r"><code>sequence_object &lt;- c(28:36)
+sequence_object </code></pre>
 <pre><code>## [1] 28 29 30 31 32 33 34 35 36</code></pre>
 <pre class="r"><code>0:length(logical_vector2)</code></pre>
 <pre><code>## [1] 0 1 2 3 4 5 6 7 8</code></pre>
 </div>
-<div id="data-structures-vector-random-sampling" class="section level2">
-<h2>4. Data structures/ vector/ random sampling</h2>
-<p>You can also sample random groups of numbers. You can use <code>set.seed()</code> to ensure that we all always get the same random draws from the parent universe, even on different machines</p>
+<div id="data-structure---vector---random-sampling" class="section level2">
+<h2>4. Data structure - vector - random sampling</h2>
+<p>You can also sample random groups of numbers. Use <code>set.seed()</code> to ensure that we all always get the same random draws from the parent universe, even on different machines</p>
 <pre class="r"><code>?set.seed
 ?runif
 ?rnorm
@@ -712,28 +882,30 @@ logical_vector2</code></pre>
 
 uniform &lt;- runif(20, 3, 7) # 20 random samples from uniform distribution between the numbers 3 and 7
 uniform</code></pre>
-<pre><code>##  [1] 4.062035 4.488496 5.291413 6.632831 3.806728 6.593559 6.778701 5.643191 5.516456 3.247145 3.823898 3.706227
-## [13] 5.748091 4.536415 6.079366 4.990797 5.870474 6.967624 4.520141 6.109781</code></pre>
+<pre><code>##  [1] 4.062035 4.488496 5.291413 6.632831 3.806728 6.593559 6.778701
+##  [8] 5.643191 5.516456 3.247145 3.823898 3.706227 5.748091 4.536415
+## [15] 6.079366 4.990797 5.870474 6.967624 4.520141 6.109781</code></pre>
 <pre class="r"><code>normal &lt;- rnorm(20, 0, 1) # 20 random samples from the normal distribution with a mean of 0 and standard deviation of 1
 normal</code></pre>
-<pre><code>##  [1]  1.51178117  0.38984324 -0.62124058 -2.21469989  1.12493092 -0.04493361 -0.01619026  0.94383621  0.82122120
-## [10]  0.59390132  0.91897737  0.78213630  0.07456498 -1.98935170  0.61982575 -0.05612874 -0.15579551 -1.47075238
-## [19] -0.47815006  0.41794156</code></pre>
+<pre><code>##  [1]  1.51178117  0.38984324 -0.62124058 -2.21469989  1.12493092
+##  [6] -0.04493361 -0.01619026  0.94383621  0.82122120  0.59390132
+## [11]  0.91897737  0.78213630  0.07456498 -1.98935170  0.61982575
+## [16] -0.05612874 -0.15579551 -1.47075238 -0.47815006  0.41794156</code></pre>
 <pre class="r"><code>integer &lt;- sample(5:10, 20, replace=TRUE) # 20 random samples from between the numbers 5 and 10. Note that `replace=TRUE` signifies that it is OK to reuse numbers already selected.
 integer</code></pre>
 <pre><code>##  [1] 10  6  7  6  8  6  7  9  5 10  7 10  7  7  7 10 10  7  9 10</code></pre>
 <pre class="r"><code>character &lt;- sample(c(&quot;Cat&quot;, &quot;Dog&quot;, &quot;Pig&quot;), 20, replace=TRUE) # 20 random samples of character data
 character</code></pre>
-<pre><code>##  [1] &quot;Dog&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Cat&quot; &quot;Pig&quot; &quot;Cat&quot; &quot;Pig&quot; &quot;Cat&quot; &quot;Cat&quot; &quot;Cat&quot; &quot;Cat&quot; &quot;Cat&quot; &quot;Dog&quot; &quot;Pig&quot; &quot;Pig&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Dog&quot; &quot;Pig&quot;
-## [20] &quot;Dog&quot;</code></pre>
+<pre><code>##  [1] &quot;Dog&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Cat&quot; &quot;Pig&quot; &quot;Cat&quot; &quot;Pig&quot; &quot;Cat&quot; &quot;Cat&quot; &quot;Cat&quot; &quot;Cat&quot;
+## [12] &quot;Cat&quot; &quot;Dog&quot; &quot;Pig&quot; &quot;Pig&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Dog&quot; &quot;Pig&quot; &quot;Dog&quot;</code></pre>
 <pre class="r"><code>logical &lt;- sample(c(TRUE, FALSE), 20, replace=TRUE) # 20 random samples of logical data
 logical</code></pre>
-<pre><code>##  [1] FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
-## [20] FALSE</code></pre>
+<pre><code>##  [1] FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+## [12] FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE</code></pre>
 </div>
-<div id="data-structures-list" class="section level2">
-<h2>4. Data structures/ list</h2>
-<p>A <strong><em>LIST</em></strong> is an ordered group of data that are not of the same type. Lists are heterogenous. Instead of using <code>c()</code> like in vector creation, use <code>list()</code> to create a list:</p>
+<div id="data-structures---list" class="section level2">
+<h2>4. Data structures - list</h2>
+<p>A <strong>LIST</strong> is an ordered group of data that are not of the same type. Lists are heterogenous. Instead of using <code>c()</code> like in vector creation, use <code>list()</code> to create a list:</p>
 <pre class="r"><code>?list</code></pre>
 <pre class="r"><code>list_object &lt;- list(TRUE, &quot;one&quot;, 1) # include three kinds of data: logical, character, and integer
 list_object</code></pre>
@@ -750,9 +922,9 @@ list_object</code></pre>
 <p>Lists are simple containers and are not additive or multiplicative like vectors and matrices are:</p>
 <pre class="r"><code>list_object * list(FALSE, &quot;zero&quot;, 0) # Error</code></pre>
 </div>
-<div id="data-structures-matrix" class="section level2">
-<h2>4. Data structures/ matrix</h2>
-<p>Matrices are homogenous like vectors. They are tables comprised of data all of the same type. Matrices are organized into rows and columns.</p>
+<div id="data-structures---matrix" class="section level2">
+<h2>4. Data structures - matrix</h2>
+<p><strong>MATRICES</strong> are homogenous like vectors. They are tables comprised of data all of the same type. Matrices are organized into rows and columns.</p>
 <p>Use <code>matrix()</code> to create a matrix</p>
 <pre class="r"><code>?matrix</code></pre>
 <p>We can also specify how we want the matrix to be organized using the <code>nrow</code> and <code>ncol</code> arguments:</p>
@@ -789,9 +961,9 @@ matrix2</code></pre>
 <pre class="r"><code>class(matrix2)</code></pre>
 <pre><code>## [1] &quot;matrix&quot;</code></pre>
 </div>
-<div id="data-structures-data-frame" class="section level2">
-<h2>4. Data structures/ data frame</h2>
-<p>Inside R, a dataframe is a list of equal-length vectors. These vectors can be of different types. Data frames are heterogenous like lists.</p>
+<div id="data-structures---data-frame" class="section level2">
+<h2>4. Data structures - data frame</h2>
+<p><em>It is worth emphasizing the importance of data frames in R!</em> Inside R, a <strong>DATA FRAME</strong> is a list of equal-length vectors. These vectors can be of different types. Data frames are heterogenous like lists.</p>
 <p>Let’s create a dataframe called <code>animals</code> using the vectors we already created:</p>
 <pre class="r"><code>uniform
 normal
@@ -813,12 +985,12 @@ logical</code></pre>
 ## 6 6.593559 -0.04493361       6       Cat    TRUE</code></pre>
 <p>We can change the names of the columns by passing into it a vector with our desired names</p>
 <pre class="r"><code># Create a vector called `new_df_names` with the new column names:
-new_df_names &lt;- c(&quot;Weight&quot;, &quot;Progress&quot;, &quot;Height&quot;, &quot;Name&quot;, &quot;Healthy&quot;)
+new_df_names &lt;- c(&quot;Weight&quot;, &quot;Progress&quot;, &quot;Height&quot;, &quot;Type&quot;, &quot;Healthy&quot;)
 
 # Pass this vector into `colnames()`
 colnames(animals) &lt;- new_df_names
 head(animals)</code></pre>
-<pre><code>##     Weight    Progress Height Name Healthy
+<pre><code>##     Weight    Progress Height Type Healthy
 ## 1 4.062035  1.51178117     10  Dog   FALSE
 ## 2 4.488496  0.38984324      6  Pig    TRUE
 ## 3 5.291413 -0.62124058      7  Dog    TRUE
@@ -832,33 +1004,34 @@ head(animals)</code></pre>
 ##  $ Weight  : num  4.06 4.49 5.29 6.63 3.81 ...
 ##  $ Progress: num  1.512 0.39 -0.621 -2.215 1.125 ...
 ##  $ Height  : int  10 6 7 6 8 6 7 9 5 10 ...
-##  $ Name    : chr  &quot;Dog&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Cat&quot; ...
+##  $ Type    : chr  &quot;Dog&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Cat&quot; ...
 ##  $ Healthy : logi  FALSE TRUE TRUE FALSE FALSE TRUE ...</code></pre>
 <p>Here, we can see that a data frame is just a list of equal-length vectors! In <code>str()</code>, our columns are displayed top to bottom, while the data are displayed left to right.</p>
 </div>
-<div id="data-structures-data-frame-learn-about-your-data-frame" class="section level2">
-<h2>4. Data structures/ data frame/ learn about your data frame</h2>
+<div id="data-structures---data-frame---learn-about-your-data-frame" class="section level2">
+<h2>4. Data structures - data frame - learn about your data frame</h2>
 <pre class="r"><code># View the dimensions (nrow x ncol) of the data frame:
 dim(animals) </code></pre>
 <pre><code>## [1] 20  5</code></pre>
 <pre class="r"><code># View column names:
 colnames(animals)</code></pre>
-<pre><code>## [1] &quot;Weight&quot;   &quot;Progress&quot; &quot;Height&quot;   &quot;Name&quot;     &quot;Healthy&quot;</code></pre>
+<pre><code>## [1] &quot;Weight&quot;   &quot;Progress&quot; &quot;Height&quot;   &quot;Type&quot;     &quot;Healthy&quot;</code></pre>
 <pre class="r"><code># View row names (we did not change these, so they default to character type)
 rownames(animals)</code></pre>
-<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot; &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot;</code></pre>
+<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot; &quot;11&quot; &quot;12&quot; &quot;13&quot; &quot;14&quot;
+## [15] &quot;15&quot; &quot;16&quot; &quot;17&quot; &quot;18&quot; &quot;19&quot; &quot;20&quot;</code></pre>
 <pre class="r"><code>class(rownames(animals))</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 </div>
-<div id="data-structures-data-frame-change-the-order-of-the-columns" class="section level2">
-<h2>4. Data structures/ data frame/ change the order of the columns</h2>
+<div id="data-structures---data-frame---change-the-order-of-the-columns" class="section level2">
+<h2>4. Data structures - data frame - change the order of the columns</h2>
 <p>You can change the order of the columns by specifying their new order using <code>c()</code> within what is called “bracket notation” <code>[]</code>.</p>
 <blockquote>
 <p>This will be covered with the rest of subsetting in Part 2.</p>
 </blockquote>
-<pre class="r"><code>animals &lt;- animals[,c(&quot;Name&quot;, &quot;Healthy&quot;, &quot;Weight&quot;, &quot;Height&quot;, &quot;Progress&quot;)]
+<pre class="r"><code>animals &lt;- animals[,c(&quot;Type&quot;, &quot;Healthy&quot;, &quot;Weight&quot;, &quot;Height&quot;, &quot;Progress&quot;)]
 head(animals)</code></pre>
-<pre><code>##   Name Healthy   Weight Height    Progress
+<pre><code>##   Type Healthy   Weight Height    Progress
 ## 1  Dog   FALSE 4.062035     10  1.51178117
 ## 2  Pig    TRUE 4.488496      6  0.38984324
 ## 3  Dog    TRUE 5.291413      7 -0.62124058
@@ -866,42 +1039,47 @@ head(animals)</code></pre>
 ## 5  Pig   FALSE 3.806728      8  1.12493092
 ## 6  Cat    TRUE 6.593559      6 -0.04493361</code></pre>
 </div>
-<div id="data-structures-data-frame-factor-data-type" class="section level2">
-<h2>4. Data structures/ data frame/ factor data type</h2>
-<p>Factor data are categorical types used to make comparisons between data. Factors group the data by their “levels” (the different categories within a factor) for comparative purposes. One overtly simple example of a factor variable is “type of fruit” - its factor “levels” would be fruits such as apple, banana, watermelon, orange, etc.</p>
-<p>For example, in our <code>animals</code> dataframe, we might want to compare heights and weights between Cat, Dog, and Pigs. In this case, we want to set the character type “Name” vector to factor data type. We can do so with <code>factor()</code></p>
+<div id="data-structures---data-frame---factor-data-type" class="section level2">
+<h2>4. Data structures - data frame - factor data type</h2>
+<p>Factor data are categorical types used to make comparisons between data. Factors group the data by their “levels” (the different categories within a factor) for comparative purposes.</p>
+<p>For example, in our <code>animals</code> dataframe, we can coerce “Type” from character to factor data type. Cat, Dog, and Pig are the factor levels. If we might want to compare heights and weights between Cat, Dog, and Pigs, we set the character “Type” vector to factor data type. We can do so with <code>factor()</code></p>
 <p>The dollar sign operator <code>$</code> is used to call a single vector from a data frame. This will be discussed more in Part 2 along with the rest of subsetting.</p>
 <pre class="r"><code>str(animals)   # &quot;Name&quot; is character data type. See how each column name is preceded by `$`? </code></pre>
 <pre><code>## 'data.frame':    20 obs. of  5 variables:
-##  $ Name    : chr  &quot;Dog&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Cat&quot; ...
+##  $ Type    : chr  &quot;Dog&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Cat&quot; ...
 ##  $ Healthy : logi  FALSE TRUE TRUE FALSE FALSE TRUE ...
 ##  $ Weight  : num  4.06 4.49 5.29 6.63 3.81 ...
 ##  $ Height  : int  10 6 7 6 8 6 7 9 5 10 ...
 ##  $ Progress: num  1.512 0.39 -0.621 -2.215 1.125 ...</code></pre>
-<pre class="r"><code>animals$Name &lt;- factor(animals$Name)
+<pre class="r"><code>animals$Type &lt;- factor(animals$Type)
 str(animals)   # &quot;Name&quot; is now factor data type!</code></pre>
 <pre><code>## 'data.frame':    20 obs. of  5 variables:
-##  $ Name    : Factor w/ 3 levels &quot;Cat&quot;,&quot;Dog&quot;,&quot;Pig&quot;: 2 3 2 1 3 1 3 1 1 1 ...
+##  $ Type    : Factor w/ 3 levels &quot;Cat&quot;,&quot;Dog&quot;,&quot;Pig&quot;: 2 3 2 1 3 1 3 1 1 1 ...
 ##  $ Healthy : logi  FALSE TRUE TRUE FALSE FALSE TRUE ...
 ##  $ Weight  : num  4.06 4.49 5.29 6.63 3.81 ...
 ##  $ Height  : int  10 6 7 6 8 6 7 9 5 10 ...
 ##  $ Progress: num  1.512 0.39 -0.621 -2.215 1.125 ...</code></pre>
-<p>Notice that R stores factors internally as integers and uses the character strings as labels. Also notice that by default R orders factors alphabetically and returns them when we call the “Name”&quot; vector.</p>
-<pre class="r"><code>animals$Name</code></pre>
-<pre><code>##  [1] Dog Pig Dog Cat Pig Cat Pig Cat Cat Cat Cat Cat Dog Pig Pig Pig Dog Dog Pig Dog
+<p>Notice that R stores factors internally as integers and uses the character strings as labels. Also notice that by default R orders factors alphabetically and returns them when we call the “Type” vector.</p>
+<pre class="r"><code>animals$Type</code></pre>
+<pre><code>##  [1] Dog Pig Dog Cat Pig Cat Pig Cat Cat Cat Cat Cat Dog Pig Pig Pig Dog
+## [18] Dog Pig Dog
 ## Levels: Cat Dog Pig</code></pre>
+<pre class="r"><code>levels(animals$Type)</code></pre>
+<pre><code>## [1] &quot;Cat&quot; &quot;Dog&quot; &quot;Pig&quot;</code></pre>
 </div>
-<div id="data-structures-data-frame-factor-data-type-changing-factor-levels" class="section level2">
-<h2>4. Data structures/ data frame/ factor data type/ changing factor “levels”</h2>
-<p>Each animal type (Cat, Dog, and Pig) within the factor <code>animals$Name</code> vector are the factor levels.</p>
+<div id="data-structures---data-frame---factor-data-type---changing-factor-levels" class="section level2">
+<h2>4. Data structures - data frame - factor data type - changing factor “levels”</h2>
+<p>Each animal type (Cat, Dog, and Pig) within the factor <code>animals$Type</code> vector are the factor levels.</p>
 <p>If we want to change how R stores the factor levels, we can specify their levels using the <code>levels()</code> argument. For example:</p>
-<pre class="r"><code>animals$Name  # Levels: Cat Dog Pig (default alphabetical sort)</code></pre>
-<pre><code>##  [1] Dog Pig Dog Cat Pig Cat Pig Cat Cat Cat Cat Cat Dog Pig Pig Pig Dog Dog Pig Dog
+<pre class="r"><code>animals$Type  # Levels: Cat Dog Pig (default alphabetical sort)</code></pre>
+<pre><code>##  [1] Dog Pig Dog Cat Pig Cat Pig Cat Cat Cat Cat Cat Dog Pig Pig Pig Dog
+## [18] Dog Pig Dog
 ## Levels: Cat Dog Pig</code></pre>
 <pre class="r"><code># What if we want to change the factor level sort to Levels: Dog Pig Cat?
-animals$Name &lt;- factor(animals$Name, levels = c(&quot;Dog&quot;, &quot;Pig&quot;, &quot;Cat&quot;))
-animals$Name # Now when we call animals$Name, we can see that the levels have changed</code></pre>
-<pre><code>##  [1] Dog Pig Dog Cat Pig Cat Pig Cat Cat Cat Cat Cat Dog Pig Pig Pig Dog Dog Pig Dog
+animals$Type &lt;- factor(animals$Type, levels = c(&quot;Dog&quot;, &quot;Pig&quot;, &quot;Cat&quot;))
+animals$Type # Now when we call animals$Name, we can see that the levels have changed</code></pre>
+<pre><code>##  [1] Dog Pig Dog Cat Pig Cat Pig Cat Cat Cat Cat Cat Dog Pig Pig Pig Dog
+## [18] Dog Pig Dog
 ## Levels: Dog Pig Cat</code></pre>
 <blockquote>
 <p>NOTE: Make sure to keep the <code>animals</code> data frame saved in your working folder because we will use it for Parts 2, 3 and 4.</p>
@@ -909,24 +1087,11 @@ animals$Name # Now when we call animals$Name, we can see that the levels have ch
 </div>
 </div>
 <div id="challenge-4" class="section level1">
-<h1>4. <strong><em>Challenge 4</em></strong></h1>
-<ol style="list-style-type: decimal">
-<li>Vectors</li>
-<li>Create a vector of a sequence of numbers between 1 to 10.</li>
-<li>Coerce that vector into a character vector</li>
-<li>Add the element “11” to the end of the vector</li>
-<li>Evaluate the <code>str</code> of the vector.</li>
-<li><p>Create a sentence from separate words using <code>paste()</code>. Can you guess how to add another word to this vector without creating a new vector?</p></li>
-<li>Lists</li>
-<li>How does a list differ from an atomic vector?</li>
-<li>Create three objects of different types and lengths and then combine them into a list names <code>x</code>.</li>
-<li><p>If <code>x</code> is a list, what is the class of <code>x[1]</code>? How about <code>x[[1]]</code>? (this is a preview of Part 2).</p></li>
-<li>Data frames</li>
-<li>Create a 3x2 data frame called <code>basket</code>. List the name of each fruit in the first column and its price in teh second column.</li>
-<li>Now give your dataframe appropriate column and row names.</li>
-<li><p>We can add a new column using <code>$</code> (this will be covered with data subsetting in Part 2). Can you guess how to add a third column called “Color”, that shows the color of each fruit?</p></li>
-</ol>
-<p>Basket example:</p>
+<h1><strong>Challenge 4</strong></h1>
+<p>Vectors 1.1 Create a vector of a sequence of numbers between 1 to 10. 1.2 Coerce that vector into a character vector 1.3 Add the element “11” to the end of the vector 1.4 Evaluate the <code>str</code> of the vector. 1.5 Create a sentence from separate words using <code>paste()</code>. Can you guess how to add another word to this vector without creating a new vector?</p>
+<p>Lists 2.1 How does a list differ from an atomic vector? 2.2 Create three objects of different types and lengths and then combine them into a list names <code>x</code>. 2.3 If <code>x</code> is a list, what is the class of <code>x[1]</code>? How about <code>x[[1]]</code>? (this is a preview of Part 2).</p>
+<p>Data frames 3.1 Create a 3x2 data frame called <code>basket</code>. List the name of each fruit in the first column and its price in teh second column. 3.2 Now give your dataframe appropriate column and row names. 3.3 We can add a new column using <code>$</code> (this will be covered with data subsetting in Part 2). Can you guess how to add a third column called “Color”, that shows the color of each fruit?</p>
+<p>Basket example solution:</p>
 <pre class="r"><code>f &lt;- factor(c(&quot;Apple&quot;, &quot;Orange&quot;, &quot;Pear&quot;))
 p &lt;- c(10, 28, 36)
 basket &lt;- data.frame(f, p)
@@ -953,51 +1118,41 @@ str(basket)</code></pre>
 ## 2 Orange    28 Orange
 ## 3   Pear    36  Green</code></pre>
 </div>
-<div id="saving-your-work-write.csv" class="section level1">
-<h1>5. Saving your work/ <code>write.csv()</code></h1>
-<p>It is always handy to save your work. Saving a dataframe as a .CSV file is a convenient way to store it for future use. <strong><em>Anything saved will be placed into your working directory!</em></strong></p>
+<div id="saving-your-work---write.csv" class="section level1">
+<h1>5. Saving your work - <code>write.csv()</code></h1>
+<p>It is always handy to save your work. Saving a dataframe as a .CSV file is a convenient way to store it for future use. <strong>Anything saved will be placed into your working directory!</strong></p>
 <p>The syntax looks like this: <code>write.csv(object_name, &quot;nameOfFile.csv&quot;, row.names=TRUE)</code></p>
 <pre class="r"><code>?write.csv</code></pre>
 <pre class="r"><code>write.csv(animals, &quot;animals.csv&quot;, row.names=FALSE)
 write.csv(basket, &quot;basket.csv&quot;, row.names=TRUE)</code></pre>
 <p>Check your working directory! :)</p>
-<div id="saving-your-work-sink" class="section level2">
-<h2>5. Saving your work/ <code>sink()</code></h2>
+<div id="saving-your-work---sink" class="section level2">
+<h2>5. Saving your work - <code>sink()</code></h2>
 <p>You can also save a dataframe as a .txt file using sink(). To use a sink, put <code>sink(&quot;FileName.txt&quot;)</code> as the line before the code they want to save, and <code>sink()</code> as the line after.</p>
 <pre class="r"><code>?sink</code></pre>
 <pre class="r"><code>sink(&quot;animals.txt&quot;)
-animals</code></pre>
-<pre><code>##    Name Healthy   Weight Height    Progress
-## 1   Dog   FALSE 4.062035     10  1.51178117
-## 2   Pig    TRUE 4.488496      6  0.38984324
-## 3   Dog    TRUE 5.291413      7 -0.62124058
-## 4   Cat   FALSE 6.632831      6 -2.21469989
-## 5   Pig   FALSE 3.806728      8  1.12493092
-## 6   Cat    TRUE 6.593559      6 -0.04493361
-## 7   Pig    TRUE 6.778701      7 -0.01619026
-## 8   Cat    TRUE 5.643191      9  0.94383621
-## 9   Cat   FALSE 5.516456      5  0.82122120
-## 10  Cat   FALSE 3.247145     10  0.59390132
-## 11  Cat   FALSE 3.823898      7  0.91897737
-## 12  Cat   FALSE 3.706227     10  0.78213630
-## 13  Dog    TRUE 5.748091      7  0.07456498
-## 14  Pig    TRUE 4.536415      7 -1.98935170
-## 15  Pig    TRUE 6.079366      7  0.61982575
-## 16  Pig    TRUE 4.990797     10 -0.05612874
-## 17  Dog   FALSE 5.870474     10 -0.15579551
-## 18  Dog    TRUE 6.967624      7 -1.47075238
-## 19  Pig    TRUE 4.520141      9 -0.47815006
-## 20  Dog   FALSE 6.109781     10  0.41794156</code></pre>
-<pre class="r"><code>sink()</code></pre>
-<p>If you ever get stuck in a sink(), run <code>sink()</code> as many times as necessary until you get a warning message that says “no sink to remove”.</p>
+animals
+sink()</code></pre>
+<p>If you ever find that your code stops working after saving via <code>sink()</code>, you are probably stuck in the sink! Run <code>sink()</code> as many times as necessary until you get a warning message that says “no sink to remove”.</p>
 <blockquote>
 <p>We will talk about saving plots as .PNG and .PDF file types in Part 3!</p>
 </blockquote>
 </div>
 </div>
+<div id="homework-optional" class="section level1">
+<h1>6. Homework (optional)</h1>
+<p>swirl is a package that helps you learn R by using R. Visit the <a href="http://swirlstats.com/">swirl</a> homepage to learn more</p>
+<pre class="r"><code>install.packages(&quot;swirl&quot;)
+library(swirl)
+swirl()
+# follow the instructions until you can select number 1 &quot;R Programming: The basics of programming in R&quot;</code></pre>
+</div>
 <div id="acknowledgements" class="section level1">
 <h1>Acknowledgements</h1>
-<p><a href="http://adv-r.had.co.nz/">Hadley Wickham</a></p>
+<p><a href="http://adv-r.had.co.nz/">Wickham H. 2014. Advanced R</a><br />
+<a href="http://www.jaredlander.com/r-for-everyone/">Lander J. 2013. R for everyone: Advanced analytics and graphics</a><br />
+<a href="https://www.nostarch.com/artofr.htm">Matloff N. 2011. The art of R programming: A tour of statistical software design</a><br />
+<a href="https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031">Brunsdon C, Comber L. 2015. An Introduction to R for Spatial Analysis and Mapping</a></p>
 </div>
 
 

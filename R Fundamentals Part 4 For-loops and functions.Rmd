@@ -1,7 +1,7 @@
 ---
-title: 'R Fundamentals Part 4: For-loops and functions'
-author: "Guadalupe Tuñón, Evan Muzzall, Rochelle Terman, Shinhye Choi, Dillon Niederhut"
-date: "October 24, 2016"
+title: 'R Fundamentals Part 4: for loops and functions'
+author: "Guadalupe Tuñón, Evan Muzzall, Shinhye Choi, Rochelle Terman, Dillon Niederhut"
+date: "December 6, 2016"
 output:
   word_document:
     toc: yes
@@ -12,113 +12,84 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-options(width=120)
 ```
 
-# Learning objectives
-0. Functionals
+# Part 4 Learning objectives
 1. Introduction
-2. For-loops
+2. For loops
 3. Functions
 4. Monte Carlo simulations
 
 Load your `sleep_VIM.csv` file from Part 2:
 ```{r}
+getwd()
 sleep <- read.csv("sleep_VIM.csv", header=TRUE, stringsAsFactors = FALSE)
 ```
 
-# 0.  Functionals
-
-##  0.  Functionals/
-A functional is a function that takes functions as arguments.
-
-##  0.  Functionals/ The wrong way to be functional
-Imagine you want to apply a function to the columns of a dataframe (which is a list!). You could do something like this:
-
-```{r, eval=FALSE}
-?mean
-```
-```{r}
-mean(sleep[,2], na.rm=TRUE)
-mean(sleep[,3], na.rm=TRUE)
-mean(sleep[,4], na.rm=TRUE)
-```
-
-##  0.  Functionals/ the right way to be functional
-```{r, eval=FALSE}
-?lapply
-```
-```{r}
-lapply(sleep, mean)
-```
-Or equivalently, sapply()
-```{r, eval=FALSE}
-?sapply
-```
-```{r}
-sapply(sleep, mean)
-sapply(sleep, mean, simplify=FALSE)
-```
-However, `lapply()` has limits. We can't do something like the following:
-```{r, eval=FALSE}
-lapply(sleep, mean(na.rm = TRUE))
-```
-
 # 1.  Introduction
-Commands in R are built on many small functions that can be grouped together in smart ways to do powerful things. You assign functions in a way similar to how you assign an object (with `<-`). Functions are generally meant to be mapped to data structures or are used to write other functions. Using functions might allow you to write your code more efficiently. 
+Commands such as `mean()` are actually functions. Functions in R are a set of statements that together can provide smart, reusable ways to conduct our research. Assign functions in a way similar to how you assign an object (with `<-`). Functions are generally meant to be mapped to data structures or are used to write other functions. Using functions might allow you to write your code more efficiently. 
 
-However, before we get to functions, let us review for loops because many functions have for loops embedded in them. 
+What do you think the `nrow()` function does? Type a function name without the parentheses to see its underlying functional structure. Let's try `nrow()`, which returns the number of rows in a data frame. 
+```{r}
+nrow
+
+# Now we can give nrow() an argument
+nrow(sleep)
+```
+However, before we get to functions, let us review for loops because many functions have for loops embedded in them.   
 
 Set working directory and load the `animals` data frame - we will return to this a little later:
 ```{r}
 getwd()
-setwd("/Users/E/Desktop/R-Fundamentals-master")
 animals <- read.csv("animals.csv", header=TRUE, stringsAsFactors=FALSE)
 str(animals)
 ```
 
-# 2.  For-loops
-Before we introduce how functions work and learn how to write them, let us discuss how a for-loop works in R. A for-loop repeats a block of code a certain number of times until a certain condition is met, telling the code to stop and potentially print/return some sort of output. 
+# 2.  For loops
+Before we introduce how functions work and learn how to write them, let us discuss how a for loop works in R. A for loop repeats a block of code a certain number of times until a certain condition is met (or is no longer satisfied), telling the code to stop and potentially print/return some sort of output. 
 
-Many functions often have for-loops embedded in them, hence it will be useful to understand looping first. The basic syntax looks like this:
+The basic syntax looks like this:
 
-syntax: `for(variable in sequence){statement}`
+syntax: `for (variable in sequence) {statement}`
 
-All for-loops are precluded by `for` so that R knows you want to iterate over a loop. 
+All for loops are precluded by `for` so that R knows you want to iterate over a loop. 
 
-The `variable` in `(variable in sequence)` is generally denoted with an `i`, which stands for "iterator". However, `i` should be thought of as a placeholder and can be represented by other ways (e.g., `x`, `donut`, `n`, etc.). `sequence` is some sequence of numbers telling R how many times you want to iterate the code. 
+The `variable` in `(variable in sequence)` is generally denoted with an `i`, which stands for "iterator". However, `i` should be thought of as a placeholder and can be represented by other means (e.g., `x`, `donut`, `n`, etc.). `sequence` is some sequence of numbers telling R how many times you want to iterate the code. 
 
-"{statement}" refers to the code that you want run over the sequence at each iteration `i`. Notice that it is contained within curly braces { } - this defines the boundary of the statement in the for-loop.
+"{statement}" refers to the code that you want run over the sequence at each iteration `i`. Notice that it is contained within curly braces { } - this defines the boundary of the statement in the for loop.
 
-##  2.  For-loops/ Example 1
-Let's create a matrix of 2 to the power of `i` where `i` is 1 to 10. First we create a null vector called `mat` which will serve as a placeholder for the output of the loop.
+##  2.  For loops - Example 1
+Let's create a matrix of 2 to the power of `i` where `i` is 1 to 10. First we create a null vector called `vec` which will serve as a placeholder for the output of the loop.
 ```{r, eval=FALSE}
 ?rep
+?"for"
+?"in"
 ```
 ```{r}
-mat <- c(rep(NA, 10))
-mat
+vec <- c(rep(NA, 10))
+vec
 ```
 Now, let's create a matrix of 2 to the power of i where i is 1 to 10
 ```{r}
 for(i in 1:10){
-    mat[i] <- 2^(i)
+    vec[i] <- 2^(i)
     }                
-mat
+vec
+class(vec)
 ```
 This code tells R that we want to raise 2 to the power of `i`, where `i` is 1:10.
 
-We can also use indexing to modify only some elements. We now have an object called `mat` with defined values. What if we want to replace the first 5 elements of `mat` with 3 to the power of `i` instead? 
+We can also use indexing to modify only some elements. We now have an object called `vec` with defined values. What if we want to replace the first 5 elements of `vec` with 3 to the power of `i` instead? 
 
-You can change the `sequence` to to tell R just to overwrite the first five positions!
+You can change the `sequence` to tell R just to overwrite the first five positions!
 ```{r}
 for(i in 1:5){
-    mat[i] <- 3^i
+    vec[i] <- 3^i
     }                
-mat
-#This has changed only the first five entries of `mat`
+vec
+#This has changed only the first five entries of `vec`
 ```
-This can also be a character vector. First, create a name vector:
+You can also loop over character data. First, create a name vector:
 ```{r}
 animal.names <- c("Cat", "Dog", "Pig", "Elephant", "Giraffe")
 animal.names
@@ -144,14 +115,14 @@ for(i in animal.names){
 animals.length
 ```
 
-## 2.  For-loops/ `break` and `stopifnot`
+## 2.  For loops - `break` and `stopifnot`
 For long loops, many intermediate commands can help us "end the looping" once a condition is met, or when a condition is no longer satisfied. Two particular useful ones are `break` and `stopifnot`.
 
 `break` ends the looping once a certain condition is met.
 
 `stopifnot` ends the loop when a certain condition is NOT met. 
 
-Let's begin by writing a for-loop that outputs the numbers of the sequence 1:100
+Let's begin by writing a for loop that outputs the numbers of the sequence 1:100
 ```{r, eval=FALSE}
 for(i in 1:100){ 
     print(i) 
@@ -160,34 +131,44 @@ for(i in 1:100){
 `if` statements are frequently used to specify code to be evaluated when the condition is held. Here we tell the code that when `i` is equal to 50, stop the code:
 ```{r, eval=FALSE}
 ?break
-
-for(i in 1:100){
-    print(i)
-    if(i == 50) break  
-}
-#Numbers up to and including 50 are printed! 
 ```
 
-`stopifnot` works similarly. Here we tell the code to stop if `i` is no longer less than or equal to `<=` 50:
+We usually have data that we pass into a for loop. Let's create an object called `my_nums` that contains the integer vector 1:100. Let's test the _value_ (rather than the index):
+```{r}
+my_nums <- 40:70
+for(i in 1:length(my_nums)){
+    print(my_nums[i])
+    if(my_nums[i] == 50) break  
+}
+# Numbers up to and including 50 are printed! 
+```
+
+Let's quickly change our `my_nums` object to include one `NA` in position 55. 
+```{r}
+my_nums[15] <-  as.numeric(NA)
+my_nums
+```
+
+`stopifnot` works similarly. Here we tell the code to stop if `i` reaches a missing value (`NA`):
 ```{r, eval=FALSE}
 ?stopifnot
 
-for(i in 1:100){
-    stopifnot(i<=50)
-    print(i)
+for(i in 1:length(my_nums)){
+    print(my_nums[i])  
+    stopifnot(!is.na(my_nums[i]))
 }
 ```
 
-# ***Challenge 1***
-1. Write a for-loop that outputs something
+# **Challenge 1**
+1. Write a for loop that outputs something
 2. Insert a `break` or `stopifnot` command to tell it when to stop
 
-## 2.  For-loops/ `if`, `else`, and `ifelse`
-`if` and `else` statements are control structures that let you control how a code should be iterated within a single for-loop. You saw `if` above and is handy when you want to assign different tasks to different subsets of data using a single for-loop. 
+## 2.  For loops - `if`, `else`, and `ifelse`
+`if` and `else` statements are control structures that let you control how a code should be iterated within a single for loop. You saw `if` above and is handy when you want to assign different tasks to different subsets of data using a single for loop. 
 
 `if` something happens, do "this"      if something `else` happens, do "that"!
 
-syntax: if(condition){statement} else{other statement}
+syntax: `if (condition) {statement} else {other statement}`
 
 ```{r, eval=FALSE}
 ?"if"
@@ -196,11 +177,11 @@ syntax: if(condition){statement} else{other statement}
 x <- 7
 if(x > 7){
   print(x)
-  }else{   #`else` should not start its own line. Always let it be preceded by a closing brace on the same line.
+}else{   #`else` should not start its own line. Always let it be preceded by a closing brace on the same line.
   print("NOT BIG ENOUGH!!")
-  }
+}
 ```
-Reassign x <- 10 here - what happens? 
+Reassign x <- 10 here - what happens? Does indentation matter? Let me show you how I like to format my code (which is considered hard to read by most). 
 
 This also works in a loop. Here, we get all outputs for the loop:
 ```{r}
@@ -208,13 +189,14 @@ x <- 1:10
 for (i in 1:10){
     if(x[i] > 7){
         print(x[i])
-        }else{                     
-            print("NOT BIG ENOUGH!!")}
+    }else{                     
+      print("NOT BIG ENOUGH!!")
     }
+}
 #Super cool! :) 
 ```
 
-The ``ifelse" function can be handy to recode data as long as you have two conditions that are binary/mutually exclusive. 
+The `ifelse` function can be handy to recode data as long as you have two conditions that are binary/mutually exclusive. 
 
 syntax: `ifelse(test, yes, no)`
 
@@ -243,9 +225,9 @@ animal <- ifelse(animal=="meow!?", TRUE, FALSE)
 animal
 ```
 
-# ***Challenge 2***
-1. Write a for-loop that uses `if`
-2. Write a for-loop that uses `if` and `else`
+# **Challenge 2**
+1. Write a for loop that uses `if`
+2. Write a for loop that uses `if` and `else`
 3. Create and then recode some binary data using `ifelse`
 
 # 3.  Functions
@@ -253,9 +235,9 @@ In R, a function is a set of code that might be more useful if it is self-contai
 
 Every function has four parts and its basic syntax looks like this:  
 
-function.name <- function(x){
-  body of function
-}
+> function.name <- function(x){
+>   body of function
+> }
 
 1. `function.name` - like objects in R, it is helpful if you give your function a relevant name.
 2. `function(x)` - `function` lets R know you are writing a function and `(x)` contains the inputs/arguments.
@@ -278,7 +260,7 @@ environment(test_function)  # Returns the "global" environment
 test_function               # Shows your function as you have written it
 ```
 
-See how our function has `R_GlobalEnv` as it's environment? that's because we defined it in the global environment. This means that if you tell a function to look for an `object`, it will look in the global namespace - not within the function itself.
+See how our function has `R_GlobalEnv` as it's environment? That's because we defined it in the global environment. This means that if you tell a function to look for an `object`, it will look in the global namespace - not within the function itself.
 
 To evaluate this function, call the name of the function with your argument `x`  within parantheses. R then evaluates the body of the function and returns the desired output for the specified input. 
 
@@ -288,19 +270,45 @@ test_function(2)
 ```
 
 ## 3.  Functions/ default arguments
-We can also add a predetermined value for one or more arguments, which serves as a default value that we can change in particular applications. Define a function called `f`. We will tell R to hold the `y` input/argument constant at "3", and leave `x` and `z` to our choosing:
+We can also add a predetermined value for one or more arguments, which serves as a default value that we can change in particular applications. You can change the value of "y" - it is an optional argument because it is named and it has a default value. By convenction, required arguments do not have default values and are listed first in the function definition.
 ```{r}
-f <- function(x, y=3, z){
-  (x + y) / z
+f <- function(x, y=2){
+  (x + y) / y
 }
-f(x = 1, z = 1) #here, we only specify `x` and `z` because `y` is held constant.
-```
-If we want, we can also change the default arguments within the function call itself:
-```{r}
-f(x = 2, y = 1, z = 10)
+f(5)
+f(4, 4) # here, we do not need to specify `x` and `y` because R knows that the second argument is "y"
+f(4, y=4) # this is the same as f(4, 4)
+
+#does f(y=4, 4) work? Yes, but it is not recommended.
+f(y=4, 4)
 ```
 
-## 3.  Functions/ functions-within-functions
+Let's try one more example where we define object `z` within the function. 
+```{r}
+f <- function(x, y=2){
+  z <- 5
+  (x + y) / z
+}
+f(4, 4)
+
+ls()
+```
+Now we ask: does `z` appear in your global environment? Why not? `z` is protected from what is happening outside the function!  
+
+Finally, let's think about this a little differently. Now let's define `z` in the global environment and see if the function can access it:
+```{r}
+z <- 5 # define z outside of the function environment
+
+f <- function(x, y=2){
+  (x + y) / z
+}
+f(4, 4)
+
+ls()
+```
+`z` is now defined in the global environment and the function can pull objects from the global namespace. For example, using constants that never change, define them in the global namespace. If it is unique to the function however, keep it in the function! Scope is tricky! 
+
+## 3.  Functions - functions-within-functions
 It is also common for functions to be declared within another function.
 ```{r}
 f <- function(x) {
@@ -332,7 +340,7 @@ f(x=1)
 f(x=10)
 ```
 
-## 3.  Functions/ unit conversion example
+## 3.  Functions - unit conversion example
 Unit conversion is a common obstacle in research. Let us write a function that converts inches to centimeters. For now however, pretend that we think that one inch is equal to 2.5 centimeters - we will show you how to update it below. 
 
 Define a function called `in_to_cm` and then enter Evan's height (74 inches):
@@ -349,7 +357,7 @@ You could type:
 ```{r, eval=FALSE}
 function(x){
   x * 2.5 / 100
-  }
+}
 ```
 ...but this would be repeating yourself!
 
@@ -374,7 +382,7 @@ R is a bit quirky in that there is no such thing as an uncontained value, e.g. t
 ```{r}
 74 == c(74)
 ```
-This means that R automatically broadcasts functions across vectors of any length.
+This means that R automatically broadcasts functions across vectors of any length. Notice that there is only one argument ("height.vec") even though it contains four different heights.
 ```{r}
 height.vec <- c(74,64,73,82)
 in_to_m(height.vec)
@@ -386,16 +394,30 @@ height.list <- list(74,64,73,82)
 ```{r, eval=FALSE}
 in_to_m(height.list)
 ```
-```
 
-> NOTE: Here, the error message shows the incorrect inches to centimeter conversion of 2.5 instead of 2.54
+# **Challenge 3** 
+Write a function called `height_metric` that takes in height in inches and return_meters = TRUE or FALSE and returns either the output of in_to_cm or in_to_m
+```{r}
+height_metric <- function(height_inches, return_meters=TRUE){
+  if(return_meters==TRUE) {
+    in_to_cm(height_inches)
+    #if return_meters is TRUE do that
+  #else return cm
+  } else {
+    in_to_m(height_inches)
+  }
+}
+height_metric(height.vec,TRUE)
+```
 
 Instead, a functional such as `lapply()` might be used to do so. Remember that a functional is a function that takes functions as arguments. 
 ```{r}
 lapply(height.list, in_to_m)
 ```
 
-## 3.  Functions/ Day 3 statistical tests function
+Although the "dplyr" R package is useful for quickly applying functions to a matrix, there exists a whole family of functionals for this sort of thing. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html) 
+
+## 3.  Functions - Day 3 statistical tests function
 Remember back to Day 3 when you learned a t-test, ANOVA, cor.test, and lm? We can block these into a function quite conveniently, and we can even include plots! 
 
 First, refer back to your `animals` data frame.
@@ -406,10 +428,10 @@ head(animals)
 Then write your function to include ANOVA, Pearson correlation, and linear model information (as well as a boxplot). Notice that we are defining four objects within the function itself:
 ```{r}
 stats_tests <- function(x){
-  sum_aov <- summary(aov(Height ~ Name, data=animals))
+  sum_aov <- summary(aov(Height ~ Type, data=animals))
   Pearson <- cor.test(animals$Height, animals$Weight)
   sum_lm <- summary(lin.mod <- lm(Height ~ Weight, data=animals))
-  box <- boxplot(Height ~ Name, data=animals, col=c(2,3,4))
+  box <- boxplot(Height ~ Type, data=animals, col=c(2,3,4))
 stats_list <- list(sum_aov, Pearson, sum_lm, box)
 names(stats_list)[1:4] <- c("ANOVA summary info", "Pearson correlation info", "Linear model summary info", "Boxplot info")
 list(stats_list)
@@ -419,6 +441,7 @@ list(stats_list)
 All we have to do is call the function on the argument `x`
 ```{r}
 stats_tests(x)
+info <- stats_tests(x)
 ```
 We can subset the output like you learned in Part 2. For example, to return only the results of the Pearson correlation:
 ```{r}
@@ -428,6 +451,12 @@ Or return only the results of the linear model:
 ```{r}
 stats_tests(x)[[1]][3]
 ```
+Or, call it like 
+```{r}
+info
+info[[1]]$`ANOVA summary info`
+```
+
 etc...
 
 # 4.  Monte Carlo simulations
@@ -446,13 +475,13 @@ iter <- 200
 nr_rolls <- 100
 for (i in 1:iter){
     rolls <- sample(1:6, nr_rolls, replace=TRUE)
-    print(rolls)
+    #print(rolls)
     print(mean(rolls))
 }
 ```
 Another alternative is to write a function that produces one iteration of the process and then use the `replicate` command to repeat the process 100 times. 
 
-##  4.  Monte Carlo simulations/ Step 1
+##  4.  Monte Carlo simulations - Step 1
 Write a function that works through the process once
 ```{r}
 die_roll_mean <- function(nr_rolls){
@@ -463,7 +492,7 @@ die_roll_mean <- function(nr_rolls){
 die_roll_mean(nr_rolls = 100)
 ```
 
-##  4.  Monte Carlo simulations/ Step 2
+##  4.  Monte Carlo simulations - Step 2
 Now we use `replicate` to iterate the function 200 times:
 ```{r, eval=FALSE}
 ?replicate
@@ -481,7 +510,7 @@ reps <- replicate(200, die_roll_mean(nr_rolls = 5))
 reps
 ```
 
-##  4.  Monte Carlo simulations/ include a plotting function
+##  4.  Monte Carlo simulations - include a plotting function
 Again, we can use functions with plotting functions as well:
 ```{r}
 hist(reps)
@@ -497,7 +526,7 @@ my_hist <- function(sims){
 my_hist(sims=reps)
 ```
 
-##  4.  Monte Carlo simulations/ Step 3
+##  4.  Monte Carlo simulations - Step 3
 How would we update the function to add the number of die rolls as the title of the plot?
 ```{r}
 my_hist <- function(sims, n){
@@ -522,7 +551,7 @@ Let's see how we can first write this for $n=10$. Remember this is the first ele
 reps <- replicate(1000, die_roll_mean(nr_rolls = nr_die_rolls[1])) 
 my_hist(sims=reps, n=nr_die_rolls[1])
 ```
-We can now write a loop that works through the vector with the numnber of die rolls and produced the relevant plot for each iteration:
+We can now write a loop that works through the vector with the numnber of die rolls and produces the relevant plot for each iteration:
 ```{r}
 par(mfrow=c(2,3))
 
@@ -532,16 +561,16 @@ for (i in 1:length(nr_die_rolls)){
 }
 ```
 
-# 5.  ***Challenge 3:*** The Birthday Problem
+# **Challenge 4:** The Birthday Problem
 Say we choose 25 people at random. What is the probability two or more of them have the same birthday?'
 
 Model simplifications:
 * Ignore leap years
-* Assume the probability of having a birthday in any of the 365 days of the year is equally likely.
+* Assume the probability of having a birthday in any of the 365 days of the year is equally likely (and no twins, triplets, etc. in the room).
 
 Let's start by thinking of one room. We need to sample 25 birthdays and check how many are repeated. 
 ```{r}
-set.seed(94702)  #UC Berkeley zip code seed! 
+set.seed(94705)  
 birthdays <- sample(1:365, 25, replace=TRUE)
 birthdays
 ```
@@ -550,7 +579,7 @@ We now want to know how many of those birthdays are repeated. For that we can us
 unique(birthdays)
 length(unique(birthdays))
 ```
-All 25 dates are unique. We have no repeated birthdays. 
+23 birthdays are unique. Two people have the same birthday!  
 
 Note this is just one realization of the process. To use R to approximate the probability we would need to repeat this process many, many times. 
 
@@ -558,6 +587,7 @@ For this we can start by writing a function that goes through the process one ti
 
 We start by writing the function:
 ```{r}
+set.seed(94705)
 birthday_function <- function(people=25){
     
     # we populate the room
@@ -576,6 +606,7 @@ Thus, we have one repeat birthday!
 
 Now we can use `replicate` to repeat the process 1,000 times:
 ```{r}
+set.seed(94705)
 many_sims <- replicate(1000, birthday_function(people=25)) 
 ```
 ```{r, eval=FALSE}
@@ -601,8 +632,9 @@ par(mfrow=c(1,1))
 plot(sims[,1], sims[,2], pch=16, col="blue", 
      xlab="Nr of People", ylab="Probability of at Least One Match")
 ```
+Learn more about the birthday problem [here](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)
 
 # Acknowledgements
-[Software Carpentry](https://swcarpentry.github.io/)
-[Hadley Wickham](http://adv-r.had.co.nz/)
+[Software Carpentry](https://swcarpentry.github.io/)  
+[Hadley Wickham](http://adv-r.had.co.nz/)  
 [more Hadley Wickham](http://r-pkgs.had.co.nz/)

@@ -9,9 +9,8 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Shinhye Choi, Rochelle Terman, Evan Muzzall, Dillon Niederhut" />
+<meta name="author" content="Shinhye Choi, Evan Muzzall, Rochelle Terman, Dillon Niederhut" />
 
-<meta name="date" content="2016-10-23" />
 
 <title>R Fundamentals Part 2: Subsetting and reshaping</title>
 
@@ -215,14 +214,14 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">R Fundamentals Part 2: Subsetting and reshaping</h1>
-<h4 class="author"><em>Shinhye Choi, Rochelle Terman, Evan Muzzall, Dillon Niederhut</em></h4>
-<h4 class="date"><em>October 23, 2016</em></h4>
+<h4 class="author"><em>Shinhye Choi, Evan Muzzall, Rochelle Terman, Dillon Niederhut</em></h4>
+<h4 class="date"><em>December 6, 2016</em></h4>
 
 </div>
 
 
-<div id="learning-objectives" class="section level1">
-<h1>Learning objectives</h1>
+<div id="part-2-learning-objectives" class="section level1">
+<h1>Part 2 Learning objectives</h1>
 <ol style="list-style-type: decimal">
 <li>Day 1 review</li>
 <li>Loading data from files</li>
@@ -246,9 +245,8 @@ div.tocify {
 <div id="loading-data-from-files" class="section level1">
 <h1>2. Loading data from files</h1>
 <p>Set your working directory</p>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>## [1] &quot;/Users/E/Desktop/R-Fundamentals-master&quot;</code></pre>
-<pre class="r"><code>setwd(&quot;/Users/E/Desktop/R-Fundamentals-master&quot;)</code></pre>
+<pre class="r"><code>getwd()
+setwd(&quot;/Users/E/Desktop/R-Fundamentals-master&quot;)</code></pre>
 <p>Install the VIM package and retrieve it into your R instance</p>
 <pre class="r"><code>install.packages(&quot;VIM&quot;, dependencies=TRUE)
 library(VIM)</code></pre>
@@ -259,7 +257,6 @@ library(VIM)</code></pre>
 </blockquote>
 <pre class="r"><code>?sleep # Click the &quot;Mammal sleep data&quot; link. You DO NOT want &quot;Student's Sleep Data&quot;.</code></pre>
 <pre class="r"><code>library(VIM)</code></pre>
-<pre><code>## Warning: package 'VIM' was built under R version 3.2.5</code></pre>
 <pre><code>## Loading required package: colorspace</code></pre>
 <pre><code>## Loading required package: grid</code></pre>
 <pre><code>## Loading required package: data.table</code></pre>
@@ -303,14 +300,14 @@ dim(sleep) # 62 rows, 10 columns</code></pre>
 <p>We can load it from the file in our working directory via the <code>read.csv()</code> command:</p>
 <pre class="r"><code>sleep &lt;- read.csv(&quot;/Users/E/Desktop/R-Fundamentals/sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
 <blockquote>
-<p>Notice that <code>stringsAsFactors=FALSE</code>. If set to <code>TRUE</code>, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set <code>stringsAsFactors=FALSE</code> and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions.</p>
+<p>Notice that <code>stringsAsFactors=FALSE</code>. If set to <code>TRUE</code>, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set <code>stringsAsFactors=FALSE</code> and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. <code>header=TRUE</code> will include the header row.</p>
 </blockquote>
 <p>When dealing with Microsoft Excel files (.XLSX), you might find it more convenient to save them first as .CSV files in Excel and then import them using <code>read.csv()</code>.</p>
 <p>Other functions also work to import data from files, such as <code>load()</code>. You might also have success with the “xlsx” R package and its <code>read.xlsx()</code> command for directly importing Excel files.</p>
 <p>Also, the “foreign” R package has commands for loading data from SAS, SPSS, Stata, etc.</p>
 </div>
-<div id="loading-data-from-files-inspecting-the-data-frame" class="section level1">
-<h1>2. Loading data from files/ inspecting the data frame</h1>
+<div id="loading-data-from-files---inspecting-the-data-frame" class="section level1">
+<h1>2. Loading data from files - inspecting the data frame</h1>
 <p>Remember from Part 1 that we can learn a lot about data in R. For dataframes, the following commands are common:</p>
 <pre class="r"><code>str(sleep)    # returns the structure of the dataframe
 dim(sleep)    # dataframe dimensions
@@ -320,38 +317,44 @@ ncol(sleep)   # number of columns
 unique(sleep)   # show rows with unique data</code></pre>
 <p><code>names()</code> and <code>colnames()</code> both return column names of the data frame:</p>
 <pre class="r"><code>names(sleep)  </code></pre>
-<pre><code>##  [1] &quot;BodyWgt&quot;  &quot;BrainWgt&quot; &quot;NonD&quot;     &quot;Dream&quot;    &quot;Sleep&quot;    &quot;Span&quot;     &quot;Gest&quot;     &quot;Pred&quot;     &quot;Exp&quot;      &quot;Danger&quot;</code></pre>
+<pre><code>##  [1] &quot;BodyWgt&quot;  &quot;BrainWgt&quot; &quot;NonD&quot;     &quot;Dream&quot;    &quot;Sleep&quot;    &quot;Span&quot;    
+##  [7] &quot;Gest&quot;     &quot;Pred&quot;     &quot;Exp&quot;      &quot;Danger&quot;</code></pre>
 <pre class="r"><code>colnames(sleep)</code></pre>
-<pre><code>##  [1] &quot;BodyWgt&quot;  &quot;BrainWgt&quot; &quot;NonD&quot;     &quot;Dream&quot;    &quot;Sleep&quot;    &quot;Span&quot;     &quot;Gest&quot;     &quot;Pred&quot;     &quot;Exp&quot;      &quot;Danger&quot;</code></pre>
+<pre><code>##  [1] &quot;BodyWgt&quot;  &quot;BrainWgt&quot; &quot;NonD&quot;     &quot;Dream&quot;    &quot;Sleep&quot;    &quot;Span&quot;    
+##  [7] &quot;Gest&quot;     &quot;Pred&quot;     &quot;Exp&quot;      &quot;Danger&quot;</code></pre>
 <p>We can also check which indices are true. Let’s convert the “Span” column to a logical vector where missing data is coded as <code>NA</code> while present data is marked <code>TRUE</code>.</p>
 <pre class="r"><code>?as.logical</code></pre>
 <pre class="r"><code>new_Span &lt;- as.logical(sleep$Span)
 new_Span</code></pre>
-<pre><code>##  [1] TRUE TRUE TRUE   NA TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE   NA TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-## [24] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE   NA   NA TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-## [47] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
+<pre><code>##  [1] TRUE TRUE TRUE   NA TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE   NA TRUE
+## [15] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [29] TRUE TRUE TRUE TRUE TRUE TRUE   NA   NA TRUE TRUE TRUE TRUE TRUE TRUE
+## [43] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+## [57] TRUE TRUE TRUE TRUE TRUE TRUE</code></pre>
 <p>Now we can see which data are missing (<code>NA</code>) and which cells have data present (<code>TRUE</code>).</p>
 <p><code>which()</code> will return the rows numbers that have data present:</p>
 <pre class="r"><code>?which</code></pre>
 <pre class="r"><code>which(new_Span)</code></pre>
-<pre><code>##  [1]  1  2  3  5  6  7  8  9 10 11 12 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 37 38 39 40 41 42
-## [39] 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62</code></pre>
+<pre><code>##  [1]  1  2  3  5  6  7  8  9 10 11 12 14 15 16 17 18 19 20 21 22 23 24 25
+## [24] 26 27 28 29 30 31 32 33 34 37 38 39 40 41 42 43 44 45 46 47 48 49 50
+## [47] 51 52 53 54 55 56 57 58 59 60 61 62</code></pre>
 </div>
 <div id="subsetting-in-base-r" class="section level1">
 <h1>3. Subsetting in base R</h1>
 <p>Efficiently subsetting your data will save you time and stress. Fortunately, there are several different ways to subset data in base R.</p>
-<div id="subsetting-in-base-r-1" class="section level2">
-<h2>3. Subsetting in base R/ <code>$</code></h2>
+<div id="subsetting-in-base-r--" class="section level2">
+<h2>3. Subsetting in base R - <code>$</code></h2>
 <p>Remember from Part 1 that the dollar sign operator <code>$</code> will extract only a single vector/column within the data frame:</p>
 <pre class="r"><code>?&quot;$&quot; # Remember that we must wrap symbols in quotation marks to view their help pages</code></pre>
 <pre class="r"><code>sleep$Dream #Returns only the &quot;Dream&quot; vector from the `sleep` data frame.</code></pre>
-<pre><code>##  [1]  NA 2.0  NA  NA 1.8 0.7 3.9 1.0 3.6 1.4 1.5 0.7 2.7  NA 2.1 0.0 4.1 1.2 1.3 6.1 0.3 0.5 3.4  NA 1.5  NA 3.4 0.8 0.8
-## [30]  NA  NA 1.4 2.0 1.9 2.4 2.8 1.3 2.0 5.6 3.1 1.0 1.8 0.9 1.8 1.9 0.9  NA 2.6 2.4 1.2 0.9 0.5  NA 0.6  NA 2.2 2.3 0.5
-## [59] 2.6 0.6 6.6  NA</code></pre>
-<p>However, you might find subsetting using <strong><em>bracket notation</em></strong> <code>[ , ]</code> along with variable names, positive and negative integers, and/or logical values is easier because you can subset multiple elements at once.</p>
+<pre><code>##  [1]  NA 2.0  NA  NA 1.8 0.7 3.9 1.0 3.6 1.4 1.5 0.7 2.7  NA 2.1 0.0 4.1
+## [18] 1.2 1.3 6.1 0.3 0.5 3.4  NA 1.5  NA 3.4 0.8 0.8  NA  NA 1.4 2.0 1.9
+## [35] 2.4 2.8 1.3 2.0 5.6 3.1 1.0 1.8 0.9 1.8 1.9 0.9  NA 2.6 2.4 1.2 0.9
+## [52] 0.5  NA 0.6  NA 2.2 2.3 0.5 2.6 0.6 6.6  NA</code></pre>
+<p>However, you might find subsetting using <strong>bracket notation</strong> <code>[ , ]</code> along with variable names, positive and negative integers, and/or logical values is easier because you can subset multiple elements at once.</p>
 </div>
-<div id="subsetting-in-base-r-cvariable-names" class="section level2">
-<h2>3. Subsetting in base R/ <code>[,c(Variable Names)]</code></h2>
+<div id="subsetting-in-base-r---cvariable-names" class="section level2">
+<h2>3. Subsetting in base R - <code>[,c(Variable Names)]</code></h2>
 <p>You can subset your data by specifying variable names within bracket notation and using the <code>c()</code> command to create a column name character vector of names you want to keep.</p>
 <p>We can create a new dataframe object <code>sleep_varnames</code> that includes only “BodyWgt” and “BrainWgt” variable names from the <code>sleep</code> data frame:</p>
 <pre class="r"><code>?&quot;[&quot;</code></pre>
@@ -372,13 +375,13 @@ str(sleep_varnames)</code></pre>
 <p>Notice that the comma is still included within the bracket notation before the vector of column names. This indicates that we want ALL of the rows corresponding to these two columns. This is the same when we only want to subset rows and include ALL columns (see below).</p>
 </blockquote>
 </div>
-<div id="subsetting-in-base-r-two-dimensional-subsetting-cxy-cxy" class="section level2">
-<h2>3. Subsetting in base R/ two-dimensional subsetting <code>[c(x:y), c(x:y)]</code></h2>
+<div id="subsetting-in-base-r---two-dimensional-subsetting-cxy-cxy" class="section level2">
+<h2>3. Subsetting in base R - two-dimensional subsetting <code>[c(x:y), c(x:y)]</code></h2>
 <p>When you subset your data in two dimensions, you subset both the rows and columns.</p>
-<p>Remember that in bracket notation <code>[ , ]</code> everything <strong><em>before</em></strong> the comma refers to rows, and everything <strong><em>after</em></strong> the comma refers to columns!</p>
+<p>Remember that in bracket notation <code>[ , ]</code> everything <strong>before</strong> the comma refers to rows, and everything <strong>after</strong> the comma refers to columns!</p>
 </div>
-<div id="subsetting-in-base-r-logical-tests" class="section level2">
-<h2>3. Subsetting in base R/ logical tests</h2>
+<div id="subsetting-in-base-r---logical-tests" class="section level2">
+<h2>3. Subsetting in base R - logical tests</h2>
 <p>We can also use logical tests to subset our data. For example, what if we want to include only the rows that have a value of 1 for “Exp”? We can use the relational operator <code>==</code>:</p>
 <pre class="r"><code>?&quot;==&quot;</code></pre>
 <pre class="r"><code>sleep_logical &lt;- sleep[sleep$Exp == 1,]
@@ -412,7 +415,7 @@ sleep_logical</code></pre>
 ## 61   3.500     3.90 12.8   6.6  19.4   3.0   14    2   1      1
 ## 62   4.050    17.00   NA    NA    NA  13.0   38    3   1      1</code></pre>
 <p>Only rows with values of 1 for “Exp” are returned!</p>
-<p>What if we want to subset the data so it includes only the rows that have a value of 1 <strong><em>and</em></strong> 3 for Exp and 2 for “Danger”? We would use the “and” <code>&amp;</code> logical operator:</p>
+<p>What if we want to subset the data so it includes only the rows that have a value of 1 <strong>and</strong> 3 for Exp and 2 for “Danger”? We would use the “and” <code>&amp;</code> logical operator:</p>
 <pre class="r"><code>?&quot;&amp;&quot;</code></pre>
 <pre class="r"><code>sleep_logical2 &lt;- sleep[sleep$Exp == c(1,3) &amp; sleep$Danger == 2,]
 sleep_logical2</code></pre>
@@ -421,7 +424,7 @@ sleep_logical2</code></pre>
 ## 23    0.12      1.0 11.0   3.4  14.4  3.9   16    3   1      2
 ## 50    6.80    179.0  8.4   1.2   9.6 29.0  164    2   3      2
 ## 57    0.90      2.6 11.0   2.3  13.3  4.5   60    2   1      2</code></pre>
-<p>We can subset a dataframe that includes only rows with “Exp” = 2 <strong><em>and</em></strong> 3 and only “BodyWgt”, “BrainWgt”, and “Exp” columns.</p>
+<p>We can subset a dataframe that includes only rows with “Exp” = 2 <strong>and</strong> 3 and only “BodyWgt”, “BrainWgt”, and “Exp” columns.</p>
 <pre class="r"><code>str(sleep)</code></pre>
 <pre class="r"><code>sleep_2d &lt;- sleep[sleep$Exp == c(2,3), c(&quot;BodyWgt&quot;, &quot;BrainWgt&quot;, &quot;Exp&quot;)]
 sleep_2d</code></pre>
@@ -453,9 +456,9 @@ sleep_rows_only</code></pre>
 ## 59   0.104      2.5 13.2   2.6  15.8  2.3   46    3   2      2
 ## 60   4.190     58.0  9.7   0.6  10.3 24.0  210    4   3      4</code></pre>
 </div>
-<div id="subsetting-in-base-r-subsetting-with-positive-integers-cxy" class="section level2">
-<h2>3. Subsetting in base R/ subsetting with positive integers <code>[,c(x:y)]</code></h2>
-<p>Subsetting by <strong><em>positive</em></strong> integers works as well. This will <strong><em>include</em></strong> only the column numbers specified, rather than typing out their names.</p>
+<div id="subsetting-in-base-r---subsetting-with-positive-integers-cxy" class="section level2">
+<h2>3. Subsetting in base R - subsetting with positive integers <code>[,c(x:y)]</code></h2>
+<p>Subsetting by <strong>positive</strong> integers works as well. This will <strong>include</strong> only the column numbers specified, rather than typing out their names.</p>
 <p>Let’s create an object <code>sleep_posint</code> that includes only “NonD”, “Sleep”, and “Exp” columns.</p>
 <p>First use <code>str()</code> to see which integer values these columns represent. Because we only want the 3rd, 5th, and 9th columns, we type:</p>
 <pre class="r"><code>str(sleep)
@@ -463,10 +466,10 @@ sleep_posint &lt;- sleep[,c(3,5,9)]
 str(sleep_posint)
 head(sleep_posint)</code></pre>
 </div>
-<div id="subsetting-in-base-r-subsetting-with-negative-integers--cxy" class="section level2">
-<h2>3. Subsetting in base R/ subsetting with negative integers <code>[,-c(x:y)]</code></h2>
-<p>Subsetting by <strong><em>negative</em></strong> integers will <strong><em>exclude</em></strong> the specified columns. Notice the <code>-</code> symbol before <code>c()</code> inside our bracket notation.</p>
-<p>We can create an object called <code>sleep_negint</code> that includes everything <strong><em>except</em></strong> columns 1 and 2 (“BodyWgt” and “BrainWgt”):</p>
+<div id="subsetting-in-base-r---subsetting-with-negative-integers--cxy" class="section level2">
+<h2>3. Subsetting in base R - subsetting with negative integers <code>[,-c(x:y)]</code></h2>
+<p>Subsetting by <strong>negative</strong> integers will <strong>exclude</strong> the specified columns. Notice the <code>-</code> symbol before <code>c()</code> inside our bracket notation.</p>
+<p>We can create an object called <code>sleep_negint</code> that includes everything <strong>except</strong> columns 1 and 2 (“BodyWgt” and “BrainWgt”):</p>
 <pre class="r"><code>str(sleep)</code></pre>
 <pre><code>## 'data.frame':    62 obs. of  10 variables:
 ##  $ BodyWgt : num  6654 1 3.38 0.92 2547 ...
@@ -499,8 +502,8 @@ str(sleep_negint)</code></pre>
 ## 5  2.1   1.8   3.9 69.0  624    3   5      4
 ## 6  9.1   0.7   9.8 27.0  180    4   4      4</code></pre>
 </div>
-<div id="subsetting-in-base-r-lists-and-double-bracket-notation" class="section level2">
-<h2>3. Subsetting in base R/ lists and double bracket <code>[[]]</code> notation</h2>
+<div id="subsetting-in-base-r---lists-and-double-bracket-notation" class="section level2">
+<h2>3. Subsetting in base R - lists and double bracket <code>[[]]</code> notation</h2>
 <p>You can also subset lists.</p>
 <pre class="r"><code>?&quot;[[&quot;</code></pre>
 <p>Create an examlpe list:</p>
@@ -524,9 +527,10 @@ example_list</code></pre>
 </div>
 </div>
 <div id="challenge-1" class="section level1">
-<h1><strong><em>Challenge 1</em></strong></h1>
+<h1><strong>Challenge 1</strong></h1>
 <ol style="list-style-type: decimal">
 <li>How many ways can you subset the <code>iris</code> dataset using column names and positive and negative integers? Type and run <code>data(iris)</code> to load the dataset.</li>
+<li>How do you view the structure of <code>iris</code>?</li>
 </ol>
 </div>
 <div id="missing-data-na" class="section level1">
@@ -543,8 +547,8 @@ example_list</code></pre>
 <pre class="r"><code>?is.na
 is.na(sleep)</code></pre>
 <p>Data are coded as missing in many different ways besides <code>NA</code>, so don’t be surprised if you see some other signifier.</p>
-<div id="missing-data-na-recoding-missing-data" class="section level2">
-<h2>4. Missing data (NA)/ recoding missing data</h2>
+<div id="missing-data-na---recoding-missing-data" class="section level2">
+<h2>4. Missing data (NA) - recoding missing data</h2>
 <p>Let’s recode NA values in place to say “NONE”:</p>
 <pre class="r"><code>sleep[is.na(sleep)] &lt;- &quot;NONE&quot;</code></pre>
 <pre class="r"><code>sleep</code></pre>
@@ -567,10 +571,11 @@ is.na(sleep)</code></pre>
 <pre class="r"><code>sleep_NA &lt;- sleep[!complete.cases(sleep),]</code></pre>
 <pre class="r"><code>sleep_NA # All rows have at least one cell with missing data
 is.na(sleep_NA) # Now we see TRUE values where data is missing</code></pre>
+<p><code>subset</code> can also be used to subset your data. See <code>?subset</code> for more information.</p>
 </div>
 </div>
 <div id="challenge-2" class="section level1">
-<h1><strong><em>Challenge 2</em></strong></h1>
+<h1><strong>Challenge 2</strong></h1>
 <ol style="list-style-type: decimal">
 <li>How many different ways can you subset the <code>sleep</code> dataset using logical tests for <code>NA</code> data?</li>
 </ol>
@@ -578,7 +583,7 @@ is.na(sleep_NA) # Now we see TRUE values where data is missing</code></pre>
 <div id="merging-data" class="section level1">
 <h1>5. Merging data</h1>
 <p>Merging data is useful when we want to combine two different dataframes that share a vector/column.</p>
-<p>We will now create a new data frame called <code>sleep_ratios</code> in which we will compute <strong><em>three</em></strong> ratios from data in <code>sleep</code>:</p>
+<p>We will now create a new data frame called <code>sleep_ratios</code> in which we will compute <strong>three</strong> ratios from data in <code>sleep</code>:</p>
 <ol style="list-style-type: decimal">
 <li>Body to Brain weight ratio (“<em>Body_Brain</em>”)<br />
 </li>
@@ -605,6 +610,14 @@ head(sleep_ratios)</code></pre>
 ## 4    0.920      5.7 0.16140351
 ## 5 2547.000   4603.0 0.55333478
 ## 6   10.550    179.5 0.05877437</code></pre>
+<pre class="r"><code>tail(sleep_ratios)</code></pre>
+<pre><code>##    BodyWgt BrainWgt Body_Brain
+## 57   0.900      2.6 0.34615385
+## 58   2.000     12.3 0.16260163
+## 59   0.104      2.5 0.04160000
+## 60   4.190     58.0 0.07224138
+## 61   3.500      3.9 0.89743590
+## 62   4.050     17.0 0.23823529</code></pre>
 <pre class="r"><code>str(sleep_ratios)</code></pre>
 <pre><code>## 'data.frame':    62 obs. of  3 variables:
 ##  $ BodyWgt   : num  6654 1 3.38 0.92 2547 ...
@@ -652,13 +665,20 @@ head(sleep_ratios)</code></pre>
 <p>The first two arguments in <code>merge()</code> are the names of the two data frames, followed by <code>by</code> where we tell which column names we want to match:</p>
 <pre class="r"><code>sleep_and_sleep_ratios &lt;- merge(sleep, sleep_ratios, by=c(&quot;BodyWgt&quot;, &quot;BrainWgt&quot;))
 head(sleep_and_sleep_ratios)</code></pre>
-<pre><code>##   BodyWgt BrainWgt NonD Dream Sleep Span Gest Pred Exp Danger Body_Brain    Body_Gest  Brain_Gest
-## 1   0.005     0.14  7.7   1.4   9.1  2.6 21.5    5   2      4 0.03571429 0.0002325581 0.006511628
-## 2   0.010     0.25 17.9     2  19.9   24   50    1   1      1 0.04000000 0.0002000000 0.005000000
-## 3   0.023     0.30 15.8   3.9  19.7   19   35    1   1      1 0.07666667 0.0006571429 0.008571429
-## 4   0.023     0.40 11.9   1.3  13.2  3.2   19    4   1      3 0.05750000 0.0012105263 0.021052632
-## 5   0.048     0.33 10.8     2  12.8    2   30    4   1      3 0.14545455 0.0016000000 0.011000000
-## 6   0.060     1.00  8.1   2.2  10.3  3.5 &lt;NA&gt;    3   1      2 0.06000000           NA          NA</code></pre>
+<pre><code>##   BodyWgt BrainWgt NonD Dream Sleep Span Gest Pred Exp Danger Body_Brain
+## 1   0.005     0.14  7.7   1.4   9.1  2.6 21.5    5   2      4 0.03571429
+## 2   0.010     0.25 17.9     2  19.9   24   50    1   1      1 0.04000000
+## 3   0.023     0.30 15.8   3.9  19.7   19   35    1   1      1 0.07666667
+## 4   0.023     0.40 11.9   1.3  13.2  3.2   19    4   1      3 0.05750000
+## 5   0.048     0.33 10.8     2  12.8    2   30    4   1      3 0.14545455
+## 6   0.060     1.00  8.1   2.2  10.3  3.5 &lt;NA&gt;    3   1      2 0.06000000
+##      Body_Gest  Brain_Gest
+## 1 0.0002325581 0.006511628
+## 2 0.0002000000 0.005000000
+## 3 0.0006571429 0.008571429
+## 4 0.0012105263 0.021052632
+## 5 0.0016000000 0.011000000
+## 6           NA          NA</code></pre>
 <pre class="r"><code>str(sleep_and_sleep_ratios)</code></pre>
 <pre><code>## 'data.frame':    62 obs. of  13 variables:
 ##  $ BodyWgt   : num  0.005 0.01 0.023 0.023 0.048 0.06 0.075 0.101 0.104 0.12 ...
@@ -675,21 +695,28 @@ head(sleep_and_sleep_ratios)</code></pre>
 ##  $ Body_Gest : num  0.000233 0.0002 0.000657 0.001211 0.0016 ...
 ##  $ Brain_Gest: num  0.00651 0.005 0.00857 0.02105 0.011 ...</code></pre>
 <pre class="r"><code>#What happened here? </code></pre>
-<div id="merging-data-cbind-and-rbind" class="section level2">
-<h2>5. Merging data/ <code>cbind()</code> and <code>rbind()</code></h2>
+<div id="merging-data---cbind-and-rbind" class="section level2">
+<h2>5. Merging data - <code>cbind()</code> and <code>rbind()</code></h2>
 <p>Other useful functions include <code>cbind()</code> and <code>rbind()</code>.</p>
 <p><code>cbind()</code> will bind two data frames by their columns and will simply add all of the columns in the <code>sleep_ratios</code> data frame to the end of the <code>sleep</code> data frame.</p>
 <pre class="r"><code>?cbind
 ?rbind # Click the &quot;Combine R Objects by Rows or Columns&quot; link</code></pre>
 <pre class="r"><code>cbind_sleep &lt;- cbind(sleep, sleep_ratios)
 head(cbind_sleep)</code></pre>
-<pre><code>##    BodyWgt BrainWgt NonD Dream Sleep Span Gest Pred Exp Danger  BodyWgt BrainWgt Body_Brain   Body_Gest Brain_Gest
-## 1 6654.000   5712.0 &lt;NA&gt;  &lt;NA&gt;   3.3 38.6  645    3   5      3 6654.000   5712.0 1.16491597 10.31627907  8.8558140
-## 2    1.000      6.6  6.3     2   8.3  4.5   42    3   1      3    1.000      6.6 0.15151515  0.02380952  0.1571429
-## 3    3.385     44.5 &lt;NA&gt;  &lt;NA&gt;  12.5   14   60    1   1      1    3.385     44.5 0.07606742  0.05641667  0.7416667
-## 4    0.920      5.7 &lt;NA&gt;  &lt;NA&gt;  16.5 &lt;NA&gt;   25    5   2      3    0.920      5.7 0.16140351  0.03680000  0.2280000
-## 5 2547.000   4603.0  2.1   1.8   3.9   69  624    3   5      4 2547.000   4603.0 0.55333478  4.08173077  7.3766026
-## 6   10.550    179.5  9.1   0.7   9.8   27  180    4   4      4   10.550    179.5 0.05877437  0.05861111  0.9972222</code></pre>
+<pre><code>##    BodyWgt BrainWgt NonD Dream Sleep Span Gest Pred Exp Danger  BodyWgt
+## 1 6654.000   5712.0 &lt;NA&gt;  &lt;NA&gt;   3.3 38.6  645    3   5      3 6654.000
+## 2    1.000      6.6  6.3     2   8.3  4.5   42    3   1      3    1.000
+## 3    3.385     44.5 &lt;NA&gt;  &lt;NA&gt;  12.5   14   60    1   1      1    3.385
+## 4    0.920      5.7 &lt;NA&gt;  &lt;NA&gt;  16.5 &lt;NA&gt;   25    5   2      3    0.920
+## 5 2547.000   4603.0  2.1   1.8   3.9   69  624    3   5      4 2547.000
+## 6   10.550    179.5  9.1   0.7   9.8   27  180    4   4      4   10.550
+##   BrainWgt Body_Brain   Body_Gest Brain_Gest
+## 1   5712.0 1.16491597 10.31627907  8.8558140
+## 2      6.6 0.15151515  0.02380952  0.1571429
+## 3     44.5 0.07606742  0.05641667  0.7416667
+## 4      5.7 0.16140351  0.03680000  0.2280000
+## 5   4603.0 0.55333478  4.08173077  7.3766026
+## 6    179.5 0.05877437  0.05861111  0.9972222</code></pre>
 <pre class="r"><code>str(cbind_sleep)   </code></pre>
 <pre><code>## 'data.frame':    62 obs. of  15 variables:
 ##  $ BodyWgt   : num  6654 1 3.38 0.92 2547 ...
@@ -714,14 +741,17 @@ head(cbind_sleep)</code></pre>
 <pre><code>## [1] 10</code></pre>
 <pre class="r"><code>rbind_for_sleep &lt;- c(&quot;This&quot;, &quot;is&quot;, &quot;how&quot;, &quot;rbind&quot;, &quot;works&quot;, &quot;This&quot;, &quot;is&quot;, &quot;how&quot;, &quot;rbind&quot;, &quot;works&quot;)
 rbind_for_sleep</code></pre>
-<pre><code>##  [1] &quot;This&quot;  &quot;is&quot;    &quot;how&quot;   &quot;rbind&quot; &quot;works&quot; &quot;This&quot;  &quot;is&quot;    &quot;how&quot;   &quot;rbind&quot; &quot;works&quot;</code></pre>
+<pre><code>##  [1] &quot;This&quot;  &quot;is&quot;    &quot;how&quot;   &quot;rbind&quot; &quot;works&quot; &quot;This&quot;  &quot;is&quot;    &quot;how&quot;  
+##  [9] &quot;rbind&quot; &quot;works&quot;</code></pre>
+<pre class="r"><code>tail(rbind_for_sleep)</code></pre>
+<pre><code>## [1] &quot;works&quot; &quot;This&quot;  &quot;is&quot;    &quot;how&quot;   &quot;rbind&quot; &quot;works&quot;</code></pre>
 <pre class="r"><code>#Now, `rbind()` it to the `sleep` data frame
 sleep_rbind &lt;- rbind(sleep, rbind_for_sleep)</code></pre>
 <pre class="r"><code>sleep_rbind #We have successfully added another row!</code></pre>
 </div>
 </div>
 <div id="challenge-3" class="section level1">
-<h1><strong><em>Challenge 3</em></strong></h1>
+<h1><strong>Challenge 3</strong></h1>
 <ol style="list-style-type: decimal">
 <li>Load your <code>animals</code> dataset from Day 1 using <code>read.csv()</code>.</li>
 <li>Create a subsetted data frame called <code>cats_dogs</code> that contains only cats and dogs.</li>
@@ -759,12 +789,13 @@ head(gdp)</code></pre>
 ## 6     USA  coastal 2012  9861 53781       2</code></pre>
 <pre class="r"><code>gdp</code></pre>
 <p><code>glimpse()</code> is dplyr’s version of base R’s <code>str()</code>:</p>
+<pre class="r"><code>library(dplyr)
+?glimpse # click the &quot;Get a glimpse of your data&quot; link</code></pre>
 <pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## Warning: package 'dplyr' was built under R version 3.2.5</code></pre>
-<pre><code>## ----------------------------------------------------------------------------------------------------------------------</code></pre>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
 <pre><code>## data.table + dplyr code now lives in dtplyr.
 ## Please library(dtplyr)!</code></pre>
-<pre><code>## ----------------------------------------------------------------------------------------------------------------------</code></pre>
+<pre><code>## -------------------------------------------------------------------------</code></pre>
 <pre><code>## 
 ## Attaching package: 'dplyr'</code></pre>
 <pre><code>## The following objects are masked from 'package:data.table':
@@ -776,17 +807,15 @@ head(gdp)</code></pre>
 <pre><code>## The following objects are masked from 'package:base':
 ## 
 ##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>?glimpse #Click the &quot;Get a glimpse of your data&quot; link</code></pre>
-<pre class="r"><code>library(dplyr)
-glimpse(gdp)</code></pre>
+<pre class="r"><code>glimpse(gdp)</code></pre>
 <pre><code>## Observations: 50
 ## Variables: 6
-## $ Country &lt;fctr&gt; Canada, Mexico, Mexico, USA, Canada, USA, USA, Mexico, Mexico, Canada, Canada, Canada, USA, Mexico...
-## $ Region  &lt;fctr&gt; inland, riverine, inland, coastal, coastal, coastal, inland, mountain, mountain, inland, riverine,...
-## $ Year    &lt;int&gt; 2014, 2012, 2012, 2015, 2014, 2012, 2011, 2013, 2015, 2013, 2015, 2014, 2012, 2013, 2011, 2011, 201...
-## $ Pop     &lt;int&gt; 31118, 28300, 17109, 23202, 25520, 9861, 26949, 4688, 14608, 11420, 14952, 44850, 22860, 39209, 441...
-## $ GDP     &lt;int&gt; 29681, 24989, 53611, 29818, 21391, 53781, 58024, 16398, 28609, 72916, 96286, 13612, 77260, 94993, 8...
-## $ Poverty &lt;int&gt; 8, 10, 5, 7, 5, 2, 3, 5, 4, 10, 6, 4, 3, 8, 8, 2, 1, 8, 7, 2, 1, 2, 4, 2, 3, 2, 3, 2, 5, 8, 1, 6, 9...</code></pre>
+## $ Country &lt;fctr&gt; Canada, Mexico, Mexico, USA, Canada, USA, USA, Mexico...
+## $ Region  &lt;fctr&gt; inland, riverine, inland, coastal, coastal, coastal, ...
+## $ Year    &lt;int&gt; 2014, 2012, 2012, 2015, 2014, 2012, 2011, 2013, 2015, ...
+## $ Pop     &lt;int&gt; 31118, 28300, 17109, 23202, 25520, 9861, 26949, 4688, ...
+## $ GDP     &lt;int&gt; 29681, 24989, 53611, 29818, 21391, 53781, 58024, 16398...
+## $ Poverty &lt;int&gt; 8, 10, 5, 7, 5, 2, 3, 5, 4, 10, 6, 4, 3, 8, 8, 2, 1, 8...</code></pre>
 <p>Now, sort the table alphabetically by Country and descending by Year (most recent Year first) using base R’s <code>order()</code> command. Note that descending order for the Year column is specified by the <code>-</code> symbol.</p>
 <p>Also, we are overwriting our <code>gdp</code> data frame instead of creating a new object.</p>
 <pre class="r"><code>?order #Click the &quot;Fast row reordering of a data.table by reference&quot; link</code></pre>
@@ -800,8 +829,8 @@ head(gdp)</code></pre>
 ## 25  Canada   inland 2014 19635 92679       3
 ## 34  Canada   inland 2014 25647 64596       4</code></pre>
 <pre class="r"><code>gdp</code></pre>
-<div id="subsetting-with-the-dplyr-r-package-select-and-filter" class="section level2">
-<h2>6. Subsetting with the dplyr R package/ <code>select()</code> and <code>filter()</code></h2>
+<div id="subsetting-with-the-dplyr-r-package---select-and-filter" class="section level2">
+<h2>6. Subsetting with the dplyr R package - <code>select()</code> and <code>filter()</code></h2>
 <p>The dataset <code>gdp</code> is the first item to go into the definition for our subsetted data frame called <code>country_year</code> followed by pipe <code>%&gt;%</code>. All of our other functions will be “piped in” after it.</p>
 <p><code>select()</code> then chooses the columns we want to include in our subsetting operation. If we want to include only Country, Region, and Year, we would type:</p>
 <pre class="r"><code>?select #Click the &quot;Select/rename variables by name&quot; link</code></pre>
@@ -817,9 +846,9 @@ head(country_year)</code></pre>
 <pre class="r"><code>glimpse(country_year)</code></pre>
 <pre><code>## Observations: 50
 ## Variables: 3
-## $ Country &lt;fctr&gt; Canada, Canada, Canada, Canada, Canada, Canada, Canada, Canada, Canada, Canada, Canada, Canada, Me...
-## $ Region  &lt;fctr&gt; riverine, inland, coastal, inland, inland, inland, inland, riverine, riverine, coastal, inland, in...
-## $ Year    &lt;int&gt; 2015, 2014, 2014, 2014, 2014, 2014, 2013, 2013, 2013, 2013, 2011, 2011, 2015, 2014, 2014, 2014, 201...</code></pre>
+## $ Country &lt;fctr&gt; Canada, Canada, Canada, Canada, Canada, Canada, Canad...
+## $ Region  &lt;fctr&gt; riverine, inland, coastal, inland, inland, inland, in...
+## $ Year    &lt;int&gt; 2015, 2014, 2014, 2014, 2014, 2014, 2013, 2013, 2013, ...</code></pre>
 <pre class="r"><code>country_year</code></pre>
 <pre><code>##    Country   Region Year
 ## 11  Canada riverine 2015
@@ -900,13 +929,13 @@ head(canada)</code></pre>
 ## 11   inland 2011 20167 52960       2
 ## 12   inland 2011  6402 45140       1</code></pre>
 <blockquote>
-<p><strong><em>Note:</em></strong> The order of operations is very important in this case. If we used <code>select()</code> first, <code>filter()</code> would not be able to find the Country variable since we would have removed it in the previous step.</p>
+<p><strong>Note:</strong> The order of operations is very important in this case. If we used <code>select()</code> first, <code>filter()</code> would not be able to find the Country variable since we would have removed it in the previous step.</p>
 </blockquote>
 </div>
-<div id="subsetting-with-the-dplyr-r-package-apply-split-combine-group_by" class="section level2">
-<h2>6. Subsetting with the dplyr R package/ apply-split-combine <code>group_by()</code></h2>
-<p>Apply/split/combine saves us trouble when we want to add a new column to our existing dataframe.</p>
-<p>We want to <strong><em>split</em></strong> our data into groups (in this case countries), <strong><em>apply</em></strong> some calculations on that group, then <strong><em>combine</em></strong> the results together afterwards.</p>
+<div id="subsetting-with-the-dplyr-r-package---split-apply-combine-group_by" class="section level2">
+<h2>6. Subsetting with the dplyr R package - split-apply-combine <code>group_by()</code></h2>
+<p>Split-apply-combine saves us trouble when we want to add a new column to our existing dataframe.</p>
+<p>We want to <strong>split</strong> our data into groups (in this case countries), <strong>apply</strong> some calculations on that group, then <strong>combine</strong> the results together afterwards.</p>
 <p>More helpful, however, is the <code>group_by()</code> function, which will essentially use every unique criteria that we could have used in <code>filter()</code>. <code>group_by()</code> even allows us to pass in multiple arguments!</p>
 <p>We can create a nice summary table using a combination of the <code>group_by()</code> and <code>summarize()</code> functions.</p>
 <p>Let’s say we want to take the mean and standard deviations of GDP for each country, and then add those values into a new column in a new data frame called <code>gdp_by_country</code>.</p>
@@ -935,8 +964,8 @@ head(gdp_by_country)</code></pre>
 <pre class="r"><code>options(dplyr.print_max=99999)</code></pre>
 <pre class="r"><code>gdp</code></pre>
 </div>
-<div id="subsetting-with-the-dplyr-r-package-apply-split-combine-mutate" class="section level2">
-<h2>6. Subsetting with the dplyr R package/ apply-split-combine <code>mutate()</code></h2>
+<div id="subsetting-with-the-dplyr-r-package---split-apply-combine-mutate" class="section level2">
+<h2>6. Subsetting with the dplyr R package - split-apply-combine <code>mutate()</code></h2>
 <p>We can use <code>mutate()</code> to add a new column to our original <code>gdp</code> dataframe. <code>mutate()</code> is similar to <code>summarize()</code> except you do not need to create a new object. Let’s also add a new column “GDP_Pop”, which contains “GDP” divided by “Pop”.</p>
 <pre class="r"><code>?mutate</code></pre>
 <pre class="r"><code>gdp &lt;- gdp %&gt;%
@@ -958,8 +987,8 @@ head(gdp)</code></pre>
 ## 6  Canada   inland  2014 25647 64596       4 44391.8 33289.28 2.5186572</code></pre>
 </div>
 </div>
-<div id="subsetting-with-the-dplyr-r-package-arrange" class="section level1">
-<h1>6. Subsetting with the dplyr R package/ <code>arrange()</code></h1>
+<div id="subsetting-with-the-dplyr-r-package---split-apply-combine-arrange" class="section level1">
+<h1>6. Subsetting with the dplyr R package - split-apply-combine <code>arrange()</code></h1>
 <p>We can also arrange our data frame with <code>arrange()</code>. This is similar to <code>order()</code> in base R, or <code>sort</code> in MS Excel.</p>
 <p>Let’s sort our tibble alphabetically (by default) by “Region”. All we have to do is pipe in <code>arrange()</code> from our previous example.</p>
 <pre class="r"><code>?arrange</code></pre>
@@ -984,9 +1013,9 @@ head(gdp)</code></pre>
 <pre class="r"><code>gdp</code></pre>
 </div>
 <div id="challenge-4" class="section level1">
-<h1><strong><em>Challenge 4</em></strong></h1>
+<h1><strong>Challenge 4</strong></h1>
 <ol style="list-style-type: decimal">
-<li>Use dplyr to add the medians of BodyWgt and BrainWgt to the <code>sleep</code> data frame. You have not yet seen how to calculate the median. How do you think you might find out how to do so?</li>
+<li>Use dplyr to add the medians of BodyWgt and BrainWgt to the <code>sleep</code> data frame. You may not have yet seen how to calculate the median. How do you think you might find out how to do so?</li>
 </ol>
 </div>
 <div id="tidyingreshaping-data-with-the-tidyr-r-package" class="section level1">
@@ -1012,17 +1041,20 @@ medals_wide &lt;- data.frame(
   bronze_2016 = sample(11:15, 3, replace=TRUE)
   )
 medals_wide</code></pre>
-<pre><code>##   country gold_2012 silver_2012 bronze_2012 gold_2016 silver_2016 bronze_2016
-## 1  Canada         2          10          15         1           9          13
-## 2  Mexico         2           7          14         2           7          14
-## 3     USA         3          10          14         1           9          15</code></pre>
-<div id="tidyingreshaping-data-with-the-tidyr-r-package-gather" class="section level2">
-<h2>7. Tidying/reshaping data with the tidyr R package/ <code>gather()</code></h2>
+<pre><code>##   country gold_2012 silver_2012 bronze_2012 gold_2016 silver_2016
+## 1  Canada         2          10          15         1           9
+## 2  Mexico         2           7          14         2           7
+## 3     USA         3          10          14         1           9
+##   bronze_2016
+## 1          13
+## 2          14
+## 3          15</code></pre>
+<div id="tidyingreshaping-data-with-the-tidyr-r-package---gather" class="section level2">
+<h2>7. Tidying/reshaping data with the tidyr R package - <code>gather()</code></h2>
 <p>We can use <code>gather()</code> to combine the observation variables (gold, silver, bronze) into a single variable by year. This is similar to “melting” your data from wide to long format in the “reshape2” R package.</p>
 <pre class="r"><code>?gather</code></pre>
-<pre class="r"><code>library(tidyr)</code></pre>
-<pre><code>## Warning: package 'tidyr' was built under R version 3.2.5</code></pre>
-<pre class="r"><code>glimpse(medals_wide)</code></pre>
+<pre class="r"><code>library(tidyr)
+glimpse(medals_wide)</code></pre>
 <pre><code>## Observations: 3
 ## Variables: 7
 ## $ country     &lt;fctr&gt; Canada, Mexico, USA
@@ -1056,8 +1088,8 @@ medals_long</code></pre>
 ## 18     USA  bronze_2016         15</code></pre>
 <p>Notice that we put 3 arguments into the <code>gather()</code> function: 1. The name the new column for the new ID variable (<code>obstype_year</code>), 2. The name for the new amalgamated observation variable (<code>obs_value</code>), 3. The indices of the old observation variables (<code>2:7</code>, signalling columns 2 through 7) that we want to gather into one variable (medal types and years). Notice that we don’t want to melt down column 1 (country), as this is the “ID” variable.</p>
 </div>
-<div id="tidyingreshaping-data-with-the-tidyr-r-package-separate" class="section level2">
-<h2>7. Tidying/reshaping data with the tidyr R package/ <code>separate()</code></h2>
+<div id="tidyingreshaping-data-with-the-tidyr-r-package---separate" class="section level2">
+<h2>7. Tidying/reshaping data with the tidyr R package - <code>separate()</code></h2>
 <p>You will also notice that in our “long” dataset, “obstype” actually contains 2 pieces of information: “medal type” (gold, silver, or bronze) and “year”.</p>
 <p><code>separate()</code> can be used to split “obstype” (gold, silver, or bronze) back into medal type and year columns. We want to separate it at the underscore <code>_</code>:</p>
 <pre class="r"><code>?separate</code></pre>
@@ -1087,13 +1119,13 @@ medals_long_sep</code></pre>
 <pre class="r"><code>glimpse(medals_long_sep) #We have successfully separated &quot;obs_type&quot; and &quot;year&quot;! :) </code></pre>
 <pre><code>## Observations: 18
 ## Variables: 4
-## $ country    &lt;fctr&gt; Canada, Mexico, USA, Canada, Mexico, USA, Canada, Mexico, USA, Canada, Mexico, USA, Canada, Mex...
-## $ obs_type   &lt;chr&gt; &quot;gold&quot;, &quot;gold&quot;, &quot;gold&quot;, &quot;silver&quot;, &quot;silver&quot;, &quot;silver&quot;, &quot;bronze&quot;, &quot;bronze&quot;, &quot;bronze&quot;, &quot;gold&quot;, &quot;gol...
-## $ year       &lt;int&gt; 2012, 2012, 2012, 2012, 2012, 2012, 2012, 2012, 2012, 2016, 2016, 2016, 2016, 2016, 2016, 2016, ...
-## $ obs_values &lt;int&gt; 2, 2, 3, 10, 7, 10, 15, 14, 14, 1, 2, 1, 9, 7, 9, 13, 14, 15</code></pre>
+## $ country    &lt;fctr&gt; Canada, Mexico, USA, Canada, Mexico, USA, Canada, ...
+## $ obs_type   &lt;chr&gt; &quot;gold&quot;, &quot;gold&quot;, &quot;gold&quot;, &quot;silver&quot;, &quot;silver&quot;, &quot;silver...
+## $ year       &lt;int&gt; 2012, 2012, 2012, 2012, 2012, 2012, 2012, 2012, 201...
+## $ obs_values &lt;int&gt; 2, 2, 3, 10, 7, 10, 15, 14, 14, 1, 2, 1, 9, 7, 9, 1...</code></pre>
 </div>
-<div id="tidyingreshaping-data-with-the-tidyr-r-package-spread" class="section level2">
-<h2>7. Tidying/reshaping data with the tidyr R package/ <code>spread()</code></h2>
+<div id="tidyingreshaping-data-with-the-tidyr-r-package---spread" class="section level2">
+<h2>7. Tidying/reshaping data with the tidyr R package - <code>spread()</code></h2>
 <p>You can spread this dataset into ‘medium’ format using <code>spread()</code></p>
 <pre class="r"><code>?spread</code></pre>
 <pre class="r"><code>medals_medium &lt;- medals_long_sep %&gt;%
