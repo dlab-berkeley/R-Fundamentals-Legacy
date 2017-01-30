@@ -3,11 +3,11 @@ title: 'R Fundamentals Part 4: for loops and functions'
 author: "Guadalupe Tuñón, Evan Muzzall, Shinhye Choi, Rochelle Terman, Dillon Niederhut"
 date: "December 6, 2016"
 output:
-  word_document:
-    toc: yes
   html_document:
     toc: yes
     toc_float: yes
+  word_document:
+    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -21,7 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 4. Monte Carlo simulations
 
 Load your `sleep_VIM.csv` file from Part 2:
-```{r}
+```{r, eval=FALSE}
 getwd()
 sleep <- read.csv("sleep_VIM.csv", header=TRUE, stringsAsFactors = FALSE)
 ```

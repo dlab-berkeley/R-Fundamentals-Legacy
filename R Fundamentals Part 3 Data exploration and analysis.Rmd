@@ -3,11 +3,11 @@ title: 'R Fundamentals Part 3: Data exploration and analysis'
 author: "Rochelle Terman, Evan Muzzall, Dillon Niederhut"
 date: "December 6, 2016"
 output:
-  word_document:
-    toc: yes
   html_document:
     toc: yes
     toc_float: yes
+  word_document:
+    toc: yes
 ---
  
 ```{r setup, include=FALSE}
@@ -371,6 +371,14 @@ Almost! Cat Height and Weight are NEGATIVELY correlated (r = -0.69) and are almo
 So, Cat Height and Weight seem to be related at an adjusted p-value cutoff of p<0.10 for example. 
 
 Now what? Linear regression is a convenient way to see if one numeric variable can be used to predict another. Do you think Cat Weight can be used to predict Cat Height? Again, note the altered syntax:
+
+model1 <- lm(Y ~ X, data=data)
+
+Y is the target, outcome, or dependent variable.  
+X is the predictor or independent variable.  
+
+We can use X to predict the outcome of Y!
+
 ```{r, eval=FALSE}
 ?lm
 ```

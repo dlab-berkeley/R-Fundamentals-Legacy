@@ -34,7 +34,9 @@ knitr::opts_chunk$set(echo = TRUE)
 Set your working directory
 ```{r, eval=FALSE}
 getwd()
-setwd("/Users/E/Desktop/R-Fundamentals-master")
+setwd("/Users/evanmuzzall/Desktop/R-Fundamentals/data")
+
+animals <- read.csv("animals.csv", header=TRUE, stringsAsFactors=FALSE)
 ```
 Install the VIM package and retrieve it into your R instance
 ```{r, eval=FALSE}
@@ -54,6 +56,7 @@ Load the sleep dataset from the VIM package. This dataset looks at sleep pattern
 ```{r}
 library(VIM)
 data(sleep)
+
 dim(sleep) # 62 rows, 10 columns
 head(sleep)
 str(sleep)
@@ -69,6 +72,10 @@ write.csv(sleep, "sleep_VIM.csv", row.names=FALSE)
 We can load it from the file in our working directory via the `read.csv()` command:
 ```{r, eval=FALSE}
 sleep <- read.csv("/Users/E/Desktop/R-Fundamentals/sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
+
+# or 
+
+sleep <- read.csv("sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
 ```
 
 > Notice that `stringsAsFactors=FALSE`. If set to `TRUE`, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set `stringsAsFactors=FALSE` and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. `header=TRUE` will include the header row.
@@ -303,326 +310,84 @@ is.na(sleep_NA) # Now we see TRUE values where data is missing
 1. How many different ways can you subset the `sleep` dataset using logical tests for `NA` data?
 
 # 5.  Merging data
-Merging data is useful when we want to combine two different dataframes that share a vector/column.
-
-We will now create a new data frame called `sleep_ratios` in which we will compute **three** ratios from data in `sleep`:  
-
-1) Body to Brain weight ratio ("*Body_Brain*")  
-2) Body Weight to Gestation Period ratio ("*Body_Gest*")  
-3) Brain Weight to Gestation Period ratio ("*Brain_Gest*")  
-
-First, we will create and subset our new object `sleep_ratios` to contain the "BodyWgt" and "BrainWgt" columns from the `sleep` data frame.
-```{r}
-sleep_ratios <- sleep[,c("BodyWgt", "BrainWgt")]
-str(sleep_ratios) # This data frame only contains "BodyWgt" and "BrainWgt"
-```
-Then, we will add to `sleep_ratios` three columns that contain the computations. 
-
-1) Add the *Body_Brain* ratio:
-```{r}
-sleep_ratios$Body_Brain <- sleep$BodyWgt/sleep$BrainWgt
-head(sleep_ratios)
-tail(sleep_ratios)
-str(sleep_ratios)
-```
-
-2) Add the *Body_Gest* ratio:
-```{r}
-sleep_ratios$Body_Gest <- sleep$BodyWgt/as.numeric(sleep$Gest) # note that to perform division here, we coerce "Gest" to `as.numeric()` type
-head(sleep_ratios)
-str(sleep_ratios)
-```
-
-3) Add the *Brain_Gest* ratio: 
-```{r}
-sleep_ratios$Brain_Gest <- sleep$BrainWgt/as.numeric(sleep$Gest) # note that to perform division here, we parse "Gest" `as.numeric()` type
-head(sleep_ratios)
-str(sleep_ratios)
-```
-Finally, we can merge these new columns to our `sleep` data frame by matching the "BodyWgt" and "BrainWgt" columns with the ones from the `sleep_ratios` data frame via the `merge()` function: 
+Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column. The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match:For example: 
 ```{r, eval=FALSE}
 ?merge #Click the "Merge two data frames" link
 ```
-The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match:
 ```{r}
-sleep_and_sleep_ratios <- merge(sleep, sleep_ratios, by=c("BodyWgt", "BrainWgt"))
-head(sleep_and_sleep_ratios)
-str(sleep_and_sleep_ratios)
+df1 <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
+                  City=c("Berkeley", "Berkeley", "Oakland", "Oakland"),
+                  Math=c(42, 48, 50, 46),
+                  Reading=c(8, 10, 10, 10))
+df1_a <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
+                    Science=c(99, 100, 99, 100))
+df_merge <- merge(df1, df1_a, by="Name")
+df_merge
 #What happened here? 
 ```
 
 ## 5.  Merging data - `cbind()` and `rbind()`
 Other useful functions include `cbind()` and `rbind()`.  
 
-`cbind()` will bind two data frames by their columns and will simply add all of the columns in the `sleep_ratios` data frame to the end of the `sleep` data frame.
+`cbind()` will bind two data frames by their columns. An example:
 ```{r, eval=FALSE}
 ?cbind
 ?rbind # Click the "Combine R Objects by Rows or Columns" link
 ```
 ```{r}
-cbind_sleep <- cbind(sleep, sleep_ratios)
-head(cbind_sleep)
-str(cbind_sleep)   
-```
-We now have duplicate column names for BodyWgt and BrainWgt! This is bad and we recommend making sure your names are unique. 
+df1 <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
+                  City=c("Berkeley", "Berkeley", "Oakland", "Oakland"),
+                  Math=c(42, 48, 50, 46),
+                  Reading=c(8, 10, 10, 10))
+df1
 
-`rbind()` will add more rows to the `sleep` dataframe. Let's start by creating a new row. Create a vector that contains 10 elements to be added to the `sleep` data frame (remember that the `sleep` data frame contains 10 columns). 
+df2 <- data.frame(Name=c("Jack", "Susan", "Joe", "Kelly"),
+                  DOB=c("March", "December", "January", "July"))
+df2
+
+df3 <- merge(df1, df2, by="Name")
+df3
+
+df4 <- cbind(df1, df2)
+df4
+str(df4)
+
+df5 <- data.frame(Name=c("Heather", "Billy"),
+                  City=c("San Francisco", "San Francisco"),
+                  Math=c(49, 44),
+                  Reading=c(10,10))
+df5
+
+df6 <- rbind(df1, df5)
+df6
+```
+> NOTE: cbind will not warn you if you have duplicate column names! 
+
+`rbind()` will add more a dataframe as rows to an existing data frame. An example:
 ```{r, eval=FALSE}
 ?rbind # Click "Combine R objects by rows or colums" link
 ```
 ```{r}
-ncol(sleep) 
-rbind_for_sleep <- c("This", "is", "how", "rbind", "works", "This", "is", "how", "rbind", "works")
-rbind_for_sleep
-tail(rbind_for_sleep)
+dfA <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
+                  City=c("Berkeley", "Berkeley", "Oakland", "Oakland"),
+                  Math=c(42, 48, 50, 46),
+                  Reading=c(8, 10, 10, 10))
+dfB <- data.frame(Name=c("James", "Cher", "Elizabeth", "Barack"),
+                  City=c("Cleveland", "Memphis", "Detroit", "Chicago"),
+                  Math=c(44, 49, 50, 49),
+                  Reading=c(9, 9, 9, 10))
+df_rbind <- rbind(dfA, dfB)
+df_rbind
+```
 
-#Now, `rbind()` it to the `sleep` data frame
-sleep_rbind <- rbind(sleep, rbind_for_sleep)
-```
-```{r, eval=FALSE}
-sleep_rbind #We have successfully added another row!
-```
+> NOTE: for rbind to work, you should have the same column names for both of your data frames! 
 
 # **Challenge 3** 
-1. Load your `animals` dataset from Day 1 using `read.csv()`.
-2. Create a subsetted data frame called `cats_dogs` that contains only cats and dogs.
-3. Create a subsetted data frame that only contains healthy pigs!  
-
-# 6.  Subsetting with the dplyr R package
-The "dplyr" R package uses a different syntax to subset your data in perhaps a more efficient way than base R. dplyr's strength is specifically in its subsetting functions. It uses the pipe symbol `%>%` to pass the output of a function into the input of another. 
-
-Also, you do not need to include quotation marks `" "` when specifying column names. Furthermore, the pipe symbol saves you from having to write lots of nested parentheses. You might even find this code easier to read! 
-
-**Fun Fact**: You might have encountered pipes before in the Unix shell. In R, a pipe symbol is `%>%` while in the shell it is `|`. But the concept is the same! 
-
-> NOTE: remember that `|` in R specifies an "or" logical operator.
-
-```{r, eval=FALSE}
-?"|"
-```
-Data frames in dplyr are called "tibbles". All you have to do is "pipe in" functions to your dataset.
-```{r, eval=FALSE}
-install.packages('dplyr', dependencies=TRUE)
-library(dplyr)
-```
-First, we will use `sample()` to create some toy data containing some various gross domestic product information for North America. By not specifying `stringsAsFactors=FALSE`, R will automatically convert "Country" and "Region" to factor data types. This is fine for this example. 
-
-Set your seed to "1" so that we all get the sample resampled data:
-```{r}
-set.seed(1)
-gdp <- data.frame(Country=sample(c("Canada", "Mexico", "USA"), 50, replace=TRUE),
-                  Region = sample(c("coastal", "inland", "mountain", "riverine"), 50, replace=TRUE),
-                  Year = sample(2011:2015, 50, replace=TRUE),
-                  Pop = sample(1000:50000, 50, replace=FALSE),
-                  GDP = sample(4000:100000, 50, replace=FALSE), 
-                  Poverty = sample(1:10, 50, replace=TRUE))
-head(gdp)
-```
-```{r, eval=FALSE}
-gdp
-```
-`glimpse()` is dplyr's version of base R's `str()`:
-```{r, eval=FALSE}
-library(dplyr)
-?glimpse # click the "Get a glimpse of your data" link
-```
-```{r}
-library(dplyr)
-glimpse(gdp)
-```
-Now, sort the table alphabetically by Country and descending by Year (most recent Year first) using base R's `order()` command. Note that descending order for the Year column is specified by the `-` symbol.
-
-Also, we are overwriting our `gdp` data frame instead of creating a new object.
-```{r, eval=FALSE}
-?order #Click the "Fast row reordering of a data.table by reference" link
-```
-```{r}
-gdp <- gdp[order(gdp$Country, -gdp$Year),]
-head(gdp)
-```
-```{r, eval=FALSE}
-gdp
-```
-
-## 6.  Subsetting with the dplyr R package - `select()` and `filter()`
-The dataset `gdp` is the first item to go into the definition for our subsetted data frame called `country_year` followed by pipe `%>%`. All of our other functions will be "piped in" after it.
-
-`select()` then chooses the columns we want to include in our subsetting operation. If we want to include only Country, Region, and Year, we would type:
-```{r, eval=FALSE}
-?select #Click the "Select/rename variables by name" link
-```
-```{r}
-country_year <- gdp %>% select(Country, Region, Year)
-head(country_year)
-glimpse(country_year)
-```
-```{r}
-country_year
-```
-`filter()` chooses the rows you want to include. What if we are only interested in the Canada data? We can use `filter()` to select only rows with data for Canada.
-```{r, eval=FALSE}
-?filter #Click "Return rows with matching conditions" link
-```
-```{r}
-canada <- gdp %>%
-  filter(Country == "Canada") %>%
-  select(Region, Year, Pop, GDP, Poverty)
-head(canada)
-canada
-```
-
-> **Note:** The order of operations is very important in this case. If we used `select()` first, `filter()` would not be able to find the Country variable since we would have removed it in the previous step.
-
-## 6.  Subsetting with the dplyr R package - split-apply-combine `group_by()`
-Split-apply-combine saves us trouble when we want to add a new column to our existing dataframe.
-
-We want to **split** our data into groups (in this case countries), **apply** some calculations on that group, then  **combine** the results together afterwards. 
-
-More helpful, however, is the `group_by()` function, which will essentially use every unique criteria that we could have used in `filter()`. `group_by()` even allows us to pass in multiple arguments!
-
-We can create a nice summary table using a combination of the `group_by()` and `summarize()` functions.
-
-Let's say we want to take the mean and standard deviations of GDP for each country, and then add those values into a new column in a new data frame called `gdp_by_country`.
-```{r, eval=FALSE}
-?group_by
-?summarize
-```
-```{r}
-gdp_by_country <- gdp %>%
-  group_by(Country, Region, Year) %>%
-  summarize(MeanGDP = mean(GDP),
-            sdGDP = sd(GDP))
-head(gdp_by_country)
-#Why do you think some rows have `NA` for the `sdGDP` column? (hint: because they have only 1 observation! For any sort of variance computation to be calculated, it must have at least 2 entries).
-```
-Notice how dplyr only prints out the columns that fit in your console and a truncated number of rows. 
-```{r, eval=FALSE}
-gdp
-```
-
-This can be changed in the options settings:
-```{r}
-options(dplyr.print_max=99999)
-```
-```{r, eval=FALSE}
-gdp
-```
-
-## 6.  Subsetting with the dplyr R package - split-apply-combine `mutate()`
-We can use `mutate()` to add a new column to our original `gdp` dataframe. `mutate()` is similar to `summarize()` except you do not need to create a new object. Let's also add a new column "GDP_Pop", which contains "GDP" divided by "Pop".
-```{r, eval=FALSE}
-?mutate
-```
-```{r}
-gdp <- gdp %>%
-  group_by(Country, Year) %>%
-  mutate(MeanGDP = mean(GDP),
-         sdGDP = sd(GDP),
-         GDP_Pop = GDP/Pop)
-head(gdp)
-```
-
-# 6.  Subsetting with the dplyr R package - split-apply-combine `arrange()`
-We can also arrange our data frame with `arrange()`. This is similar to `order()` in base R, or `sort` in MS Excel.
-
-Let's sort our tibble alphabetically (by default) by "Region". All we have to do is pipe in `arrange()` from our previous example.
-```{r, eval=FALSE}
-?arrange
-```
-```{r}
-gdp <- gdp %>%
-  group_by(Country, Year) %>%
-  mutate(MeanGDP = mean(GDP),
-         sdGDP = sd(GDP),
-         GDP_Pop = GDP/Pop) %>%
-  arrange(Country, -Year, Region)
-head(gdp)
-```
-```{r, eval=FALSE}
-gdp
-```
-
-# **Challenge 4**
-1. Use dplyr to add the medians of BodyWgt and BrainWgt to the `sleep` data frame. You may not have yet seen how to calculate the median. How do you think you might find out how to do so? 
-
-# 7.  Tidying/reshaping data with the tidyr R package
-For our final example, we are going quickly create some data in "wide" format so that we can convert it to "long" and then to "medium" formats.
-
-"Wide" format generally refers to data where values (e.g., GDP, Pop) are spread out across columns. You might also hear this referred to as "multivariate" format. 
-
-"Long" format refers to data that has one column for the values, and the other columns are ID variables. You might also hear this referred to as "univariate" format". 
-
-"Medium" format is somewhere in between! 
-
-In R, some functions are explicitly written for long format data, and others for wide format data so it is useful to know how to tidy your data. 
-
-The two most important properties of tidy data are:
-1) Each column is a variable.
-2) Each row is an observation.
-
-First, let's install and call the 'tidyr' package.
-```{r, eval=FALSE}
-install.packages("tidyr", dependencies=TRUE)
-library(tidyr)
-```
-
-Now let's create some "wide" format toy data for medal counts from the Olympics.
-```{r}
-set.seed(1)
-medals_wide <- data.frame(
-  country = c("Canada",  "Mexico",  "USA" ),
-  gold_2012 = sample(1:5, 3, replace=TRUE),
-  silver_2012 = sample(6:10, 3, replace=TRUE),
-  bronze_2012 = sample(11:15, 3, replace=TRUE),
-  gold_2016 = sample(1:5, 3, replace=TRUE),
-  silver_2016 = sample(6:10, 3, replace=TRUE),
-  bronze_2016 = sample(11:15, 3, replace=TRUE)
-  )
-medals_wide
-```
-
-## 7.  Tidying/reshaping data with the tidyr R package - `gather()`
-We can use `gather()` to combine the observation variables (gold, silver, bronze) into a single variable by year. This is similar to "melting" your data from wide to long format in the "reshape2" R package.
-```{r, eval=FALSE}
-?gather
-```
-```{r}
-library(tidyr)
-glimpse(medals_wide)
-medals_long <- medals_wide %>%
-  gather(obstype_year, obs_values, 2:7) 
-medals_long
-```
-Notice that we put 3 arguments into the `gather()` function: 
-1. The name the new column for the new ID variable (`obstype_year`), 
-2. The name for the new amalgamated observation variable (`obs_value`), 
-3. The indices of the old observation variables (`2:7`, signalling columns 2 through 7) that we want to gather into one variable (medal types and years). Notice that we don't want to melt down column 1 (country), as this is the "ID"  variable.
-
-## 7.  Tidying/reshaping data with the tidyr R package - `separate()`
-You will also notice that in our "long" dataset, "obstype" actually contains 2 pieces of information: "medal type" (gold, silver, or bronze) and "year".
-
-`separate()` can be used to split "obstype" (gold, silver, or bronze) back into medal type and year columns. We want to separate it at the underscore `_`:
-```{r, eval=FALSE}
-?separate
-```
-```{r}
-medals_long_sep <- medals_long %>%
-  separate(obstype_year, into = c("obs_type", "year"), sep = "_") %>%
-  mutate(year = as.integer(year))
-medals_long_sep
-glimpse(medals_long_sep) #We have successfully separated "obs_type" and "year"! :) 
-```
-
-## 7.  Tidying/reshaping data with the tidyr R package - `spread()`
-You can spread this dataset into 'medium' format using `spread()`
-```{r, eval=FALSE}
-?spread
-```
-```{r}
-medals_medium <- medals_long_sep %>%
-  spread(obs_type, obs_values)
-medals_medium
-```
+1. load your `animals` dataset from Day 1 using `read.csv()`.
+2. create a subsetted data frame called `cats_dogs` that contains only cats and dogs.
+3. create a subsetted data frame that only contains healthy pigs!  
+4. load the `mtcars` dataset. How might you find out what it is and how do you load it? 
+5. subset `mtcars` in five different ways.
  
 # Acknowledgements
 [Wickham H, Grolemund G. 2016. R for Data Science](http://r4ds.had.co.nz/)
