@@ -216,7 +216,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">R Fundamentals Part 2: Subsetting and reshaping</h1>
 <h4 class="author"><em>Shinhye Choi, Evan Muzzall, Rochelle Terman, Dillon Niederhut</em></h4>
-<h4 class="date"><em>December 6, 2016</em></h4>
+<h4 class="date"><em>February 1, 2016</em></h4>
 
 </div>
 
@@ -245,20 +245,17 @@ div.tocify {
 </div>
 <div id="loading-data-from-files" class="section level1">
 <h1>2. Loading data from files</h1>
-<p>Set your working directory</p>
+<p>Set your working directory to the R-Fundamentals data folder:</p>
 <pre class="r"><code>getwd()
-setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)
-
-animals &lt;- read.csv(&quot;animals.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
-<p>Install the VIM package and retrieve it into your R instance</p>
-<pre class="r"><code>install.packages(&quot;VIM&quot;, dependencies=TRUE)
-library(VIM)</code></pre>
-<p>Load the sleep dataset from the VIM package. This dataset looks at sleep patterns in various species of mammals and contains missing (<code>NA</code>) values. See the link below for the original research article.</p>
-<p><a href="http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf">Allison and Chichetti 1976</a></p>
+setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)</code></pre>
+<p>Now, load the animals dataset that you created in Part 1. We do this with <code>read.csv</code>:</p>
+<pre class="r"><code>?read.csv</code></pre>
+<pre class="r"><code>animals &lt;- read.csv(&quot;animals.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
 <blockquote>
-<p>NOTE: you DO NOT want to load the Student’s Sleep Dataset from the “datasets” library. You should have 62 rows and 10 columns.</p>
+<p>Notice that <code>stringsAsFactors=FALSE</code>. If set to <code>TRUE</code>, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set <code>stringsAsFactors=FALSE</code> and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. <code>header=TRUE</code> will include the header row; <code>header=FALSE</code> will exclude the header row.</p>
 </blockquote>
-<pre class="r"><code>?sleep # Click the &quot;Mammal sleep data&quot; link. You DO NOT want &quot;Student's Sleep Data&quot;.</code></pre>
+<p>Also load the mammals sleep dataset from the <a href="https://cran.r-project.org/web/packages/VIM/VIM.pdf">VIM package</a> that is located in the data folder. This dataset looks at sleep patterns in various mammal species and contains missin (<code>NA</code>) values. See the link below for the original research article:</p>
+<pre class="r"><code>install.packages(&quot;VIM&quot;, dependencies = TRUE)</code></pre>
 <pre class="r"><code>library(VIM)</code></pre>
 <pre><code>## Loading required package: colorspace</code></pre>
 <pre><code>## Loading required package: grid</code></pre>
@@ -273,43 +270,26 @@ library(VIM)</code></pre>
 <pre><code>## The following object is masked from 'package:datasets':
 ## 
 ##     sleep</code></pre>
-<pre class="r"><code>data(sleep)
-
-dim(sleep) # 62 rows, 10 columns</code></pre>
-<pre><code>## [1] 62 10</code></pre>
-<pre class="r"><code>head(sleep)</code></pre>
-<pre><code>##    BodyWgt BrainWgt NonD Dream Sleep Span Gest Pred Exp Danger
-## 1 6654.000   5712.0   NA    NA   3.3 38.6  645    3   5      3
-## 2    1.000      6.6  6.3   2.0   8.3  4.5   42    3   1      3
-## 3    3.385     44.5   NA    NA  12.5 14.0   60    1   1      1
-## 4    0.920      5.7   NA    NA  16.5   NA   25    5   2      3
-## 5 2547.000   4603.0  2.1   1.8   3.9 69.0  624    3   5      4
-## 6   10.550    179.5  9.1   0.7   9.8 27.0  180    4   4      4</code></pre>
-<pre class="r"><code>str(sleep)</code></pre>
-<pre><code>## 'data.frame':    62 obs. of  10 variables:
-##  $ BodyWgt : num  6654 1 3.38 0.92 2547 ...
-##  $ BrainWgt: num  5712 6.6 44.5 5.7 4603 ...
-##  $ NonD    : num  NA 6.3 NA NA 2.1 9.1 15.8 5.2 10.9 8.3 ...
-##  $ Dream   : num  NA 2 NA NA 1.8 0.7 3.9 1 3.6 1.4 ...
-##  $ Sleep   : num  3.3 8.3 12.5 16.5 3.9 9.8 19.7 6.2 14.5 9.7 ...
-##  $ Span    : num  38.6 4.5 14 NA 69 27 19 30.4 28 50 ...
-##  $ Gest    : num  645 42 60 25 624 180 35 392 63 230 ...
-##  $ Pred    : int  3 3 1 5 3 4 1 4 1 1 ...
-##  $ Exp     : int  5 1 1 2 5 4 1 5 2 1 ...
-##  $ Danger  : int  3 3 1 3 4 4 1 4 1 1 ...</code></pre>
-<p>We can save this dataframe to a .CSV cile with <code>write.csv()</code>. It will save to our working directory:</p>
-<pre class="r"><code>?write.csv
-?read.csv</code></pre>
+<pre class="r"><code>data(sleep)</code></pre>
+<p>or …</p>
+<pre class="r"><code>sleep &lt;- read.csv(&quot;sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
+<p><a href="http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf">Allison and Chichetti 1976</a></p>
+<blockquote>
+<p>NOTE: you DO NOT want to load the Student’s Sleep Dataset from the “datasets” library. You should have 62 rows and 10 columns.</p>
+</blockquote>
+<pre class="r"><code>?sleep # Click the &quot;Mammal sleep data&quot; link. You DO NOT want &quot;Student's Sleep Data&quot;.</code></pre>
+<p>Remember, we can save this dataframe to a .CSV file with <code>write.csv()</code>. It will save to our working directory:</p>
+<pre class="r"><code>?write.csv</code></pre>
 <pre class="r"><code>write.csv(sleep, &quot;sleep_VIM.csv&quot;, row.names=FALSE)</code></pre>
-<p>We can load it from the file in our working directory via the <code>read.csv()</code> command:</p>
-<pre class="r"><code>sleep &lt;- read.csv(&quot;/Users/E/Desktop/R-Fundamentals/sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)
+<p><code>row.names=</code> will specify if you want to add a column to the .CSV file with the row names. Let’s say no by giving this parameter a <code>FALSE</code> argument.</p>
+<p>Like above, we can then use <code>read.csv</code> to load it into R. However, note that here we are including the file path in our <code>read.csv</code> function. This way, you can load data from other folders without changing your working directory!</p>
+<pre class="r"><code>sleep &lt;- read.csv(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data/sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)
 
 # or 
 
+getwd()
+setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)
 sleep &lt;- read.csv(&quot;sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
-<blockquote>
-<p>Notice that <code>stringsAsFactors=FALSE</code>. If set to <code>TRUE</code>, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set <code>stringsAsFactors=FALSE</code> and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. <code>header=TRUE</code> will include the header row.</p>
-</blockquote>
 <p>When dealing with Microsoft Excel files (.XLSX), you might find it more convenient to save them first as .CSV files in Excel and then import them using <code>read.csv()</code>.</p>
 <p>Other functions also work to import data from files, such as <code>load()</code>. You might also have success with the “xlsx” R package and its <code>read.xlsx()</code> command for directly importing Excel files.</p>
 <p>Also, the “foreign” R package has commands for loading data from SAS, SPSS, Stata, etc.</p>
@@ -318,11 +298,18 @@ sleep &lt;- read.csv(&quot;sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FA
 <h1>2. Loading data from files - inspecting the data frame</h1>
 <p>Remember from Part 1 that we can learn a lot about data in R. For dataframes, the following commands are common:</p>
 <pre class="r"><code>str(sleep)    # returns the structure of the dataframe
-dim(sleep)    # dataframe dimensions
+dim(sleep)    # dataframe dimensions; remember, we want 62 rows and 10 columns! 
+
 rownames(sleep)   #row names (they have not been named and default to character type)
+# for example:
+class(rownames(sleep))
+
 nrow(sleep)   # number of rows
 ncol(sleep)   # number of columns
-unique(sleep)   # show rows with unique data</code></pre>
+unique(sleep)   # show rows with unique data
+
+head(sleep, n=10) # show the first &quot;n&quot; rows
+tail(sleep, n=4) # show the last &quot;n&quot; rows</code></pre>
 <p><code>names()</code> and <code>colnames()</code> both return column names of the data frame:</p>
 <pre class="r"><code>names(sleep)  </code></pre>
 <pre><code>##  [1] &quot;BodyWgt&quot;  &quot;BrainWgt&quot; &quot;NonD&quot;     &quot;Dream&quot;    &quot;Sleep&quot;    &quot;Span&quot;    
@@ -366,7 +353,9 @@ new_Span</code></pre>
 <p>You can subset your data by specifying variable names within bracket notation and using the <code>c()</code> command to create a column name character vector of names you want to keep.</p>
 <p>We can create a new dataframe object <code>sleep_varnames</code> that includes only “BodyWgt” and “BrainWgt” variable names from the <code>sleep</code> data frame:</p>
 <pre class="r"><code>?&quot;[&quot;</code></pre>
-<pre class="r"><code>sleep_varnames &lt;- sleep[,c(&quot;BodyWgt&quot;, &quot;BrainWgt&quot;)]
+<pre class="r"><code>library(VIM)
+data(sleep)
+sleep_varnames &lt;- sleep[,c(&quot;BodyWgt&quot;, &quot;BrainWgt&quot;)]
 str(sleep_varnames)</code></pre>
 <pre><code>## 'data.frame':    62 obs. of  2 variables:
 ##  $ BodyWgt : num  6654 1 3.38 0.92 2547 ...
@@ -537,13 +526,14 @@ example_list</code></pre>
 <div id="challenge-1" class="section level1">
 <h1><strong>Challenge 1</strong></h1>
 <ol style="list-style-type: decimal">
-<li>How many ways can you subset the <code>iris</code> dataset using column names and positive and negative integers? Type and run <code>data(iris)</code> to load the dataset.</li>
+<li>How many ways can you subset the <code>iris</code> dataset using column names and positive and negative integers? Type and run <code>data(iris)</code> to load the dataset.<br />
+</li>
 <li>How do you view the structure of <code>iris</code>?</li>
 </ol>
 </div>
 <div id="missing-data-na" class="section level1">
 <h1>4. Missing data (NA)</h1>
-<p>Identifying missing data can be important for subsetting purposes. R codes missing values as <code>NA</code>. Identifying missing data is important because dealing with it might be necessary to run basic tests like <code>mean()</code></p>
+<p>Identifying missing data can be important for subsetting purposes. R codes missing values as <code>NA</code>. Identifying missing data is important because dealing with it might be necessary to run basic tests like <code>mean()</code>.</p>
 <pre class="r"><code>?NA</code></pre>
 <pre class="r"><code>mean(sleep$NonD)    # This returns NA because R is unsure how to deal with NA cells for the `mean()` computation.</code></pre>
 <pre><code>## [1] NA</code></pre>
@@ -590,28 +580,9 @@ is.na(sleep_NA) # Now we see TRUE values where data is missing</code></pre>
 </div>
 <div id="merging-data" class="section level1">
 <h1>5. Merging data</h1>
-<p>Merging data is useful when we want to combine two different dataframes that share a vector/column. We “merge” by that column. The first two arguments in <code>merge()</code> are the names of the two data frames, followed by <code>by</code> where we tell which column names we want to match:For example:</p>
+<p>Merging data is useful when we want to combine two different dataframes that share a vector/column. We “merge” by that column. The first two arguments in <code>merge()</code> are the names of the two data frames, followed by <code>by</code> where we tell which column names we want to match.</p>
+<p>Also note this shorthand way for creating a dataframe. For example:</p>
 <pre class="r"><code>?merge #Click the &quot;Merge two data frames&quot; link</code></pre>
-<pre class="r"><code>df1 &lt;- data.frame(Name=c(&quot;Joe&quot;, &quot;Susan&quot;, &quot;Jack&quot;, &quot;Kelly&quot;),
-                  City=c(&quot;Berkeley&quot;, &quot;Berkeley&quot;, &quot;Oakland&quot;, &quot;Oakland&quot;),
-                  Math=c(42, 48, 50, 46),
-                  Reading=c(8, 10, 10, 10))
-df1_a &lt;- data.frame(Name=c(&quot;Joe&quot;, &quot;Susan&quot;, &quot;Jack&quot;, &quot;Kelly&quot;),
-                    Science=c(99, 100, 99, 100))
-df_merge &lt;- merge(df1, df1_a, by=&quot;Name&quot;)
-df_merge</code></pre>
-<pre><code>##    Name     City Math Reading Science
-## 1  Jack  Oakland   50      10      99
-## 2   Joe Berkeley   42       8      99
-## 3 Kelly  Oakland   46      10     100
-## 4 Susan Berkeley   48      10     100</code></pre>
-<pre class="r"><code>#What happened here? </code></pre>
-<div id="merging-data---cbind-and-rbind" class="section level2">
-<h2>5. Merging data - <code>cbind()</code> and <code>rbind()</code></h2>
-<p>Other useful functions include <code>cbind()</code> and <code>rbind()</code>.</p>
-<p><code>cbind()</code> will bind two data frames by their columns. An example:</p>
-<pre class="r"><code>?cbind
-?rbind # Click the &quot;Combine R Objects by Rows or Columns&quot; link</code></pre>
 <pre class="r"><code>df1 &lt;- data.frame(Name=c(&quot;Joe&quot;, &quot;Susan&quot;, &quot;Jack&quot;, &quot;Kelly&quot;),
                   City=c(&quot;Berkeley&quot;, &quot;Berkeley&quot;, &quot;Oakland&quot;, &quot;Oakland&quot;),
                   Math=c(42, 48, 50, 46),
@@ -622,58 +593,57 @@ df1</code></pre>
 ## 2 Susan Berkeley   48      10
 ## 3  Jack  Oakland   50      10
 ## 4 Kelly  Oakland   46      10</code></pre>
-<pre class="r"><code>df2 &lt;- data.frame(Name=c(&quot;Jack&quot;, &quot;Susan&quot;, &quot;Joe&quot;, &quot;Kelly&quot;),
-                  DOB=c(&quot;March&quot;, &quot;December&quot;, &quot;January&quot;, &quot;July&quot;))
+<pre class="r"><code>df2 &lt;- data.frame(Name=c(&quot;Joe&quot;, &quot;Susan&quot;, &quot;Jack&quot;, &quot;Kelly&quot;),
+                    Science=c(99, 100, 99, 100),
+                    Music=c(19, 18, 20, 20),
+                    Art=c(20, 20, 19, 18))
 df2</code></pre>
-<pre><code>##    Name      DOB
-## 1  Jack    March
-## 2 Susan December
-## 3   Joe  January
-## 4 Kelly     July</code></pre>
-<pre class="r"><code>df3 &lt;- merge(df1, df2, by=&quot;Name&quot;)
-df3</code></pre>
-<pre><code>##    Name     City Math Reading      DOB
-## 1  Jack  Oakland   50      10    March
-## 2   Joe Berkeley   42       8  January
-## 3 Kelly  Oakland   46      10     July
-## 4 Susan Berkeley   48      10 December</code></pre>
-<pre class="r"><code>df4 &lt;- cbind(df1, df2)
-df4</code></pre>
-<pre><code>##    Name     City Math Reading  Name      DOB
-## 1   Joe Berkeley   42       8  Jack    March
-## 2 Susan Berkeley   48      10 Susan December
-## 3  Jack  Oakland   50      10   Joe  January
-## 4 Kelly  Oakland   46      10 Kelly     July</code></pre>
-<pre class="r"><code>str(df4)</code></pre>
-<pre><code>## 'data.frame':    4 obs. of  6 variables:
-##  $ Name   : Factor w/ 4 levels &quot;Jack&quot;,&quot;Joe&quot;,&quot;Kelly&quot;,..: 2 4 1 3
-##  $ City   : Factor w/ 2 levels &quot;Berkeley&quot;,&quot;Oakland&quot;: 1 1 2 2
-##  $ Math   : num  42 48 50 46
-##  $ Reading: num  8 10 10 10
-##  $ Name   : Factor w/ 4 levels &quot;Jack&quot;,&quot;Joe&quot;,&quot;Kelly&quot;,..: 1 4 2 3
-##  $ DOB    : Factor w/ 4 levels &quot;December&quot;,&quot;January&quot;,..: 4 1 2 3</code></pre>
-<pre class="r"><code>df5 &lt;- data.frame(Name=c(&quot;Heather&quot;, &quot;Billy&quot;),
-                  City=c(&quot;San Francisco&quot;, &quot;San Francisco&quot;),
+<pre><code>##    Name Science Music Art
+## 1   Joe      99    19  20
+## 2 Susan     100    18  20
+## 3  Jack      99    20  19
+## 4 Kelly     100    20  18</code></pre>
+<pre class="r"><code>df_merge &lt;- merge(df1, df2, by=&quot;Name&quot;)
+df_merge</code></pre>
+<pre><code>##    Name     City Math Reading Science Music Art
+## 1  Jack  Oakland   50      10      99    20  19
+## 2   Joe Berkeley   42       8      99    19  20
+## 3 Kelly  Oakland   46      10     100    20  18
+## 4 Susan Berkeley   48      10     100    18  20</code></pre>
+<pre class="r"><code>#What happened here? </code></pre>
+<div id="merging-data---cbind-and-rbind" class="section level2">
+<h2>5. Merging data - <code>cbind()</code> and <code>rbind()</code></h2>
+<p>Other useful functions include <code>cbind()</code> and <code>rbind()</code>.</p>
+<p><code>cbind()</code> will bind two data frames by their columns. Let’s cbind <code>df1</code> and a new dataframe, <code>df3</code>:</p>
+<pre class="r"><code>?cbind
+?rbind # Click the &quot;Combine R Objects by Rows or Columns&quot; link</code></pre>
+<pre class="r"><code>df1</code></pre>
+<pre><code>##    Name     City Math Reading
+## 1   Joe Berkeley   42       8
+## 2 Susan Berkeley   48      10
+## 3  Jack  Oakland   50      10
+## 4 Kelly  Oakland   46      10</code></pre>
+<pre class="r"><code>df3 &lt;- data.frame(Name=c(&quot;Heather&quot;, &quot;Billy&quot;, &quot;Hector&quot;, &quot;Jane&quot;),
+                  City=c(&quot;San Francisco&quot;, &quot;Los Angeles&quot;, &quot;San Francisco&quot;, &quot;Chico&quot;),
                   Math=c(49, 44),
                   Reading=c(10,10))
-df5</code></pre>
+df3</code></pre>
 <pre><code>##      Name          City Math Reading
 ## 1 Heather San Francisco   49      10
-## 2   Billy San Francisco   44      10</code></pre>
-<pre class="r"><code>df6 &lt;- rbind(df1, df5)
-df6</code></pre>
-<pre><code>##      Name          City Math Reading
-## 1     Joe      Berkeley   42       8
-## 2   Susan      Berkeley   48      10
-## 3    Jack       Oakland   50      10
-## 4   Kelly       Oakland   46      10
-## 5 Heather San Francisco   49      10
-## 6   Billy San Francisco   44      10</code></pre>
+## 2   Billy   Los Angeles   44      10
+## 3  Hector San Francisco   49      10
+## 4    Jane         Chico   44      10</code></pre>
+<pre class="r"><code>df_cbind &lt;- cbind(df1, df3)
+df_cbind</code></pre>
+<pre><code>##    Name     City Math Reading    Name          City Math Reading
+## 1   Joe Berkeley   42       8 Heather San Francisco   49      10
+## 2 Susan Berkeley   48      10   Billy   Los Angeles   44      10
+## 3  Jack  Oakland   50      10  Hector San Francisco   49      10
+## 4 Kelly  Oakland   46      10    Jane         Chico   44      10</code></pre>
 <blockquote>
 <p>NOTE: cbind will not warn you if you have duplicate column names!</p>
 </blockquote>
 <p><code>rbind()</code> will add more a dataframe as rows to an existing data frame. An example:</p>
-<pre class="r"><code>?rbind # Click &quot;Combine R objects by rows or colums&quot; link</code></pre>
 <pre class="r"><code>dfA &lt;- data.frame(Name=c(&quot;Joe&quot;, &quot;Susan&quot;, &quot;Jack&quot;, &quot;Kelly&quot;),
                   City=c(&quot;Berkeley&quot;, &quot;Berkeley&quot;, &quot;Oakland&quot;, &quot;Oakland&quot;),
                   Math=c(42, 48, 50, 46),
@@ -708,6 +678,102 @@ df_rbind</code></pre>
 <li>load the <code>mtcars</code> dataset. How might you find out what it is and how do you load it?</li>
 <li>subset <code>mtcars</code> in five different ways.</li>
 </ol>
+<div id="reshaping-data-with-the-reshape2-package" class="section level2">
+<h2>6. Reshaping data with the “reshape2” package</h2>
+<pre class="r"><code>install.packages(&quot;reshape2&quot;, dependencies=TRUE)
+library(reshape2)</code></pre>
+<p><code>t</code> will quickly transpose your dataframe or matrix:</p>
+<pre class="r"><code>?t</code></pre>
+<pre class="r"><code>mat1 &lt;- matrix(1:10, nrow=5, ncol=2)
+mat1</code></pre>
+<pre><code>##      [,1] [,2]
+## [1,]    1    6
+## [2,]    2    7
+## [3,]    3    8
+## [4,]    4    9
+## [5,]    5   10</code></pre>
+<pre class="r"><code>mat1_t &lt;- t(mat1)
+mat1_t</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    6    7    8    9   10</code></pre>
+<pre class="r"><code># or
+
+animals_t &lt;- t(animals)
+animals_t</code></pre>
+<pre><code>##          [,1]          [,2]          [,3]          [,4]         
+## Type     &quot;Dog&quot;         &quot;Pig&quot;         &quot;Dog&quot;         &quot;Cat&quot;        
+## Healthy  &quot;FALSE&quot;       &quot; TRUE&quot;       &quot; TRUE&quot;       &quot;FALSE&quot;      
+## Weight   &quot;4.062035&quot;    &quot;4.488496&quot;    &quot;5.291413&quot;    &quot;6.632831&quot;   
+## Height   &quot;10&quot;          &quot; 6&quot;          &quot; 7&quot;          &quot; 6&quot;         
+## Progress &quot; 1.51178117&quot; &quot; 0.38984324&quot; &quot;-0.62124058&quot; &quot;-2.21469989&quot;
+##          [,5]          [,6]          [,7]          [,8]         
+## Type     &quot;Pig&quot;         &quot;Cat&quot;         &quot;Pig&quot;         &quot;Cat&quot;        
+## Healthy  &quot;FALSE&quot;       &quot; TRUE&quot;       &quot; TRUE&quot;       &quot; TRUE&quot;      
+## Weight   &quot;3.806728&quot;    &quot;6.593559&quot;    &quot;6.778701&quot;    &quot;5.643191&quot;   
+## Height   &quot; 8&quot;          &quot; 6&quot;          &quot; 7&quot;          &quot; 9&quot;         
+## Progress &quot; 1.12493092&quot; &quot;-0.04493361&quot; &quot;-0.01619026&quot; &quot; 0.94383621&quot;
+##          [,9]          [,10]         [,11]         [,12]        
+## Type     &quot;Cat&quot;         &quot;Cat&quot;         &quot;Cat&quot;         &quot;Cat&quot;        
+## Healthy  &quot;FALSE&quot;       &quot;FALSE&quot;       &quot;FALSE&quot;       &quot;FALSE&quot;      
+## Weight   &quot;5.516456&quot;    &quot;3.247145&quot;    &quot;3.823898&quot;    &quot;3.706227&quot;   
+## Height   &quot; 5&quot;          &quot;10&quot;          &quot; 7&quot;          &quot;10&quot;         
+## Progress &quot; 0.82122120&quot; &quot; 0.59390132&quot; &quot; 0.91897737&quot; &quot; 0.78213630&quot;
+##          [,13]         [,14]         [,15]         [,16]        
+## Type     &quot;Dog&quot;         &quot;Pig&quot;         &quot;Pig&quot;         &quot;Pig&quot;        
+## Healthy  &quot; TRUE&quot;       &quot; TRUE&quot;       &quot; TRUE&quot;       &quot; TRUE&quot;      
+## Weight   &quot;5.748091&quot;    &quot;4.536415&quot;    &quot;6.079366&quot;    &quot;4.990797&quot;   
+## Height   &quot; 7&quot;          &quot; 7&quot;          &quot; 7&quot;          &quot;10&quot;         
+## Progress &quot; 0.07456498&quot; &quot;-1.98935170&quot; &quot; 0.61982575&quot; &quot;-0.05612874&quot;
+##          [,17]         [,18]         [,19]         [,20]        
+## Type     &quot;Dog&quot;         &quot;Dog&quot;         &quot;Pig&quot;         &quot;Dog&quot;        
+## Healthy  &quot;FALSE&quot;       &quot; TRUE&quot;       &quot; TRUE&quot;       &quot;FALSE&quot;      
+## Weight   &quot;5.870474&quot;    &quot;6.967624&quot;    &quot;4.520141&quot;    &quot;6.109781&quot;   
+## Height   &quot;10&quot;          &quot; 7&quot;          &quot; 9&quot;          &quot;10&quot;         
+## Progress &quot;-0.15579551&quot; &quot;-1.47075238&quot; &quot;-0.47815006&quot; &quot; 0.41794156&quot;</code></pre>
+<p>You might find that certain functions require data to be in “wide” or “long” format.</p>
+<p>“Wide” format means that each variable is shown in a column, like in our animals dataframe:</p>
+<pre class="r"><code>head(animals)</code></pre>
+<pre><code>##   Type Healthy   Weight Height    Progress
+## 1  Dog   FALSE 4.062035     10  1.51178117
+## 2  Pig    TRUE 4.488496      6  0.38984324
+## 3  Dog    TRUE 5.291413      7 -0.62124058
+## 4  Cat   FALSE 6.632831      6 -2.21469989
+## 5  Pig   FALSE 3.806728      8  1.12493092
+## 6  Cat    TRUE 6.593559      6 -0.04493361</code></pre>
+<p>“Long” format means that each row is a unique combination of our “id” variable (animal “Type”) and each variable (“Healthy”, “Weight”, “Height”, and “Progress”).</p>
+<div id="melt-and-cast" class="section level5">
+<h5><code>melt</code> and <code>cast</code></h5>
+<p>Melt is a handy way to reshape data from “wide” to “long” format:</p>
+<pre class="r"><code>?melt
+?dcast</code></pre>
+<pre class="r"><code>animals_melt &lt;- melt(animals, id=&quot;Type&quot;)
+str(animals_melt)</code></pre>
+<pre><code>## 'data.frame':    80 obs. of  3 variables:
+##  $ Type    : chr  &quot;Dog&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Cat&quot; ...
+##  $ variable: Factor w/ 4 levels &quot;Healthy&quot;,&quot;Weight&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ value   : num  0 1 1 0 0 1 1 1 0 0 ...</code></pre>
+<pre class="r"><code>animals_melt</code></pre>
+<p>Cast is handy to perform some basic summary operations. For example, let’s look at the mean Weight of each animal Type:</p>
+<pre class="r"><code>type_means &lt;- dcast(animals_melt, Type~variable, mean)
+type_means</code></pre>
+<pre><code>##   Type   Healthy   Weight   Height    Progress
+## 1  Cat 0.2857143 5.023330 7.571429  0.25720556
+## 2  Dog 0.5000000 5.674903 8.500000 -0.04058346
+## 3  Pig 0.8571429 5.028663 7.714286 -0.05788869</code></pre>
+<pre class="r"><code>type_sd &lt;- dcast(animals_melt, Type~variable, sd)
+type_sd</code></pre>
+<pre><code>##   Type   Healthy    Weight   Height  Progress
+## 1  Cat 0.4879500 1.4149054 2.070197 1.1414930
+## 2  Dog 0.5477226 0.9645994 1.643168 1.0029118
+## 3  Pig 0.3779645 1.0371317 1.380131 0.9973075</code></pre>
+<p>We now have a summary table in “wide” format!</p>
+<p>See the links below for more information about “reshape2” and check the <a href="http://dlab.berkeley.edu/calendar-node-field-date">D-Lab calendar</a> for the “Data Wrangling and Manipulation in R” workshop on reshaping data with the “dplyr” R package.<br />
+<a href="http://seananderson.ca/2013/10/19/reshape.html">Sean C. Anderson’s Introduction to the “reshape2” package</a><br />
+<a href="http://had.co.nz/reshape/introduction.pdf">Hadley Wickhams introduction to the “reshape2” package</a><br />
+<a href="http://www.statmethods.net/management/reshape.html">Rob Kabakoff’s examples of “reshape2” (and also of everything R) are always worthwhile!</a></p>
+</div>
+</div>
 </div>
 <div id="acknowledgements" class="section level1">
 <h1>Acknowledgements</h1>

@@ -1,13 +1,11 @@
 ---
 title: 'R Fundamentals Part 3: Data exploration and analysis'
 author: "Rochelle Terman, Evan Muzzall, Dillon Niederhut"
-date: "December 6, 2016"
+date: "February 6, 2017"
 output:
   html_document:
     toc: yes
     toc_float: yes
-  word_document:
-    toc: yes
 ---
  
 ```{r setup, include=FALSE}
@@ -25,7 +23,7 @@ knitr::opts_chunk$set(echo = TRUE)
 Set your working directory to the R-Fundamentals folder
 ```{r, eval=FALSE}
 getwd()
-setwd("/Users/E/Desktop/R-Fundamentals-master")
+setwd("/Users/evanmuzzall/Desktop/R-Fundamentals/data")
 ```
 
 Read in the `animals` data frame you created on Day 1
@@ -372,7 +370,7 @@ So, Cat Height and Weight seem to be related at an adjusted p-value cutoff of p<
 
 Now what? Linear regression is a convenient way to see if one numeric variable can be used to predict another. Do you think Cat Weight can be used to predict Cat Height? Again, note the altered syntax:
 
-model1 <- lm(Y ~ X, data=data)
+`model1 <- lm(Y ~ X, data=data)`
 
 Y is the target, outcome, or dependent variable.  
 X is the predictor or independent variable.  
@@ -413,7 +411,7 @@ hist(lin.model1$residuals, col="skyblue") # residuals should be approximately no
 3. Can one of these variables be used to predict another in a linear regression model? 
 
 # 5.  ggplot2
-The "ggplot2" R package is another powerful way to graph your data. The syntax is similar to what we used in "dplyr", except instead of a pipe `%>%`, we use a plus-symbol `+`:
+The "ggplot2" R package is another powerful way to graph your data. The syntax is similar to what is used in "dplyr", except instead of a pipe `%>%`, we use a plus-symbol `+`:
 ```{r, eval=FALSE}
 install.packages("ggplot2", dependencies=TRUE)
 ?ggplot

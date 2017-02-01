@@ -1,7 +1,7 @@
 ---
 title: 'R Fundamentals Part 2: Subsetting and reshaping'
 author: "Shinhye Choi, Evan Muzzall, Rochelle Terman, Dillon Niederhut"
-date: "December 6, 2016"
+date: "February 1, 2016"
 output:
   html_document:
     toc: yes
@@ -31,20 +31,32 @@ knitr::opts_chunk$set(echo = TRUE)
 5. Save your work: `write.csv()` and `sink()`
 
 # 2.  Loading data from files
-Set your working directory
+Set your working directory to the R-Fundamentals data folder:
 ```{r, eval=FALSE}
 getwd()
 setwd("/Users/evanmuzzall/Desktop/R-Fundamentals/data")
-
+```
+Now, load the animals dataset that you created in Part 1. We do this with `read.csv`:
+```{r}
+?read.csv
+```
+```{r}
 animals <- read.csv("animals.csv", header=TRUE, stringsAsFactors=FALSE)
 ```
-Install the VIM package and retrieve it into your R instance
-```{r, eval=FALSE}
-install.packages("VIM", dependencies=TRUE)
-library(VIM)
-```
-Load the sleep dataset from the VIM package. This dataset looks at sleep patterns in various species of mammals and contains missing (`NA`) values. See the link below for the original research article.  
+> Notice that `stringsAsFactors=FALSE`. If set to `TRUE`, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set `stringsAsFactors=FALSE` and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. `header=TRUE` will include the header row; `header=FALSE` will exclude the header row.   
 
+Also load the mammals sleep dataset from the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf) that is located in the data folder. This dataset looks at sleep patterns in various mammal species and contains missin (`NA`) values. See the link below for the original research article:
+```{r, eval=FALSE}
+install.packages("VIM", dependencies = TRUE)
+```
+```{r}
+library(VIM)
+data(sleep)
+```
+or ...
+```{r, eval=FALSE}
+sleep <- read.csv("sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
+```
 [Allison and Chichetti 1976](http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf)
 
 > NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. You should have 62 rows and 10 columns.  
@@ -53,36 +65,28 @@ Load the sleep dataset from the VIM package. This dataset looks at sleep pattern
 ?sleep # Click the "Mammal sleep data" link. You DO NOT want "Student's Sleep Data".
 ```
 
-```{r}
-library(VIM)
-data(sleep)
-
-dim(sleep) # 62 rows, 10 columns
-head(sleep)
-str(sleep)
-```
-We can save this dataframe to a .CSV cile with `write.csv()`. It will save to our working directory:
+Remember, we can save this dataframe to a .CSV file with `write.csv()`. It will save to our working directory:
 ```{r, eval=FALSE}
 ?write.csv
-?read.csv
 ```
 ```{r}
 write.csv(sleep, "sleep_VIM.csv", row.names=FALSE)
 ```
-We can load it from the file in our working directory via the `read.csv()` command:
+`row.names=` will specify if you want to add a column to the .CSV file with the row names. Let's say no by giving this parameter a `FALSE` argument.  
+
+Like above, we can then use `read.csv` to load it into R. However, note that here we are including the file path in our `read.csv` function. This way, you can load data from other folders without changing your working directory! 
 ```{r, eval=FALSE}
-sleep <- read.csv("/Users/E/Desktop/R-Fundamentals/sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
+sleep <- read.csv("/Users/evanmuzzall/Desktop/R-Fundamentals/data/sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
 
 # or 
 
+getwd()
+setwd("/Users/evanmuzzall/Desktop/R-Fundamentals/data")
 sleep <- read.csv("sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
 ```
+When dealing with Microsoft Excel files (.XLSX), you might find it more convenient to save them first as .CSV files in Excel and then import them using `read.csv()`.  
 
-> Notice that `stringsAsFactors=FALSE`. If set to `TRUE`, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set `stringsAsFactors=FALSE` and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. `header=TRUE` will include the header row.
-
-When dealing with Microsoft Excel files (.XLSX), you might find it more convenient to save them first as .CSV files in Excel and then import them using `read.csv()`. 
-
-Other functions also work to import data from files, such as `load()`. You might also have success with the "xlsx" R package and its `read.xlsx()` command for directly importing Excel files. 
+Other functions also work to import data from files, such as `load()`. You might also have success with the "xlsx" R package and its `read.xlsx()` command for directly importing Excel files.  
 
 Also, the "foreign" R package has commands for loading data from SAS, SPSS, Stata, etc.
 
@@ -90,11 +94,18 @@ Also, the "foreign" R package has commands for loading data from SAS, SPSS, Stat
 Remember from Part 1 that we can learn a lot about data in R. For dataframes, the following commands are common:
 ```{r, eval=FALSE}
 str(sleep)    # returns the structure of the dataframe
-dim(sleep)    # dataframe dimensions
+dim(sleep)    # dataframe dimensions; remember, we want 62 rows and 10 columns! 
+
 rownames(sleep)   #row names (they have not been named and default to character type)
+# for example:
+class(rownames(sleep))
+
 nrow(sleep)   # number of rows
 ncol(sleep)   # number of columns
 unique(sleep)   # show rows with unique data
+
+head(sleep, n=10) # show the first "n" rows
+tail(sleep, n=4) # show the last "n" rows
 ```
 `names()` and `colnames()` both return column names of the data frame:
 ```{r}
@@ -140,6 +151,8 @@ We can create a new dataframe object `sleep_varnames` that includes only "BodyWg
 ?"["
 ```
 ```{r}
+library(VIM)
+data(sleep)
 sleep_varnames <- sleep[,c("BodyWgt", "BrainWgt")]
 str(sleep_varnames)
 head(sleep_varnames)
@@ -231,11 +244,11 @@ example_list[[1]]
 ```
 
 # **Challenge 1**
-1. How many ways can you subset the `iris` dataset using column names and positive and negative integers? Type and run `data(iris)` to load the dataset.
+1. How many ways can you subset the `iris` dataset using column names and positive and negative integers? Type and run `data(iris)` to load the dataset.  
 2. How do you view the structure of `iris`?
 
 # 4.  Missing data (NA)
-Identifying missing data can be important for subsetting purposes. R codes missing values as `NA`. Identifying missing data is important because dealing with it might be necessary to run basic tests like `mean()`
+Identifying missing data can be important for subsetting purposes. R codes missing values as `NA`. Identifying missing data is important because dealing with it might be necessary to run basic tests like `mean()`. 
 ```{r, eval=FALSE}
 ?NA
 ```
@@ -274,7 +287,7 @@ sleep[sleep == "NONE"] <- NA
 sleep
 ```
 
-> NOTE: here `<NA>` and `NA` are synonymous and R will treat them both as missing. `<NA>` with less than/greater than symbols is handy because it will let you know which values you have manually recoded to missing.
+> NOTE: here `<NA>` and `NA` are synonymous and R will treat them both as missing. `<NA>` with less than/greater than symbols is handy because it will let you know which values you have manually recoded to missing.  
 
 We can also subset only rows without any missing data using bracket notation. `complete.cases()` will find rows with no missing values.
 ```{r, eval=FALSE}
@@ -310,7 +323,9 @@ is.na(sleep_NA) # Now we see TRUE values where data is missing
 1. How many different ways can you subset the `sleep` dataset using logical tests for `NA` data?
 
 # 5.  Merging data
-Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column. The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match:For example: 
+Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column. The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match.  
+
+Also note this shorthand way for creating a dataframe. For example: 
 ```{r, eval=FALSE}
 ?merge #Click the "Merge two data frames" link
 ```
@@ -319,9 +334,15 @@ df1 <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
                   City=c("Berkeley", "Berkeley", "Oakland", "Oakland"),
                   Math=c(42, 48, 50, 46),
                   Reading=c(8, 10, 10, 10))
-df1_a <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
-                    Science=c(99, 100, 99, 100))
-df_merge <- merge(df1, df1_a, by="Name")
+df1
+
+df2 <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
+                    Science=c(99, 100, 99, 100),
+                    Music=c(19, 18, 20, 20),
+                    Art=c(20, 20, 19, 18))
+df2
+
+df_merge <- merge(df1, df2, by="Name")
 df_merge
 #What happened here? 
 ```
@@ -329,44 +350,26 @@ df_merge
 ## 5.  Merging data - `cbind()` and `rbind()`
 Other useful functions include `cbind()` and `rbind()`.  
 
-`cbind()` will bind two data frames by their columns. An example:
+`cbind()` will bind two data frames by their columns. Let's cbind `df1` and a new dataframe, `df3`:
 ```{r, eval=FALSE}
 ?cbind
 ?rbind # Click the "Combine R Objects by Rows or Columns" link
 ```
 ```{r}
-df1 <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
-                  City=c("Berkeley", "Berkeley", "Oakland", "Oakland"),
-                  Math=c(42, 48, 50, 46),
-                  Reading=c(8, 10, 10, 10))
 df1
 
-df2 <- data.frame(Name=c("Jack", "Susan", "Joe", "Kelly"),
-                  DOB=c("March", "December", "January", "July"))
-df2
-
-df3 <- merge(df1, df2, by="Name")
-df3
-
-df4 <- cbind(df1, df2)
-df4
-str(df4)
-
-df5 <- data.frame(Name=c("Heather", "Billy"),
-                  City=c("San Francisco", "San Francisco"),
+df3 <- data.frame(Name=c("Heather", "Billy", "Hector", "Jane"),
+                  City=c("San Francisco", "Los Angeles", "San Francisco", "Chico"),
                   Math=c(49, 44),
                   Reading=c(10,10))
-df5
+df3
 
-df6 <- rbind(df1, df5)
-df6
+df_cbind <- cbind(df1, df3)
+df_cbind
 ```
 > NOTE: cbind will not warn you if you have duplicate column names! 
 
 `rbind()` will add more a dataframe as rows to an existing data frame. An example:
-```{r, eval=FALSE}
-?rbind # Click "Combine R objects by rows or colums" link
-```
 ```{r}
 dfA <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
                   City=c("Berkeley", "Berkeley", "Oakland", "Oakland"),
@@ -387,7 +390,69 @@ df_rbind
 2. create a subsetted data frame called `cats_dogs` that contains only cats and dogs.
 3. create a subsetted data frame that only contains healthy pigs!  
 4. load the `mtcars` dataset. How might you find out what it is and how do you load it? 
-5. subset `mtcars` in five different ways.
+5. subset `mtcars` in five different ways.  
  
+## 6. Reshaping data with the "reshape2" package 
+```{r, eval=FALSE}
+install.packages("reshape2", dependencies=TRUE)
+library(reshape2)
+```
+
+`t` will quickly transpose your dataframe or matrix:
+```{r, eval=FALSE}
+?t
+```
+```{r}
+mat1 <- matrix(1:10, nrow=5, ncol=2)
+mat1
+mat1_t <- t(mat1)
+mat1_t
+
+# or
+
+animals_t <- t(animals)
+animals_t
+```
+
+You might find that certain functions require data to be in "wide" or "long" format.  
+
+
+"Wide" format means that each variable is shown in a column, like in our animals dataframe:
+```{r}
+head(animals)
+```
+
+"Long" format means that each row is a unique combination of our "id" variable (animal "Type") and each variable ("Healthy", "Weight", "Height", and "Progress").  
+
+##### `melt` and `cast`
+Melt is a handy way to reshape data from "wide" to "long" format:
+```{r}
+?melt
+?dcast
+```
+
+```{r}
+animals_melt <- melt(animals, id="Type")
+str(animals_melt)
+```
+```{r, eval=FALSE}
+animals_melt
+```
+
+Cast is handy to perform some basic summary operations. For example, let's look at the mean Weight of each animal Type:
+```{r}
+type_means <- dcast(animals_melt, Type~variable, mean)
+type_means
+
+type_sd <- dcast(animals_melt, Type~variable, sd)
+type_sd
+```
+We now have a summary table in "wide" format!  
+
+See the links below for more information about "reshape2" and check the [D-Lab calendar](http://dlab.berkeley.edu/calendar-node-field-date) for the "Data Wrangling and Manipulation in R" workshop on reshaping data with the "dplyr" R package.  
+[Sean C. Anderson's Introduction to the "reshape2" package](http://seananderson.ca/2013/10/19/reshape.html)  
+[Hadley Wickhams introduction to the "reshape2" package](http://had.co.nz/reshape/introduction.pdf)  
+[Rob Kabakoff's examples of "reshape2" (and also of everything R) are always worthwhile!](http://www.statmethods.net/management/reshape.html)  
+
 # Acknowledgements
 [Wickham H, Grolemund G. 2016. R for Data Science](http://r4ds.had.co.nz/)

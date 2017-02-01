@@ -1,15 +1,13 @@
 ---
 title: 'R Fundamentals Part 1: Introduction'
 author: "Evan Muzzall, Rochelle Terman, Dillon Niederhut"
-date: "December 6, 2016"
-output:
-  html_document:
+date: "February 3, 2017"
+output: 
+  html_document: 
     toc: yes
     toc_float: yes
-  word_document:
-    toc: yes
 ---
-
+ 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -61,7 +59,13 @@ Be sure to draw on your own experiences to include further examples and advice, 
 
 **If you are a student and you are looking at this R markdown file**, please use this as a guide if you have fallen behind, can't see the screen very well, or want to review these materials.  
 
-Remember, our goal is to teach you research applications in R. Check out the UC Berkeley [Department of Statistics](http://statistics.berkeley.edu/), [Interdepartmental Group in Biostatistics](https://www.stat.berkeley.edu/biostat/), and [EECS](https://cs.berkeley.edu/). 
+Remember, our goal is to teach you research applications in R. Check out UC Berkeley:  
+[Department of Statistics](http://statistics.berkeley.edu/)  
+[Data Science](http://data.berkeley.edu/)  
+[School of Information](https://datascience.berkeley.edu/)  
+[Interdepartmental Group in Biostatistics](https://www.stat.berkeley.edu/biostat/)  
+[data8](http://data8.org/sp17/)  
+[EECS](https://cs.berkeley.edu/)
 
 # 1.  Introduction - what is RStudio?
 R is old programming language based on the "S" and "S-PLUS" language and graphics user interface (GUI) and is both *functional* and *object oriented*. These themes make R highly extensible. 
@@ -245,7 +249,7 @@ If you have questions that don't seem to be answered by the help pages and vigne
 [Quick-R](http://statmethods.net/)  
 [UCLA idre](http://www.ats.ucla.edu/stat/r/)  
 [R-bloggers](https://www.r-bloggers.com/)  
-[Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)
+[Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
 
 ##  1.  Introduction -living in R
 Like in Unix, in R you are always in a directory. Your actions are all relative to that directory. You will find this useful for loading data from files and when you save your output it will be located here. 
@@ -743,22 +747,22 @@ animals$Type # Now when we call animals$Name, we can see that the levels have ch
 > NOTE: Make sure to keep the `animals` data frame saved in your working folder because we will use it for Parts 2, 3 and 4.
 
 # **Challenge 4**
-Vectors
-1.1 Create a vector of a sequence of numbers between 1 to 10.
-1.2 Coerce that vector into a character vector
-1.3 Add the element "11" to the end of the vector
-1.4 Evaluate the `str` of the vector.
-1.5 Create a sentence from separate words using `paste()`. Can you guess how to add another word to this vector without creating a new vector?
+Vectors  
+1.1 Create a vector of a sequence of numbers between 1 to 10.  
+1.2 Coerce that vector into a character vector  
+1.3 Add the element "11" to the end of the vector  
+1.4 Evaluate the `str` of the vector.  
+1.5 Create a sentence from separate words using `paste()`. Can you guess how to add another word to this vector without creating a new vector?  
 
-Lists
-2.1 How does a list differ from an atomic vector?
-2.2 Create three objects of different types and lengths and then combine them into a list names `x`.
-2.3 If `x` is a list, what is the class of `x[1]`? How about `x[[1]]`? (this is a preview of Part 2).
+Lists  
+2.1 How does a list differ from an atomic vector?  
+2.2 Create three objects of different types and lengths and then combine them into a list names `x`.  
+2.3 If `x` is a list, what is the class of `x[1]`? How about `x[[1]]`? (this is a preview of Part 2).  
 
-Data frames
-3.1 Create a 3x2 data frame called `basket`. List the name of each fruit in the first column and its price in teh second column. 
-3.2 Now give your dataframe appropriate column and row names. 
-3.3 We can add a new column using `$` (this will be covered with data subsetting in Part 2). Can you guess how to add a third column called "Color", that shows the color of each fruit?
+Data frames  
+3.1 Create a 3x2 data frame called `basket`. List the name of each fruit in the first column and its price in teh second column.  
+3.2 Now give your dataframe appropriate column and row names.  
+3.3 We can add a new column using `$` (this will be covered with data subsetting in Part 2). Can you guess how to add a third column called "Color", that shows the color of each fruit?  
 
 Basket example solution:  
 ```{r}

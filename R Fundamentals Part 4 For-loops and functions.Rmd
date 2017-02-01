@@ -1,7 +1,7 @@
 ---
 title: 'R Fundamentals Part 4: for loops and functions'
 author: "Guadalupe Tuñón, Evan Muzzall, Shinhye Choi, Rochelle Terman, Dillon Niederhut"
-date: "December 6, 2016"
+date: "February 8, 2017"
 output:
   html_document:
     toc: yes
@@ -632,6 +632,8 @@ par(mfrow=c(1,1))
 plot(sims[,1], sims[,2], pch=16, col="blue", 
      xlab="Nr of People", ylab="Probability of at Least One Match")
 ```
+
+
 Learn more about the birthday problem [here](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)
 
 # Acknowledgements

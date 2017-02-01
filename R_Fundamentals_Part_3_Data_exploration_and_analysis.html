@@ -216,7 +216,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">R Fundamentals Part 3: Data exploration and analysis</h1>
 <h4 class="author"><em>Rochelle Terman, Evan Muzzall, Dillon Niederhut</em></h4>
-<h4 class="date"><em>December 6, 2016</em></h4>
+<h4 class="date"><em>February 6, 2017</em></h4>
 
 </div>
 
@@ -235,7 +235,7 @@ div.tocify {
 <h1>1. Day 2 review</h1>
 <p>Set your working directory to the R-Fundamentals folder</p>
 <pre class="r"><code>getwd()
-setwd(&quot;/Users/E/Desktop/R-Fundamentals-master&quot;)</code></pre>
+setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)</code></pre>
 <p>Read in the <code>animals</code> data frame you created on Day 1</p>
 <pre class="r"><code>animals &lt;- read.csv(&quot;animals.csv&quot;, header=TRUE, stringsAsFactors=FALSE)
 str(animals)</code></pre>
@@ -693,7 +693,7 @@ summary(aov1)</code></pre>
 <h2>4. Statistical testing - <code>lm()</code></h2>
 <p>So, Cat Height and Weight seem to be related at an adjusted p-value cutoff of p&lt;0.10 for example.</p>
 <p>Now what? Linear regression is a convenient way to see if one numeric variable can be used to predict another. Do you think Cat Weight can be used to predict Cat Height? Again, note the altered syntax:</p>
-<p>model1 &lt;- lm(Y ~ X, data=data)</p>
+<p><code>model1 &lt;- lm(Y ~ X, data=data)</code></p>
 <p>Y is the target, outcome, or dependent variable.<br />
 X is the predictor or independent variable.</p>
 <p>We can use X to predict the outcome of Y!</p>
@@ -744,7 +744,7 @@ summary(lin.model1)</code></pre>
 </div>
 <div id="ggplot2" class="section level1">
 <h1>5. ggplot2</h1>
-<p>The “ggplot2” R package is another powerful way to graph your data. The syntax is similar to what we used in “dplyr”, except instead of a pipe <code>%&gt;%</code>, we use a plus-symbol <code>+</code>:</p>
+<p>The “ggplot2” R package is another powerful way to graph your data. The syntax is similar to what is used in “dplyr”, except instead of a pipe <code>%&gt;%</code>, we use a plus-symbol <code>+</code>:</p>
 <pre class="r"><code>install.packages(&quot;ggplot2&quot;, dependencies=TRUE)
 ?ggplot</code></pre>
 <pre class="r"><code>library(ggplot2)</code></pre>
