@@ -237,7 +237,7 @@ div.tocify {
 <pre class="r"><code>getwd()
 setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)</code></pre>
 <p>Read in the <code>animals</code> data frame you created on Day 1</p>
-<pre class="r"><code>animals &lt;- read.csv(&quot;animals.csv&quot;, header=TRUE, stringsAsFactors=FALSE)
+<pre class="r"><code>animals &lt;- read.csv(&quot;./data/animals.csv&quot;, header=TRUE, stringsAsFactors=FALSE)
 str(animals)</code></pre>
 <pre><code>## 'data.frame':    20 obs. of  5 variables:
 ##  $ Type    : chr  &quot;Dog&quot; &quot;Pig&quot; &quot;Dog&quot; &quot;Cat&quot; ...
@@ -267,7 +267,7 @@ str(animals)</code></pre>
 </blockquote>
 <div id="data-exploration-and-analysis-in-r---hypothesis-testing" class="section level2">
 <h2>2. Data exploration and analysis in R - hypothesis testing</h2>
-<p>You will frequently encounter hypotheses in the peer-reviewed literature and in test results in R. The simplest way to think about hypothesis testing is that you have two hypotheses: the null (Ho) and the alternative (Ha).</p>
+<p>You will frequently encounter hypotheses in the peer-reviewed literature and in test results in R. Hypotheses are generally based on research questions and expectations about the data. The simplest way to think about hypothesis testing is that you have two hypotheses: the null (Ho) and the alternative (Ha).</p>
 <p>The null hypothesis can be thought of as <strong>NO RELATIONSHIP</strong> or <strong>NO DIFFERENCE</strong> .</p>
 <p>The alternative hypothesis can be thought of as <strong>SOME SORT OF RELATIONSHIP</strong> or <strong>SOME SORT OF DIFFERENCE</strong>.</p>
 <p>Should your test fail to achieve statistical significance you <strong>FAIL TO REJECT THE NULL HYPOTHESIS</strong>. Should your test achieve statistical significance, you <strong>REJECT THE NULL HYPOTHESIS</strong>. These are your only two options! (more on this in section # 4 below).</p>
