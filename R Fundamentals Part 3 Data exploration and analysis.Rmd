@@ -1,6 +1,6 @@
 ---
 title: 'R Fundamentals Part 3: Data exploration and analysis'
-author: "Rochelle Terman, Evan Muzzall, Dillon Niederhut"
+author: "Evan Muzzall, Rochelle Terman, Dillon Niederhut"
 date: "February 6, 2017"
 output:
   html_document:
@@ -42,19 +42,21 @@ Research design, data collection, exploration, visualization, and analysis are f
 Furthermore, when you read peer-reviewed work in your field, having an understanding of basic summaries, plots, and statistical tests will help you better grasp arguments that the authors are making and will allow you to more critically evaluate their rationale. 
 
 Our focus is on data analysis in R, which usually proceeds in two steps:
-1) exploration/graphing
+1) exploration/summarizing/graphing
 2) statistical testing/inference
 
-Data exploration often means graphing your data to see if it is possible to visualize any obvious (or not so obvious) trends. 
+Data exploration often means summarizing and graphing your data to see if it is possible to visualize any obvious (or not so obvious) trends. 
 
-Statistical inference is employed to test relationships that might be illustrated by your plots. Remember that we are not formally teaching you statistics, rather statistical programming in R.
+Statistical inference is employed to test relationships that you might have noticed in the exploration stage. Remember that we are not formally teaching you statistics, rather responsible statistical programming application in R.  
+
+> NOTE: you want to use data exploration and testing to make some sort of informed decision about the question you are asking!  
 
 ## 2.  Data exploration and analysis in R - hypothesis testing
 You will frequently encounter hypotheses in the peer-reviewed literature and in test results in R. The simplest way to think about hypothesis testing is that you have two hypotheses: the null (Ho) and the alternative (Ha). 
 
-The null hypothesis can be thought of as **NO DIFFERENCE**.
+The null hypothesis can be thought of as **NO RELATIONSHIP** or **NO DIFFERENCE** .
 
-The alternative hypothesis can be thought of as **SOME SORT OF DIFFERENCE**.
+The alternative hypothesis can be thought of as **SOME SORT OF RELATIONSHIP** or **SOME SORT OF DIFFERENCE**.  
 
 Should your test fail to achieve statistical significance you **FAIL TO REJECT THE NULL HYPOTHESIS**. Should your test achieve statistical significance, you **REJECT THE NULL HYPOTHESIS**. These are your only two options! (more on this in section # 4 below).
 
@@ -62,7 +64,7 @@ Should your test fail to achieve statistical significance you **FAIL TO REJECT T
 ## 3. Data exploration and plotting - `summary()`
 It is often useful to first summarize your data. In R, this can be done in a variety of ways. 
 
-`summary()` provides a six-number summary of a data frame
+`summary()` provides a six-number summary of a data frame:
 ```{r, eval=FALSE}
 ?summary
 ```
@@ -144,6 +146,8 @@ table(animals$Type, animals$Healthy) #get frequencies for Cat, Dog, and Pig by c
 Wow! Only 2/7 cats are healthy.  
 3/6 dogs are healthy.  
 6/7 pigs are healthy!  
+
+Maybe resources need to be focused on care of the cats?  
 
 ##  3.  Data exploration and plotting - `hist()`
 Histograms are a handy way to quickly illustrate the distribution shape of a particular variable. Let's visualize the "Height" variable from the `animals` data frame:
@@ -287,22 +291,31 @@ Now that we have sufficiently explored our data, it is time to test some of the 
 
 Suppose we want to see if Height differenecs between Cat, Dog, and Pig are statistically different between the three groups.  
 
-We can define our **NULL HYPOTHESIS** to state that there are no Height differences between our animals. We can also define our **ALTERNATIVE HYPOTHESIS** to state that there are _some kind of_ differences between our animals. We do not specify the nature of the differences, but just that they exist. These hypotheses are tested using a "p-value". A p-value signifies how likely differences are statistically real instead of due to random chance. The most common standard cutoff value is p<0.05. 
+We can define our **NULL HYPOTHESIS** to state that there are no Height differences between our animals. We can also define our **ALTERNATIVE HYPOTHESIS** to state that there are _some kind of_ differences between our animals. We do not specify the nature of the differences, but just that the difference exists. For your own research and reading literature in your field, you will probably encounter more narrowly focused hypotheses, and maybe even multiple alternative hypotheses.  
 
-If p>0.05, you **FAIL TO REJECT THE NULL HYPOTHESIS**! This means that the null hypothesis holds true and that there is "no difference" between your groups. If p<0.05, you **REJECT THE NULL HYPOTHESIS** of "no difference" and by default you accept the alternative hypothesis and whatever "differences" it specified. This is a "statistically significant" difference.
+These hypotheses are tested using a "p-value". A p-value signifies how likely differences are statistically real instead of due to random chance. The most common standard cutoff value is p<0.05. 
 
-For example, look at your boxplots. Cat and Pig medians appear similar for Height, but their standard deviations differ greatly (the position of the median and the distribution shape of the boxes). However, they both seem different from Dog...
+If p>0.05, you **FAIL TO REJECT THE NULL HYPOTHESIS**! This means that the null hypothesis holds true and that there is "no difference" between your groups or "no relationship" among the variables being tested.  
 
-Might there be formal significant statistical differences between the means of Cat/Pig and Dog? 
+If p<0.05, you **REJECT THE NULL HYPOTHESIS** of "no difference" and by default you accept the alternative hypothesis and whatever "differences" or "relationships" it specified. This is a "statistically significant" difference.  
 
-Well, we can test those assumptions with "mean comparisons" such as t-tests and analysis of variance (ANOVA)!
+For example, look at your boxplots. Cat and Pig medians appear similar for Height, but their standard deviations differ greatly (the position of the median relative to the distribution shape of the boxes and whiskers). However, they both seem different from Dog...  
+
+Might there be formal significant statistical differences between the means of Cat/Pig and Dog?  
+
+Well, we can test those assumptions with "mean comparisons" such as t-tests and analysis of variance (ANOVA)!  
 
 ##  4.  Statistical testing - `t.test()`
-A "t.test" formally compares one or two group means for statistically significant differences at a standard p-value cutoff of p<0.05. We can use `t.test()` to make an observation of a population based on a sample. We are only examining a few hypothetical cats, dogs, and pigs - if we had ALL cats, dogs, and pigs in the world, there would be no need for a statistic - instead, we would only be concerned with what we observe!
+A "t.test" formally compares _one or two group means_ for statistically significant differences at a standard p-value cutoff of p<0.05. We can use `t.test()` to make an observation of a population based on a sample. We are only examining a few hypothetical cats, dogs, and pigs - if we had ALL cats, dogs, and pigs in the world, there would be no need for a statistic - instead, we would only be concerned with what we observe!  
+
+> KEY POINT: a t-test should only be applied for comparisons between one or two groups! Use an ANOVA (discussed below) for _more than two groups!_  
 
 The null hypothesis states that there are no actual mean differences between the two groups. 
 
-Let's first subset our data into `Cat`, `Dog`, and `Pig` data frames.
+# **Challenge 4**
+Subsetting review! 
+1. Subset your "animals" data frame into three new dataframes: Cat, Dog, and Pig. "Cat" should contain only cats, "Dog" should contain only dogs, and "Pig" should contain only pigs.  
+
 ```{r}
 Cat <- animals[animals$Type=="Cat",]
 Cat
@@ -313,13 +326,13 @@ Dog
 Pig <- animals[animals$Type=="Pig",]
 Pig
 ```
-Now, we can compare Height means between two of the three animals. 
+Now, we can compare Height means between two of the three animals (we will use an ANOVA to compare all three group means while responsibly correcting for family wise error - see below). 
 ```{r, eval=FALSE}
 ?t.test
 ```
 ```{r}
 t.test(Cat$Height, Pig$Height)
-# The p-value is 0.88 - we FAIL TO REJECT the null hypothesis (aka, there is no actual difference between Cat and Pig means for Height). We accept the conditions of the null hypothesis that state there are no between-group differences. 
+# The p-value is 0.88 - we FAIL TO REJECT the null hypothesis (aka, there is no statistical difference between Cat and Pig means for Height). We accept the conditions of the null hypothesis that state there are no between-group differences. 
 ```
 What about between Cat and Dog?
 ```{r}
@@ -327,15 +340,21 @@ t.test(Cat$Height, Dog$Height)
 # p=0.39 so again we FAIL TO REJECT the null hypothesis
 ```
 
-# **Challenge 4**
-1. Subset the `iris` dataset by species and perform a t-test between two of the species on one of the numeric variables. 
+# **Challenge 5**
+1. Subset the `iris` dataset by species and perform a t-test between two of the species on one of the numeric variables.  
 
 ##  4.  Statistical testing - `aov()` and `TukeyHSD()`
-What about if we want to compare more than two groups? Doing a bunch of pairwise t-tests (i.e., "multiple comparisons" for cat v. dog, cat v. pig, dog v. pig) is not ideal because it becomes more difficult to adjust for the "family wise error rate", or the influence of the other variables that are not being tested. 
+What about if we want to compare more than two groups? Doing multiple pairwise t-tests for 1) cat v. dog, 2) cat v. pig, 3) dog v. pig) is not ideal because it becomes more difficult to adjust for the "family wise error rate", or the influence of the other groups/variables that are not being tested. 
 
 When we want to compare _more than two group means at once_ (i.e., Cat, Dog, _and_ Pig), we can use an analysis of variance (ANOVA). This is called by `aov()` in R. 
+```{r, eval=FALSE}
+?aov
+```
 
 We can follow `aov()` with a "Tukey test of Honest Significant Difference" to find out between exactly which groups the differences (if any) exist. This is called with `TukeyHSD` in R.
+```{r, eval=FALSE}
+?TukeyHSD
+```
 
 Let's try! Note the slightly different syntax - we now specify only the column headings, and enter the name of our data frame in the "data" argument. Let's call our object `aov1`, which is an object we can unpack and look inside:
 ```{r}
@@ -344,14 +363,14 @@ aov1 <- aov(Height ~ Type, data = animals)
 #Use `summary()` to access the useful information from our `aov1` model:
 summary(aov1)
 ```
-We receive a non-significant p-value. However, we can still follow this up with a TukeyHSD test to see between which between-group differences are responsible for the differences! 
+We receive a non-significant p-value. However, we can still follow this up with a TukeyHSD test to see between which between-group differences do contribute to differences although they are non-significant: 
 ```{r}
 TukeyHSD(aov1)
-#This allows us to see mean Height differences bewteen the three animals. 
+#This allows us to see mean Height differences bewteen the multiple comparisons animals. 
 ```
 
-# **Challenge 5**
-1. Using the `iris` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three flower species. How does this differ from the t-test in Challenge 4?
+# **Challenge 6**
+1. Using the `iris` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three flower species. How does this differ from the t-test in Challenge 5?
 
 ##  4.  Statistical testing - `cor.test()`
 Correlation is a useful way to see if two numeric variables are related. "Pearson's r" is the default coefficient in `cor.test()`.
@@ -363,7 +382,7 @@ Investigate if Cat Height and Cat Weight are correlated:
 ```{r}
 cor.test(Cat$Height, Cat$Weight)
 ```
-Almost! Cat Height and Weight are NEGATIVELY correlated (r = -0.69) and are almost statistically significant (p=0.08). 
+Almost! Cat Height and Weight are NEGATIVELY correlated (r = -0.69) and are almost statistically significant (p=0.08). This is a good example of having to deal with p-values that approach statistical significance in real research.  
 
 ##  4.  Statistical testing - `lm()`
 So, Cat Height and Weight seem to be related at an adjusted p-value cutoff of p<0.10 for example. 
@@ -372,8 +391,9 @@ Now what? Linear regression is a convenient way to see if one numeric variable c
 
 `model1 <- lm(Y ~ X, data=data)`
 
-Y is the target, outcome, or dependent variable.  
-X is the predictor or independent variable.  
+Y is the target, response, outcome, or **_dependent_** variable. This is the variable we want to predict.  
+
+X is the predictor or **_independent_** variable.  
 
 We can use X to predict the outcome of Y!
 
@@ -397,23 +417,18 @@ lin.model1$residuals
 hist(lin.model1$residuals, col="skyblue") # residuals should be approximately normal when plotted
 ```
 
-# **Challenge 6**
-1. Using the `mtcars` dataset, create boxplots for one numeric variable as parsed by a factor variable. 
-
-*(hint: use `?mtcars` to view the variable names)*
-
-*(hinthint: can you surmise a relationship about something like engine size and miles per gallon?)*
- 
-*(hinthinthint: you can also use `cor.test()` to see if two variables are related)*
-
-2. Create a scatterplot of two variables using `plot()`.
-
-3. Can one of these variables be used to predict another in a linear regression model? 
+# **Challenge 7**
+1. Using the `mtcars` dataset, create boxplots for one numeric variable as parsed by a factor variable.  
+2. How do you load the "mtcars" dataset?  
+3. How do you view the variable names of this dataset?  
+4. Might you surmise a relationship about something like engine size and miles per gallon?  
+5. What does `cor.test` reveal about engine size and miles per gallon?  
+6. Create a scatterplot of two variables using `plot()`.  
+7. Can one of these variables be used to predict another in a linear regression model?  
 
 # 5.  ggplot2
-The "ggplot2" R package is another powerful way to graph your data. The syntax is similar to what is used in "dplyr", except instead of a pipe `%>%`, we use a plus-symbol `+`:
+The "ggplot2" R package is a powerful way to graph your data. The syntax is similar to what is used in "dplyr", except instead of a pipe `%>%`, a plus-symbol `+` is used:
 ```{r, eval=FALSE}
-install.packages("ggplot2", dependencies=TRUE)
 ?ggplot
 ```
 ```{r}
@@ -422,20 +437,25 @@ mtcars$cyl <- factor(mtcars$cyl) # first, coerce "cyl" to factor data type
 ggplot(mtcars, aes(x=cyl, y=mpg, fill=cyl)) + 
          geom_boxplot()
 ```
-Note the different syntax again. You need three things to make a ggplot:
+Note the different syntax again. You need three things to make a ggplot:  
 1. A dataset (`mtcars`)  
-2. aesthetics `aes()` - this is where you specify your axes and colors
-3. A geom - this is where you tell R if you want a scatterplot, boxplots, etc.
+2. aesthetics `aes()` - this is where you specify your axes and colors  
+3. A geom - this is where you tell R if you want a scatterplot, boxplots, etc.  
 
 Let's create a scatterplot using the `iris` data:
 ```{r}
 data(iris)
 ggplot(iris, aes(x=Petal.Length, y=Petal.Width, color=Species)) + 
-  geom_point() + theme(legend.position="top")
+  geom_point() + 
+  #theme_light() + 
+  #theme_dark() + 
+  #theme_classic() + 
+  #theme_bw + 
+  theme(legend.position="top") 
 ```
 
-# **Challenge 7**
+# **Challenge 8**
 1. Use "ggplot2" to create a boxplot or scatterplot using the `mtcars` or `iris` dataset.
 2. Export this plot to your working directory as a .PNG or .PDF file. 
 
-> NOTE: If you have research questions, [schedule an appointment with a D-Lab consultant!](http://dlab.berkeley.edu/consulting)
+> REMEMBER: If you have research questions, [schedule an appointment with a D-Lab consultant!](http://dlab.berkeley.edu/consulting)

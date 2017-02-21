@@ -1,13 +1,11 @@
 ---
-title: 'R Fundamentals Part 4: for loops and functions'
-author: "Guadalupe Tuñón, Evan Muzzall, Shinhye Choi, Rochelle Terman, Dillon Niederhut"
-date: "February 8, 2017"
+title: 'R Fundamentals Part 4: For loops and functions'
+author: "Guadalupe Tuñón, Dillon Niederhut, Shinhye Choi, Rochelle Terman, Evan Muzzall"
+date: "February 20, 2017"
 output:
   html_document:
     toc: yes
     toc_float: yes
-  word_document:
-    toc: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -22,7 +20,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Load your `sleep_VIM.csv` file from Part 2:
 ```{r, eval=FALSE}
-getwd()
 sleep <- read.csv("sleep_VIM.csv", header=TRUE, stringsAsFactors = FALSE)
 ```
 
@@ -38,9 +35,8 @@ nrow(sleep)
 ```
 However, before we get to functions, let us review for loops because many functions have for loops embedded in them.   
 
-Set working directory and load the `animals` data frame - we will return to this a little later:
+Load the `animals` data frame - we will return to this a little later:
 ```{r}
-getwd()
 animals <- read.csv("animals.csv", header=TRUE, stringsAsFactors=FALSE)
 str(animals)
 ```
@@ -59,7 +55,7 @@ The `variable` in `(variable in sequence)` is generally denoted with an `i`, whi
 "{statement}" refers to the code that you want run over the sequence at each iteration `i`. Notice that it is contained within curly braces { } - this defines the boundary of the statement in the for loop.
 
 ##  2.  For loops - Example 1
-Let's create a matrix of 2 to the power of `i` where `i` is 1 to 10. First we create a null vector called `vec` which will serve as a placeholder for the output of the loop.
+Let's create a matrix of 2 to the power of `i` where `i` is 1 to 10. First we create an NA vector called `vec` which will serve as a placeholder for the output of the loop.
 ```{r, eval=FALSE}
 ?rep
 ?"for"
@@ -94,12 +90,12 @@ You can also loop over character data. First, create a name vector:
 animal.names <- c("Cat", "Dog", "Pig", "Elephant", "Giraffe")
 animal.names
 ```
-Then, we create a NULL vector of the same length like we did above:
+Then, we create an NA vector of the same length like we did above:
 ```{r}
 animals.length <- rep(NA, length(animal.names))
 animals.length
 ```
-Now give the null vector names:
+Now give the NA vector names:
 ```{r}
 names(animals.length) <- animal.names
 animals.length  #See how we are building this from scratch?
@@ -133,7 +129,7 @@ for(i in 1:100){
 ?break
 ```
 
-We usually have data that we pass into a for loop. Let's create an object called `my_nums` that contains the integer vector 1:100. Let's test the _value_ (rather than the index):
+We usually have data that we pass into a for loop. Let's create an object called `my_nums` that contains the integer vector 40:70. Let's test the _value_ (rather than the index):
 ```{r}
 my_nums <- 40:70
 for(i in 1:length(my_nums)){
@@ -143,7 +139,7 @@ for(i in 1:length(my_nums)){
 # Numbers up to and including 50 are printed! 
 ```
 
-Let's quickly change our `my_nums` object to include one `NA` in position 55. 
+Let's quickly change our `my_nums` object to include one `NA` in position 15: 
 ```{r}
 my_nums[15] <-  as.numeric(NA)
 my_nums
@@ -181,7 +177,7 @@ if(x > 7){
   print("NOT BIG ENOUGH!!")
 }
 ```
-Reassign x <- 10 here - what happens? Does indentation matter? Let me show you how I like to format my code (which is considered hard to read by most). 
+Reassign `x <- 10` here - what happens? Does indentation matter? Let me show you how I like to format my code (which is considered hard to read by most). 
 
 This also works in a loop. Here, we get all outputs for the loop:
 ```{r}
@@ -370,7 +366,7 @@ in_to_m <- function(x){
 }
 in_to_m(74)
 ```
-Now, if we go back and update `in_to_cm`, those changes automatically get propogated to `in_to_m` and we do not have to worry about updating it! 
+Now, if we go back and update `in_to_cm`, those changes automatically get propogated to `in_to_m` and we do not have to worry about updating it: 
 ```{r}
 in_to_cm <- function(x){
   x * 2.54
@@ -395,71 +391,17 @@ height.list <- list(74,64,73,82)
 in_to_m(height.list)
 ```
 
-# **Challenge 3** 
-Write a function called `height_metric` that takes in height in inches and return_meters = TRUE or FALSE and returns either the output of in_to_cm or in_to_m
-```{r}
-height_metric <- function(height_inches, return_meters=TRUE){
-  if(return_meters==TRUE) {
-    in_to_cm(height_inches)
-    #if return_meters is TRUE do that
-  #else return cm
-  } else {
-    in_to_m(height_inches)
-  }
-}
-height_metric(height.vec,TRUE)
-```
-
 Instead, a functional such as `lapply()` might be used to do so. Remember that a functional is a function that takes functions as arguments. 
 ```{r}
 lapply(height.list, in_to_m)
 ```
 
-Although the "dplyr" R package is useful for quickly applying functions to a matrix, there exists a whole family of functionals for this sort of thing. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html) 
+# **Challenge 3**
+1. Write two functions so that the output of one serves as an input for the other.  
 
-## 3.  Functions - Day 3 statistical tests function
-Remember back to Day 3 when you learned a t-test, ANOVA, cor.test, and lm? We can block these into a function quite conveniently, and we can even include plots! 
+Although the "dplyr" R package is perhaps more useful for quickly applying functions to a matrix, there exists a whole family of functionals for this sort of thing in base R. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html) 
 
-First, refer back to your `animals` data frame.
-```{r}
-str(animals)
-head(animals)
-```
-Then write your function to include ANOVA, Pearson correlation, and linear model information (as well as a boxplot). Notice that we are defining four objects within the function itself:
-```{r}
-stats_tests <- function(x){
-  sum_aov <- summary(aov(Height ~ Type, data=animals))
-  Pearson <- cor.test(animals$Height, animals$Weight)
-  sum_lm <- summary(lin.mod <- lm(Height ~ Weight, data=animals))
-  box <- boxplot(Height ~ Type, data=animals, col=c(2,3,4))
-stats_list <- list(sum_aov, Pearson, sum_lm, box)
-names(stats_list)[1:4] <- c("ANOVA summary info", "Pearson correlation info", "Linear model summary info", "Boxplot info")
-list(stats_list)
-}
-```
-
-All we have to do is call the function on the argument `x`
-```{r}
-stats_tests(x)
-info <- stats_tests(x)
-```
-We can subset the output like you learned in Part 2. For example, to return only the results of the Pearson correlation:
-```{r}
-stats_tests(x)[[1]][2]
-```
-Or return only the results of the linear model:
-```{r}
-stats_tests(x)[[1]][3]
-```
-Or, call it like 
-```{r}
-info
-info[[1]]$`ANOVA summary info`
-```
-
-etc...
-
-# 4.  Monte Carlo simulations
+# 3.  Monte Carlo simulations
 A Monte Carlo simulation is an algorithm that relies on repeated random sampling to obtain numerical results. In R, loops and functions are key for Monte Carlo simulations. 
 
 For example, we can simulate a die roll by taking a random sample from a 1:6 vector.
@@ -510,6 +452,8 @@ reps <- replicate(200, die_roll_mean(nr_rolls = 5))
 reps
 ```
 
+What happens to the values with more rolls? With less rolls?  
+
 ##  4.  Monte Carlo simulations - include a plotting function
 Again, we can use functions with plotting functions as well:
 ```{r}
@@ -536,7 +480,6 @@ my_hist <- function(sims, n){
     }
 
 my_hist(sims=reps, n=5)
-
 ```
 How can we use everything we learned today to analyze the changes in the the sampling distribution of the mean of the die rolls as the number of die rolls change?
 
@@ -627,7 +570,13 @@ for(i in 1:length(people)){
 }
 
 head(sims)
+```
+```{r, eval=FALSE}
+sims
+```
 
+Plot the probability: 
+```{r}
 par(mfrow=c(1,1))
 plot(sims[,1], sims[,2], pch=16, col="blue", 
      xlab="Nr of People", ylab="Probability of at Least One Match")

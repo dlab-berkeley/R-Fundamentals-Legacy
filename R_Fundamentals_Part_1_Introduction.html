@@ -11,6 +11,7 @@
 
 <meta name="author" content="Evan Muzzall, Rochelle Terman, Dillon Niederhut" />
 
+<meta name="date" content="2017-02-20" />
 
 <title>R Fundamentals Part 1: Introduction</title>
 
@@ -216,7 +217,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">R Fundamentals Part 1: Introduction</h1>
 <h4 class="author"><em>Evan Muzzall, Rochelle Terman, Dillon Niederhut</em></h4>
-<h4 class="date"><em>February 3, 2017</em></h4>
+<h4 class="date"><em>February 20, 2017</em></h4>
 
 </div>
 
@@ -318,7 +319,18 @@ Part 4) For-loops and functions</p>
 <p>While we are at it, let’s now install the three other packages you will use for this workshop:</p>
 <pre class="r"><code>install.packages(&quot;ggplot2&quot;, dependencies = TRUE)
 install.packages(&quot;knitr&quot;, dependencies = TRUE)
-install.packages(&quot;rmarkdown&quot;, dependencies = TRUE)</code></pre>
+install.packages(&quot;reshape2&quot;, dependencies=TRUE)
+install.packages(&quot;rmarkdown&quot;, dependencies = TRUE)
+install.packages(&quot;swirl&quot;, dependencies=TRUE)
+install.packages(&quot;VIM&quot;, dependencies=TRUE)
+
+# Do not forget to library them before you use them!
+library(ggplot2)
+library(knitr)
+library(reshape2)
+library(rmarkdown)
+library(swirl)
+library(VIM)</code></pre>
 </div>
 <div id="introduction---objects" class="section level2">
 <h2>1. Introduction - objects</h2>
@@ -480,17 +492,14 @@ getwd()</code></pre>
 setwd(&quot;C:/Users/PCName/Desktop/R-Fundamentals-master&quot;)  # note that PC users must use &quot;C:/...&quot;</code></pre>
 <p>You can view the contents of your working directory with <code>dir()</code>.</p>
 <pre class="r"><code>dir()</code></pre>
-<pre><code>##  [1] &quot;data&quot;                                                    
-##  [2] &quot;LICENSE&quot;                                                 
-##  [3] &quot;R Fundamentals Part 1 Introduction.Rmd&quot;                  
-##  [4] &quot;R Fundamentals Part 2 Subsetting and reshaping.Rmd&quot;      
-##  [5] &quot;R Fundamentals Part 3 Data exploration and analysis.Rmd&quot; 
-##  [6] &quot;R Fundamentals Part 4 For-loops and functions.Rmd&quot;       
-##  [7] &quot;R_Fundamentals_Part_1_Introduction.Rmd&quot;                  
-##  [8] &quot;R_Fundamentals_Part_2_Subsetting_and_reshaping.html&quot;     
-##  [9] &quot;R_Fundamentals_Part_3_Data_exploration_and_analysis.html&quot;
-## [10] &quot;R_Fundamentals_Part_4_For-loops_and_functions.html&quot;      
-## [11] &quot;README.md&quot;</code></pre>
+<pre><code>## [1] &quot;data&quot;                                                   
+## [2] &quot;LICENSE&quot;                                                
+## [3] &quot;R Fundamentals Part 1 Introduction.Rmd&quot;                 
+## [4] &quot;R Fundamentals Part 2 Subsetting and reshaping.Rmd&quot;     
+## [5] &quot;R Fundamentals Part 3 Data exploration and analysis.Rmd&quot;
+## [6] &quot;R Fundamentals Part 4 For-loops and functions.Rmd&quot;      
+## [7] &quot;R_Fundamentals_Part_1_Introduction.Rmd&quot;                 
+## [8] &quot;README.md&quot;</code></pre>
 </div>
 </div>
 <div id="challenge-1" class="section level1">
@@ -1164,10 +1173,15 @@ sink()</code></pre>
 <div id="homework-optional" class="section level1">
 <h1>6. Homework (optional)</h1>
 <p>swirl is a package that helps you learn R by using R. Visit the <a href="http://swirlstats.com/">swirl</a> homepage to learn more</p>
-<pre class="r"><code>install.packages(&quot;swirl&quot;)
-library(swirl)
+<pre class="r"><code>library(swirl)
 swirl()
 # follow the instructions until you can select number 1 &quot;R Programming: The basics of programming in R&quot;</code></pre>
+</div>
+<div id="challenge-5" class="section level1">
+<h1><strong>Challenge 5</strong></h1>
+<ol style="list-style-type: decimal">
+<li>Begin a swirl walkthrough with the class.</li>
+</ol>
 </div>
 <div id="acknowledgements" class="section level1">
 <h1>Acknowledgements</h1>

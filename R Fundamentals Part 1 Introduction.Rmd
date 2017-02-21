@@ -1,7 +1,7 @@
 ---
 title: 'R Fundamentals Part 1: Introduction'
 author: "Evan Muzzall, Rochelle Terman, Dillon Niederhut"
-date: "February 3, 2017"
+date: "February 20, 2017"
 output: 
   html_document: 
     toc: yes
@@ -126,7 +126,19 @@ While we are at it, let's now install the three other packages you will use for 
 ```{r, eval=FALSE}
 install.packages("ggplot2", dependencies = TRUE)
 install.packages("knitr", dependencies = TRUE)
+install.packages("reshape2", dependencies=TRUE)
 install.packages("rmarkdown", dependencies = TRUE)
+install.packages("swirl", dependencies=TRUE)
+install.packages("VIM", dependencies=TRUE)
+
+# Do not forget to library them before you use them!
+library(ggplot2)
+library(knitr)
+library(reshape2)
+library(rmarkdown)
+library(swirl)
+library(VIM)
+
 ```
 ##  1.  Introduction - objects
 Objects are special data structures that allow you to enter data into R. Objects are stored in R's memory and can be retrieved ("called") when you need them. 
@@ -817,11 +829,13 @@ If you ever find that your code stops working after saving via `sink()`, you are
 # 6.  Homework (optional)
 swirl is a package that helps you learn R by using R. Visit the [swirl](http://swirlstats.com/) homepage to learn more
 ```{r, eval=FALSE}
-install.packages("swirl")
 library(swirl)
 swirl()
 # follow the instructions until you can select number 1 "R Programming: The basics of programming in R"
 ```
+
+# **Challenge 5**
+1. Begin a swirl walkthrough with the class.  
 
 # Acknowledgements
 [Wickham H. 2014. Advanced R](http://adv-r.had.co.nz/)  

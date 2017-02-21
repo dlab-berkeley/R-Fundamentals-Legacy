@@ -9,8 +9,9 @@
 <meta name="generator" content="pandoc" />
 
 
-<meta name="author" content="Shinhye Choi, Evan Muzzall, Rochelle Terman, Dillon Niederhut" />
+<meta name="author" content="Evan Muzzall, Shinhye Choi, Rochelle Terman, Dillon Niederhut" />
 
+<meta name="date" content="2016-02-20" />
 
 <title>R Fundamentals Part 2: Subsetting and reshaping</title>
 
@@ -215,8 +216,8 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">R Fundamentals Part 2: Subsetting and reshaping</h1>
-<h4 class="author"><em>Shinhye Choi, Evan Muzzall, Rochelle Terman, Dillon Niederhut</em></h4>
-<h4 class="date"><em>February 1, 2016</em></h4>
+<h4 class="author"><em>Evan Muzzall, Shinhye Choi, Rochelle Terman, Dillon Niederhut</em></h4>
+<h4 class="date"><em>February 20, 2016</em></h4>
 
 </div>
 
@@ -247,7 +248,7 @@ div.tocify {
 <h1>2. Loading data from files</h1>
 <p>Set your working directory to the R-Fundamentals data folder:</p>
 <pre class="r"><code>getwd()
-setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)</code></pre>
+setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals&quot;)</code></pre>
 <p>Now, load the animals dataset that you created in Part 1. We do this with <code>read.csv</code>:</p>
 <pre class="r"><code>?read.csv</code></pre>
 <pre class="r"><code>animals &lt;- read.csv(&quot;animals.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
@@ -255,7 +256,6 @@ setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)</code></pre>
 <p>Notice that <code>stringsAsFactors=FALSE</code>. If set to <code>TRUE</code>, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set <code>stringsAsFactors=FALSE</code> and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. <code>header=TRUE</code> will include the header row; <code>header=FALSE</code> will exclude the header row.</p>
 </blockquote>
 <p>Also load the mammals sleep dataset from the <a href="https://cran.r-project.org/web/packages/VIM/VIM.pdf">VIM package</a> that is located in the data folder. This dataset looks at sleep patterns in various mammal species and contains missin (<code>NA</code>) values. See the link below for the original research article:</p>
-<pre class="r"><code>install.packages(&quot;VIM&quot;, dependencies = TRUE)</code></pre>
 <pre class="r"><code>library(VIM)</code></pre>
 <pre><code>## Loading required package: colorspace</code></pre>
 <pre><code>## Loading required package: grid</code></pre>
@@ -270,9 +270,9 @@ setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)</code></pre>
 <pre><code>## The following object is masked from 'package:datasets':
 ## 
 ##     sleep</code></pre>
-<pre class="r"><code>data(sleep)</code></pre>
-<p>or …</p>
-<pre class="r"><code>sleep &lt;- read.csv(&quot;sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
+<pre class="r"><code>data(sleep) </code></pre>
+<p>or, to read it in from the data folder …</p>
+<pre class="r"><code>sleep &lt;- read.csv(&quot;./data/sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
 <p><a href="http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf">Allison and Chichetti 1976</a></p>
 <blockquote>
 <p>NOTE: you DO NOT want to load the Student’s Sleep Dataset from the “datasets” library. You should have 62 rows and 10 columns.</p>
@@ -290,6 +290,9 @@ setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)</code></pre>
 getwd()
 setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)
 sleep &lt;- read.csv(&quot;sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
+<blockquote>
+<p>NOTE: the main point to remember is that you should first set your working directory to the folder that contains the data you wish to import. Whether you specify this using setwd() or within the read.csv() function is up to you.</p>
+</blockquote>
 <p>When dealing with Microsoft Excel files (.XLSX), you might find it more convenient to save them first as .CSV files in Excel and then import them using <code>read.csv()</code>.</p>
 <p>Other functions also work to import data from files, such as <code>load()</code>. You might also have success with the “xlsx” R package and its <code>read.xlsx()</code> command for directly importing Excel files.</p>
 <p>Also, the “foreign” R package has commands for loading data from SAS, SPSS, Stata, etc.</p>
@@ -555,7 +558,7 @@ is.na(sleep)</code></pre>
 <pre class="r"><code>sleep[sleep == &quot;NONE&quot;] &lt;- NA</code></pre>
 <pre class="r"><code>sleep</code></pre>
 <blockquote>
-<p>NOTE: here <code>&lt;NA&gt;</code> and <code>NA</code> are synonymous and R will treat them both as missing. <code>&lt;NA&gt;</code> with less than/greater than symbols is handy because it will let you know which values you have manually recoded to missing.</p>
+<p>NOTE: here <code>&lt;NA&gt;</code> and <code>NA</code> are synonymous and R will treat them both as missing.</p>
 </blockquote>
 <p>We can also subset only rows without any missing data using bracket notation. <code>complete.cases()</code> will find rows with no missing values.</p>
 <pre class="r"><code>?complete.cases</code></pre>
@@ -581,7 +584,7 @@ is.na(sleep_NA) # Now we see TRUE values where data is missing</code></pre>
 <div id="merging-data" class="section level1">
 <h1>5. Merging data</h1>
 <p>Merging data is useful when we want to combine two different dataframes that share a vector/column. We “merge” by that column. The first two arguments in <code>merge()</code> are the names of the two data frames, followed by <code>by</code> where we tell which column names we want to match.</p>
-<p>Also note this shorthand way for creating a dataframe. For example:</p>
+<p>Also note this shorthand way for creating a dataframe. Get your typing fingers ready! For example:</p>
 <pre class="r"><code>?merge #Click the &quot;Merge two data frames&quot; link</code></pre>
 <pre class="r"><code>df1 &lt;- data.frame(Name=c(&quot;Joe&quot;, &quot;Susan&quot;, &quot;Jack&quot;, &quot;Kelly&quot;),
                   City=c(&quot;Berkeley&quot;, &quot;Berkeley&quot;, &quot;Oakland&quot;, &quot;Oakland&quot;),
@@ -644,15 +647,17 @@ df_cbind</code></pre>
 <p>NOTE: cbind will not warn you if you have duplicate column names!</p>
 </blockquote>
 <p><code>rbind()</code> will add more a dataframe as rows to an existing data frame. An example:</p>
-<pre class="r"><code>dfA &lt;- data.frame(Name=c(&quot;Joe&quot;, &quot;Susan&quot;, &quot;Jack&quot;, &quot;Kelly&quot;),
-                  City=c(&quot;Berkeley&quot;, &quot;Berkeley&quot;, &quot;Oakland&quot;, &quot;Oakland&quot;),
-                  Math=c(42, 48, 50, 46),
-                  Reading=c(8, 10, 10, 10))
-dfB &lt;- data.frame(Name=c(&quot;James&quot;, &quot;Cher&quot;, &quot;Elizabeth&quot;, &quot;Barack&quot;),
+<pre class="r"><code>df1 </code></pre>
+<pre><code>##    Name     City Math Reading
+## 1   Joe Berkeley   42       8
+## 2 Susan Berkeley   48      10
+## 3  Jack  Oakland   50      10
+## 4 Kelly  Oakland   46      10</code></pre>
+<pre class="r"><code>dfB &lt;- data.frame(Name=c(&quot;James&quot;, &quot;Cher&quot;, &quot;Elizabeth&quot;, &quot;Barack&quot;),
                   City=c(&quot;Cleveland&quot;, &quot;Memphis&quot;, &quot;Detroit&quot;, &quot;Chicago&quot;),
                   Math=c(44, 49, 50, 49),
                   Reading=c(9, 9, 9, 10))
-df_rbind &lt;- rbind(dfA, dfB)
+df_rbind &lt;- rbind(df1, dfB)
 df_rbind</code></pre>
 <pre><code>##        Name      City Math Reading
 ## 1       Joe  Berkeley   42       8
@@ -678,11 +683,10 @@ df_rbind</code></pre>
 <li>load the <code>mtcars</code> dataset. How might you find out what it is and how do you load it?</li>
 <li>subset <code>mtcars</code> in five different ways.</li>
 </ol>
-<div id="reshaping-data-with-the-reshape2-package" class="section level2">
-<h2>6. Reshaping data with the “reshape2” package</h2>
-<pre class="r"><code>install.packages(&quot;reshape2&quot;, dependencies=TRUE)
-library(reshape2)</code></pre>
-<p><code>t</code> will quickly transpose your dataframe or matrix:</p>
+<div id="reshaping-your-data" class="section level2">
+<h2>6. Reshaping your data</h2>
+<p>You will probably find that certain plotting and testing functions require that the data be formatted in “long” or “wide” format. The “reshape2” R package offers a handy way to reformat your data.</p>
+<p>In base R, <code>t</code> will quickly transpose your dataframe or matrix. The rows will become the columns, and the columns will become the rows:</p>
 <pre class="r"><code>?t</code></pre>
 <pre class="r"><code>mat1 &lt;- matrix(1:10, nrow=5, ncol=2)
 mat1</code></pre>
@@ -731,7 +735,10 @@ animals_t</code></pre>
 ## Weight   &quot;5.870474&quot;    &quot;6.967624&quot;    &quot;4.520141&quot;    &quot;6.109781&quot;   
 ## Height   &quot;10&quot;          &quot; 7&quot;          &quot; 9&quot;          &quot;10&quot;         
 ## Progress &quot;-0.15579551&quot; &quot;-1.47075238&quot; &quot;-0.47815006&quot; &quot; 0.41794156&quot;</code></pre>
-<p>You might find that certain functions require data to be in “wide” or “long” format.</p>
+</div>
+<div id="reshaping-data-with-the-reshape2-package" class="section level2">
+<h2>6. Reshaping data with the “reshape2” package</h2>
+<pre class="r"><code>library(reshape2)</code></pre>
 <p>“Wide” format means that each variable is shown in a column, like in our animals dataframe:</p>
 <pre class="r"><code>head(animals)</code></pre>
 <pre><code>##   Type Healthy   Weight Height    Progress
