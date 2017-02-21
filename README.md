@@ -2,7 +2,7 @@
 
 This is the repository for D-Lab's introductory R-Fundamentals workshop series.  
 
-Please see the [D-Lab workshop calendar]() for when it will be next offered.  
+Please see the [D-Lab workshop calendar](http://dlab.berkeley.edu/calendar-node-field-date) for when it will be next offered.  
 
 If you need help with your own research, [schedule an appointment with a D-Lab consultant](http://dlab.berkeley.edu/consulting).
 
