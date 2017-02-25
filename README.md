@@ -4,7 +4,19 @@ This is the repository for D-Lab's introductory R-Fundamentals workshop series.
 
 Please see the [D-Lab workshop calendar](http://dlab.berkeley.edu/calendar-node-field-date) for when it will be next offered.  
 
-If you need help with your own research, [schedule an appointment with a D-Lab consultant](http://dlab.berkeley.edu/consulting).
+You will need four things for this workshop series: 
+
+1) Your laptop  
+
+2) Download and install [RStudio Desktop Open Source License](https://www.rstudio.com/products/rstudio/download/)  
+
+3) Download and install [R](https://cloud.r-project.org/)
+
+4) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
+
+If you need help with your own research, [schedule an appointment with a D-Lab consultant](http://dlab.berkeley.edu/consulting).  
+
+Also check out the various [D-Lab working groups](http://dlab.berkeley.edu/working-groups)  
 
 #####Visit these sites for R help: 
 [Quick-R](http://statmethods.net/)  

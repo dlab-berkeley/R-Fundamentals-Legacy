@@ -29,6 +29,8 @@ Commands such as `mean()` are actually functions. Functions in R are a set of st
 What do you think the `nrow()` function does? Type a function name without the parentheses to see its underlying functional structure. Let's try `nrow()`, which returns the number of rows in a data frame. 
 ```{r}
 nrow
+mean
+mean(c(1,2,3))
 
 # Now we can give nrow() an argument
 nrow(sleep)
@@ -38,6 +40,11 @@ However, before we get to functions, let us review for loops because many functi
 Load the `animals` data frame - we will return to this a little later:
 ```{r}
 animals <- read.csv("animals.csv", header=TRUE, stringsAsFactors=FALSE)
+
+animals <- read.csv("/Users/evanmuzzall/Desktop/R-Fundamentals/data/animals.csv", header=TRUE, stringsAsFactors=FALSE)
+str(animals)
+
+colnames(animals) <- c("Type", "Healthy", "Weight", "Height", "Progress")
 str(animals)
 ```
 
@@ -120,7 +127,7 @@ For long loops, many intermediate commands can help us "end the looping" once a 
 
 Let's begin by writing a for loop that outputs the numbers of the sequence 1:100
 ```{r, eval=FALSE}
-for(i in 1:100){ 
+for(i in 1:100){
     print(i) 
     }
 ```
@@ -157,7 +164,19 @@ for(i in 1:length(my_nums)){
 
 # **Challenge 1**
 1. Write a for loop that outputs something
+```{r}
+
+loop <- 1:500
+for(i in 1:length(loop)){
+  print(loop[i])
+  if(loop[i] == 25/5)break
+}
+
+```
 2. Insert a `break` or `stopifnot` command to tell it when to stop
+```{r}
+# your code here
+```
 
 ## 2.  For loops - `if`, `else`, and `ifelse`
 `if` and `else` statements are control structures that let you control how a code should be iterated within a single for loop. You saw `if` above and is handy when you want to assign different tasks to different subsets of data using a single for loop. 
@@ -170,7 +189,7 @@ syntax: `if (condition) {statement} else {other statement}`
 ?"if"
 ```
 ```{r}
-x <- 7
+x <- 1
 if(x > 7){
   print(x)
 }else{   #`else` should not start its own line. Always let it be preceded by a closing brace on the same line.
@@ -223,8 +242,31 @@ animal
 
 # **Challenge 2**
 1. Write a for loop that uses `if`
+```{r}
+# your code here
+```
 2. Write a for loop that uses `if` and `else`
+```{r}
+mine <- 1:20
+for(i in 1:length(mine)){
+  if(mine[i] > 4){
+  print(mine[i])
+}else{
+  print("ERROR")
+}
+}
+
+```
 3. Create and then recode some binary data using `ifelse`
+```{r}
+set.seed(94702)
+fruit <- sample(c("Apple", "Pear"), 20, replace=TRUE)
+fruit
+
+fruit_recode <- ifelse(fruit=="Apple", "red", "green")
+fruit_recode
+
+```
 
 # 3.  Functions
 In R, a function is a set of code that might be more useful if it is self-contained and/or is to be used repeatedly. For example, if you want to run the same satatistical tests on several datasets, you might want to write a function that contains instructions for all the tests once, so that you do not have to rewrite the code each time.
@@ -288,6 +330,9 @@ f <- function(x, y=2){
 f(4, 4)
 
 ls()
+
+# the function envrionment can pull objects from the global environmnet
+# the gloval environmental CANNOT pull objects from the function envrionment 
 ```
 Now we ask: does `z` appear in your global environment? Why not? `z` is protected from what is happening outside the function!  
 
@@ -332,8 +377,8 @@ f <- function(x) {
   }
   g(x)
 }
-f(x=1)
-f(x=10)
+f(1)
+f(10)
 ```
 
 ## 3.  Functions - unit conversion example
@@ -398,6 +443,18 @@ lapply(height.list, in_to_m)
 
 # **Challenge 3**
 1. Write two functions so that the output of one serves as an input for the other.  
+```{r}
+A <- function(x){
+  x <x^2
+B <- function(x){
+  A + 2
+}
+B(x)
+  }
+
+B(4)
+
+```
 
 Although the "dplyr" R package is perhaps more useful for quickly applying functions to a matrix, there exists a whole family of functionals for this sort of thing in base R. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html) 
 
