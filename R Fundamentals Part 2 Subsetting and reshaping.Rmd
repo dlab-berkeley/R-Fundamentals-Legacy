@@ -34,16 +34,22 @@ Set your working directory to the R-Fundamentals data folder:
 getwd()
 setwd("/Users/evanmuzzall/Desktop/R-Fundamentals")
 ```
-Now, load the animals dataset that you created in Part 1. We do this with `read.csv`:
+Now, load the animals dataset that you created in Part 1. It is conveniently located in the "data" folder. Note that we can also specify the file path within `read.csv`:
 ```{r}
 ?read.csv
 ```
 ```{r}
-animals <- read.csv("animals.csv", header=TRUE, stringsAsFactors=FALSE)
-```
-> Notice that `stringsAsFactors=FALSE`. If set to `TRUE`, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set `stringsAsFactors=FALSE` and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. `header=TRUE` will include the header row; `header=FALSE` will exclude the header row.   
+animals <- read.csv("./data/animals.csv", header=TRUE, stringsAsFactors=FALSE)
 
-Also load the mammals sleep dataset from the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf) that is located in the data folder. This dataset looks at sleep patterns in various mammal species and contains missin (`NA`) values. See the link below for the original research article:
+# . means "current folder"
+# .. means "folder above"
+
+# or
+animals <- read.csv("/Users/evanmuzzall/Desktop/R-Fundamentals/data/animals.csv", header=TRUE, stringsAsFactors = FALSE)
+```
+> Notice that `stringsAsFactors=FALSE`. If set to `TRUE`, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set `stringsAsFactors=FALSE` and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. `header=TRUE` will include the header row; `header=FALSE` will turn your header row into the first row of actual data.  
+
+Also load the mammals sleep dataset from the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf) that is located in the data folder. This dataset looks at sleep patterns in various mammal species and contains missing (`NA`) values. See the link below for the original research article:
 ```{r}
 library(VIM)
 data(sleep) 
