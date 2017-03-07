@@ -58,7 +58,7 @@ or, to read it in from the data folder ...
 ```{r, eval=FALSE}
 sleep <- read.csv("./data/sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
 ```
-[Allison and Chichetti 1976](http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf)
+View the original [Allison and Chichetti 1976 article here](http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf)
 
 > NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. You should have 62 rows and 10 columns.  
 
