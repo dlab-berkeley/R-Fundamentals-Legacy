@@ -401,6 +401,12 @@ df_rbind
 3. create a subsetted data frame that only contains healthy pigs! (hint: what is the meaning of "and" here in contrast to #2)  
 4. load the `mtcars` dataset. How might you find out what it is and how do you load it?  
 5. subset `mtcars` in five different ways.  
+6. you can also order your data using `order`, for example:
+```{r, eval=FALSE}
+data(mtcars)
+new_cars <- mtcars[order(mtcars$cyl, -mtcars$mpg),] # sort by ascending cyl and descending mpg
+new_cars
+```
  
 ## 6. Reshaping your data
 You will probably find that certain plotting and testing functions require that the data be formatted in "long" or "wide" format. The "reshape2" R package offers a handy way to reformat your data. 
