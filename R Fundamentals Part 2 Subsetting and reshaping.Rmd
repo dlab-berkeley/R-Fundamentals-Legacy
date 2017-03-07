@@ -396,10 +396,10 @@ df_rbind
 > NOTE: for rbind to work, you should have the same column names for both of your data frames! 
 
 # **Challenge 3** 
-1. load your `animals` dataset from Day 1 using `read.csv()`.
-2. create a subsetted data frame called `cats_dogs` that contains only cats and dogs.
-3. create a subsetted data frame that only contains healthy pigs!  
-4. load the `mtcars` dataset. How might you find out what it is and how do you load it? 
+1. load your `animals` dataset from Day 1 using `read.csv()`.  
+2. create a subsetted data frame called `cats_dogs` that contains only cats and dogs. (hint: what does "and" actually mean here?)  
+3. create a subsetted data frame that only contains healthy pigs! (hint: what is the meaning of "and" here in contrast to #2)  
+4. load the `mtcars` dataset. How might you find out what it is and how do you load it?  
 5. subset `mtcars` in five different ways.  
  
 ## 6. Reshaping your data
