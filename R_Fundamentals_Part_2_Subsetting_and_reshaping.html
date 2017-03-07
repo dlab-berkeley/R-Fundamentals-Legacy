@@ -249,13 +249,19 @@ div.tocify {
 <p>Set your working directory to the R-Fundamentals data folder:</p>
 <pre class="r"><code>getwd()
 setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals&quot;)</code></pre>
-<p>Now, load the animals dataset that you created in Part 1. We do this with <code>read.csv</code>:</p>
+<p>Now, load the animals dataset that you created in Part 1. It is conveniently located in the “data” folder. Note that we can also specify the file path within <code>read.csv</code>:</p>
 <pre class="r"><code>?read.csv</code></pre>
-<pre class="r"><code>animals &lt;- read.csv(&quot;animals.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
+<pre class="r"><code>animals &lt;- read.csv(&quot;./data/animals.csv&quot;, header=TRUE, stringsAsFactors=FALSE)
+
+# . means &quot;current folder&quot;
+# .. means &quot;folder above&quot;
+
+# or
+animals &lt;- read.csv(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data/animals.csv&quot;, header=TRUE, stringsAsFactors = FALSE)</code></pre>
 <blockquote>
-<p>Notice that <code>stringsAsFactors=FALSE</code>. If set to <code>TRUE</code>, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set <code>stringsAsFactors=FALSE</code> and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. <code>header=TRUE</code> will include the header row; <code>header=FALSE</code> will exclude the header row.</p>
+<p>Notice that <code>stringsAsFactors=FALSE</code>. If set to <code>TRUE</code>, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set <code>stringsAsFactors=FALSE</code> and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. <code>header=TRUE</code> will include the header row; <code>header=FALSE</code> will turn your header row into the first row of actual data.</p>
 </blockquote>
-<p>Also load the mammals sleep dataset from the <a href="https://cran.r-project.org/web/packages/VIM/VIM.pdf">VIM package</a> that is located in the data folder. This dataset looks at sleep patterns in various mammal species and contains missin (<code>NA</code>) values. See the link below for the original research article:</p>
+<p>Also load the mammals “sleep” dataset from the <a href="https://cran.r-project.org/web/packages/VIM/VIM.pdf">VIM package</a>. This dataset looks at sleep patterns in various mammal species and contains missing (<code>NA</code>) values. See the link below for the original research article:</p>
 <pre class="r"><code>library(VIM)</code></pre>
 <pre><code>## Loading required package: colorspace</code></pre>
 <pre><code>## Loading required package: grid</code></pre>
@@ -273,7 +279,7 @@ setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals&quot;)</code></pre>
 <pre class="r"><code>data(sleep) </code></pre>
 <p>or, to read it in from the data folder …</p>
 <pre class="r"><code>sleep &lt;- read.csv(&quot;./data/sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
-<p><a href="http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf">Allison and Chichetti 1976</a></p>
+<p>View the original <a href="http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf">Allison and Chichetti 1976 article here</a></p>
 <blockquote>
 <p>NOTE: you DO NOT want to load the Student’s Sleep Dataset from the “datasets” library. You should have 62 rows and 10 columns.</p>
 </blockquote>
@@ -291,7 +297,7 @@ getwd()
 setwd(&quot;/Users/evanmuzzall/Desktop/R-Fundamentals/data&quot;)
 sleep &lt;- read.csv(&quot;sleep_VIM.csv&quot;, header=TRUE, stringsAsFactors=FALSE)</code></pre>
 <blockquote>
-<p>NOTE: the main point to remember is that you should first set your working directory to the folder that contains the data you wish to import. Whether you specify this using setwd() or within the read.csv() function is up to you.</p>
+<p>NOTE: the main point to remember is that you should first set your working directory to the folder that contains the data you wish to import. Whether you specify this using setwd() or within the read.csv() function is up to you. However, if you wish to import data from multiple locations you might find it easier to specify the path within read.csv so that you do not have to change your working directory many times.</p>
 </blockquote>
 <p>When dealing with Microsoft Excel files (.XLSX), you might find it more convenient to save them first as .CSV files in Excel and then import them using <code>read.csv()</code>.</p>
 <p>Other functions also work to import data from files, such as <code>load()</code>. You might also have success with the “xlsx” R package and its <code>read.xlsx()</code> command for directly importing Excel files.</p>
@@ -572,13 +578,24 @@ is.na(sleep)</code></pre>
 <pre class="r"><code>sleep_NA &lt;- sleep[!complete.cases(sleep),]</code></pre>
 <pre class="r"><code>sleep_NA # All rows have at least one cell with missing data
 is.na(sleep_NA) # Now we see TRUE values where data is missing</code></pre>
-<p><code>subset</code> can also be used to subset your data. See <code>?subset</code> for more information.</p>
+<p><code>subset</code> can also be used to subset your data. See <code>?subset</code> for more information. For example:</p>
+<pre class="r"><code>subset_1 &lt;- subset(sleep, BrainWgt &lt; 10 &amp; Pred == c(1,5) &amp; Danger == 4)
+subset_1</code></pre>
+<pre><code>##    BodyWgt BrainWgt NonD Dream Sleep Span Gest Pred Exp Danger
+## 28   1.040     5.50  7.4   0.8   8.2  7.6   68    5   3      4
+## 32   0.005     0.14  7.7   1.4   9.1  2.6 21.5    5   2      4</code></pre>
+<pre class="r"><code># or
+subset_2 &lt;- subset(sleep, BrainWgt &lt; 10 &amp; Pred == c(1,5) &amp; Danger == 4, select=c(BrainWgt, Pred, Danger))
+subset_2</code></pre>
+<pre><code>##    BrainWgt Pred Danger
+## 28     5.50    5      4
+## 32     0.14    5      4</code></pre>
 </div>
 </div>
 <div id="challenge-2" class="section level1">
 <h1><strong>Challenge 2</strong></h1>
 <ol style="list-style-type: decimal">
-<li>How many different ways can you subset the <code>sleep</code> dataset using logical tests for <code>NA</code> data?</li>
+<li>How many different ways can you subset the <code>sleep</code> dataset?</li>
 </ol>
 </div>
 <div id="merging-data" class="section level1">
@@ -676,13 +693,21 @@ df_rbind</code></pre>
 <div id="challenge-3" class="section level1">
 <h1><strong>Challenge 3</strong></h1>
 <ol style="list-style-type: decimal">
-<li>load your <code>animals</code> dataset from Day 1 using <code>read.csv()</code>.</li>
-<li>create a subsetted data frame called <code>cats_dogs</code> that contains only cats and dogs.</li>
-<li>create a subsetted data frame that only contains healthy pigs!<br />
+<li>load your <code>animals</code> dataset from Day 1 using <code>read.csv()</code>.<br />
 </li>
-<li>load the <code>mtcars</code> dataset. How might you find out what it is and how do you load it?</li>
-<li>subset <code>mtcars</code> in five different ways.</li>
+<li>create a subsetted data frame called <code>cats_dogs</code> that contains only cats and dogs. (hint: what does “and” actually mean here?)<br />
+</li>
+<li>create a subsetted data frame that only contains healthy pigs! (hint: what is the meaning of “and” here in contrast to #2)<br />
+</li>
+<li>load the <code>mtcars</code> dataset. How might you find out what it is and how do you load it?<br />
+</li>
+<li>subset <code>mtcars</code> in five different ways.<br />
+</li>
+<li>you can also order your data using <code>order</code>, for example:</li>
 </ol>
+<pre class="r"><code>data(mtcars)
+new_cars &lt;- mtcars[order(mtcars$cyl, -mtcars$mpg),] # sort by ascending cyl and descending mpg
+new_cars</code></pre>
 <div id="reshaping-your-data" class="section level2">
 <h2>6. Reshaping your data</h2>
 <p>You will probably find that certain plotting and testing functions require that the data be formatted in “long” or “wide” format. The “reshape2” R package offers a handy way to reformat your data.</p>
@@ -775,7 +800,7 @@ type_sd</code></pre>
 ## 2  Dog 0.5477226 0.9645994 1.643168 1.0029118
 ## 3  Pig 0.3779645 1.0371317 1.380131 0.9973075</code></pre>
 <p>We now have a summary table in “wide” format!</p>
-<p>See the links below for more information about “reshape2” and check the <a href="http://dlab.berkeley.edu/calendar-node-field-date">D-Lab calendar</a> for the “Data Wrangling and Manipulation in R” workshop on reshaping data with the “dplyr” R package.<br />
+<p>See the links below for more information about “reshape2” and check the <a href="http://dlab.berkeley.edu/calendar-node-field-date">D-Lab calendar</a> for the “Data Wrangling and Manipulation in R” workshop on reshaping data with the “dplyr” and “tidyr” R packages.<br />
 <a href="http://seananderson.ca/2013/10/19/reshape.html">Sean C. Anderson’s Introduction to the “reshape2” package</a><br />
 <a href="http://had.co.nz/reshape/introduction.pdf">Hadley Wickhams introduction to the “reshape2” package</a><br />
 <a href="http://www.statmethods.net/management/reshape.html">Rob Kabakoff’s examples of “reshape2” (and also of everything R) are always worthwhile!</a></p>
