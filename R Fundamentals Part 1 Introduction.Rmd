@@ -255,7 +255,7 @@ A single question mark `?` will call the help pages. Notice that we must wrap sy
 ?iris
 ```
 
-> NOTE: We will use the `iris` dataset in Parts 2, 3, and 4 of this workshop series.
+> NOTE: We will also use the "iris" and "mtcars" datasets in Parts 2 and 3 of this workshop series.
 
 Double question marks ?? will lead you to coding walkthroughs called "vignettes". These usually come with preloaded data and examples:
 ```{r}

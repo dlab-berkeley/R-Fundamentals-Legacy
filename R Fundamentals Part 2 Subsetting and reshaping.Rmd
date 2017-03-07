@@ -332,7 +332,7 @@ subset_2
 ```
 
 # **Challenge 2**
-1. How many different ways can you subset the `sleep` dataset using logical tests for `NA` data?
+1. How many different ways can you subset the `sleep` dataset?
 
 # 5.  Merging data
 Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column. The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match.  
@@ -458,7 +458,7 @@ type_sd
 ```
 We now have a summary table in "wide" format!  
 
-See the links below for more information about "reshape2" and check the [D-Lab calendar](http://dlab.berkeley.edu/calendar-node-field-date) for the "Data Wrangling and Manipulation in R" workshop on reshaping data with the "dplyr" R package.  
+See the links below for more information about "reshape2" and check the [D-Lab calendar](http://dlab.berkeley.edu/calendar-node-field-date) for the "Data Wrangling and Manipulation in R" workshop on reshaping data with the "dplyr" and "tidyr" R packages.  
 [Sean C. Anderson's Introduction to the "reshape2" package](http://seananderson.ca/2013/10/19/reshape.html)  
 [Hadley Wickhams introduction to the "reshape2" package](http://had.co.nz/reshape/introduction.pdf)  
 [Rob Kabakoff's examples of "reshape2" (and also of everything R) are always worthwhile!](http://www.statmethods.net/management/reshape.html)  
