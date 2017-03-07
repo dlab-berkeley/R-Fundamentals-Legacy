@@ -86,7 +86,7 @@ setwd("/Users/evanmuzzall/Desktop/R-Fundamentals/data")
 sleep <- read.csv("sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
 ```
 
-> NOTE: the main point to remember is that you should first set your working directory to the folder that contains the data you wish to import. Whether you specify this using setwd() or within the read.csv() function is up to you.  
+> NOTE: the main point to remember is that you should first set your working directory to the folder that contains the data you wish to import. Whether you specify this using setwd() or within the read.csv() function is up to you. However, if you wish to import data from multiple locations you might find it easier to specify the path within read.csv so that you do not have to change your working directory many times.  
 
 When dealing with Microsoft Excel files (.XLSX), you might find it more convenient to save them first as .CSV files in Excel and then import them using `read.csv()`.  
 
