@@ -321,7 +321,15 @@ sleep_NA # All rows have at least one cell with missing data
 is.na(sleep_NA) # Now we see TRUE values where data is missing
 ```
 
-`subset` can also be used to subset your data. See `?subset` for more information. 
+`subset` can also be used to subset your data. See `?subset` for more information. For example:
+```{r}
+subset_1 <- subset(sleep, BrainWgt < 10 & Pred == c(1,5) & Danger == 4)
+subset_1
+
+# or
+subset_2 <- subset(sleep, BrainWgt < 10 & Pred == c(1,5) & Danger == 4, select=c(BrainWgt, Pred, Danger))
+subset_2
+```
 
 # **Challenge 2**
 1. How many different ways can you subset the `sleep` dataset using logical tests for `NA` data?
