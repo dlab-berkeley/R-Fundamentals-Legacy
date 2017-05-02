@@ -22,7 +22,7 @@ Start by having the class go to our github page at [github.com/dlab-berkeley/R-F
 1. clicking the green `download zip` button on the right hand side of the screen, or  
 
 2. `git clone https://github.com/dlab-berkeley/R-Fundamentals.git`  
-
+ 
 Also, be sure to download R and RStudio:  
 [download R here](https://cran.r-project.org/)  
 [download RStudio here (RStudio Desktop Free version)](https://www.rstudio.com/products/rstudio/download/)  
