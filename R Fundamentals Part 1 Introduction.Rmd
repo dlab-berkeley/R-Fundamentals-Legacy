@@ -2,8 +2,10 @@
 title: 'R Fundamentals Part 1: Introduction'
 author: "Evan Muzzall, Rochelle Terman, Dillon Niederhut"
 date: "February 20, 2017"
-output: 
-  html_document: 
+output:
+  word_document:
+    toc: yes
+  html_document:
     toc: yes
     toc_float: yes
 ---
@@ -12,34 +14,39 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This is an R markdown (.Rmd) file. It allows you create documents of various kinds. Check out the [R Markdown Quick Tour](http://rmarkdown.rstudio.com/authoring_quick_tour.html)
+This is an R markdown (.Rmd) file. It allows you create documents of various kinds. Check out the [R Markdown Quick Tour](http://rmarkdown.rstudio.com/authoring_quick_tour.html). We will talk more about this in Part 4.  
 
-# Workshop goals
-The goals of this workshop are divided into four parts:  
-Part 1) Introduction to R, data types, data structures  
-Part 2) Importing, subsetting, and merging data; identifying missing data  
-Part 3) Data exploration and statistical testing  
-Part 4) For-loops and functions  
-
-# Part 1 Learning objectives
-0. Front matter  
-1. Introduction: What is RStudio?, objects, global environment, packages, variable assignment, help  
-2. Atomic data types: numeric, character, and logical  
-3. Data type coercion  
-4. Data structures: vector, list, matrix, data frame  
-5. Saving your work  
-
-##  0.  Front matter: Pre-introduction
-Start by having the class go to our github page at [github.com/dlab-berkeley/R-Fundamentals](github.com/dlab-berkeley/R-Fundamentals) to get the course materials by:  
+##  1.  Front matter: Pre-introduction
+Start by having the class go to our github page at [github.com/dlab-berkeley/R-Fundamentals](github.com/dlab-berkeley/R-Fundamentals) to get the course materials by: 
 
 1. clicking the green `download zip` button on the right hand side of the screen, or  
 
 2. `git clone https://github.com/dlab-berkeley/R-Fundamentals.git`  
 
+Also, be sure to download R and RStudio:  
+[download R here](https://cran.r-project.org/)  
+[download RStudio here (RStudio Desktop Free version)](https://www.rstudio.com/products/rstudio/download/)  
+
 While everything is downloading, you can go on to:  
 
-##  0.  Front matter: Introduction to the class
-These materials are meant to be guides for you, **the instructor**. Your students will retain more of this content if they type these commands themselves than if they simply enter them off this markdown file.
+# Workshop goals
+The goals of this workshop are divided into four parts:  
+Part 1) Introduction to R, data types, data structures  
+Part 2) Importing, subsetting, and merging data; type coercion, identifying missing data  
+Part 3) Research design, data exploration, and statistical testing  
+Part 4) For-loops and functions; Monte Carlo simulation, the "birthday problem"
+
+# Part 1 Learning objectives
+1. Front matter  
+2. Introduction: What is RStudio?, objects, global environment, packages, variable assignment, help  
+3. Atomic data types: numeric, character, and logical  
+4. Data type coercion  
+5. Data structures: vector, list, matrix, data frame  
+6. Saving your work  
+7. Homework (optional)  
+
+##  1.  Front matter: Introduction to the class
+These materials are meant to be guides for you, **the instructor**. Your students will retain more of this content if they type these commands themselves than if they simply enter them off this markdown file.  
 
 ##  About the UC Berkeley Social Sciences Data Laboratory (D-Lab)
 > D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as this one, one-to-one consulting, and working groups that cover a variety of topics and programming languages.  
@@ -49,10 +56,10 @@ These materials are meant to be guides for you, **the instructor**. Your student
 
 It is a good idea to start off the class by explpaining to folks why you (the instructor) use R. As the instructor, you should also describe in general why social scientists use R as well as some of its pitfalls. Then, break the ice by going around the room and asking each student to state their name, department, and why they want to learn R. Common responses include:
 
-1. Other programs are too expensive
-2. I saw a pretty graph someone made in R
-3. My field uses analytical packages written for R
-4. I have a deep and burning desire for open and reproducible research
+1. Other programs are too expensive  
+2. I saw a pretty graph someone made in R  
+3. My field uses analytical packages written for R  
+4. I have a deep and burning desire for open and reproducible research  
 5. It is open-sourced with strong community support and help and is used by virtually all academic disciplines as well as the private sector  
 
 Be sure to draw on your own experiences to include further examples and advice, especially for students who do not fall into one of the five categories above and/or are just beginning to learn R. Be sure to discuss a motivating example personal to you.  
@@ -65,16 +72,15 @@ Remember, our goal is to teach you research applications in R. Check out UC Berk
 [School of Information](https://datascience.berkeley.edu/)  
 [Interdepartmental Group in Biostatistics](https://www.stat.berkeley.edu/biostat/)  
 [data8](http://data8.org/sp17/)  
-[EECS](https://cs.berkeley.edu/)
+[EECS](https://cs.berkeley.edu/)  
 
-# 1.  Introduction - what is RStudio?
+# 2.  Introduction - what is RStudio?
 R is old programming language based on the "S" and "S-PLUS" language and graphics user interface (GUI) and is both *functional* and *object oriented*. These themes make R highly extensible. 
 
 However, we do not need to think of R exclusively in these terms. At D-Lab, we want to provide you with basic programming competencies so you can get started on your own research! 
 
-RStudio is an interactive R environment that permits the user to enter and save code and data for exploration, manipulation, plotting, and testing. 
+RStudio is an interactive R environment that permits the user to enter and save code and data for exploration, manipulation, plotting, and testing.  
 
-You can [download RStudio here](https://www.rstudio.com/products/rstudio/download/)
 
 After opening RStudio, by default you should see four windows after opening a new script:
 
@@ -301,7 +307,7 @@ dir()
 4. Wipe your environment using rm(list=ls())
 5. Set your working directory to your "Documents" folder. Now set it back to the "R-Fundamentals" folder.
 
-# 2.  Atomic data types in R
+# 3.  Atomic data types in R
 Numeric, character, and logical (aka "boolean") data types all exist at the atomic level. Normally this means that they cannot be broken down any further and are the raw inputs for commands in R. Other R objects are frequently built upon these atomic types.
 
 ##  2.  Atomic data types in R - numeric
@@ -448,7 +454,7 @@ FALSE >= TRUE
 3. Use `==` to compare your numeric and boolean object. Are they equivalent? Why or why not?
 4. Define a character object that uses `paste()` to combine more than one word into a sentence. Then use `substr()` to redefine a part of this sentence. Finally, use `gsub()` to substitute part of this new sentence with a new word. 
 
-# 3. Data testing and type coercion - `is.type()`
+# 4. Data testing and type coercion - `is.type()`
 "Type coercion" refers to changing the data from one type to another.  
 
 [Brunsdon and Comber 2015, page 102](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) also offer an excellent summary table of logical functions in R.
@@ -532,10 +538,10 @@ Why did this fail? Can R change character data to numbers? Why not? (hint: R has
 # **Challenge 3**
 1. Create a character object and check its type using `is.type`  
 2. Try to change ("coerce") this object to another data type using `as.type`  
-3. Create a numeric vector of class "integer"  
+3. Create an object of class "integer"  
 4. Why is 1 == "1" true?   Why is -1 < FALSE true?   Why is "one" < 2 false?
 
-# 4.  Data structures
+# 5.  Data structures
 There are several kinds of data structures in R. Data structures are collections of data objects (e.g., numeric, character, and logical vectors, lists, and matrices) that work together. These four are the most common:
 
 1. vector
@@ -811,7 +817,7 @@ write.csv(basket, "basket.csv", row.names=TRUE)
 ```
 Check your working directory! :) 
 
-##  5.  Saving your work - `sink()`
+##  6.  Saving your work - `sink()`
 You can also save a dataframe as a .txt file using sink(). To use a sink, put `sink("FileName.txt")` as the line before the code they want to save, and `sink()` as the line after. 
 
 ```{r}
@@ -826,7 +832,7 @@ If you ever find that your code stops working after saving via `sink()`, you are
 
 > We will talk about saving plots as .PNG and .PDF file types in Part 3!
 
-# 6.  Homework (optional)
+# 7.  Homework (optional) 
 swirl is a package that helps you learn R by using R. Visit the [swirl](http://swirlstats.com/) homepage to learn more
 ```{r, eval=FALSE}
 library(swirl)
