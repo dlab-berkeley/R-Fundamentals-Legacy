@@ -412,12 +412,12 @@ setwd(&quot;C:\Users\PCName\Desktop\R-Fundamentals-master&quot;)  # note that PC
 ##  [2] &quot;basket.csv&quot;                                              
 ##  [3] &quot;data&quot;                                                    
 ##  [4] &quot;Day1_data.RData&quot;                                         
-##  [5] &quot;Images&quot;                                                  
-##  [6] &quot;LICENSE&quot;                                                 
-##  [7] &quot;README.md&quot;                                               
-##  [8] &quot;ReferenceMaterials&quot;                                      
-##  [9] &quot;R_Fundamentals_Part_1_Introduction.docx&quot;                 
-## [10] &quot;R_Fundamentals_Part_1_Introduction_files&quot;                
+##  [5] &quot;FirstDayTestScript.r&quot;                                    
+##  [6] &quot;Images&quot;                                                  
+##  [7] &quot;LICENSE&quot;                                                 
+##  [8] &quot;README.md&quot;                                               
+##  [9] &quot;ReferenceMaterials&quot;                                      
+## [10] &quot;R_Fundamentals_Part_1_Introduction.docx&quot;                 
 ## [11] &quot;R_Fundamentals_Part_1_Introduction.html&quot;                 
 ## [12] &quot;R Fundamentals Part 1 Introduction.Rmd&quot;                  
 ## [13] &quot;R_Fundamentals_Part_1_Introduction.Rmd&quot;                  
@@ -705,17 +705,17 @@ sum2 &lt;- sum(1,2,3,4,NA,5,6, na.rm=TRUE)</code></pre>
 <h2>Installing and Loading Packages</h2>
 <p>Many people write clever software that makes R smarter/better/faster/stronger. Packages are a convenient way to group and distribute this software. Packages comprise functions and variables and are generally created around a theme.</p>
 <p>You can install packages by clicking the “Packages” tab in the bottom-right window, clicking install, and then searching for the package you wish to install. Behind the scenes R will use the following function, which you can use directly through the command line: <code>install.packages()</code>. The package name must be wrapped in quotation marks so that R knows it is searching for that particular package named <code>&quot;psych&quot;</code>, rather than previously defined data named psych:</p>
-<pre class="r"><code>install.packages(&quot;psych&quot;, dependencies=TRUE)</code></pre>
+<pre class="r"><code>install.packages(&quot;psych&quot;)</code></pre>
 <p>Anytime you want to utilize a previously installed package, you must load it with <code>library()</code>. YOu must call this function everytime you begin a new R session (close and open RStudio). You do not need to reinstall packages each time you quit and restart your R session. Note that the <code>library()</code> function does not use quotes around the package name.</p>
 <pre class="r"><code>library(psych)
 # the psych package is now loaded in our current R instance</code></pre>
 <p>While we are at it, let’s now install the other packages you will use for this workshop. Run the following commands:</p>
-<pre class="r"><code>install.packages(&quot;ggplot2&quot;, dependencies = TRUE)
-install.packages(&quot;knitr&quot;, dependencies = TRUE)
-install.packages(&quot;reshape2&quot;, dependencies=TRUE)
-install.packages(&quot;rmarkdown&quot;, dependencies = TRUE)
-install.packages(&quot;swirl&quot;, dependencies=TRUE)
-install.packages(&quot;VIM&quot;, dependencies=TRUE)
+<pre class="r"><code>install.packages(&quot;ggplot2&quot;)
+install.packages(&quot;knitr&quot;)
+install.packages(&quot;reshape2&quot;)
+install.packages(&quot;rmarkdown&quot;)
+install.packages(&quot;swirl&quot;)
+install.packages(&quot;VIM&quot;)
 
 # Do not forget to load them before you use them!
 library(ggplot2)
