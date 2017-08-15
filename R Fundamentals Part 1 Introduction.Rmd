@@ -517,7 +517,7 @@ Many people write clever software that makes R smarter/better/faster/stronger. P
 
 You can install packages by clicking the "Packages" tab in the bottom-right window, clicking install, and then searching for the package you wish to install. Behind the scenes R will use the following function, which you can use directly through the command line: `install.packages()`. The package name must be wrapped in quotation marks so that R knows it is searching for that particular package named `"psych"`, rather than previously defined data named psych:
 ```{r, eval=FALSE}
-install.packages("psych", dependencies=TRUE)
+install.packages("psych")
 ```
 Anytime you want to utilize a previously installed package, you must load it with `library()`. YOu must call this function everytime you begin a new R session (close and open RStudio). You do not need to reinstall packages each time you quit and restart your R session. Note that the `library()` function does not use quotes around the package name.
 ```{r}
@@ -527,12 +527,12 @@ library(psych)
 
 While we are at it, let's now install the other packages you will use for this workshop. Run the following commands:
 ```{r, eval=FALSE}
-install.packages("ggplot2", dependencies = TRUE)
-install.packages("knitr", dependencies = TRUE)
-install.packages("reshape2", dependencies=TRUE)
-install.packages("rmarkdown", dependencies = TRUE)
-install.packages("swirl", dependencies=TRUE)
-install.packages("VIM", dependencies=TRUE)
+install.packages("ggplot2")
+install.packages("knitr")
+install.packages("reshape2")
+install.packages("rmarkdown")
+install.packages("swirl")
+install.packages("VIM")
 
 # Do not forget to load them before you use them!
 library(ggplot2)

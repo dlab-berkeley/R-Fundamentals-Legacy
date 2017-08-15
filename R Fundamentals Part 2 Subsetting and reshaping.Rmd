@@ -1,7 +1,7 @@
 ---
 title: 'R Fundamentals Part 2: Subsetting and reshaping'
-author: "Evan Muzzall, Shinhye Choi, Rochelle Terman, Dillon Niederhut"
-date: "February 20, 2016"
+author: 'Samy Abdel-Ghaffar'
+date: "August 11, 2017"
 output:
   html_document:
     toc: yes
@@ -11,82 +11,72 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+Contributions by: "Evan Muzzall, Shinhye Choi, Rochelle Terman, Dillon Niederhut"
 
 # Part 2 Learning objectives
 1. Day 1 review
-2. Loading data from files
+2. Data Structures
 3. Subsetting in base R
-4. Missing data (NA)
+4. Handling Missing Data (NA)
 5. Merging data
-6. Subsetting with the dplyr R package
-7. Tidying/reshaping data with the tidyr R package
 
 # 1.  Day 1 review
 1. Set your working directory
-2. The assignment operator `<-`
-3. Atomic data types: numeric, character, logical
-4. Data structures: vector, list, matrix, data frame
-5. Save your work: `write.csv()` and `sink()`
+2. The assignment operator `<-` and variables
+3. Atomic data types: integer, numeric, character, logical and factor
+4. Reading and Writing Data: `read.csv()` and `write.csv()`
 
-# 2.  Loading data from files
-Set your working directory to the R-Fundamentals data folder:
+## 1.1 Set your Working Directory 
+
+Let's start the review by setting your working directory back to the R-Fundamentals folder:
 ```{r, eval=FALSE}
 getwd()
-setwd("/Users/evanmuzzall/Desktop/R-Fundamentals")
+setwd("/home/sam/Desktop/R-Fundamentals")
 ```
-Now, load the animals dataset that you created in Part 1. It is conveniently located in the "data" folder. Note that we can also specify the file path within `read.csv`:
-```{r}
-?read.csv
-```
-```{r}
-animals <- read.csv("./data/animals.csv", header=TRUE, stringsAsFactors=FALSE)
 
-# . means "current folder"
-# .. means "folder above"
+## 1.2 Assignment operator and variables
 
-# or
-animals <- read.csv("/Users/evanmuzzall/Desktop/R-Fundamentals/data/animals.csv", header=TRUE, stringsAsFactors = FALSE)
+**Variables** are what are used to store data in R. We learned there are some restrictions in naming them, like they have to start with a character or `.` then a character. We use the **assignment operator** to store a value in the variable:
+```{r}
+message <- 'How to store character data into a variable'
+remindMe = TRUE
 ```
+
+Variables are all stored in an **environment**, and when they are created in a script or interactively in the console, then they are stored in the **global environment**. We can list all the variables in the **global environment** use the `ls()` function:
+```{r}
+ls()
+```
+And we can remove one, or all of, the variables in the **global environment** using the the `rm()` function:
+```{r}
+rm(remindMe)
+rm(list=ls())
+```
+## 1.3 Atomic Data Types
+
+All variables have a **type**, and the most commonly used types are: **integer, numeric, character, logical, and factor**. We can discover the type of any variable using the `class()` function or test a variable for a specific type using  `is.type()`:
+```{r}
+integer_variable = 6L
+class(integer_variable)
+numeric_variable = 6
+class(numeric_variable)
+is.integer(numeric_variable)
+
+character_variable = 'Hey there'
+class(character_variable)
+logical_variable = TRUE
+class(logical_variable)
+
+rm(list=ls())
+```
+
+## 1.4 Reading and Writing Data
+
+To save and share share 2D data (dataframes), we can use the `read.csv()` and `write.csv()` functions. Let's use `read.csv()` to load the emotions dataframe that we'll use in all our examples today:
+```{r, eval=FALSE}
+read.csv('data/emotions.csv', header=TRUE, stringsAsFactors=FALSE)
+```
+
 > Notice that `stringsAsFactors=FALSE`. If set to `TRUE`, R will try to guess which character data vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical factor level sorting. This might not matter for your data, but we recommend to set `stringsAsFactors=FALSE` and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. `header=TRUE` will include the header row; `header=FALSE` will turn your header row into the first row of actual data.  
-
-Also load the mammals "sleep" dataset from the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf). This dataset looks at sleep patterns in various mammal species and contains missing (`NA`) values. See the link below for the original research article:
-```{r}
-library(VIM)
-data(sleep) 
-```
-or, to read it in from the data folder ...
-```{r, eval=FALSE}
-sleep <- read.csv("./data/sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
-```
-View the original [Allison and Chichetti 1976 article here](http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf)
-
-> NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. You should have 62 rows and 10 columns.  
-
-```{r, eval=FALSE}
-?sleep # Click the "Mammal sleep data" link. You DO NOT want "Student's Sleep Data".
-```
-
-Remember, we can save this dataframe to a .CSV file with `write.csv()`. It will save to our working directory:
-```{r, eval=FALSE}
-?write.csv
-```
-```{r}
-write.csv(sleep, "sleep_VIM.csv", row.names=FALSE)
-```
-`row.names=` will specify if you want to add a column to the .CSV file with the row names. Let's say no by giving this parameter a `FALSE` argument.  
-
-Like above, we can then use `read.csv` to load it into R. However, note that here we are including the file path in our `read.csv` function. This way, you can load data from other folders without changing your working directory! 
-```{r, eval=FALSE}
-sleep <- read.csv("/Users/evanmuzzall/Desktop/R-Fundamentals/data/sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
-
-# or 
-
-getwd()
-setwd("/Users/evanmuzzall/Desktop/R-Fundamentals/data")
-sleep <- read.csv("sleep_VIM.csv", header=TRUE, stringsAsFactors=FALSE)
-```
-
-> NOTE: the main point to remember is that you should first set your working directory to the folder that contains the data you wish to import. Whether you specify this using setwd() or within the read.csv() function is up to you. However, if you wish to import data from multiple locations you might find it easier to specify the path within read.csv so that you do not have to change your working directory many times.  
 
 When dealing with Microsoft Excel files (.XLSX), you might find it more convenient to save them first as .CSV files in Excel and then import them using `read.csv()`.  
 
@@ -94,248 +84,587 @@ Other functions also work to import data from files, such as `load()`. You might
 
 Also, the "foreign" R package has commands for loading data from SAS, SPSS, Stata, etc.
 
-# 2.  Loading data from files - inspecting the data frame
-Remember from Part 1 that we can learn a lot about data in R. For dataframes, the following commands are common:
+# 2.  Data structures
+
+There are several kinds of data structures in R. Data structures are collections of data objects (e.g., numeric, character, and logical vectors, lists, and matrices) that work together. These four are the most common:
+
+1. vector
+2. list
+3. matrix
+4. dataframe
+
+##  2.1  Vector
+
+A **VECTOR** is an ordered group of the same kind of data. "Ordered" means that their position matters. Vectors are one-dimensional and homogenous (in their data type), and are thus referred to by their type (e.g., character vector, numeric vector, logical vector). 
+
+Create a numeric vector by combining/concatenating elements with `c()` 
 ```{r, eval=FALSE}
-str(sleep)    # returns the structure of the dataframe
-dim(sleep)    # dataframe dimensions; remember, we want 62 rows and 10 columns! 
-
-rownames(sleep)   #row names (they have not been named and default to character type)
-# for example:
-class(rownames(sleep))
-
-nrow(sleep)   # number of rows
-ncol(sleep)   # number of columns
-unique(sleep)   # show rows with unique data
-
-head(sleep, n=10) # show the first "n" rows
-tail(sleep, n=4) # show the last "n" rows
-```
-`names()` and `colnames()` both return column names of the data frame:
-```{r}
-names(sleep)  
-colnames(sleep)
-```
-We can also check which indices are true. Let's convert the "Span" column to a logical vector where missing data is coded as `NA` while present data is marked `TRUE`.
-```{r, eval=FALSE}
-?as.logical
+?c
 ```
 ```{r}
-new_Span <- as.logical(sleep$Span)
-new_Span
+numeric_vector <- c(3, 5, 6, 5, 3)
+numeric_vector
 ```
-Now we can see which data are missing (`NA`) and which cells have data present (`TRUE`).
+You can also add items to a vector using `c()` and a comma `,` (as long as it is the same data type)
+```{r}
+numeric_vector2 <- c(numeric_vector, 78)
+numeric_vector2
 
-`which()` will return the rows numbers that have data present:
+class(numeric_vector2)
+class(78)
+```
+> **NOTE** Combining a single number with a vector works because even though we are writing 78 as a single number, behind the scenes R represents all single numbers (and characters and logicals) as a 1-dimensional vector with only one value. So the `c()` function really concatonates vectors! In everything we learned about yesterday with atomic data types, we really learned about vectors, they just happened to only contain 1 value. This may seem weird (and really it is!) but it is also very useful to have a mathmatical framework that is inherintly based in **linear algebra** (the algebra of vectors and matrices), because that's the basis of so much of the data analysis that people do in R. If this is just too much to think about, don't worry, it's not necessary to understand using R!
+
+It doesn't matter what the datatype is for a vector, as long as it is all the same
+```{r}
+logical_vector <- c(TRUE, TRUE, FALSE)
+logical_vector
+
+logical_vector2 <- c(logical_vector, c(FALSE, FALSE, FALSE))
+logical_vector2
+
+character_vector <- c('one', 'two', 'three', 'four', 'I', 'declare')
+character_vector
+```
+
+You can also do arithmatic with vectors, but they need to be the same length. These are generally called **element-wise** vector operations because they operate separately on each element in both vectors, and return another vector that is the same size. This is in contrast with operations like the **dot-product** that multiplies does an element wise multiplation of two vectors, but then sums up the all those products, resulting in a single number. Here's how **element-wise** multiplication works in R:
+```{r}
+numeric_vector_element <- numeric_vector * numeric_vector
+numeric_vector_element
+
+numeric_vector_element2 <- numeric_vector2 + numeric_vector2
+numeric_vector_element2
+```
+And **dot-prodcut** multiplication:
+```{r}
+dotproduct <- numeric_vector %*% numeric_vector
+dotproduct
+```
+You can multiple a vector by a single number (which is really a vector with 1 value!):
+```{r}
+scaled_numeric_vector <- numeric_vector * 5
+scaled_numeric_vector
+```
+
+We said vectors need to be the same length to do arithmatic with them. So what happens when we multiply `c(1,2,3,4) * c(TRUE, FALSE)`? 
+```{r}
+c(1,2,3,4) * c(TRUE, FALSE)
+```
+Since the number of elements in the first vector (four) is a multiple of the length of the second vector (two), the second vector gets concatenated against itself two times automatically by R. This is called "recycling", and is why we can multiple any vector by a single-valued vector!
+
+###  Sequences as Vectors
+You might need to create vectors that are sequences of numbers. Sequences are usually integers, but they don't have to be. They are often used when we need a vector to **index** into other data structures, such as when we are looping with a `for` loop. We'll learn about that tomoorrow. 
+
+You can create seequences using the `seq()` function. You tell it the starting value, the ending value, and the increment between each **element** (or value) in the sequence.
+
+As an example, we specify a vector containing all the numbers starting from zero and going to the length of our object `logical_vector2` (which is eight). The argument `by=2` tells R that we want only every other number, in this case even numbers!!
 ```{r, eval=FALSE}
-?which
+?length
 ```
 ```{r}
-which(new_Span)
+length(logical_vector2)
+seq(from=0,to=length(logical_vector2),by=2)
+```
+The `length()` function tells us how many **elements** are in the vector.
+
+R also gives you a shorthand operator for creating sequences in whole number increments of 1. This is the colon symbol `:`
+```{r}
+0:8
+
+sequence_vector <- c(28:33)
+sequence_vector 
+
+0:length(logical_vector2)
+```
+
+##  2.2 Matrix
+
+**MATRICES** are data structures containing 2-dimensional data that is organized into rows and columns. They are homogenous in the type of data they contain, just like vectors. Matrices are mostly useful for doing **linear algebra**, which is the bases of many (if not all!) of the stastical techniques you'll be using. On day 4 we'll see how to do linear regression, which can be done using a matrix and a vector.
+
+Use `matrix()` to create a matrix. To create an empty matrix (with all NA values), just specify the number of rows and columns you want:
+```{r, eval=FALSE}
+?matrix
+empty_matrix <- matrix(nrow=25, ncol=4)
+```
+We can also **initialize** (or create with a given value or values) the matrix with a default value:
+```{r}
+matrix_of_NAs <- matrix(NA, nrow = 5, ncol = 4)
+matrix_of_NAs
+matrix_of_5s <- matrix(5, nrow = 5, ncol = 4)
+matrix_of_5s
+class(matrix_of_5s)
+```
+We can also coerce a vector to a matrix, because a vector is comprised of homogenous data of the same kind, just like a matrix is:
+```{r}
+# Create a numeric vector from 1 to 20
+our_20s <- 1:20
+our_20s
+class(our_20s)
+
+# Coerce this vector to a matrix with 10 rows and 2 columns:
+wheres_the_vector <- matrix(our_20s, ncol=2)
+wheres_the_vector
+class(wheres_the_vector)
+```
+Notice that the `class` of a vector of integers is just integer (because all atomic data types are vectors!). The `class` of the matrix is `matrix` though! To find out the type of the values in the matrix, you can get the class of the first **element** (also used for matrices). We'll learn this **bracket notation** for getting **elements** out of matrices soon!
+
+```{r}
+class(wheres_the_vector[1,1])
+```
+To find the size of the matrix we can use `dim()`, which returns the number of rows then columns. Or `nrow()` to get just the row count, or `ncol()` to get just the column count
+```{r}
+dim(wheres_the_vector)
+nrow(wheres_the_vector)
+ncol(wheres_the_vector)
+```
+
+##  2.3 List
+A **LIST** is an ordered group of data that are not of the same type. Lists are heterogenous. Instead of using `c()` like in vector creation, use `list()` to create a list:
+```{r, eval=FALSE}
+?list
+```
+```{r}
+list_variable <- list(TRUE, "one", 1) # include three kinds of data: logical, character, and integer
+list_variable
+class(list_variable)
+```
+Lists are simple containers and are not additive or multiplicative like vectors and matrices are:
+```{r, eval=FALSE}
+list_object * list(FALSE, "zero", 0) # Error
+```
+
+##  2.4 Dataframe
+_It is worth emphasizing the importance of data frames in R!_ Almost all analysis and data visualization is done on **data frames**. Conceptually, a **DATA FRAME** is a 2D dataset just as matrices are, but are used to store multivariate datasets of different types, and so cannot be used to do **linear algebra** operations. They can (and should!) be thought of just like a spreadsheet in Microsoft Excel. They are comprised of rows and columns. Each row represents a data point, or observation. Each column represents a variable (or field or feature). Inside R, **data frames** are stored as a list of equal-length vectors, one for each variable (or field or feature). These vectors can be of different types because lists are heterogenous, and so **data frames** are heterogenous too.
+
+Let's create a dataframe called `now_were_talking` using the vectors we already created:
+We do this using `data.frame()`
+```{r, eval=FALSE}
+?data.frame
+```
+```{r}
+now_were_talking <- data.frame(numeric_vector2, numeric_vector_element2, logical_vector2, character_vector, sequence_vector, stringsAsFactors=FALSE)
+# NOTE: `stringsAsFactors=FALSE` means that R will NOT try to interpret character data as factor type. More on this below. 
+class(now_were_talking)
+```
+Take a peek at the first (or last) rows of the `now_were_talking` data frame to see what it looks like:
+```{r}
+head(now_were_talking)
+tail(now_were_talking)
+```
+**NOTE ON VARIABLES** Yesterday we promised that the **variable** would get confusing, and now is when that happens! Up to this point we've been using variable to mean the things that represent all our data, that are stored in environments. Unfortunately, the createors of R decided to call the fields (or columns, or features) of a dataframe **variables** as well. We will use the term **dataframe variable** when we are refering to the columns of a datagrame, and just **variable** when refering to variables as we've used them up until this point.
+
+### Inspecting your Dataframe
+
+We can get a summary of the vitual information about our data frame, such as the type and name of variables in contains, how many rows and columns it has, and a peack at the beginning values of each variable,  via `str()`
+```{r, eval=FALSE}
+?str
+```
+```{r}
+str(now_were_talking)
+```
+Getting the size of the data frame is the same as with a matrix:
+```{r}
+dim(now_were_talking)
+nrow(now_were_talking)   # number of rows
+ncol(now_were_talking)   # number of columns
+```
+
+To see just the names of our dataframe variables, use the `colnames()` function. Since dataframes are lists of vectors, using the function `names()` will return the names of those vectors, in other words, the column names! `colnames()` can also be used to change the names:
+```{r}
+colnames(now_were_talking)
+names(now_were_talking)
+
+# Create a vector called `new_df_names` with the new column names:
+new_df_names <- c("Weight", "Height", "Consented", "Favorite Word", "Participant Number")
+
+# Pass this vector into `colnames()`
+colnames(now_were_talking) <- new_df_names
+str(now_were_talking)
+
+class(colnames(now_were_talking))
+```
+**NOTE** Notice that the type (`class()`) of the colnames is character (an atomic character vector).
+
+Rows (or observations), can also have names. You can view or change them with `rownames()` just like with columns:
+```{r}
+rownames(now_were_talking)
+rownames(now_were_talking) <- c('Sub1', 'Sub2', 'Sub3', 'Sub4', 'Sub5', 'Sub6')
+```
+
+### Load our Emotions Dataset
+
+We've now reached the point where we'll be using the emotions dataset for the remainder of our examples, so let's clear out the variables we've created so far, and load the emotions dataset into a dataframe.
+```{r}
+rm(list=ls())
+emotions_df <- read.csv('data/emotions.csv', header=TRUE, stringsAsFactors = FALSE)
+str(emotions_df)
+```
+We set `stringAsFactors = FALSE` when we loaded the dataframe because some of the variabels we want to keep as strings. Some of the variables are meant to be treated as factors however, so let's convert them now. Yesteday we learned that the `as.factor()` function does this:
+```{r}
+emotions_df$Scenario <- as.factor(emotions_df$Scenario)
+emotions_df$Gender <- as.factor(emotions_df$Gender)
+```
+
+##  Challenge 1
+Vectors  
+1.1 Create a vector of a sequence of numbers between 1 to 10.  
+1.2 Coerce that vector into a character vector  
+1.3 Add the element "11" to the end of the vector  
+1.4 Evaluate the `str` of the vector.  
+1.5 Create a sentence from separate words using `paste()`. Can you guess how to add another word to this vector without creating a new vector?  
+
+Lists  
+2.1 How does a list differ from an atomic vector?  
+2.2 Create three objects of different types and lengths and then combine them into a list named `x`.  
+2.3 If `x` is a list, what is the class of `x[1]`? How about `x[[1]]`? (this is a preview of the next section).  
+
+Data frames  
+3.1 Create a 3x2 data frame called `basket`. List the name of each fruit in the first column and its price in the second column.  
+3.2 Now give your dataframe appropriate column and row names.  
+3.3 We can add a new column using `$` (this will be covered with data subsetting in the next section). Can you guess how to add a third column called "Color", that shows the color of each fruit?  
+
+Basket example solution:  
+```{r}
+f <- factor(c("Apple", "Orange", "Pear"))
+p <- c(10, 28, 36)
+basket <- data.frame(f, p)
+basket
+
+colnames(basket) <- c("Fruit", "Price")
+basket
+
+basket$Color <- factor(c("Red", "Orange", "Green"))
+str(basket)
+basket
 ```
 
 # 3.  Subsetting in base R
-Efficiently subsetting your data will save you time and stress. Fortunately, there are several different ways to subset data in base R.
 
-##  3.  Subsetting in base R - `$`
-Remember from Part 1 that the dollar sign operator `$` will extract only a single vector/column within the data frame:
-```{r, eval=FALSE}
-?"$" # Remember that we must wrap symbols in quotation marks to view their help pages
-```
-```{r}
-sleep$Dream #Returns only the "Dream" vector from the `sleep` data frame.
-```
-However, you might find subsetting using **bracket notation** `[ , ]` along with variable names, positive and negative integers, and/or logical values is easier because you can subset multiple elements at once. 
+**Subsetting** data refers to ways to select reduced numbers of observations, dataframe variables, or both from a vector, matrix, list or dataframe. Although R does offer the cutting edge in stastical modeling, most users of R don't actually need those very advanced methods. So what does R really offer above many of the stastical software packages (such as SPSS and STATA)? Subsetting is probably number 1 on that list, because it lets you modify your data in very complex ways. IN fact many of the people that get consulting assitance at the DLab in R really need help with subsetting, though they don't usally know that before coming! R offers several alternate ways to subset your data, each useful in different scenarios.
 
-##  3.  Subsetting in base R - `[,c(Variable Names)]`
-You can subset your data by specifying variable names within bracket notation and using the `c()` command to create a column name character vector of names you want to keep.
+This is one topic we've tried really hard to demystify, both because it is so important, but also because underneath it all lies a very simple goal: **Selecting rows and/or columns of your data!** With that said, the ways that subsetting can be used to solve the problems you want to solve can be very very complex and takes a lot of practice. So let's get started!
 
-We can create a new dataframe object `sleep_varnames` that includes only "BodyWgt" and "BrainWgt" variable names from the `sleep` data frame:
+##  3.1 Introduction to Subsetting
+
+### Types of Subsetting
+At it's heart, subsetting is about defining one or more vectors (or matrices) that R will use to choose the rows and/or columns from the data structure that you want. If we think about our data as a 2D spreadsheet in Excel, you can imagine drawing a rectangle around some of the cells in that spreadsheet that you want to do something with. That's exactly what subsetting does, just without the GUI! 
+
+These vectors can be of 3 different **atomic types**, and the type that you use tells R how you want it to interpret the vector to select your rows/columns:
+1. **Characters**: Used to select the coloumn or row names that you want included. For example, we might only the row of `Sub2` or columns `Weight` and `Height` in our dataframe `now_were_talking` from last section. These vectors/matrices can contain one or more character strings.
+2. **Integers**: Used to define the row or column number(s) that you want. For example, you could ask for only the 2nd row or the first 5 columns. These vectors/matrices can contain one or more integer values.
+3. **Logical**: Used to select which rows or columns are wanted, where `TRUE` means you want the row/column in your subset, and `FALSE` means you don't want it in your subset. For example, if we wanted only the row with `Sub2` data from `now_were_talking`, we would use `TRUE` for that row, and `FALSE` for the rest. These vectors/matrices must be the same length as either the row or column they are being used on (because you need to specify whether you want each row/column with a `TRUE`/`FALSE`).
+
+### Subsetting Notation
+
+Subsetting is done using square brackets `[]` which are put directly after the data structure you want to subset. 
 ```{r, eval=FALSE}
 ?"["
 ```
+
+The vector/matrix that defines the rows/columns to be used are put inside those brackets. We'll call this the the **indices vector**, since it contains the information on which indices to use. So the syntax to subset a 1D vector is:
+`vector_to_subset[indices_vector]`
+
+A 2D matrix or dataframe needs both a row and column vector defined in order to subset it. The rows always come first and the columns always come second. They are separater by a `,`:
+`dataframe_to_subset[row_indices,column_indices]`
+
+If you want all the rows (observations) of a dataframe, but only some of the columns, you leave the `rows_indices` blank:
+`dataframe_to_subset[,column_indices]`
+
+If you want all the columns (dataframe variables) of a dataframe, but only some of the rows, you leave the `column_indices` blank:
+`dataframe_to_subset[row_indices,]`
+
+## 3.2 Subsetting with Characters
+
+When you specify an **indices vector** that is made of characters you tell R the names of the row(s) or column(s) you want.
+
+Let's look at the column names in our emotions dataframe:
 ```{r}
-library(VIM)
-data(sleep)
-sleep_varnames <- sleep[,c("BodyWgt", "BrainWgt")]
-str(sleep_varnames)
-head(sleep_varnames)
+colnames(emotions_df)
 ```
 
-> Notice that the comma is still included within the bracket notation before the vector of column names. This indicates that we want ALL of the rows corresponding to these two columns. This is the same when we only want to subset rows and include ALL columns (see below). 
+Let's get all the observations (rows) for the **Valence** and **Scenario** dataframe variables, and store it in another variable called emotionSemantic_df:
+```{r}
+character_column_indices <- c("Valence", "Scenario")
+emotionSemantic_df <- emotions_df[, character_column_indices]
+class(emotionSemantic_df)
+str(emotionSemantic_df)
+```
 
-##  3.  Subsetting in base R - two-dimensional subsetting `[c(x:y), c(x:y)]`
-When you subset your data in two dimensions, you subset both the rows and columns.
+Remember that all atomic types are vectors, so if we only want one colulmn's worth of data we can just use the name of that column:
+```{r}
+valence <- emotions_df[,'Arousal']
+str(valence)
+class(valence)
+```
+> **NOTE** Notice that the class of valence is `character`! Why isn't it a dataframe like our other two examples? The answer is complicated, but basically because dataframes are lists of vectors, when you only get one column, R tries to "simplify" things and just return that vector. This can really mess things up if you're not aware that R does this!
 
-Remember that in bracket notation `[ , ]` everything **before** the comma refers to rows, and everything **after** the comma refers to columns!
+## 3.3  Subsetting with Integers
 
-##  3.  Subsetting in base R - logical tests
-We can also use logical tests to subset our data. For example, what if we want to include only the rows that have a value of 1 for "Exp"? We can use the relational operator `==`:
+Subsetting using integers tells R the row/column numbers to include in the subset. **Positive** integers will **include** only the column numbers specified.
+
+Let's use integers to get the same columns, **Valence** and **Scenario** that we did in the last section. Looking at the output of the `colnames()` call we already made, we can see these are the first and seventh column names, respectively. So we'll do:
+```{r}
+integer_column_numbers = c(1,7)
+emotionSemantic_df2 <- emotions_df[,integer_column_numbers]
+str(emotionSemantic_df2)
+identical(emotionSemantic_df, emotionSemantic_df2)
+```
+The `identical()` function returns `TRUE` when the two arguments passed into it are **exactly** the same, and `FALSE` otherwise. It returned `TRUE` here because we selected the exact same subset, just using another way!
+
+Subsetting by **negative** integers will **exclude** the specified columns. Notice the `-` symbol before `c()` inside our bracket notation.
+
+Let's find out how many observations (rows) we have in our emotions dataframe
+```{r}
+nrow(emotions_df)
+```
+If we want to get all but the first 20 rows, we would do the following:
+```{r}
+emotions_NoFirst20_df <- emotions_df[-(1:20),]
+nrow(emotions_NoFirst20_df)
+str(emotions_NoFirst20_df)
+```
+Note we used the colon `:` **sequence** notation. This is a nice consice way to specify that you don't want rows 1-20, but let's de-mystify what R is doing behind the scenes. What does that indices vector actually look like?
+```{r}
+-(1:20)
+-1:-20
+c(-1,-2,-3,-4,-5,-6,-7,-8,-9,-10,-11,-12,-13,-14,-15,-16,-17,-18,-19,-20)
+```
+But all these other ways are equivalent, and so work the same. Why do we need the paranthesis `()` around the 1:20 in the first line? If we didn't have the parantheis then we'd be telling R we want all the numbers from -1 to 20, so it would include `-1,0` at the beginning!
+```{r}
+-1:20
+```
+
+## 3.4  Subsetting with Logicals 
+
+We can use vectors of logicals to select the rows/columns we want in our subset as if we were looking at each one and just saying **YES!** or **NO!** to each. We say yes with `TRUE` and no with `FALSE`. 
+
+Our emotions dataframe has 10 dataframe variables (columns), so let's again just pick the first and 7th, **Valence** and **Scenario**
+```{r}
+logical_column_numbers = c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE)
+emotionSemantic_df3 <- emotions_df[,logical_column_numbers]
+str(emotionSemantic_df3)
+identical(emotionSemantic_df, emotionSemantic_df3)
+```
+
+> **NOTE** This may seem straighforward, but there is a **BIG** gotcha that can happen using logical vectors for indexing. Remember vector recycling? Like with vector arithmatic, if you use a logical vector for subsetting that is not the same length as the number of rows/columns then R will "recycle", or copy, that vector over and over to fill the missing values (since R needs to now **YES** or **NO** for each row/column). This can result in some **VERY** unexpected behavior! For this reason, we **STRONGLY** suggest always using logical vectors that are the same length as your rows/columns
+
+```{r}
+missing_column_numbers = c(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, FALSE)
+extraColumns_df <- emotions_df[,missing_column_numbers]
+ncol(extraColumns_df) 
+```
+
+### Logical Indexing using Logical Testing
+
+We can also use logical tests to subset our data. Behind the scenes those logical tests are creating logical vectors just like we used in the last section. For example, what if we want to include only the rows that have an **Arousal** value of 5 or higher? We can use the logical operator `>=`:
+```{r}
+high_arousal_df <- emotions_df[emotions_df[,'Arousal'] >= 5,]
+nrow(high_arousal_df)
+```
+
+Theres a lot going in in that one line of code, so let's break it down. The first thing we're doing is getting the Arousal dataframe variable (column) for all the observations (rows)
 ```{r, eval=FALSE}
-?"=="
+emotions_df[,'Arousal']
 ```
+Then we use the **greater than or equal to** logical operator to create logical vector that is as long as the number of rows in the dataframe
+```{r, eval=FALSE}
+emotions_df[,'Arousal'] >= 5
+length(emotions_df[,'Arousal'] >= 5)
+```
+Finally we use that logical vector to subset the rows of the emotional dataframe. We could have done this in three steps, as shown here:
 ```{r}
-sleep_logical <- sleep[sleep$Exp == 1,]
-sleep_logical
-```
-Only rows with values of 1 for "Exp" are returned! 
+# Step #1: Get the vector of all the arousal values
+arousal_vector <- emotions_df[,'Arousal']
+length(arousal_vector)
 
-What if we want to subset the data so it includes only the rows that have a value of 1 **and** 3 for Exp and 2 for "Danger"? We would use the "and" `&` logical operator:
+# Step #2: Create a logical vector that is TRUE for all the rows where that subject's arousal value is greater than or equal to 5
+logical_indexing_vector = arousal_vector >= 5
+length(logical_indexing_vector)
+
+# Step #3: Do logical indexing using the logical vector we just created
+high_arousal_df2 <- emotions_df[logical_indexing_vector,]
+identical(high_arousal_df,high_arousal_df2)
+```
+
+We can combine logical operators to get very complex subsets of rows. What if we want to subset the data so it includes only the subjects that are highly anxious **AND** gave conset?  We would use the "and" `&` logical operator:
 ```{r, eval=FALSE}
 ?"&"
 ```
 ```{r}
-sleep_logical2 <- sleep[sleep$Exp == c(1,3) & sleep$Danger == 2,]
-sleep_logical2
+high_arousal_consent_df <- emotions_df[emotions_df[,'Arousal'] >= 5 & emotions_df[,'Consent'],]
+nrow(high_arousal_consent_df)
 ```
-We can subset a dataframe that includes only rows with "Exp" = 2 **and** 3 and only "BodyWgt", "BrainWgt", and "Exp" columns. 
-```{r, eval=FALSE}
-str(sleep)
-```
+Notice that I didn't use a logical operator with the **Consent** vector above, why not? It's because consent is already a vector of logicals. We've already seen that `emotions_df[,'Arousal'] >= 5` create a vector of logicals, and the "and" operator `&` works on two vectors of logicals, which is what is there. 
+
+## 3.5  Mixing and Matching Vector Types
+
+It is sometimes useful to use different types of indices vectors for the rows and columns.
+
+For example, let's say we want only the **BasicEmotion** of all the high anxious subjects:
 ```{r}
-sleep_2d <- sleep[sleep$Exp == c(2,3), c("BodyWgt", "BrainWgt", "Exp")]
-sleep_2d
+high_arousal_basic_df <- emotions_df[emotions_df[,'Arousal'] >= 5, 'Age']
+class(high_arousal_basic_df)
+length(high_arousal_basic_df)
 ```
+Why did this give us a character vector? Remember that since dataframes are lists of vectors, we get a vector when we subset a single column from a dataframe.
 
-> NOTE: see how we have the column names listed after the comma? When we only want to call rows, we still must include the comma to tell R that we want ALL of the columns! For example, if we want to specify only rows that have values of 2 and 3 for "Exp" and want all of the columns, we still must include the column inside our bracket notation after the specified rows:
-
+Let's get the first 10 subjects for all the dataframe variables whose names are longer than 7 characters
 ```{r}
-sleep_rows_only <- sleep[sleep$Exp == c(2,3),]
-sleep_rows_only
+first10_character_df <- emotions_df[1:10, nchar(colnames(emotions_df)) >7]
+str(first10_character_df)
 ```
-
-##  3.  Subsetting in base R - subsetting with positive integers `[,c(x:y)]`
-Subsetting by **positive** integers works as well. This will **include** only the column numbers specified, rather than typing out their names.
-
-Let's create an object `sleep_posint` that includes only "NonD", "Sleep", and "Exp" columns. 
-
-First use `str()` to see which integer values these columns represent. Because we only want the 3rd, 5th, and 9th columns, we type:
-```{r, eval=FALSE}
-str(sleep)
-sleep_posint <- sleep[,c(3,5,9)]
-str(sleep_posint)
-head(sleep_posint)
-```
-
-##  3.  Subsetting in base R - subsetting with negative integers `[,-c(x:y)]`
-Subsetting by **negative** integers will **exclude** the specified columns. Notice the `-` symbol before `c()` inside our bracket notation.
-
-We can create an object called `sleep_negint` that includes everything **except** columns 1 and 2 ("BodyWgt" and "BrainWgt"):
+Let's break down the column indices vector we created there. This is the first time we've called a function in side another function. That causes the return value from the inner function to be passed as the argument to the outer function. Let's see it step by step:
 ```{r}
-str(sleep)
-sleep_negint <- sleep[,-c(1,2)]
-str(sleep_negint)
-head(sleep_negint)
+# The whole thing at once, creating a logical vector that is the length of the number of columns.
+nchar(colnames(emotions_df)) >7
+
+# get the column names
+column_names <- colnames(emotions_df)
+
+# pass the column names into nchar, which will give us the number of characters in each character string of a character vector
+col_name_lengths <- nchar(column_names)
+col_name_lengths
+
+# create the logical vector of column names that have more than 7 characters
+col_name_lengths > 7
 ```
 
-##  3.  Subsetting in base R - lists and double bracket `[[]]` notation
-You can also subset lists. 
+## 3.6  Subsetting in Lists
+
+Subsettings lists, which are heterogenous, is a bit different than subsetting vectors, matrices and dataframes. We use double square brackets to do this `[[ ]]`. 
 ```{r, eval=FALSE}
 ?"[["
 ```
-Create an examlpe list:
+
+Lists are able to store different kinds of data types because they are actually just special vectors of **container items**. These **container items** just store (or wrap around) each element of the list. Let's use an analogy to explain this. When you go through the security checkpoint at an airport you put each of your things (shoes, laptop, backpack, etc.) in the small plastic containers they provide in order for your belongings to be scanned. The **container item**  is analagous to those plastic bins. They hold each object, which allows lists to behave like heterogenous data structures, while still allowing the list to really be a homogenous vector of **conainer items**
+
+Let's look at some examples:
 ```{r}
 example_list <- list(TRUE, "string data", 5)
 example_list
 ```
-Single brackets `[]` will return the list container as well as its value:
+Since the list is really a vector of **container items**, single brackets `[]` will return the **container item**, which in turn has the actual data in it:
 ```{r}
 example_list[1]
 ```
-However, double brackets will return only the value:
+However, we need the double brackets to get the actual data out of the container. Or to use our analogy, to get the laptop and not just the plastic container holding the laptop:
 ```{r}
 example_list[[1]]
 ```
-
-# **Challenge 1**
-1. How many ways can you subset the `iris` dataset using column names and positive and negative integers? Type and run `data(iris)` to load the dataset.  
-2. How do you view the structure of `iris`?
-
-# 4.  Missing data (NA)
-Identifying missing data can be important for subsetting purposes. R codes missing values as `NA`. Identifying missing data is important because dealing with it might be necessary to run basic tests like `mean()`. 
+Why is this important? When you want to use the data stored a list as an argument to a function or operator, you can’t use the **container item**. The analogy would be that if you want to write some R code, you need your laptop not the plastic container holding your laptop.
 ```{r, eval=FALSE}
-?NA
+sum(example_list[3], 3) # INCORRECT
+sum(example_list[[3]], 3) # CORRECT
 ```
-```{r}
-mean(sleep$NonD)    # This returns NA because R is unsure how to deal with NA cells for the `mean()` computation.
-```
-However, we can use `na.rm = TRUE` to properly calculate the mean of the NonD column by now excluding the NAs. 
+
+## 3.7  Subsetting Dataframe Variables with the `$`
+
+Getting just one dataframe variable (column) from a dataframe is something R programmers do all the time, and so R has a fast way to do this to make your life easier. It is the `$` symbol
 ```{r, eval=FALSE}
-?mean # Scroll down to `na.rm`
+?"$" # Remember that we must wrap symbols in quotation marks to view their help pages
 ```
-```{r}
-mean(sleep$NonD, na.rm=TRUE) #Now `mean()` returns the mean!
+
+Let's get just the Arousal dataframe variable from the emotions dataframe
+```{r, eval=FALSE}
+emotions_df$Arousal
 ```
-While `na.rm()` nor `str()` will not tell us which data are missing in a convenient way, `is.na()` does. Wrap the name of your data frame in `is.na()` to return logical values. Missing data is coded as `TRUE`, while present data are coded as `FALSE`
+
+The `$` is actually a shortcut for list subsetting using a character vector with only one value. This works with dataframes because they are really just lists of vectors. So the code `emotions_df$Arousal` is really just a shortcut for the following:
+```{r, eval=FALSE}
+emotions_df[['Arousal']]
+```
+There are other ways to get just the vector of arousal variables, as we've already seen. The end result is the same, but they used a different kind os subsetting. Here are other ways to do the same thing:
+```{r, eval=FALSE}
+emotions_df[,'Arousal'] # Using Character vectors
+emotions_df[,colnames(emotions_df) == 'Arousal'] # Using logical vectors
+emotions_df[,4] # Using Integer vectors, where Arousal is the 4th column
+```
+
+## Challenge 2
+1. Load the election dataset located in the file: `data/election.csv` and have a look at it using the `str()` function.
+2. Subset the election dataframe to get the first 100 rows and for the demographic dataframe variables: `Age`, `Gender`, and `State`
+3. Get the data for just the voters registered as Republicans (hint: `PartyAffiliation` is a factor with a level named `Rep`)
+4. Extra hard bonus question: See if you can calculate the propotion of voters over the age of 40 that are Democrats (`Dem`)! 
+
+# 4.  Handling Missing Data
+
+Subsetting is one way to identifying missing data. As we saw yesterday some functions, such as `mean()` have a `na.rm` optional argument that can handle missing data, but not all R functions have this. Identifying and removing missing data is important to do before using these functions. 
+
+ `is.na()` gives you a vector or matrix of logical values which are `TRUE` for all the missing values, and `FALSE` for all others. I've created a second version of the emotions dataframe that has some missing data it in. Let's load that and look for missing data in it:
 ```{r, eval=FALSE}
 ?is.na
-is.na(sleep)
 ```
-Data are coded as missing in many different ways besides `NA`, so don't be surprised if you see some other signifier. 
-
-## 4.  Missing data (NA) - recoding missing data
-Let's recode NA values in place to say "NONE":
 ```{r}
-sleep[is.na(sleep)] <- "NONE"
+emotions_missing_df <- read.csv('data/emotions_missing.csv', header=TRUE)
 ```
 ```{r, eval=FALSE}
-sleep
+is.na(emotions_missing_df)
 ```
-They now say "NONE".
+The matrix returned by `is.na()` can be used to do logical indexing in some interesting ways...
 
-However, for R to handle them correctly, we want to recode them to say `NA`. We can do this with a combination of the name of our data set, bracket notation, our relational operator `==` and our old friend the assignment operator `<-` ! 
+## 4.1  Recoding Missing Data
+
+Imputation is the process of replacing missing data with data that makes sense, like say the average of the remaining data. That is beyond the scope of this workshop, but at it's heart imputation is about replacing missing data. So let's pretend we want to replace all our missing data with the value 0:
 ```{r}
-sleep[sleep == "NONE"] <- NA
+emotions_imputed_df <- emotions_missing_df
+emotions_imputed_df[is.na(emotions_imputed_df)] <- 0
 ```
 ```{r, eval=FALSE}
-sleep
+emotions_imputed_df
 ```
+All the elements that had NA values now equal 0.
 
 > NOTE: here `<NA>` and `NA` are synonymous and R will treat them both as missing.  
 
-We can also subset only rows without any missing data using bracket notation. `complete.cases()` will find rows with no missing values.
+More commonly we would want to subset only rows without any missing data and we can do this using a combination of bracket notation and the `complete.cases()` function. This function will find all the rows in your dataframe that have no missing values.
 ```{r, eval=FALSE}
 ?complete.cases
 ```
 ```{r}
-sleep_no_NA <- sleep[complete.cases(sleep),]  
-```
-Remember to include the comma here to tell R you want ALL of the columns for these rows :) 
-```{r, eval=FALSE}
-sleep_no_NA
-```
-Then, test it to see if it contains missing values. All cells are `FALSE`
-```{r,eval=FALSE}
-is.na(sleep_no_NA)
+emotions_nomissing_df <- emotions_missing_df[complete.cases(emotions_missing_df),]  
+str(emotions_nomissing_df)
 ```
 
+Now let's verify that there really are no more missing values. All cells are `FALSE`
+```{r}
+sum(is.na(emotions_nomissing_df))
+```
+
+If we wanted to get only rows with missing data to inspect them, we can do so by adding the logical not operator `!` before complete_cases. 
 ```{r, eval=FALSE}
-# Conversely, we can subset the sleep data to include only rows with missing data by adding the logical bash operator `!` (not). 
 ?"!"
 ```
 ```{r}
-sleep_NA <- sleep[!complete.cases(sleep),]
+emotions_onlymissing_df <- emotions_missing_df[!complete.cases(emotions_missing_df),]
 ```
-```{r, eval=FALSE}
-sleep_NA # All rows have at least one cell with missing data
-is.na(sleep_NA) # Now we see TRUE values where data is missing
-```
+How does this work? What does the indices vector look like in this case?
 
-`subset` can also be used to subset your data. See `?subset` for more information. For example:
 ```{r}
-subset_1 <- subset(sleep, BrainWgt < 10 & Pred == c(1,5) & Danger == 4)
-subset_1
-
-# or
-subset_2 <- subset(sleep, BrainWgt < 10 & Pred == c(1,5) & Danger == 4, select=c(BrainWgt, Pred, Danger))
-subset_2
+str(emotions_onlymissing_df) # All rows have at least one cell with missing data
+sum(is.na(emotions_onlymissing_df)) # Now we see TRUE values where data is missing
 ```
 
-# **Challenge 2**
-1. How many different ways can you subset the `sleep` dataset?
+If we didn't need the whole dataframe for observations with missing rows, but just wanted to now the row numbers, we could use the 'complete.cases() function with the `which()` function. `which()` will return the indices of TRUE values in a logical vector:
+```{r, eval=FALSE}
+?which
+```
+```{r}
+which(complete.cases(emotions_missing_df))
+```
 
-# 5.  Merging data
-Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column. The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match.  
+## Challenge 3
+1. I've also made a second version of the election dataset with missing data. It's in the file `data/election_missing.csv`. Load that now and store it in a variable called election_missing_df.
+2. How many voters have at least 1 piece of missing data?
+3. What is the average age of voters that have no missing data?
+4. Do all the dataframe variables have missing data, or only some? 
+
+# 5. Combining Data Structures
+
+Real world data is not always clean! Sometimes we have data that is stored in multiple files and we need to combine it all together to make one big dataframe to do our analyses. We'll cover two ways to do that in R now. We'll use some toy dataframes here because it'll be much easier to see what's happening with really small datasets.
+
+## 5.1 Merging Data - `merge()`
+
+Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column. The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we indicate which column names we want to match.  
 
 Also note this shorthand way for creating a dataframe. Get your typing fingers ready! For example: 
 ```{r, eval=FALSE}
@@ -359,8 +688,9 @@ df_merge
 #What happened here? 
 ```
 
-## 5.  Merging data - `cbind()` and `rbind()`
-Other useful functions include `cbind()` and `rbind()`.  
+## 5.2 Combing Rows and Columns - `cbind()` and `rbind()`
+
+While `merge()` does a 'smart' joining of two datasets by matching the rows based on data, the `cbind()` and `rbind()` functions join datasets in 'dumb' way by just putting them together without doing any row (or column) matching.   
 
 `cbind()` will bind two data frames by their columns. Let's cbind `df1` and a new dataframe, `df3`:
 ```{r, eval=FALSE}
@@ -381,7 +711,7 @@ df_cbind
 ```
 > NOTE: cbind will not warn you if you have duplicate column names! 
 
-`rbind()` will add more a dataframe as rows to an existing data frame. An example:
+`rbind()` will add a dataframe as more rows to an existing data frame. An example:
 ```{r}
 df1 
 
@@ -395,20 +725,12 @@ df_rbind
 
 > NOTE: for rbind to work, you should have the same column names for both of your data frames! 
 
-# **Challenge 3** 
-1. load your `animals` dataset from Day 1 using `read.csv()`.  
-2. create a subsetted data frame called `cats_dogs` that contains only cats and dogs. (hint: what does "and" actually mean here?)  
-3. create a subsetted data frame that only contains healthy pigs! (hint: what is the meaning of "and" here in contrast to #2)  
-4. load the `mtcars` dataset. How might you find out what it is and how do you load it?  
-5. subset `mtcars` in five different ways.  
-6. you can also order your data using `order`, for example:
-```{r, eval=FALSE}
-data(mtcars)
-new_cars <- mtcars[order(mtcars$cyl, -mtcars$mpg),] # sort by ascending cyl and descending mpg
-new_cars
-```
+## Challenge 4 
+1. I've created another dataset that contains the education level of all the participants in the emotions dataset. Load this dataset from the file: `data/eduction.csv`. It contains 2 dataframe variables: `SubjectNo` and `Education`. 
+2. Merge this new education dataframe with the emotions_df using the `SubjectNo` dataframe varaible and store it in `emotions_edu_df`. **NOTE** This will take a minute or so since it is somewhat large data.
+3. Now find the average `Age` and `Anxiety` of people with advanced degrees (`Advanced` level of the `Education` factor). Can you relate!
  
-## 6. Reshaping your data
+# 6. Reshaping your data (Optional)
 You will probably find that certain plotting and testing functions require that the data be formatted in "long" or "wide" format. The "reshape2" R package offers a handy way to reformat your data. 
 
 In base R, `t` will quickly transpose your dataframe or matrix. The rows will become the columns, and the columns will become the rows:
@@ -422,14 +744,15 @@ mat1_t <- t(mat1)
 mat1_t
 
 # or
-
+animals <- read.csv('data/animals.csv')
 animals_t <- t(animals)
 animals_t
 ```
 
-## 6. Reshaping data with the "reshape2" package 
+## 6.1 Reshaping data with the "reshape2" package 
 ```{r, eval=FALSE}
 library(reshape2)
+library(reshape)
 ```
 
 "Wide" format means that each variable is shown in a column, like in our animals dataframe:
@@ -446,7 +769,7 @@ Melt is a handy way to reshape data from "wide" to "long" format:
 ?dcast
 ```
 
-```{r}
+```{r, eval=FALSE}
 animals_melt <- melt(animals, id="Type")
 str(animals_melt)
 ```
@@ -455,7 +778,7 @@ animals_melt
 ```
 
 Cast is handy to perform some basic summary operations. For example, let's look at the mean Weight of each animal Type:
-```{r}
+```{r, eval=FALSE}
 type_means <- dcast(animals_melt, Type~variable, mean)
 type_means
 
