@@ -19,7 +19,7 @@ Contributions by: Evan Muzzall, Rochelle Terman, Dillon Niederhut
 This is an R markdown (.Rmd) file. It allows you to create various kinds of documents (html, Word, etc.) which contains regular text mixed with R code. Check out the [R Markdown Quick Tour](http://rmarkdown.rstudio.com/authoring_quick_tour.html). 
 
 # 1 Logistics
-#  1.1 Getting Everything Installed
+##  1.1 Getting Everything Installed
 Start by having the class go to our github page at [github.com/dlab-berkeley/R-Fundamentals](github.com/dlab-berkeley/R-Fundamentals) to get the course materials by: 
 
 1. clicking the green `download zip` button on the right hand side of the screen, or  
@@ -35,27 +35,28 @@ Also, be sure to download R and RStudio:
 
 While everything is downloading, you can go on to:  
 
-## Workshop goals
+## 1.2 Workshop Goals & Themes
+### Workshop goals
 The goals of this workshop are divided into four parts and we'll cover one part per day:  
-Part 1) Introduction to R, data types, data structures  
-Part 2) Importing, subsetting, and merging data; type coercion, identifying missing data  
-Part 3) If and switch statements, for-loops and while loops; functions and packages
+Part 1) Introduction to R, data types and type coercion, file reading & writing
+Part 2) Data structures, subsetting, identifying missing data, and merging data,   
+Part 3) If and switch statements, for-loops loops; functions
 Part 4) Research design, data exploration, and statistical testing  
 
-## Workshop Themes
+### Workshop Themes
 1. **De-mystify programming** - Programming languages are complex and can be very intimidating to learn. They do, however, follow a distinct logic. And if you can understand that logic, then learning how to program need not be such an overwhelming experience. One theme we will come back to throughout this workshop is how to demystify what is happening behind the scenes in R, so that you understand the fundamental mechanics of how R works.
 2. **Introduce jargon** - While the main goal of this workshop is to teach you the R programming language, it is also important that you can speak the English jargon that surrounds R, so that you can communicate with other humans about what you're doing with R. Throughout, we will try to be explicit when we are introducing jargon terms, and define them before using them.
 3. **Spreadsheet Analogy** - Although we are teaching how to program, the goal of all this program is to be able to do cool stuff with data. As such, we will emphasize thinking about your data as if it was rows and columns in a spreadsheet. Spreadhseets are something most, if not all, of you are familiar with, and so it is a useful analogy to use when thinking about your data.
 4. **Simple but accurate** - Programming is complex, we know, and some times people teach it in a way that tries to simplify it at the expense of saying things that aren't true. Here, we will do our best to speak in simple, plain language and use simple concepts, but not at the cost of saying things that aren't true. To this end, we will have notes throughout the workshop that indicate there is a lot more to a topic we are not covering, and links where you can explore them further on your own (or with one of our DLab consultants!).
 
-## Part 1 Learning objectives
+### Part 1 Learning objectives
 2. Introduction: What is R? And what is RStudio?, variables, operators, functions, packages, files & folders, help  
 3. Atomic data types: integer, numeric, character, logical and factors
 4. Data Type Testing & Coercion  
 5. File reading and writing (I/O)
 6. Homework (optional)  
 
-## A note on Datasets for the Workshop
+## 1.3 A note on Datasets for the Workshop
 We've created two different datasets that will be used throughout this workshop. We've done this so that you can get experience with R that is similar to the things you might actually be doing, not just toy examples. The first one, **Emotion**, will be used in all the examples we give in the class, The second, **Election**, will exclusively be used in the challenge questions that test your knowledge of the material as you're learning it. We've made both to be somewhat realisic datasets, with specific hypothesis, and subsequent associated analysis. We'll start using these tomorrow, as today is very introductory.
 
 Here is a little bit about each:
@@ -66,7 +67,7 @@ This dataset contains simulated experimental data for an imagined Psychology exp
 **Election**: 
 This dataset contains simulated observational data of an election. The variables recorded are demographic information of the voters, they way they voted for several senators and propositions, and amount of campagin money/methods the candidates and advocacy groups used. You'll try and answer questions about what types of demographic information and campaigning predicts the way people vote.
 
-##  Resources for R
+## 1.4 Resources for R
 These materials are meant to be guides for you, **the instructor**. Your students will retain more of this content if they type these commands themselves than if they simply enter them off this markdown file.  
 
 **If you are a student and you are looking at this R markdown file**, please use this as a guide if you have fallen behind, can't see the screen very well, or want to review these materials.  
@@ -85,10 +86,10 @@ Remember, our goal is to teach you research applications in R. Check out these o
 [data8](http://data8.org/sp17/)  
 [EECS](https://cs.berkeley.edu/)  
 
-# 2.  Introduction
-# 2.1 What is R?
+# 2. Introduction
+## 2.1 What is R?
 
-## R is a programming language
+### R is a programming language
 R is a somewhat old programming language (made in 1993) based on the "S" and "S-PLUS" language and graphics user interface (GUI) and is both *functional* and *object oriented*. These themes make R highly extensible. 
 
 And like all programming languages R contains the following:
@@ -125,7 +126,7 @@ install.packages("CAR")
 library(CAR)
 ```
 
-## Why use R?
+### Why use R?
 
 After this brief introduction, explpain to folks why you (the instructor) use R. As the instructor, you should also describe in general why social scientists use R as well as some of its pitfalls. Then, break the ice by going around the room and asking each student to state their name, department, and why they want to learn R. 
 
@@ -142,7 +143,7 @@ Be sure to draw on your own experiences to include further examples and advice i
 9. I have a deep and burning desire for open and reproducible research  
 10. It is open-sourced with strong community support and is used by virtually all academic disciplines as well as the private sector  
 
-# 2.2  What is RStudio?
+## 2.2  What is RStudio?
 
 RStudio is an interactive R environment (known as an "Integrated Development Environment"", or IDE) that permits the user to enter and save R code and data for exploration, manipulation, plotting, and testing.  
 
@@ -167,9 +168,9 @@ Pressing control and either 1, 2, 3, 4 or 7 are the keyboard shortcuts between t
 
 These are all standard features of an IDE, along with a tool known as a **Debugger**. We'll learn more about debugging on the 3rd day.
 
-# 2.3 R & RStudio Basics
+## 2.3 R & RStudio Basics
 
-## Writing Code
+### Writing Code
 
 Learning to write code is why you are all here, but what exactly is code, or **Source Code** to be more jargony? [Wikipedia](https://en.wikipedia.org/wiki/Source_code) defines it as:
 > In computing, source code is any collection of computer instructions, possibly with comments, written using a human-readable programming language, usually as ordinary text.
@@ -218,7 +219,7 @@ Now let's clear these simple examples from the console. To clear your console pr
 
 **NOTE:** the name of your script file is in the tab at the top of your script window - the name defaults to `Untitled1`. If the name is red and followed by an asterisk `*` it means **your script is not saved**. Save your script by clicking "File" then "Save", or `command + s` (Mac) or `Ctrl + s` (PC).  
 
-## Working Directory and Files
+### Working Directory and Files
 
 Like in any operating system (OS) when in a terminal or file explorer, in R you are always in a directory. Any **file input/output (I/O)** commmands you execute are all relative to that directory. This directory (or folder) is called your **working directory**. You will find that being in a sensible directory for your project is useful for loading data from files and saving your output. 
 
@@ -247,7 +248,7 @@ You can view the contents (files and folders) of your working directory with `di
 dir()
 ```
 
-## Variables
+### Variables
 
 Variables represent pieces of data in R. Every variable is given a name by the programmer, which can be almost anythinh, although there are some restrictions and convetions we'll soon see. Variables are stored in R's memory and are what functions and operators manipulate. 
 
@@ -389,7 +390,7 @@ Although the following are not rules, following these naming conventions helps t
 3. Don't use the '.' because almost all other programming languages don't allow it in variable names, and it can be confusing.
 4. Use camel case or underscores to separate words. Camel case means capitlizing the first letter of each word after the first (e.g. firstVariableName, anotherVariableName).
 
-##  Getting Help
+###  Getting Help
 
 There are two ways to get the help pages for functions and operators in R. A single question mark `?` or the help() function. Notice that we must wrap symbols in quotation marks to access their help page (and we can wrap function names in quotation marks):
 ```{r, eval=FALSE}
@@ -413,7 +414,7 @@ If you have questions that don't seem to be answered by the help pages and vigne
 [R-bloggers](https://www.r-bloggers.com/)  
 [Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
 
-## Using Operators
+### Using Operators
 
 Operator are symbols that "operate" on one ore more variables. They are like functions (in fact, unlike in most programming languages, in R they are functions), but are used in a slightly different way. 
 
@@ -451,7 +452,7 @@ Logical operator | Description
 
 From: [Brunsdon and Comber 2015, page 15](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031)
 
-## Comments
+### Comments
 
 It is often useful to put Enlgish comments (or notes) about your code into your script files so that you (and others!) can better understand the code when reading it later.
 
@@ -463,11 +464,11 @@ Here are some examples:
 3*3 # and this comment tells us it better by 9!
 ```
 
-## Using Functions
+### Using Functions
 
 Functions, along with operators, do all the work in R. They are the recipes, or algorithms, that we use functions to do math, reformat data, conduct statistical tests, plot results, download things from the itnernet, save and load files, play music, etc. Most of the functions we will use in this workshop have already been **defined**, in other words someone else wrote the code that **is** the function. Functions are **defined** in place in code, and then we **call** (or use) those functions anywhere else in our code. Here we will focus on how to **call** functions that are already written, but we can also define our own functions, and we'll cover how to do that in day 3. 
 
-### Anatomy of a Function
+#### Anatomy of a Function
 
 When **calling** a function there are 3 parts to consider. Here is the general anatomy of a function **call**.
 `return_value <- function_name(argument_1, argument_2, argument_3)`
@@ -505,13 +506,13 @@ sum2 <- sum(1,2,3,4,NA,5,6, na.rm=TRUE)
 ```
 Here we see we can still **call* the `sum` function without the `na.rm` argument, but it returns NA in this case, because there is an NA in the input. When we pass `na.rm=TRUE` however, we are telling R to remove that R before summing all the arguments, and so it works!
 
-### Functions and Environments
+#### Functions and Environments
 
 We've already learned that the **global environment** is where all the variables are stored when you run a script or run commands interactively from the console. When you call a function however, a new **local environment** is created just for that function. R does this so that variables that are created in the function don't "contaminate" your **global environment**.
 
 All functions do have access to all the variables from the global environment, but not variables from the environemnts of other functions. Even though it is possible to write a function that uses a variable from the **global environment**, that is not recommended because then that function only works when that variable exists in the **global environment**, and the function doesn't control that. Good practice is to pass in all the variables you need. This will be more important on day 3 when we learn about writing our own functions.
 
-## Installing and Loading Packages
+### Installing and Loading Packages
 
 Many people write clever software that makes R smarter/better/faster/stronger. Packages are a convenient way to group and distribute this software. Packages comprise functions and variables and are generally created around a theme. 
 
