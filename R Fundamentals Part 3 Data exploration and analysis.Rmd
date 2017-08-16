@@ -1,5 +1,5 @@
 ---
-title: 'R Fundamentals Part 4: For loops and functions'
+title: 'R Fundamentals Part 3: If statements, for loops and functions'
 author: "Samy Abdel-Ghaffar"
 date: "August 15, 2017"
 output:
