@@ -1,470 +1,461 @@
 ---
-title: 'R Fundamentals Part 3: If statements, for loops and functions'
-author: "Samy Abdel-Ghaffar"
-date: "August 15, 2017"
+title: 'R Fundamentals Part 3: Data exploration and analysis'
+author: "Evan Muzzall, Rochelle Terman, Dillon Niederhut"
+date: "February 6, 2017"
 output:
   html_document:
     toc: yes
     toc_float: yes
 ---
-
-Contributions by: Guadalupe Tuñón, Dillon Niederhut, Shinhye Choi, Rochelle Terman, Evan Muzzall
-
+ 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Part 3 Learning objectives
-1. Introduction to Control Statements
-2. If Statements
-3. For loops
-4. Functions
+1. Day 2 subsetting review
+2. Data exploration and analysis in R
+3. Data exploration and plotting
+4. Statistical testing
+5. ggplot2
 
-Load your `emotions.csv` file from Part 2 if it's not already in your global environment:
-```{r}
-emotions_df <- read.csv('data/emotions.csv', header=TRUE, stringsAsFactors = FALSE)
-```
-
-# 1.  Introduction to Control Statements
-
-There are many scenarios where we want to run some code only under certain circumstances, or run the same code over and over. **Control Statements** are functions in R that let us control how our script will execute in a way that is more complicated than just one line after the next. Some examples are:
-1. Oftentimes in research scripts are resused for various similar, but slightly different tasks. It is common to use logical variables to turn on or off different parts of the script that may be doing different preprocessing steps on some data, for example. `if` statements are used in these cases to only run the specified preprocessing step when the logical variable (called a **Flag** in the scenario) is `TRUE`.
-2. Imagine you have a categorical variable in a dataframe, and you want to do some calculations with other variables, based on the value of this categorical variable. You could use a `for` loop to look at each observation you have, and then nested `if` `else` statements to handle each level of the categorical variable differently.
-3. There is a calculation you do all the time (for example you threshold some data at 0 and then scale it). Instead of writing that code over and over again, you can put it into a `function` so that it is simple to use.
-
-# 2. If Statements
-
-## 2.1 Simple If Statements
-
-`if` statements are control statements that let you control whether or not block of code is executed or not. They consist of a **condition** (which is either a logical variable, or a logical test), and a **statment** (block of code) that is executed only when the **condition** is `TRUE`. Here's the synatax:
-
-`if (condition) {statement}`
+# 1.  Day 2 review 
+Set your working directory to the R-Fundamentals folder
 ```{r, eval=FALSE}
-?"if"
+getwd()
+setwd("/Users/evanmuzzall/Desktop/R-Fundamentals/data")
 ```
+
+Read in the `animals` data frame you created on Day 1
 ```{r}
-if (nrow(emotions_df) > 1000){
-  print("Wow, we've got some big data!")
-}
+animals <- read.csv("./data/animals.csv", header=TRUE, stringsAsFactors=FALSE)
+str(animals)
+head(animals)
 ```
-
-As an example, let's say we read in a csv file containing a 2D dataset and want to remove any missing data before we do our analysis. We might want to know that we removed some data, and how much, so we can note that in our methods section of our paper. This is how we would do that:
-```{r}
-# Use the complete.cases function and which functions we learned today to get the row numbers that have at least one piece of # missing data NA
-missingrows <- which(!complete.cases(emotions_df))
-
-# now let's write out a file that lists the row numbers of
-if (length(missingrows) > 0){
-  write.csv(missingrows, "data/RowNumbersWithMissingData.csv", col.names = FALSE)
-}
-```
-
-### Challenge
-1. Write an `if` statement that determines if the number of Republican voters is greater than the number of Democratic voters, and prints how you feel about that!
-
-## 2.2 If/Else statements
-Sometimes it's useful to do two different things when our **condition** is either `TRUE` or `FALSE`. In these scenarious we use the `if` and the `else` statements
-```{r}
-SCALE_DATA <- TRUE
-if(SCALE_DATA) {
-  valence_foranalysis_df <- scale(emotions_df$Valence)
-} else {
-  valence_foranalysis_df <- emotions_df$Valence
-}
-
-# Now run my statistical tests on the new dataframe, and we don't have to worry if it was scaled or not...
-```
-In this example I defined a **Flag** (which many people use all capitals for, just by convention) that indicates whether I want to scale (or Z-Score) my data. I used an `if` `else` statement so that whether or not I scaled my data, I could have a single variable that I would use for later analyses, and not have to worry about which version of the variable I should use. This is especially useful if you have a preprocessing script with many different steps!
-
-The `ifelse` is a shorthand way to have in if else statement for simple **statements** (or blocks of code). It is very handy to recode data from one convention to another, or to make a new dataframe variable that is a summary of another, as long as you have two conditions that are binary/mutually exclusive. 
-
-syntax: `ifelse(test, yes, no)`
-
-Imagine I want to create a new variable in the emotionds dataframe indicating whether the subjects' `Anxiety` score is low or high (above or below the `median()` of all the data. I can do this easily with the `ifelse()` function:
 ```{r, eval=FALSE}
-?"ifelse"
-```
-```{r}
-emotions_df$AnxietyHighLow <- ifelse(emotions_df$Anxiety>=median(emotions_df$Anxiety), TRUE, FALSE)
-sum(emotions_df$AnxietyHighLow)
-```
-**NOTE** Since logicals are stored as 1s and 0s, we can sum vectors of them. The result is the number of values that are `TRUE` within that vector of logicals.
-
-### Challenge
-1. Create a **flag** and use that flag as the **condition** to an  an `if` `else` statement to determine whether to create a subset of all the Democratic or Republican voters. Call this the political_party_df.
-2. Let's be mishevious and create some potential voter fraud! Use the `ifelse` function to replace the `Age` in the `political_party_df` you just created with the value 17 for all voters living in `CA`.
-
-## 2.3 Nested If/Else Statements
-
-If you want to do something based on more than a single yes/no condition you can use multiple (or nested) `if` `else` statements. Here's an example doing something different for the 3 levels of `Gender` in the emotions dataframe:
-```{R}
-indexToActOn <- 10
-if(emotions_df$Gender[indexToActOn] == 'Female'){
-  print( 'We found a female person.')
-} else if(emotions_df$Gender[indexToActOn] == 'Male'){
-  print( 'We found a male person.')
-} else if(emotions_df$Gender[indexToActOn] == 'Other'){
-  print( 'We found an other gendered person.')
-} else {
-  print( "Uh-Oh, we encountered a Gender factor level we weren't expecting")
-}
-
+animals
 ```
 
-### Challenge
-1. Fill in the nested `if` `else` structure that prints the state slogan (make it up or look on wikipedia) where a random voter lives. Use the index variable `voterIndex` to determine which voter to check.
+# 2.  Data exploration and analysis in R
+Research design, data collection, exploration, visualization, and analysis are fundamental aspects of research. Learning how to explore and analyze data will help you "think with the data" so that you become able to formulate better research designs and more efficient data collection protocols for your own research.
+
+Furthermore, when you read peer-reviewed work in your field, having an understanding of basic summaries, plots, and statistical tests will help you better grasp arguments that the authors are making and will allow you to more critically evaluate their rationale. 
+
+Our focus is on data analysis in R, which usually proceeds in two steps:
+1) exploration/summarizing/graphing
+2) statistical testing/inference
+
+Data exploration often means summarizing and graphing your data to see if it is possible to visualize any obvious (or not so obvious) trends. 
+
+Statistical inference is employed to test relationships that you might have noticed in the exploration stage. Remember that we are not formally teaching you statistics, rather responsible statistical programming application in R.  
+
+> NOTE: you want to use data exploration and testing to make some sort of informed decision about the question you are asking!  
+
+## 2.  Data exploration and analysis in R - hypothesis testing
+You will frequently encounter hypotheses in the peer-reviewed literature and in test results in R. Hypotheses are generally based on research questions and expectations about the data. The simplest way to think about hypothesis testing is that you have two hypotheses: the null (Ho) and the alternative (Ha). 
+
+The null hypothesis can be thought of as **NO RELATIONSHIP** or **NO DIFFERENCE** .
+
+The alternative hypothesis can be thought of as **SOME SORT OF RELATIONSHIP** or **SOME SORT OF DIFFERENCE**.  
+
+Should your test fail to achieve statistical significance you **FAIL TO REJECT THE NULL HYPOTHESIS**. Should your test achieve statistical significance, you **REJECT THE NULL HYPOTHESIS**. These are your only two options! (more on this in section # 4 below).
+
+# 3. Data exploration and plotting
+## 3. Data exploration and plotting - `summary()`
+It is often useful to first summarize your data. In R, this can be done in a variety of ways. 
+
+`summary()` provides a six-number summary of a data frame:
 ```{r, eval=FALSE}
-voterIndex <- 100 # you can change this number
-# TODO - Fill in the code below
-if(){
-  print('SLOGAN #1')
-} else if(){
-  print('SLOGAN #2')
-} else if(){
-  print('SLOGAN #3')
-} else if(){
-  print('SLOGAN #4')
-} else if(){
-  print('SLOGAN #5')
-}
+?summary
+```
+```{r}
+summary(animals)
+
+# or
+
+summary(animals$Height)
 ```
 
-# 3. For loops
+## 3. Data exploration and plotting - `describe()` and `describeBy()`
+`describe()` and `describeBy()` from the 'psych' R package provide more in-depth summary information. However, we are going to subset the data so that it only includes the numeric variables within the `describe()` call. 
 
-## 3.1 For Loop Structure
-A `for` loop repeats a block of code a certain number of times until a certain condition is met (or is no longer satisfied). A for loop has 3 parts to it: 
-syntax: `for (variable in sequence) {statement}`
-1. **Variable**: This variable gets assigned each value from the **sequence** in order. It is usually used within the *statement* (code block) as an index into some vector, matrix or dataframe. You can give this any name you want, but be careful not to overwrite a variable you've already created (use a new name)!
-2. **Sequence**: A vector containing the numbers that will be assigned to the **variable**. Usually it is a sequence from 1 to the number of times you want to loop, but it doesn't have to be.
-3. **Statement**: A block of code that you want to execute over and over again. Usually this code is doing something with values from a vector, matrix or dataframe.
-
-All for loops are precluded by `for` so that R knows you want to iterate over a loop. Here's a simple example:
+Remember, we installed the 'psych' package on Day 1, so all we have to do is call it into our environment.
+```{r}
+library(psych)
+```
 ```{r, eval=FALSE}
-?"for"
+?describe
 ```
 ```{r}
-# simple example to print out the 1st through 10th Valence values.
-for (i in 1:10){
-  print(emotions_df$Valence[i])
-}
+str(animals)
+describe(animals[,c(3:5)])
 ```
-
-Usually we don't know exactly how many times we want to loop when we write the code because it depends on the size of the data we are dealing with. In this case we can use a variable to define how many times to loop. Let's loop over all the rows in the emotions dataset by using the `nrow()` function to define the length of our **sequence** in the for loop.
+We can also subset these summary statistics to create simpler tables. Let's assign this output to an object first:
 ```{r}
-for (i in 1:nrow(emotions_df)){
-  print(emotions_df$Valence[i])
-}
+animals_describe <- describe(animals[,c(3:5)])
+animals_describe
 ```
-
-Although we usually want to loop over a sequence of indices into some dataframe, we don't have to. We could iterate over a vector of characters if we wanted to:
+If we just want "median", "sd", skew", "kurtosis", and "se", we could subset our data frame like this:
 ```{r}
-charsToIterate <- c('Loops', 'Are', 'Very', 'Versatile')
-for (curChar in charsToIterate){
-  print(curChar)
-}
+animals_simple <- animals_describe[c(5, 4, 11:13)]
+animals_simple
 ```
-
-### Challenge
-1. Write a `for` loop that will iterate over all the rows in the `election` data, and print the `State` of the voter in row 1000.
-
-##  3.2 Example Loop with If/Else
-
-Let's create some code combining loops with `if` statements. Let's imagine we found a bug in our code that ran the experiment. Oh No! For Scenarios `S1`, `S2` and `S3` we switched the `Valence` and `Arousal`. Let's fix it!
-```{r}
-for (curTrial in 1:nrow(emotions_df)){
-  if(emotions_df$Scenario[curTrial] %in% c('S1', 'S2', 'S3')) {
-    tempValence <- emotions_df$Valence[curTrial]
-    emotions_df$Valence[curTrial] <- emotions_df$Arousal[curTrial]
-    emotions_df$Arousal[curTrial] <- tempValence
-  }
-}
-```
-I used a new operator there, `%in%`. This is a logical test that return true if the value before it exists in the vector after it. So here, I used subsetting to get the `Scenario` for the current trial, and I want to see if that is any one of 'S1', 'S2', 'S3'. If it is, this test will be TRUE, and the code will execute the 3 lines within the `if` statement, otherwise it won't do anything and continue on to the next trial.
-
-How many **iterations** did the loop do? In other words, how many time did it execute that **statement** (block of code)?
-
-## 3.3  Getting out early - `break`
-
-For long loops with complicated rules for when to stop, many intermediate commands can help us "end the looping" once a condition is met, or when a condition is no longer satisfied. We use `break` to tell R it should stop the loop early, before it has gone through all the items in it's **Sequence**.
-
-`break` ends the looping once a certain condition is met.
+Saving summary tables is convenient in this fashion:
 ```{r, eval=FALSE}
-?break
+write.csv(animals_simple, "animals_simple.csv", row.names=TRUE)
+#`row.names=TRUE` ensures that row names "Weight", "Height", and "Progress" labels are printed.
 ```
+Check your working directory for the new .CSV file! How else can you check your working directory? (hint: dir())
 
-`if` statements are frequently used along with `break` to first check for a spefic condition before breaking out of the loop. Here we want to keep printing until we find a large valene value, and then stop the code:
-
-```{r}
-for(i in 1:nrow(emotions_df)){
-    print(emotions_df$Valence[i])
-    if(emotions_df$Valence[i] > 10){
-      break
-    }
-}
-```
-
-Let's quickly add one `NA` value to the `Valence` in position 15: 
-```{r}
-emotions_df$Valence[15] <-  as.numeric(NA)
-```
-
-And now we'll loop again, but this time we tell the code to stop if `Valence` reaches a missing value (`NA`):
-```{r}
-for(i in 1:nrow(emotions_df)){
-    print(emotions_df$Valence[i])
-    if(is.na(emotions_df$Valence[i])){
-      break
-    }
-}
-```
-
-### Challenge
-1. Find all the unqiue **levels** (hint: remember the `unique()` function) that the `State` dataframe variable in the election data can take. 
-2. Iterate (loop) over all the **levels** of `State` and calculate the average (mean) `Age` for all the voters in each `State`. If the average age is more than 30, then print out the name of that state.
-
-# 4.  Functions
-A function is a set of commands (or recipe or algorthm) that accomplishes a single task and/or is to be used repeatedly. For example, if you want to run the same satatistical tests on several datasets, you might want to write a function that contains instructions for all the tests once, so that you do not have to rewrite the code each time. We've already used functions extensively throughout this workshop, but now we'll see how to **define**, or create, our own.
-
-## 4.1 Defining a Function
-Every function definition has four parts and its basic syntax looks like this:  
-
-> function.name <- function(x){
->   body of function
-> }
-
-1. `function.name` - like variables in R, it is helpful if you give your function a relevant name.
-2. `function(x)` - `function` lets R know you are writing a function and `(x)` contains the inputs/arguments.
-3. `{body of function}` - the body of the function is contained within curly braces { } and comprises the statements that you want R to evaluate.
-4. The `environment` Every function has it's own environment (just like scripts operate on the global environment) that contains all the variables that the function creates. R does this so that the variables in functions don't "contaminate" the global environment. 
-
-For example:
+We can also describe our data by a grouping variable using `describeBy()`:
 ```{r, eval=FALSE}
-?"function"
+?describeBy
 ```
 ```{r}
-test_function <- function(x){
-  x + 1
-}
+#Output summary statistics by one grouping variable:
+summary_sub <- describeBy(animals[,c(3:5)], animals$Type)
+summary_sub
 
-class(test_function)        # Returns the class of `test_function`
-formals(test_function)      # Shows the defined arguments
-body(test_function)         # Displays the statements to be evaluated
-environment(test_function)  # Returns the envirnoment his function is defined in. NOT the function's own local environment
-test_function               # Shows all the above information about your function 
+#If we just want to view Cats, Dogs, or Pigs, we can type:
+summary_sub$Cat
+summary_sub$Dog
+summary_sub$Pig
+
+#We can also view just the means for Dogs, we can type:
+summary_sub$Dog[[3]] #Here, double bracket subsetting is used to return just the value from a list.
+
+#If we just want the Height mean for Dogs (8.5), we can type:
+summary_sub$Dog[[3]][2]
+
+#Or the medians for Pigs:
+summary_sub$Pig[[5]]
+summary_sub$Pig[["median"]]
 ```
 
-See how our function has `R_GlobalEnv` as it's environment? That's because we defined it in the global environment. This means that if you tell a function to look for an `variable`, it will look in the global namespace - not within the function itself.
-
-We evaluate functions that we define in the same way as functions R defines, by calling the name of the function with your argument `x`  within parantheses. R then evaluates the body of the function and returns the desired output for the specified input. 
-
-If we want to see what `test_function` returns when the argument (`x`) = 2, we type:
-```{r}
-test_function(2)
-```
-
-### Challenge
-1. Define a function with a single argument that determines the length of that argument, and either returns the argument itself if it only has 1 **element** (or item), and the median if it has more than 1 **element**.
-2. Call this function with a numeric, integer, character and logical vector.
-
-## 4.2 Default Arguments
-We can also add a predetermined value for one or more arguments, which serves as a default value that will be assigned to that argument when the function is called without the argument. To do this add a `=` after the argument and then the default value. By convenction, required arguments do not have default values and are listed before optional (default) arguments in the function definition.
-
-Let's add a new argument called 'y' and give it a default value. 
-```{r}
-funcWithDefault <- function(x, y=2){
-  (x + y) / y
-}
-funcWithDefault(5)
-funcWithDefault(4, 4) # here, we do not need to specify `x` and `y` because R knows that the second argument is "y"
-funcWithDefault(4, y=4) # this is the same as f(4, 4)
-
-#does f(y=4, 4) work? Yes, but it is not recommended.
-funcWithDefault(y=4, 4)
-```
-
-Sometimes it's useful to have the default value be empty (`NULL`) to indicate that no argument was passed in, and nothing should be done with it
-```{r}
-funcWithNULLDefault <- function(x, y=NULL){
-  if (is.null(y)){
-    returnValue <- x
-  } else {
-    returnValue <- (x + y) / y
-  }
-  returnValue
-}
-funcWithNULLDefault(5)
-funcWithNULLDefault(5,10)
-```
-### Challenge
-1. Define a function that has 3 arguments, two of which are optional (have default values). Make the optional arguments default to `NA`. First check whether any of the arguments are `NA`, and then take the mean of only the values that are NOT `NA`.
-
-## 4.3 Return Values
-
-As we learned earlier all functions return something, although sometimes it is something useless such as a NULL value. By default R will return the value from the last line in a function, as we've seen in the example function definitions above. It is good practice to be explicit however, and use the `return()` function, so nothing unexpected happens.
-
-Let's update the test function we created above:
-```{r}
-test_function <- function(x){
-  return(x + 1)
-}
-```
-
-Imagine you want your function to just return x if y is not passed in, as in the `funcWithNULLDefault` above. It is even more important that you use the `return()` function inside the `if` statement because you may decide later on to do more after the `if` statement which could totally change the value returned. For example
-```{r}
-funcWithNULLDefault <- function(x, y=NULL){
-  if (is.null(y)){
-    return(x)
-  } 
-  
-  # this is the return value as the code is written
-  (x + y) / y
-  
-  # but if new code is added here later on, and return wasn't called above, the function wouldn't return x when y is NULL 
-}
-```
-
-Although you can only pass a single argument to `return()`, if you need to return multiple items you can use a `list()`:
-```{r}
-funcMultiReturn <- function(x, y){
-  return(list(x+5, !y))
-}  
-```
-
-### Challenge
-1. Define a function that takes two arguments, assume the first is dataframe and the second a character vector. Use the character vector to subset the columns of the dataframe. Then return 3 things: the average of those columns, the minimum value of those columns and the maximum value of those columns. (Hint: `min()` and `max()` find the minimum and maximum values of a vector, respectively)
-
-## 4.4 Environment in Functions
-
-Every time a function is **called** (NOT just defined), it has it's own **environment**. This means all the variables created in a function are only available within the function.
-
-Let's try one more example where we define object `z` within the function. 
-```{r}
-environmentTest <- function(x){
-  z <- 5
-  return(x + z)
-}
-
-environmentTest(10)
-
-# Does the variable 'z' exist in the global environment?
-zInGlobal <- 'z' %in% ls()
-```
-Now we ask: does `z` appear in your global environment? Why not? `z` is protected from what is happening outside the function!  
-
-Conversely, any function has access to all the variables stored in the global environment. Now let's define `z` in the global environment and see if the function can access it:
-```{r}
-z <- 5 # define z outside of the function environment in the global environment
-
-environmentTest2 <- function(x){
-  return(x + z)
-}
-environmentTest2(10)
-
-zInGlobal <- 'z' %in% ls()
-```
-`z` is now defined in the global environment and the function can acess variables from the global namespace.
-
-> **NOTE** It is a REALLY BAD IDEA to use write a function that relies on variables existing in the global environment. Why? Because the function has no control over whether that function is created or not, and so if you use the function and forget to define that variable first, the function will fail with an error. In general it is good practice to make functions "self-seficient", meaning able to run in any environment.
-
-### Challenge
-1. Define a function that contains **local** variables. Get creative here and do something with the election data to end up with a useful, new dataframe. Try to use everything we've learned so far, including: `if` statements, `for` loops, subsetting, type coercsion. Then write this new dataframe to a csv file.
-
-## 4.5 Example - unit conversion example
-Unit conversion is a common obstacle in research. Let us write a function that converts inches to centimeters. For now however, pretend that we think that one inch is equal to 2.5 centimeters - we will show you how to update it below. 
-
-Define a function called `in_to_cm` and then enter Evan's height (74 inches):
-```{r}
-in_to_cm <- function(x){
-  x * 2.5
-}
-in_to_cm(74)
-#Evan is 185 cm tall (incorrectly assuming that 1 inch = 2.5 cm)
-```
-What if we want to know how tall I am in meters?
-
-You could type:
+## 3. Data exploration and plotting - `table()`
+We can view frequencies for of categorical data like Cat, Dog, and Pig with `table()`
 ```{r, eval=FALSE}
-in_to_m <- function(x){
-  x * 2.5 / 100
-}
+?table
 ```
-...but this would be repeating yourself!
-
-Then, when you figure out that the conversion factor is really *2.54*, not 2.5, you might update one function and forget to update the other - these inconsistencies can cause problems.
-
-Instead, let's define a new function called `in_to_m` so that the output of `in_to_cm` is used in the new function! 
 ```{r}
-in_to_m <- function(x){
-  in_to_cm(x) / 100
-}
-in_to_m(74)
+table(animals$Type) # get frequencies for Cat, Dog, and Pig
+
+table(animals$Type, animals$Healthy) #get frequencies for Cat, Dog, and Pig by column "Healthy".
 ```
-Now, if we go back and update `in_to_cm`, those changes automatically get propogated to `in_to_m` and we do not have to worry about updating it: 
+
+Wow! Only 2/7 cats are healthy.  
+3/6 dogs are healthy.  
+6/7 pigs are healthy!  
+
+Maybe resources need to be focused on care of the cats?  
+
+##  3.  Data exploration and plotting - `hist()`
+Histograms are a handy way to quickly illustrate the distribution shape of a particular variable. Let's visualize the "Height" variable from the `animals` data frame:
+```{r, eval=FALSE}
+?hist
+```
 ```{r}
-in_to_cm <- function(x){
-  x * 2.54
-}
-in_to_m(74)
-#Evan is actually 1.8796 meters tall
+hist(animals$Weight, col="violetred")
 ```
-
-## 4.6 Advanced Example - Reading in some text files (Optional)
-
-One way in which R is more powerful than many statistics programs is that it lets you do complex calculations on your data via subsetting and `for` loops. Let's imagine that we want to read in a supplementary file for all of our subjects that have an **Other** gender specification because it contains more information on their gender identity that we collected after the original experiment. We could do this with a loop:
+The `col=` argument specifies the color of the bars. Look at the colors you can choose from in base R using `colors()`
 ```{r, eval=FALSE}
-# get the SubjectNo of all subjects that identify as 'Other' gender
-otherGenderSubjectNos <- unique(emotions_df[emotions_df$Gender == 'Other', 'SubjectNo'])
-
-# let's add a new variable to our dataframe for special notes
-emotions_df$Notes <- character(nrow(emotions_df))
-
-# loop over those subject numbers and read their file containing more information
-for (curSubjectNo in otherGenderSubjectNos) {
-  # create the filename for the current subject
-  textFilename <- sprintf('TextFilename_SubjectNo%03i.txt', curSubjectNo)
-  
-  # read in the text file with the note
-  currentNote <- readLines(textFilename)
-  
-  # store the current note in all the Note rows where the SubjectNo equals the current subjectNo
-  emotions_df$Notes[emotions_df$SubjectNo==curSubjectNo] <- currentNote
-}
+colors() 
 ```
-There's a lot going on in there! Let's break it down. That first line uses subsetting (logical indexing in this case), to find all the rows where `Gender` is **Other**. It then asks for just the `SubjectNo` dataframe variable (or column). Since the SubjectNo is repeated in this dataframe for every `Trial` (each subject does 100 trials), there will be many duplicates of the `SubjectNo` in that vector. I use the `unique()` function, which removes all duplicate values from a vector, leaving one 1 copy of each of the unique values.
+We can change the title and the x-axis label with `main` and `xlab`, respectively. `las` can be used to change the orientation of the axis text:
 ```{r}
-uniqueTest <- unique(c(1,1,1,2,2,2))
-uniqueTest
-
-otherGenderSubjectNos <- unique(emotions_df[emotions_df$Gender == 'Other', 'SubjectNo'])
+hist(animals$Weight, 
+     col="violetred",
+     main="Histogram of animal weight",
+     xlab="Animal weight",
+     las=1)
 ```
 
-We then add a new dataframe variable, called `Note`, by creating a character vector that is the same length as the dataframe and using the `$` notation. The `$` followed by a new variable name will create that new dataframe variable, and in this case we store a character vector in this new dataframe variable.
+# **Challenge 1**
+1. Use `summary()`, `table()` and `describeBy()` to investigate variables in the `iris` dataset. Create a histogram of one of the numeric variables. 
+
+##  3.  Data exploration and plotting/ `plot()`
+What if we want to know more about the relationships between two numeric variables? Here, base `plot()` is useful. This creates a scatterplot.
 ```{r, eval=FALSE}
-emotions_df$Notes <- character(nrow(emotions_df))
+?plot
 ```
-Finally we have our loop, where we are **iterating** over all the Subjects with `Other` gender identities (as stored in `otherGenderSubjectNos`). 
-```{r, eval=FALSE}
-for (curSubjectNo in otherGenderSubjectNos) {
-}
+First, let's coerce "Type" from character to factor data type:
+```{r}
+animals$Type <- factor(animals$Type)
+str(animals)
 ```
-So for each of these subjects, we create the text filename and read in the text from that file. To create the filename, we used the `sprintf()` function that we learned about in day 1. We use that to insert the cuurrent SubjectNo into the filename. Then the `readLines()` function reads all the text in from that file.
+Then, identify two variables you want to plot on the x and y axes:
 ```{r, eval=FALSE}
-  # create the filename for the current subject
-  textFilename <- sprintf('TextFilename_SubjectNo%03i.txt', curSubjectNo)
-  
-  # read in the text file with the note
-  currentNote <- readLines(textFilename)
+animals$Weight
+animals$Height
+```
+Now, we can plot animal "Weight" versus "Height":
+```{r}
+plot(animals$Weight, animals$Height,    
+    xlab="Weight (kg)",   # change x axis label
+    ylab="Height (cm)",   # change y axis label
+    main="Animal weights and heights",   # add plot title
+    las=1, # make all axis text parallel to x-axis
+    col=as.integer(animals$Type),   # change point colors to correspond to animal types
+    pch=as.integer(animals$Type),   # change point symbols to correspond to animal types
+    cex=2)   # change point size 
 ```
 
-Finally, we use subsetting to store the note text into all the rows for the current subject. Note that we're using logical indexing along with the `$`. We could also have done this using 2D logical indexing, as I show just below the original line:
-```{r, eval=FALSE}
-  emotions_df$Notes[emotions_df$SubjectNo==curSubjectNo] <- currentNote
+However, our points are falling ourside the plot boundaries! We can change that with `xlim` and `ylim`:
+```{r}
+plot(animals$Weight, animals$Height,    
+    xlab="Weight (kg)",   # change x axis label
+    ylab="Height (cm)",   # change y axis label
+    main="Animal weights and heights",   # add plot title
+    las=1, # make all axis text parallel to x-axis
+    col=as.integer(animals$Type),   # change point colors to match animal types
+    pch=as.integer(animals$Type),   # change point symbols to match animal types
+    cex=2,   # change point size 
+    xlim=c(3,8),  # adjust range of x axis
+    ylim=c(4,11))  # adjust range of y axis
 
-  # Doing the same thing using 2D indexing instead of the $
-  emotions_df[emotions_df[,'SubjectNo']==curSubjectNo, 'Notes'] <- currentNote
+# That looks better! We can also add a legend:
+
+legend("topright", inset=.0, title="Animal", cex=1,
+       c("Cat","Dog","Pig"), col=c(1,2,3), pch=c(1,2,3),
+       horiz=FALSE)
 ```
 
-# Acknowledgements
-[Software Carpentry](https://swcarpentry.github.io/)  
-[Hadley Wickham](http://adv-r.had.co.nz/)  
-[more Hadley Wickham](http://r-pkgs.had.co.nz/)
+> NOTE: One drawback of R Studio is that its in-environment graphics look a little strange sometimes. However, to save it as a beautiful .PNG file, we wrap our plotting and legend instructions by `png()` and `dev.off()` lines of code. We can specify figure characteristics inside `png()` such as the dimensions and resolution of the image, while `dev.off()` writes the file to disk.
+
+```{r, eval=FALSE}
+?png
+```
+Highlight and run all of this code at once:
+```{r, eval=FALSE}
+png("Animal weights and heights.png", height=6, width=6, units="in", res=300)
+plot(animals$Weight, animals$Height,    
+    xlab="Weight (kg)", ylab="Height (cm)", 
+    main="Animal weights and heights", las=1,
+    col=as.integer(animals$Type), pch=as.integer(animals$Type), 
+    cex=2, xlim=c(3,8), ylim=c(3,11))
+legend("topright", inset=.0, title="Animal", cex=1,
+       c("Cat","Dog","Pig"), col=c(1,2,3), pch=c(1,2,3),
+       horiz=FALSE)
+dev.off()
+```
+Voila! Check your working directory - we now have a publishable quality figure that can be copy and pasted into your manuscript :) 
+
+# **Challenge 2**
+1. Using the `iris` dataset, plot two numeric variables and export the graph to your working directory as a .PNG file. 
+
+##  3.  Data exploration and plotting/ `boxplot()`
+Boxplots also are useful because you can graphically represent a numeric variable as parsed by a factor. The idea is similar to `hist()` and `plot()` except the syntax is slightly different. These are often referred to as "Tukey boxplots":
+```{r, eval=FALSE}
+?boxplot
+```
+```{r}
+boxplot(animals$Height ~ animals$Type)
+```
+The tilde `~` means "as parsed by" or "as divided by" some category (in our case Height as parsed by Cat, Dog, and Pig). It means we want to look at animal Height by animal Type. 
+
+Remember your six number summary from Day 2? A Tukey boxplot represents a 5 number summary (minus the mean). 
+
+The "whiskers" of these box and whisker plots represent the minimum and maximum values. 
+
+The lower and upper borders of the rectangle represent the first and third quartiles.
+
+The thick horizontal black bar represents the median! 
+
+We can also change colors by specifying a vector of color names with a length of 3 (one for each box). Other base plotting features are applicable as well:
+```{r}
+boxplot(animals$Height ~ animals$Type,
+        col=c("aquamarine", "goldenrod", "salmon"),
+        las=1, main="Animal boxplots", xlab="Type", ylab="Height")
+#That looks better! 
+```
+We can also save our figures as .PDF files:
+```{r, eval=FALSE}
+?pdf
+```
+```{r, eval=FALSE}
+pdf("animals boxplot.pdf", 6, 6)
+boxplot(animals$Height ~ animals$Type,
+        col=c("aquamarine", "goldenrod", "salmon"),
+        las=1, main="Animal boxplots", xlab="Type", ylab="Height")
+dev.off()
+```
+Check your working directory again - you now have a .PDF of your boxplots! 
+
+# **Challenge 3**
+1. Create boxplots for one of the numeric variables in the `iris` dataset and export it to your working directory as a .PDF. 
+
+# 4.  Statistical testing
+Now that we have sufficiently explored our data, it is time to test some of the relationships identified by it. 
+
+**Hypothesis testing** is central to research. How can you tell if the differences you observe are statistically real or not? We answer the question through hypothesis formulation and significance testing as measured by p-values. 
+
+Suppose we want to see if Height differenecs between Cat, Dog, and Pig are statistically different between the three groups.  
+
+We can define our **NULL HYPOTHESIS** to state that there are no Height differences between our animals. We can also define our **ALTERNATIVE HYPOTHESIS** to state that there are _some kind of_ differences between our animals. We do not specify the nature of the differences, but just that the difference exists. For your own research and reading literature in your field, you will probably encounter more narrowly focused hypotheses, and maybe even multiple alternative hypotheses.  
+
+These hypotheses are tested using a "p-value". A p-value signifies how likely differences are statistically real instead of due to random chance. The most common standard cutoff value is p<0.05. 
+
+If p>0.05, you **FAIL TO REJECT THE NULL HYPOTHESIS**! This means that the null hypothesis holds true and that there is "no difference" between your groups or "no relationship" among the variables being tested.  
+
+If p<0.05, you **REJECT THE NULL HYPOTHESIS** of "no difference" and by default you accept the alternative hypothesis and whatever "differences" or "relationships" it specified. This is a "statistically significant" difference.  
+
+For example, look at your boxplots. Cat and Pig medians appear similar for Height, but their standard deviations differ greatly (the position of the median relative to the distribution shape of the boxes and whiskers). However, they both seem different from Dog...  
+
+Might there be formal significant statistical differences between the means of Cat/Pig and Dog?  
+
+Well, we can test those assumptions with "mean comparisons" such as t-tests and analysis of variance (ANOVA)!  
+
+##  4.  Statistical testing - `t.test()`
+A "t.test" formally compares _one or two group means_ for statistically significant differences at a standard p-value cutoff of p<0.05. We can use `t.test()` to make an observation of a population based on a sample. We are only examining a few hypothetical cats, dogs, and pigs - if we had ALL cats, dogs, and pigs in the world, there would be no need for a statistic - instead, we would only be concerned with what we observe!  
+
+> KEY POINT: a t-test should only be applied for comparisons between one or two groups! Use an ANOVA (discussed below) for _more than two groups!_  
+
+The null hypothesis states that there are no actual mean differences between the two groups. 
+
+# **Challenge 4**
+Subsetting review! 
+1. Subset your "animals" data frame into three new dataframes: Cat, Dog, and Pig. "Cat" should contain only cats, "Dog" should contain only dogs, and "Pig" should contain only pigs.  
+
+```{r}
+Cat <- animals[animals$Type=="Cat",]
+Cat
+
+Dog <- animals[animals$Type=="Dog",]
+Dog
+
+Pig <- animals[animals$Type=="Pig",]
+Pig
+```
+Now, we can compare Height means between two of the three animals (we will use an ANOVA to compare all three group means while responsibly correcting for family wise error - see below). 
+```{r, eval=FALSE}
+?t.test
+```
+```{r}
+t.test(Cat$Height, Pig$Height)
+# The p-value is 0.88 - we FAIL TO REJECT the null hypothesis (aka, there is no statistical difference between Cat and Pig means for Height). We accept the conditions of the null hypothesis that state there are no between-group differences. 
+```
+What about between Cat and Dog?
+```{r}
+t.test(Cat$Height, Dog$Height)
+# p=0.39 so again we FAIL TO REJECT the null hypothesis
+```
+
+# **Challenge 5**
+1. Subset the `iris` dataset by species and perform a t-test between two of the species on one of the numeric variables.  
+
+##  4.  Statistical testing - `aov()` and `TukeyHSD()`
+What about if we want to compare more than two groups? Doing multiple pairwise t-tests for 1) cat v. dog, 2) cat v. pig, 3) dog v. pig) is not ideal because it becomes more difficult to adjust for the "family wise error rate", or the influence of the other groups/variables that are not being tested. 
+
+When we want to compare _more than two group means at once_ (i.e., Cat, Dog, _and_ Pig), we can use an analysis of variance (ANOVA). This is called by `aov()` in R. 
+```{r, eval=FALSE}
+?aov
+```
+
+We can follow `aov()` with a "Tukey test of Honest Significant Difference" to find out between exactly which groups the differences (if any) exist. This is called with `TukeyHSD` in R.
+```{r, eval=FALSE}
+?TukeyHSD
+```
+
+Let's try! Note the slightly different syntax - we now specify only the column headings, and enter the name of our data frame in the "data" argument. Let's call our object `aov1`, which is an object we can unpack and look inside:
+```{r}
+aov1 <- aov(Height ~ Type, data = animals)
+
+#Use `summary()` to access the useful information from our `aov1` model:
+summary(aov1)
+```
+We receive a non-significant p-value. However, we can still follow this up with a TukeyHSD test to see between which between-group differences do contribute to differences although they are non-significant: 
+```{r}
+TukeyHSD(aov1)
+#This allows us to see mean Height differences bewteen the multiple comparisons animals. 
+```
+
+# **Challenge 6**
+1. Using the `iris` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three flower species. How does this differ from the t-test in Challenge 5?
+
+##  4.  Statistical testing - `cor.test()`
+Correlation is a useful way to see if two numeric variables are related. "Pearson's r" is the default coefficient in `cor.test()`.
+
+Investigate if Cat Height and Cat Weight are correlated:
+```{r, eval=FALSE}
+?cor.test
+```
+```{r}
+cor.test(Cat$Height, Cat$Weight)
+```
+Almost! Cat Height and Weight are NEGATIVELY correlated (r = -0.69) and are almost statistically significant (p=0.08). This is a good example of having to deal with p-values that approach statistical significance in real research.  
+
+##  4.  Statistical testing - `lm()`
+So, Cat Height and Weight seem to be related at an adjusted p-value cutoff of p<0.10 for example. 
+
+Now what? Linear regression is a convenient way to see if one numeric variable can be used to predict another. Do you think Cat Weight can be used to predict Cat Height? Again, note the altered syntax:
+
+`model1 <- lm(Y ~ X, data=data)`
+
+Y is the target, response, outcome, or **_dependent_** variable. This is the variable we want to predict.  
+
+X is the predictor or **_independent_** variable.  
+
+We can use X to predict the outcome of Y!
+
+```{r, eval=FALSE}
+?lm
+```
+```{r}
+lin.model1 <- lm(Height ~ Weight, data=Cat)
+summary(lin.model1)
+```
+`lm()` output is dense! Check out [the yhat blog for fitting and interpreting linear models](http://blog.yhat.com/posts/r-lm-summary.html)
+
+You can also pull items out of return objects using `names()`. To extract the residuals we would use the dollar sign operator `$` and type:
+```{r}
+names(lin.model1)
+```
+```{r, eval=FALSE}
+lin.model1$residuals
+```
+```{r}
+hist(lin.model1$residuals, col="skyblue") # residuals should be approximately normal when plotted
+```
+
+# **Challenge 7**
+1. Using the `mtcars` dataset, create boxplots for one numeric variable as parsed by a factor variable.  
+2. How do you load the "mtcars" dataset?  
+3. How do you view the variable names of this dataset?  
+4. Might you surmise a relationship about something like engine size and miles per gallon?  
+5. What does `cor.test` reveal about engine size and miles per gallon?  
+6. Create a scatterplot of two variables using `plot()`.  
+7. Can one of these variables be used to predict another in a linear regression model?  
+
+# 5.  ggplot2
+The "ggplot2" R package is a powerful way to graph your data. The syntax is similar to what is used in "dplyr", except instead of a pipe `%>%`, a plus-symbol `+` is used:
+```{r, eval=FALSE}
+?ggplot
+```
+```{r}
+library(ggplot2)
+mtcars$cyl <- factor(mtcars$cyl) # first, coerce "cyl" to factor data type
+ggplot(mtcars, aes(x=cyl, y=mpg, fill=cyl)) + 
+         geom_boxplot()
+```
+Note the different syntax again. You need three things to make a ggplot:  
+1. A dataset (`mtcars`)  
+2. aesthetics `aes()` - this is where you specify your axes and colors  
+3. A geom - this is where you tell R if you want a scatterplot, boxplots, etc.  
+
+Let's create a scatterplot using the `iris` data:
+```{r}
+data(iris)
+ggplot(iris, aes(x=Petal.Length, y=Petal.Width, color=Species)) + 
+  geom_point() + 
+  #theme_light() + 
+  #theme_dark() + 
+  #theme_classic() + 
+  #theme_bw + 
+  theme(legend.position="top") 
+```
+
+# **Challenge 8**
+1. Use "ggplot2" to create a boxplot or scatterplot using the `mtcars` or `iris` dataset.
+2. Export this plot to your working directory as a .PNG or .PDF file. 
+
+> REMEMBER: If you have research questions, [schedule an appointment with a D-Lab consultant!](http://dlab.berkeley.edu/consulting)

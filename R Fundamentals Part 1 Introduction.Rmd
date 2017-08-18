@@ -1,10 +1,10 @@
 ---
 title: 'R Fundamentals Part 1: Introduction'
-author: "Samy Abdel-Ghaffar"
-date: "August 11, 2017"
+author: "Evan Muzzall, Rochelle Terman, Dillon Niederhut"
+date: "February 20, 2017"
 output:
-#  word_document:
-#    toc: yes
+  word_document:
+    toc: yes
   html_document:
     toc: yes
     toc_float: yes
@@ -14,12 +14,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Contributions by: Evan Muzzall, Rochelle Terman, Dillon Niederhut
+This is an R markdown (.Rmd) file. It allows you create documents of various kinds. Check out the [R Markdown Quick Tour](http://rmarkdown.rstudio.com/authoring_quick_tour.html). We will talk more about this in Part 4.  
 
-This is an R markdown (.Rmd) file. It allows you to create various kinds of documents (html, Word, etc.) which contains regular text mixed with R code. Check out the [R Markdown Quick Tour](http://rmarkdown.rstudio.com/authoring_quick_tour.html). 
-
-# 1 Logistics
-##  1.1 Getting Everything Installed
+##  1.  Front matter: Pre-introduction
 Start by having the class go to our github page at [github.com/dlab-berkeley/R-Fundamentals](github.com/dlab-berkeley/R-Fundamentals) to get the course materials by: 
 
 1. clicking the green `download zip` button on the right hand side of the screen, or  
@@ -30,47 +27,26 @@ Also, be sure to download R and RStudio:
 [download R here](https://cran.r-project.org/)  
 [download RStudio here (RStudio Desktop Free version)](https://www.rstudio.com/products/rstudio/download/)  
 
-> It is generally good to keep R, RStudio and your R Packages up to date!
-[Update Instructions](http://bioinfo.umassmed.edu/bootstrappers/bootstrappers-courses/courses/rCourse/Additional_Resources/Updating_R.html)
-
 While everything is downloading, you can go on to:  
 
-## 1.2 Workshop Goals & Themes
-### Workshop goals
-The goals of this workshop are divided into four parts and we'll cover one part per day:  
-Part 1) Introduction to R, data types and type coercion, file reading & writing
-Part 2) Data structures, subsetting, identifying missing data, and merging data,   
-Part 3) If and switch statements, for-loops loops; functions
-Part 4) Research design, data exploration, and statistical testing  
+# Workshop goals
+The goals of this workshop are divided into four parts:  
+Part 1) Introduction to R, data types, data structures  
+Part 2) Importing, subsetting, and merging data; type coercion, identifying missing data  
+Part 3) Research design, data exploration, and statistical testing  
+Part 4) For-loops and functions; Monte Carlo simulation, the "birthday problem"
 
-### Workshop Themes
-1. **De-mystify programming** - Programming languages are complex and can be very intimidating to learn. They do, however, follow a distinct logic. And if you can understand that logic, then learning how to program need not be such an overwhelming experience. One theme we will come back to throughout this workshop is how to demystify what is happening behind the scenes in R, so that you understand the fundamental mechanics of how R works.
-2. **Introduce jargon** - While the main goal of this workshop is to teach you the R programming language, it is also important that you can speak the English jargon that surrounds R, so that you can communicate with other humans about what you're doing with R. Throughout, we will try to be explicit when we are introducing jargon terms, and define them before using them.
-3. **Spreadsheet Analogy** - Although we are teaching how to program, the goal of all this program is to be able to do cool stuff with data. As such, we will emphasize thinking about your data as if it was rows and columns in a spreadsheet. Spreadhseets are something most, if not all, of you are familiar with, and so it is a useful analogy to use when thinking about your data.
-4. **Simple but accurate** - Programming is complex, we know, and some times people teach it in a way that tries to simplify it at the expense of saying things that aren't true. Here, we will do our best to speak in simple, plain language and use simple concepts, but not at the cost of saying things that aren't true. To this end, we will have notes throughout the workshop that indicate there is a lot more to a topic we are not covering, and links where you can explore them further on your own (or with one of our DLab consultants!).
+# Part 1 Learning objectives
+1. Front matter  
+2. Introduction: What is RStudio?, objects, global environment, packages, variable assignment, help  
+3. Atomic data types: numeric, character, and logical  
+4. Data type coercion  
+5. Data structures: vector, list, matrix, data frame  
+6. Saving your work  
+7. Homework (optional)  
 
-### Part 1 Learning objectives
-2. Introduction: What is R? And what is RStudio?, variables, operators, functions, packages, files & folders, help  
-3. Atomic data types: integer, numeric, character, logical and factors
-4. Data Type Testing & Coercion  
-5. File reading and writing (I/O)
-6. Homework (optional)  
-
-## 1.3 A note on Datasets for the Workshop
-We've created two different datasets that will be used throughout this workshop. We've done this so that you can get experience with R that is similar to the things you might actually be doing, not just toy examples. The first one, **Emotion**, will be used in all the examples we give in the class, The second, **Election**, will exclusively be used in the challenge questions that test your knowledge of the material as you're learning it. We've made both to be somewhat realisic datasets, with specific hypothesis, and subsequent associated analysis. We'll start using these tomorrow, as today is very introductory.
-
-Here is a little bit about each:
-
-**Emotion**: 
-This dataset contains simulated experimental data for an imagined Psychology experiment. The goal of the study is to understand how people's trait anxiety affects the emotions ellicited in various scenarios. Two different ways of measuring emotions reactions are recorded, as well as each subject's trait anxiety, aspects of the various scenarios, and other control variables such as age, gender and country of origin.
-
-**Election**: 
-This dataset contains simulated observational data of an election. The variables recorded are demographic information of the voters, they way they voted for several senators and propositions, and amount of campagin money/methods the candidates and advocacy groups used. You'll try and answer questions about what types of demographic information and campaigning predicts the way people vote.
-
-## 1.4 Resources for R
+##  1.  Front matter: Introduction to the class
 These materials are meant to be guides for you, **the instructor**. Your students will retain more of this content if they type these commands themselves than if they simply enter them off this markdown file.  
-
-**If you are a student and you are looking at this R markdown file**, please use this as a guide if you have fallen behind, can't see the screen very well, or want to review these materials.  
 
 ##  About the UC Berkeley Social Sciences Data Laboratory (D-Lab)
 > D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as this one, one-to-one consulting, and working groups that cover a variety of topics and programming languages.  
@@ -78,7 +54,19 @@ These materials are meant to be guides for you, **the instructor**. Your student
 > [D-Lab Consulting](http://dlab.berkeley.edu/consulting)  
 > [D-lab Working Groups](http://dlab.berkeley.edu/working-groups)  
 
-Remember, our goal is to teach you research applications in R. Check out these other resources on campus:  
+It is a good idea to start off the class by explpaining to folks why you (the instructor) use R. As the instructor, you should also describe in general why social scientists use R as well as some of its pitfalls. Then, break the ice by going around the room and asking each student to state their name, department, and why they want to learn R. Common responses include:
+
+1. Other programs are too expensive  
+2. I saw a pretty graph someone made in R  
+3. My field uses analytical packages written for R  
+4. I have a deep and burning desire for open and reproducible research  
+5. It is open-sourced with strong community support and help and is used by virtually all academic disciplines as well as the private sector  
+
+Be sure to draw on your own experiences to include further examples and advice, especially for students who do not fall into one of the five categories above and/or are just beginning to learn R. Be sure to discuss a motivating example personal to you.  
+
+**If you are a student and you are looking at this R markdown file**, please use this as a guide if you have fallen behind, can't see the screen very well, or want to review these materials.  
+
+Remember, our goal is to teach you research applications in R. Check out UC Berkeley:  
 [Department of Statistics](http://statistics.berkeley.edu/)  
 [Data Science](http://data.berkeley.edu/)  
 [School of Information](https://datascience.berkeley.edu/)  
@@ -86,357 +74,101 @@ Remember, our goal is to teach you research applications in R. Check out these o
 [data8](http://data8.org/sp17/)  
 [EECS](https://cs.berkeley.edu/)  
 
-# 2. Introduction
-## 2.1 What is R?
+# 2.  Introduction - what is RStudio?
+R is old programming language based on the "S" and "S-PLUS" language and graphics user interface (GUI) and is both *functional* and *object oriented*. These themes make R highly extensible. 
 
-### R is a programming language
-R is a somewhat old programming language (made in 1993) based on the "S" and "S-PLUS" language and graphics user interface (GUI) and is both *functional* and *object oriented*. These themes make R highly extensible. 
+However, we do not need to think of R exclusively in these terms. At D-Lab, we want to provide you with basic programming competencies so you can get started on your own research! 
 
-And like all programming languages R contains the following:
+RStudio is an interactive R environment that permits the user to enter and save code and data for exploration, manipulation, plotting, and testing.  
 
-1. **Variables** (data)
-Variables contain all the numeric data, text, matrices, logical values, etc. that we manipulate using R. They are the same concept that you learned in your algebra class. Remember y = x + 5? In this case y and x are variables, and we can treat them the same way in R. Everything you "do" in R is done on variables.
-```{r}
-X <- 1
-Y <- X + 5
-```
-**NOTE** The term variable can be confusing in R, because variable also means the columns (or fields, or features) of a data set (dataframe). We will learn a lot more about dataframes in the future, and I will revisit this issue of variables there.
 
-2. **Operators**
-Logical and mathmatical operations done on single or multiple variables.
-E.g. Addition (+) , logical equality (==), exponentiation  (** or ^)
-```{r}
-additionX <- X + 5
-testX <- X == 5
-exponentX <- X ^ 2
-```
+After opening RStudio, by default you should see four windows after opening a new script:
 
-3. **Functions**
-Functions can be thought of as a recipe (or algorithm) that implements an ordered set of instructions. It takes input and returns output and operates on a number of things such as your data, files, figures, the internet, your robot, etc.
-```{r}
-sineX <- sin(X)
-logX <- log(exp(10))
-```
+Open a new script.  `*PC:* Ctrl + Shift + N`
+                    `*MAC:* command + shift + N`
 
-4. **Packages**
-A package is a grouping of functions, operators and variables. Generally they are organized around solving a particular problem, for example a kind of statistical model, a way to visualize data, a way to scrape data from the internet, etc. These packages are powerful because they provide you with already assembled tools so that you don’t have to make them yourself, making your programming more efficient.
-E.g. ggplot2 for plotting, CAR for regression, psych for standard psychological methods (but useful in many many fields of study).
-```{r, eval=FALSE}
-install.packages("CAR")
-library(CAR)
-```
+Top left window: enter code in this savable `script` file
 
-### Why use R?
+Bottom left window: code output is displayed here in the `console`
 
-After this brief introduction, explpain to folks why you (the instructor) use R. As the instructor, you should also describe in general why social scientists use R as well as some of its pitfalls. Then, break the ice by going around the room and asking each student to state their name, department, and why they want to learn R. 
+Top right window: contains the defined objects currently in the `global environment`
 
-Be sure to draw on your own experiences to include further examples and advice in response to each students answer, especially for students who do not fall into one of the five categories above and/or are just beginning to learn R. Be sure to discuss a motivating example personal to you. Write student's answers down, and mention the following if they don't:
+Bottom right window: contains file import/export, plots, package installations, and help
 
-1. Their stats program (SPSS, STATA, SAS) can't do what they need to do.
-2. Other programs are too expensive  
-3. I saw a pretty graph someone made in R  
-4. Cleaning/manipulating data is much more powerful in R
-5. My field uses analytical packages written for R  
-6. The most advanced new models/methods/algorithms are implemented in R first (generally)
-7. Help documentation is excellent
-8. More online examples in forums = better questions for DLab consultants
-9. I have a deep and burning desire for open and reproducible research  
-10. It is open-sourced with strong community support and is used by virtually all academic disciplines as well as the private sector  
+control + 1, 2, 3, 4 will keyboard shortcut between these windows
 
-## 2.2  What is RStudio?
-
-RStudio is an interactive R environment (known as an "Integrated Development Environment"", or IDE) that permits the user to enter and save R code and data for exploration, manipulation, plotting, and testing.  
-
-It has many features and tools, but here we will focus on the most commonly used features. See the RStudio website for a full list of features and tools: 
-[Features](https://www.rstudio.com/products/rstudio/features/)
-And how to use them:
-[Documentation](https://support.rstudio.com/hc/en-us/sections/200107586-Using-the-RStudio-IDE)
-
-To get started, open up RStudio, and open a new script by typing: 
-`*PC:* Ctrl + Shift + N`
-
-`*MAC:* command + shift + N`
-
-After the script opens, by default you should see four windows. They are:
-
-1. Top Left Window: **Text Editor** - Where you edit code that you want to save.
-2. Bottom Left Window: **Console** - Where you run code that you don't want to save, when you are playing around.
-3. Top Right Window: **Data Viewer (Environment)**  - A GUI that displays all the variables (and their values) in the current environment or workspace. **History** - Useful when developing/debugging your code. The History shows a list of all the commands you have executed.
-4. Bottom Right Window: Contains multiple tabs with the **Help**, **Plot viewer** and **Workspace Browser (Files)** windows.
-
-Pressing control and either 1, 2, 3, 4 or 7 are the keyboard shortcuts between these windows. Try pressing them now.
-
-These are all standard features of an IDE, along with a tool known as a **Debugger**. We'll learn more about debugging on the 3rd day.
-
-## 2.3 R & RStudio Basics
-
-### Writing Code
-
-Learning to write code is why you are all here, but what exactly is code, or **Source Code** to be more jargony? [Wikipedia](https://en.wikipedia.org/wiki/Source_code) defines it as:
-> In computing, source code is any collection of computer instructions, possibly with comments, written using a human-readable programming language, usually as ordinary text.
-
-Keep that in mind as we're going through this workshop, that from a certain perspective all you're doing is writing a long list of instructions that the computer will execute (or run) to accomplish your data visualization and analysis goals.
-
-There are 2 places that you can write code in RStudio, in the **Text Editor** 
-![](Images/TextEditor.png)
-and the **Console**. 
-![](Images/Console.png)
-
-Although there are many ways these can be used, we suggest using the **Text Editor** to write the scripts and function files that you want to keep, and the **Console** to write interactive code for testing or playing around.
-
-Let's write our first line of code. We'll do this in the console since we're just playing around. Put the cursor in the console by pressing `ctrl + 2`, or clicking in the bottom left window with your mouse.
-
-Let's use R as the calculator that it is to do some basic arithmatic. Type the following and then hit enter:
-```{r}
-5 + 5
-```
-You should see that R has printed the output, 10, in the next line. Sometimes R will print the output of the command you are executing, and sometimes it won't. We'll learn about when it will and won't as we progress.
-
-Let's say we're happy with this line of code, and want to move it into our script so it can be saved. The straightforward way to do this is to go to the text editor by pressing `ctrl + 1` (or click the top left window), and retype the command, `5+5`.
-
-We can also use the **History** window to do this through the GUI. To do this type `ctrl + 4` (or click the top right window). 
-![](Images/History.png)
-
-This window shows a list (or history) of all the commands you've executed in the **Console**. You can select one or more of these lines with your mouse, then click the **"To Source"**, which will copy those commands to the file currently open in your text editor. Try this now.
-
-To add to this script, let's go to the text editor by pressing `ctrl + 1` (or click the top left window), and add another command:
-```{r}
-12/4
-```
-Notice that if you press enter after this the cursor goes to the next line in the file, but nothing gets executed. In order to run this line of code, put the cursor on that line and press:
+To run a line of code:
 `*MAC*: command + return`
-`*PC*: Ctrl + return`
+`*PC*: Ctrl + r`
 
-This does two things:
-1. Copies the current line of code in the text editor to the console.
-2. Executes that line of code (showing any appropriate results).
-
-If you want to make sure the code you are writing works correctly, this can be a useful way of testing that.
-
-Now let's clear these simple examples from the console. To clear your console press:
+To clear your console
 `*MAC*: control + l`
 `*PC*: Ctrl + l`
 
+**Commenting your script file**: Using a hashtag `#` will tell R that you do not want that particular line or block of code to be run. This is handy for making notes to yourself! You can even add hashtags after lines of runable code - on the same line! 
+
+In the console, the prompt `>` looks like a greater than symbol. If your prompt begins to look like a `+` symbol by mistake, simply click in your console and press the `esc` key on your keyboard to return to `>`. R uses `+` when code is broken up across multiple lines and R is still expecting more code. A line of code does not usually stop until R finds an appropriate stop parameter, often a closed parenthesis `)`, closed bracket`]`, or other statement.
+
 **NOTE:** the name of your script file is in the tab at the top of your script window - the name defaults to `Untitled1`. If the name is red and followed by an asterisk `*` it means **your script is not saved**. Save your script by clicking "File" then "Save", or `command + s` (Mac) or `Ctrl + s` (PC).  
 
-### Working Directory and Files
+> It is generally good to keep RStudio and your packages up to date!
 
-Like in any operating system (OS) when in a terminal or file explorer, in R you are always in a directory. Any **file input/output (I/O)** commmands you execute are all relative to that directory. This directory (or folder) is called your **working directory**. You will find that being in a sensible directory for your project is useful for loading data from files and saving your output. 
+##  1.  Introduction - package installation
+Many people write clever software that makes R smarter/better/faster/stronger. You can install packages by clicking the "Packages" tab in the bottom-right window, clicking install, and then searching for the package you wish to install.
 
-Figure out where you are (the current working directory) with `getwd()`
+Packages can also be installed through the command line using `install.packages()`. The package name must be wrapped in quotation marks so that R knows it is searching for that particular package named `"psych"`, rather than previously defined data named psych:
 ```{r, eval=FALSE}
-getwd()
+install.packages("psych", dependencies=TRUE)
 ```
-`/home/sam/Desktop`
-This output is a **file path** and it tells me that I'm in the Desktop folder. **File paths** describe all the folders, starting from the top, or **root** folder (`/` in Mac & Linux, `C:\` in Windows), that you're in. The file system is like a tree, with the **root** folder at the top, and all the other files and folders in sub-folders of that **root**. Each folder contains 0 or more files and folders. So my current Desktop folder is in the "sam" folder, which is in the "home" folder, which is in the **root** folder. (Draw example tree on board)
+Anytime you want to utilize a previously installed package, you must retreive it with `library()` when you begin a new R session. You do not need to reinstall packages each time you quit and restart your R session. 
 
-To tell R to change the current working directory we can use the GUI. Select the following menu item: `Session->Set Working Directory->Choose Directory` (or press ctrl-shift-h), which will open a file dialog box. Just select the folder you want and press open.
-
-Notice that RStudio added a line of code to the console and executed it. Oftentimes the GUI is simply a conveneince for R commands. It used the `setwd()` function to change the **working directory**. You can use this function if you like by giving it a **File path** just like `getwd()` returns. For example, if I want to go to the "R-Fundamentals" folder, I could use:
-```{r, eval=FALSE}
-setwd("/home/sam/Desktop/R-Fundamentals")
-getwd()
-```
-
-Note that there is a subtle difference between **file paths** on Mac & Linux vs. PC:
-```{r, eval=FALSE}
-setwd("/Users/MacName/Desktop/R-Fundamentals-master")   # Mac and Linux
-setwd("C:\Users\PCName\Desktop\R-Fundamentals-master")  # note that PC users must use "C:\..."
-```
-You can view the contents (files and folders) of your working directory with `dir()`.  
+See `?update.packages` for help updating packages.
 ```{r}
-dir()
+library(psych)
+# the psych package is now loaded in our current R instance
 ```
 
-### Variables
+While we are at it, let's now install the three other packages you will use for this workshop:
+```{r, eval=FALSE}
+install.packages("ggplot2", dependencies = TRUE)
+install.packages("knitr", dependencies = TRUE)
+install.packages("reshape2", dependencies=TRUE)
+install.packages("rmarkdown", dependencies = TRUE)
+install.packages("swirl", dependencies=TRUE)
+install.packages("VIM", dependencies=TRUE)
 
-Variables represent pieces of data in R. Every variable is given a name by the programmer, which can be almost anythinh, although there are some restrictions and convetions we'll soon see. Variables are stored in R's memory and are what functions and operators manipulate. 
+# Do not forget to library them before you use them!
+library(ggplot2)
+library(knitr)
+library(reshape2)
+library(rmarkdown)
+library(swirl)
+library(VIM)
 
-You define variables through **variable assignment** and they are stored in an **environment** while R is using them in memory. They can also be written out to various types of files so you can save them for later or share them with others. We'll learn more about writing out files in the **File I/O** section later today.   
+```
+##  1.  Introduction - objects
+Objects are special data structures that allow you to enter data into R. Objects are stored in R's memory and can be retrieved ("called") when you need them. 
 
-### Environments
+You define objects through `variable assignment` and they are stored in your `global environment`. 
 
-Variables in R are stored in an environment. The  **global environment** is where the variables from scripts, or interactive work in the consolve, are stored. **Local environments** are where variables from functions are stored. We'll learn more about these in the functions section later today.
-
-There are two ways to view variables in the current environment. We can use the **Console** or the **Data Viewer (Environemnt)** window.
-From the console, to view a list of all the variables in the current environemtn use `ls()`:
+##  1.  Introduction - the R global environment
+Objects in R are stored in your global environment. `ls()` will list previously defined objects in your environment.
 ```{r}
-ls() 
+ls() #There is currently nothing in our global environment
 ```
-There is currently nothing in our global environment, so this doesn't return anything.
+Click the "Environment" tab in the upper-right window - it says "Environment is empty".
 
-To use a GUI to view all the variables, press `ctrl + 8` or click the "Environment" tab in the upper-right window. It should say "Environment is empty".
-
-### Variable Assignment
-
-You define variables through variable assignment using the **assignment operator** `<-`
+##  1.  Introduction - variable assignment
+You define objects through variable assignment using the **assignment operator** `<-`
 
 This is a "less than" `<` symbol immediately followed by a hyphen `-`
 
-**Variable assignment requires three pieces of information**:  
-1) variable_name  
+**Object definition/variable assignment requires three pieces of information**:  
+1) object_name  
 2) `<-`  
 3) definition/assignment  
 
-Let's define a variable named `numeric_variable` and define it as the number 4:
-```{r}
-numeric_variable <- 5
-```
-Notice that the R console didn't print anything after the variable was assigned. Generally, when a variable is assigned R does not output the value being assigned to that variable. 
-
-This variable should now ne stored in the **global environment**. Let's make sure:
-```{r}
-ls()
-```
-
-If we want to view the value of the data contained wihtin the variable we can type its name in the console.
-```{r}
-numeric_variable
-```
-
-To remove individual variables from our environment use `rm()`. For example, to remove `numeric_variable`, we type:
-```{r}
-rm(numeric_variable)
-ls()
-```
-See how `numeric_variable` disappeared from our global environment?
-
-We can also clear the entire environment with `rm(list = ls())`
-```{r}
-rm(list=ls()) 
-ls()
-```
-Let's put numeric_variable back in so we can continue to use it in examples:
-```{r}
-numeric_variable <- 5
-```
-
-Or we can simply view it in the **Data Viewer (Environment)** window in the top right window.
-
-**NOTE** that in the console, the prompt `>` looks like a greater than symbol. If your prompt begins to look like a `+`, that means R thinks you want to break up your code across multiple lines, and the `+` is telling you that R is still expecting more code. Simply click in your console and press the `esc` key on your keyboard to return to the `>`. A line of code does not usually stop until R finds an appropriate stop parameter, often a closed parenthesis `)`, closed bracket`]`, or other statement.
-
-Try using `esc` to get rid of the `+` symbol now by typing the following into your console:
-`bad_variable <-`
-Then press `esc` to get back to the `>` symbol.
-
-### Undefined Variables
-
-So far we've assigned numbers to variables, but is it possible to have an "empty" variable? The answer is yes, and there are 4 ways in which that can happen.
-
-1. **Missing Data**: When there is a large dataset and some data points are missing (as often happens in the real world), it is useful to be able to handle that missing data in known ways. R uses `NA` to indicate missing data.
-```{r}
-missing_variable <- NA
-missing_variable  
-```
-
-2. **Empty Variable**: Sometimes you want to create a variable, but keep it empty until certain conditions are met. For example, we might want a variable to store a person's email address, if they provide it to be contacted after a study. R uses `NULL` to mean empty data.
-```{r}
-#
-consent_to_contact = TRUE
-supplied_email = 'samyag1@berkeley.edu'
-
-email = NULL
-if (consent_to_contact){
-  email = supplied_email
-}
-email
-```
-Here we set the email variable to empty, and used a conditional `if` statement to check whether the subject consented to be contacted. If they did, then we store the email address they supplied. We'll cover `if` statements in much more detail on day 3.
-
-3. **Not A Number**: There are some mathematical operations that are not defined, for example `0/0`. For these values that are not actually defined numbers, R uses `NaN` to represent them. Taking the mean of a lot of **missing data** (`NA`) will result in a `Nan`, for example.
-```{r}
-NaN_variable <- 0/0
-NaN_variable
-```
-
-4. **Infinity**: Although infinity is a concept, it is not a single, particulare value. When we divide any number other than 0 by 0, we get inifinity. R represents infinity with the `Inf` value.
-```{r}
-infinity_variable <- 10/0
-infinity_variable
-```
-
-### Variable Naming Rules and Conventions
-
-Variable names can be almost anything, but there are some restrictions. Here are the rules for variable naming in R:
-1. They are always case sensitive. 
-2. They must begin with a character or a '.' followed by a character.
-4. They can only contain the following symbols: '.', '_'.
-5. They cannot be any of these reserved names: 'if', 'else', 'repeat', 'while', 'function', 'for', 'in', 'next', 'break', 'TRUE', 'FALSE', 'NULL', 'Inf', 'NaN', 'NA', 'NA_integer_', 'NA_real_', 'NA_complex_' 'NA_character_'
-4. They must be **unique**. If you resuse an old variable name, you will lose the data the old variable represented, and that variable name will represent the new data you've assigned to it.
-
-Let's overwrite the object `numeric_variable` from above.
-```{r}
-numeric_variable <- 100
-```
-See how the definition of `numeric_variable` changed in your global environment window? However, there is still only one variable in your global environment. 
-
-We can verify the variable has been changed through the console too:
-```{r}
-numeric_variable
-```
-If we want to preserve the original object `numeric_variable` we have to define a new object
-```{r}
-numeric_variable2 <- -200
-ls() 
-```
-We now have two variables defined in our global environment! This second variable contains new information and did not overwrite the old variable:
-```{r}
-numeric_variable2
-```
-
-Although the following are not rules, following these naming conventions helps to make your code much more readable, both by the future you and others!
-1. However you choose to name your objects, be consistent and use brief descriptions of their contents.  
-2. Make them reflect the data they represent.
-3. Don't use the '.' because almost all other programming languages don't allow it in variable names, and it can be confusing.
-4. Use camel case or underscores to separate words. Camel case means capitlizing the first letter of each word after the first (e.g. firstVariableName, anotherVariableName).
-
-###  Getting Help
-
-There are two ways to get the help pages for functions and operators in R. A single question mark `?` or the help() function. Notice that we must wrap symbols in quotation marks to access their help page (and we can wrap function names in quotation marks):
-```{r, eval=FALSE}
-?"<-"
-help("<-")
-?ls
-help(ls)
-help("ls"")
-?dir
-?rm
-```
-
-Double question marks ?? will lead you to coding walkthroughs called "vignettes". These usually come with preloaded data and examples:
-```{r}
-??"<-"
-??rm
-```
-If you have questions that don't seem to be answered by the help pages and vignettes, we recommend that you type your question into Google. Or search one of the many community based resources, or browse their contents:  
-[Quick-R](http://statmethods.net/)  
-[UCLA idre](http://www.ats.ucla.edu/stat/r/)  
-[R-bloggers](https://www.r-bloggers.com/)  
-[Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
-
-### Using Operators
-
-Operator are symbols that "operate" on one ore more variables. They are like functions (in fact, unlike in most programming languages, in R they are functions), but are used in a slightly different way. 
-
-We've already been exposed to operators today. The `+` symbol is an operator for addition. Operators are either logical or arithmetic. Let's try a few more examples:
-```{r}
-2^5
-5 > 10
-!TRUE
-```
-Here we raised 2 to the 5th power (and got 32), tested whether 5 is greater than 10 (and got FALSE), and did "NOT"" of TRUE (which is FALSE)
-
-Here are useful summaries of the arithmetic and logical operators:
-
-Arithmetic operator | Description
-------------------- | -----------
-+                   | Addition
--                   | Subtraction
-*                   | Multiplication
-/                   | Division
-^ or **             | Exponentiation
-x %% y              | Modulus (x mod y) 
-x %/% y             | Integer Division 
+[Brunsdon and Comber 2015, page 15](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) offer a useful summary table of logical operators in R. We will talk more about these symbols in Parts 2, 3, and 4.
 
 Logical operator | Description
 ---------------- | -----------
@@ -450,268 +182,255 @@ Logical operator | Description
 &                | And (combines expressions)
 `|`              | Or (combines expressions)
 
-From: [Brunsdon and Comber 2015, page 15](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031)
-
-### Comments
-
-It is often useful to put Enlgish comments (or notes) about your code into your script files so that you (and others!) can better understand the code when reading it later.
-
-Anything that is followed be a `#` will become a comment. This tells R that you do not want that particular line or block of code to be run. You can even add hashtags after lines of runable code - on the same line! 
-
-Here are some examples:
+Let's define an object named `numeric_oject` and define it as the number 4:
 ```{r}
-# This comment reminds use that we are calculating how many hours before we're R masters!
-3*3 # and this comment tells us it better by 9!
-```
-
-### Using Functions
-
-Functions, along with operators, do all the work in R. They are the recipes, or algorithms, that we use functions to do math, reformat data, conduct statistical tests, plot results, download things from the itnernet, save and load files, play music, etc. Most of the functions we will use in this workshop have already been **defined**, in other words someone else wrote the code that **is** the function. Functions are **defined** in place in code, and then we **call** (or use) those functions anywhere else in our code. Here we will focus on how to **call** functions that are already written, but we can also define our own functions, and we'll cover how to do that in day 3. 
-
-#### Anatomy of a Function
-
-When **calling** a function there are 3 parts to consider. Here is the general anatomy of a function **call**.
-`return_value <- function_name(argument_1, argument_2, argument_3)`
-
-1. **Function Name**: This is simply the name of the function that does the work you need doing. These names must be unique.
-
-2. **Arguments**: These are the input to the function. They take the form of one or more variables that you **pass** into the function. When you **pass** variables, they get copied if they are changed in the function, so you don't have to worry about them being modified.
-***NOTE**: Not all functions have arguments, and some function have **optional** arguments that will take on a **default** value if you don't pass them into the function. We'll see examples below.
-
-3. **Return Value**: This is the variable that the function returns to the script (or other function) that is calling it. This is usually a modified version of the input, but it doesn't have to be. Sometimes it is a number that indicates whether the function was successfull or failed.
-**NOTE**: Not all functions have a return value. For example, if you are plotting some data or results, there's nothing to return since the function is creating a plot. The plot being created by a plot function is not considered output because it's not a R variable that is returned, it is the by-product of the function. 
-
-Let's look at some examples. Here's a basic function that takes 2 arguments and returns a number
-```{r}
-numeric_variable3 <- sum(numeric_variable, numeric_variable2)
-```
-So what are the names of the arguments? The function? And the return value?
-
-We've already seen a function that takes no input, but returns output. If we don't specify a variable to store the return value of a function, then the R console will print the variable so you can see it.
-```{r}
+numeric_object <- 4
 ls()
-variable_names <- ls()
-variable_names
 ```
-As I mentioned above, the plot function does not return anything. It's not entirely true that it returns nothing, it actually returns a value, but that is value is `NULL`, which we learned means **nothing**. Here's an example:
+We now have an object defined in our global environment!
+
+"Call" (retrieve) the data contained wihtin the object by typing its name into your script and running the line of code
 ```{r}
-plot_return_val <- plot(c(1,2,3))
-plot_return_val
+numeric_object # 4 is returned
 ```
-
-Optional arguments exist for many of R's functions. One useful optional argument that exists for many functions is `na.rm`, which stands for **remove NA**. This tells R to remove any **missing** values (NA) before it does it's work. Here's an example
+Let's try another example, this time using character data. Note that character data is **always** contained within quotation marks `" "` 
 ```{r}
-sum1 <- sum(1,2,3,4,NA,5,6)
-sum2 <- sum(1,2,3,4,NA,5,6, na.rm=TRUE)
+welcome_object <- "Welcome to the D-Lab"
+ls()
 ```
-Here we see we can still **call* the `sum` function without the `na.rm` argument, but it returns NA in this case, because there is an NA in the input. When we pass `na.rm=TRUE` however, we are telling R to remove that R before summing all the arguments, and so it works!
+We now have two objects in our global environment. Call the data contained within the object by typing its name and running the line of code:
+```{r}
+welcome_object
+```
 
-#### Functions and Environments
+##  1.  Introduction - variable assignment - naming R objects
+Object names can be anything, but are always case sensitive. However, they cannot begin with a number and generally do not begin with symbols. However you choose to name your objects, be consistent and use brief descriptions of their contents.  
 
-We've already learned that the **global environment** is where all the variables are stored when you run a script or run commands interactively from the console. When you call a function however, a new **local environment** is created just for that function. R does this so that variables that are created in the function don't "contaminate" your **global environment**.
+Names must be **unique**. If you resuse an old name, the old object definition will be overwritten.  
 
-All functions do have access to all the variables from the global environment, but not variables from the environemnts of other functions. Even though it is possible to write a function that uses a variable from the **global environment**, that is not recommended because then that function only works when that variable exists in the **global environment**, and the function doesn't control that. Good practice is to pass in all the variables you need. This will be more important on day 3 when we learn about writing our own functions.
+Let's overwrite the object `welcome_object` from above.
+```{r}
+welcome_object <- "Welcome to Barrows Hall" 
+```
+See how the definition of `welcome_object` changed in your global environment window? However, there are still only two objects in your global environment. 
 
-### Installing and Loading Packages
+It also prints the new information when called:
+```{r}
+welcome_object
+```
+If we want to preserve the original object `welcome_object` we have to define a new object
+```{r}
+welcome_object2 <- "Welcome to the D-Lab in Barrows Hall"
+ls() 
+```
+We now have three objects defined in our global environment! This third object contains new information and did not overwrite the old oblect:
+```{r}
+welcome_object2
+```
 
-Many people write clever software that makes R smarter/better/faster/stronger. Packages are a convenient way to group and distribute this software. Packages comprise functions and variables and are generally created around a theme. 
+##  1.  Introduction - variable assignment - `class()`
+Each object in R has a `class()` that summarizes the type of the data stored within the object. We will talk more about data types below.
+```{r}
+class(numeric_object)
+class(welcome_object)
+class(welcome_object2)
+```
 
-You can install packages by clicking the "Packages" tab in the bottom-right window, clicking install, and then searching for the package you wish to install. Behind the scenes R will use the following function, which you can use directly through the command line: `install.packages()`. The package name must be wrapped in quotation marks so that R knows it is searching for that particular package named `"psych"`, rather than previously defined data named psych:
+##  1.  Introduction - variable assignment - `rm()`
+We remove individual variables from our environment with `rm()`. For example, to remove `numeric_object`, we type:
+```{r}
+rm(numeric_object)
+ls()
+```
+See how `numeric_object` disappeared from our global environment?
+
+We can also wipe the entire environment with `rm(list = ls())`
+```{r}
+rm(list=ls()) 
+ls()
+```
+Now, all objects are gone from our global environment.
+
+##  1.  Introduction - help
+A single question mark `?` will call the help pages. Notice that we must wrap symbols in quotation marks to access their help page:
 ```{r, eval=FALSE}
-install.packages("psych")
+?"<-"
+?ls
+?dir
+?rm
+?iris
 ```
-Anytime you want to utilize a previously installed package, you must load it with `library()`. YOu must call this function everytime you begin a new R session (close and open RStudio). You do not need to reinstall packages each time you quit and restart your R session. Note that the `library()` function does not use quotes around the package name.
+
+> NOTE: We will also use the "iris" and "mtcars" datasets in Parts 2 and 3 of this workshop series.
+
+Double question marks ?? will lead you to coding walkthroughs called "vignettes". These usually come with preloaded data and examples:
 ```{r}
-library(psych)
-# the psych package is now loaded in our current R instance
+??"<-"
+??rm
+??iris
 ```
+If you have questions that don't seem to be answered by the help pages and vignettes, we recommend to type your question into Google along with the name of one of the many community based resources, browse their contents, or use their built-in search tools:  
+[Quick-R](http://statmethods.net/)  
+[UCLA idre](http://www.ats.ucla.edu/stat/r/)  
+[R-bloggers](https://www.r-bloggers.com/)  
+[Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
 
-While we are at it, let's now install the other packages you will use for this workshop. Run the following commands:
+##  1.  Introduction -living in R
+Like in Unix, in R you are always in a directory. Your actions are all relative to that directory. You will find this useful for loading data from files and when you save your output it will be located here. 
+
+Figure out where you are with `getwd()`
+```{r}
+getwd()
+```
+Tell R you would like to set your working directory to the R-Fundamentals folder you just downloaded with `setwd()`. Follow the format as shown by `getwd()`
+
+My computer is named "evanmuzzall" and my "R-Fundamentals-master" folder is located on the Desktop, so the file path would look like this:
 ```{r, eval=FALSE}
-install.packages("ggplot2")
-install.packages("knitr")
-install.packages("reshape2")
-install.packages("rmarkdown")
-install.packages("swirl")
-install.packages("VIM")
-
-# Do not forget to load them before you use them!
-library(ggplot2)
-library(knitr)
-library(reshape2)
-library(rmarkdown)
-library(swirl)
-library(VIM)
+setwd("/Users/evanmuzzall/Desktop/R-Fundamentals-master")
+getwd()
 ```
 
-## Challenge 1
-1. Create a variable that has the value 42
-2. See if the value 42 equals `TRUE`
-3. Create a variable with missing data and one with empty data. Are they equal?
-4. Get help on using the `log10()` function, then use it to calculate the logarithm of 10*10.
+Note the subtle difference between Mac and PC users:
+```{r, eval=FALSE}
+setwd("/Users/MacName/Desktop/R-Fundamentals-master")   
+setwd("C:/Users/PCName/Desktop/R-Fundamentals-master")  # note that PC users must use "C:/..."
+```
+You can view the contents of your working directory with `dir()`.  
+```{r}
+dir()
+```
+
+# **Challenge 1**
+1. Define two numeric objects
+2. Define a character object
+3. Remove an individual object using rm()
+4. Wipe your environment using rm(list=ls())
 5. Set your working directory to your "Documents" folder. Now set it back to the "R-Fundamentals" folder.
 
 # 3.  Atomic data types in R
+Numeric, character, and logical (aka "boolean") data types all exist at the atomic level. Normally this means that they cannot be broken down any further and are the raw inputs for commands in R. Other R objects are frequently built upon these atomic types.
 
-R contains a number of **atomic data types**, which are types of variables that cannot be broken down any further and are the raw inputs for commands in R. Other R objects are frequently built upon these atomic types. While there are many more, the most commonly used **atomic data types** are: Integer, Numeric, Character, Logical (aka "boolean") and Factors.
-
-## 3.1 Determining Variable Type - `class()`
-
-Each variable in R has a **class** that describes the type of the data stored within the variable. Use the `class()` function to retrieve the **class** for any variable:
-```{r}
-#class(numeric_variable)
-#class(character_variable)
-#class(logical_variable)
-```
-
-##  3.2 Integer
-
-Integers are whole numbers, both positive and negative, as well as 0. They are mostly used for counting, such as the number of **observations** (or data points) in a dataset, the number of jobs someone has had, or the number of times a participant has clicked a button in an experiment.
-
-To specify that you want a variable to be an integer, you can use either the `as.integer()` or `L` functions:
-```{r}
-observation_count <- 4
-class(observation_count)
-
-observation_count_integer <- as.integer(observation_count)
-class(observation_count_integer)
-
-# or
-observation_count_integer <- 4L
-class(observation_count_integer)
-```
-**NOTE**: The first variable assigned `observation_count` is not an integer even though it is written as a whole number, 4. By default, all numbers in R are `numeric`, as we'll see in the next section.
-
-##  3.2  Numeric (Float & Double)
-
-Numeric data are numbers that have decimal points, such as `4.3` or `4.0`. You may also hear numeric data referred to as `float` (which stands for **floating point**) or `double` (which stands for **double precision**, which is 64 bits historically) data types. By default, R stores everything as `doubles` (64 bit floating point numbers) which makes R very memory hungry. 
+##  2.  Atomic data types in R - numeric
+Numeric data are numbers and integers. You may also hear numeric data referred to as `float` or `double` data types. By default, R stores everything as `doubles` (64 bit floating point numbers) which makes R very memory hungry. 
 
 Define an object called `num` and then check its class
 ```{r}
-radius = 2.3
-area_circle <- pi * radius^2
-area_circle
-class(area_circle)
+num <- 2 * pi
+num
+class(num)
 ```
-
-And as we saw above, even if you write a whole number (say 4), but don't include `L` or `as.integer()`, R will treat it as a `numeric` type.
+Standard mathematical operators apply to the creation of numeric data:
+`+`   `-`   `*`   `^`   `**`  `/`  `%*% (matrix multiplication)`  `%/% (integer division)`  `%% (modular division)`
 ```{r}
-tricky_R <- 4
-class(tricky_R)
+5 + 2  
+5 - 2  
+5 * 2  
+5 ^ 2  
+5 ** 2 # same as ^  
+5 / 2  
+5 %*% 2  
+5 %/% 2  
+5 %% 2  
 ```
 
-##  3.3  Character
+##  2.  Atomic data types in R - character
+Character (aka string or text) data are always contained within quotation marks `" "`. Character handling in R is fairly close to character handling in a Unix terminal.
 
-Character (aka string or text) variables represent data that is a sequence of letters, numbers and special symbols, and generally represent plain English (or any other human language!). Character variables are always defined using quotation marks `" "` (or `' '`). 
-
-Let's create an variable called `captainObvious` and define it with some character data:
+Let's create an object called `char` and define it with some character data:
 ```{r}
-captainObvious <- "This is character data"
-captainObvious
-class(captainObvious)
+char <- "This is character data"
+char
+class(char)
 ```
+Character data have some useful commands such as `paste()`, `substr()`, `strsplit()`, and `gsub()`
 
-### Indexing and Length of Character Variables
-
-R can be strange sometimes, and Character variables are definitely one of those areas. All character variables are considered to have a length of 1, as can be seen here:
+##  2.  Atomic data types in R - character - `paste()`
+Use `paste()` to combine/concatenate character data. This will paste together separate words to form a sentence. 
 ```{r}
-crazyCharacters <- 'This is really only 1 Character long?'
-length(crazyCharacters)
+char2 <- paste("Hey", "momma", "I'm", "a", "string")
+char2
 ```
-
-You can determine how many characters are in the variable you have if you use the `nchar()` function however:
-```{r}
-nchar(crazyCharacters)
-```
-
-As we'll see much more of tomorrow, you can normally index into a vector (or sequence of atomic data types) using brackets, but with character variables, doing that will just return the entire vector:
-```{r}
-crazyCharacters[1]
-```
-If we want to get just the first word of the sentence stored in our `crazyCharacters` variable we use the `strsub()` function:
-```{r}
-substr(crazyCharacters,1,4)
-```
-This function takes the Character variable as the first argument, the starting **index** as the second argument, and the ending **index** as the third argument. **Index** is a jargon term meaning the location in a vector (or sequence), represented as an `integer`. So in the above example we are saying we want the sub-string that starts at the 1st character in the text string, and ends at the 4th. In other words, we want "This".
-
-There are many useful functions that can manipulate character data in some powerful ways. Here's a good [reference](https://www.r-bloggers.com/string-functions-in-r/). With that said, string manipulation is much easier in other languages, especially Python and Ruby. If you plan on doing serious text analysis you may want to look into one of those.
-
-We will cover several of the most commonly used commands hereL `sprintf()`, `paste()`, `strsplit()`, and `gsub()`
 
 > NOTE: The following section on string operations can be skipped if time is an issue.
 
-### `sprintf()`
-
-Probably the most useful character function in R, `sprintf()` let's you assemble a character variable using the values from other variables. For example, if we want to know how many observations there (from our example above), and write an English sentence about that, we could do the following:
-```{r}
-niceEnglishSentece <- sprintf('We have %i observations in our data.', observation_count_integer)
-niceEnglishSentece
-```
-`sprintf()` takes what's called a **format** string as the first argument. This string is a combination of regular text and the `%` symbol followed by options that tell `sprintf()` to insert variable values. In this example we used `%i` to tell R to insert an integer into the string. The second (and all other) arguments(s) are the variables to be inserted into the return value.
-
-There are many other variable types that can be inserted into the format string using a percent `%i and letter. You can even provide other variables that provide special formatting. Say we want to show only 2 significant digits of a numeric variable, we use:
-```{r}
-twoSigDigits <- sprintf('Only show 2 significant digits of pi: %.2f', pi)
-twoSigDigits
-```
-Here we use the dot `.` followed by the number of singificant digits we want, after the `%`. The `f` tells it we want to use a `float` or `numeric` variable.
-
-Here's a table of all the variable types you can enter using the `%` symbol:
-
-
-### `paste()`
-Use `paste()` to combine/concatenate character data. This will paste together separate words to form a sentence. 
-```{r}
-messageHome <- paste("Hey", "momma", "I'm", "a", "string")
-messageHome
-```
-
 Blankspace is the default separater in the `paste()` function. If you don't want this and want the words to be smushed together, use the argument `sep=""`
 ```{r}
-nonsense <- paste("Hey", "momma", "I'm", "a", "string", sep=" ")
-nonsense 
+char3 <- paste("Hey", "momma", "I'm", "a", "string", sep=" ")
+char3 
 ```
+Note here that R is not a zero-indexed language - lists begin at the number 1. The one and only element in this object is the sentence "Hey momma I'm a string". 
 
-### `strsplit()`
+Also see `?grep` for more tools.
+
+##  2.  Atomic data types in R - character - "arguments"
+Arguments go inside of the parentheses of R commands. Unnamed arguments are things like the number 4. `sep=""` is what is called a named argument. This is a command within the parentheses of another command `paste()` 
+
+Most commands require one or two arguments to be defined in order for the command to properly run. You will find that commands are full of default and optional arguments that you can manipulate.  
+
+Return to line 300 above and put a space between the quotation marks so that `sep=" "`. This will ensure the words in your sentence will be separated by a blankspace.
+
+##  2.  Atomic data types in R - character - `substr()`
+`substr()` lets you extract text from certain character positions in character data. If we want to extract just the first four characters of the `char2` object we type:
+```{r}
+substr(char2, 1, 4)
+```
+"Hey " (Hey + blankspace) is returned.
+
+You can use `substr()` and the assignment operator `<-` to redefine the first four characters in `char2` with the word "Yes " followed by a blankspace
+```{r}
+substr(char2, 1, 4) <- "Yes "
+char2 
+```
+What changed?  
+
+You will also see that `=` is frequently used in place of the assignment operator. This works the same, but we recommend using the assignment operator for consistency. Arguments and functions frequently use `=` and it is best to consistently assign your variables with `<-` 
+
+##  2.  Atomic data types in R - character - `strsplit()`
 You can separate characters with `strsplit()`. We can break the sentence in `char2` apart at its whitespaces with `strsplit()`. Note the use of `" "` to tell R that we want to separate the sentence at the blank spaces between the words.
 ```{r}
-list_O_Words <- strsplit(messageHome, " ")
-list_O_Words  
+char4 <- strsplit(char2, " ")
+char4  
 ```
-We now have a list of words that you can do things. If we want the 3rd word, we use syntax that is somewhat string right, but we'll learn about tomorrow. Here's a preview:
+We are now back to our original words!
+
+##  2.  Atomic data types in R - character - `gsub()`
+You can also substitute with `gsub()`. Let's say we want to substitute all periods `.` in `char2` with `X`. We would type:
 ```{r}
-list_O_Words[[1]][3]
+gsub(".", "X", char2)
+```
+What happened here? R here calls Perl's regular expressions package, where `.` is a special shorthand for "everything else". 
+
+To be safe, put the period in brackets so that R views it as a subsetting operation and not "everything else". 
+```{r}
+gsub("[.]", "X", char2)
+```
+Still nothing happened... Why not? (hint: we don't have any periods in our sentence!). Let's choose another letter:
+```{r}
+gsub("[m]", "X", char2)
+# All "m" letters have now been replaced with "X". Remember that the `char2` object has not changed because we did not reassign it! 
+char2 <- gsub("[m]", "X", char2)
+char2
 ```
 
-### `gsub()`
-You can also substitute parts of a character string using `gsub()`. Let's say we want to substitute all letter `a` in `messageHome` with `Not a`. We would type:
+##  Atomic data types in R - logical
+Logical (boolean) data are dichotomous TRUE/FALSE values. R internally stores `FALSE` as 0 and `TRUE` as 1. Define a logical object:
 ```{r}
-gsub("a", "Not a", messageHome)
+bool_object <- TRUE
+bool_object
+class(bool_object)
 ```
+We recommend to always spell out `TRUE` and `FALSE` instead of abbreviating them `T` and `F` which might be mistaken for previously defined objects. R has many reserved words that you should avoid using. See `?reserved` for more information.
 
-This function may have strange functionality with some symbols, so we recommend seeing the [documentation]() for more information. 
-
-##  3.4 Logical
-
-Logical (boolean) data are dichotomous TRUE/FALSE values. R internally stores `FALSE` as 0 and `TRUE` as 1. Define a logical variable:
+Note that logical data also take on numeric properties
 ```{r}
-is_R_cool <- TRUE
-is_R_cool
-class(is_R_cool)
-```
-Although R does allow you to use `T` and `F` instead of `TRUE` and `FALSE`, we recommend always spelling them out instead of abbreviating them, because the abreviations might be mistaken for previously defined variables. These are called reserved words, and R has many reserved words that you should avoid using. See `?reserved` for more information.
-
-Note that since R stores logicals as `0` and `1`, logical variables can also take on numeric properties:
-```{r}
-is_R_cool + 1
+bool_object + 1
 TRUE - TRUE
 TRUE + FALSE
 FALSE - TRUE
 ```
 
-### Logical Tests
-
-Logical tests are used in R when you want to check for the truthiness of some logical statement. Logical tests compare the values of two variables and return a logical output (either `TRUE` or `FALSE`). This is useful in many scenarios, such as removing missing data and subsetting (you will learn more about this in Part 2), and `if` statements (more in day 3). Note the use of the double equals `==` sign. The single equal sign `=` does something very different, so be wary! 
+##  2.  Atomic data types in R - logical - logical tests
+Logical tests are helpful in R if you want to check for equivalence. Logical tests compare two objects and return a logical output. This is useful for removing missing data and subsetting (you will learn more about this in Part 2). Note the use of the double equals `==` sign. 
 ```{r, eval=FALSE}
 ?"=="
 ?"&"
@@ -729,65 +448,39 @@ TRUE > FALSE
 FALSE >= TRUE
 ```
 
-## 3.5 Factors
+# **Challenge 2**
+1. Define a numeric object as 2 and check its class
+2. Define a boolean object as "2" and check its class
+3. Use `==` to compare your numeric and boolean object. Are they equivalent? Why or why not?
+4. Define a character object that uses `paste()` to combine more than one word into a sentence. Then use `substr()` to redefine a part of this sentence. Finally, use `gsub()` to substitute part of this new sentence with a new word. 
 
-**Factors** are a very useful way to represent categorical data in R. Imagine you have a dataset where one of the fields represents the country of origin of all the participants in your study. You could store these as characters, or even devise your own numbering system where each whole number starting from 1 represents a different country. Or you could use a **factor**, which does both of these things behind the scenes.
+# 4. Data testing and type coercion - `is.type()`
+"Type coercion" refers to changing the data from one type to another.  
 
-### Creating a Factor from Strings
+[Brunsdon and Comber 2015, page 102](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) also offer an excellent summary table of logical functions in R.
 
-To create a factor, start with a vector of characters, where each different character string will represent a different **level**, or possible value of your factor. In our country example, you might have the strings 'USA', 'Egypt', and 'Spain'. To turn those characters into a **factor**, use the `as.factor()` function:
+Logical function | Description
+---------------- | -----------
+any(x)           | `TRUE` if any in a vector of conditions `x` is true
+all(x)           | `TRUE` if all of a vector of conditions `x` is true
+is.numeric(x)    | `TRUE` if `x` contains a numeric value
+is.character(x)  | `TRUE` if `x` contains a character value
+is.logical(x)    | `TRUE` if `x` contains a true or false value
+
+
+Often it is handy to see what types of data you are working with. Similar to `class()` we can see what data type an object is with `is.type`. A logical response is returned:
 ```{r}
-country <- c("USA", "Egypt", "Spain", "Egypt", "Spain", "USA")
-country
-class(country)
-countryFactor <- "as.factor"(country)
-countryFactor
-class(countryFactor)
+is.numeric(num) 
+is.logical(bool_object)
+
+is.logical(char2)
+class(char2)
 ```
 
-### Reference Level and Releveling a Factor
+##  Data testing and type coercion - `as.type()`
+You can change data types with `as.type()`. 
 
-Some functions in R that use factors need to define what's called a **reference level** for every factor it uses. As we'll see on day 4, fitting a linear model using the `lm()` function does exactly that. The **reference level** indicates which **level**, or possible value, of your factor should be considered the baseline that all others are compared against. 
-
-`as.factor()` automatically chooses one of the levels to be the **reference level**, but you can easily change that using the `relevel()` function:
-```{r}
-countryEgyptFirst <- relevel(countryFactor, 'Egypt')
-countryEgyptFirst
-identical(countryFactor, countryEgyptFirst)
-countryFactor[1] <- NA
-countryFactor
-countryEgyptFirst
-```
-**NOTE**: the `relevel()` function creates a new factor variable that it returns in the return value. As we can see in the above code snippet, when we change the first value in `countryFactor` to `NA`, it only changes `countryFactor`, not `countryEgyptFirst`.
-
-## Challenge 2
-1. Define an integer variable.
-2. Define a numeric variable with the same value as the integer variable.
-3. Use the logical equals operator `==` to test whether the integer and numeric variables with the same values are equal.
-4. Is the logical `TRUE` value greater than the logical `FALSE` value? Why or why not?
-5. Define a character variable, find it's length `length()` and the number of characters it contains `nchar()`.
-6. Combine the integer, numeric and character variables that you just created in a meaningful way using `sprintf()`.
-
-# 4. Type Testing and Coercion
-
-**Type coercion** refers to changing data from one type to another.  
-
-## 4.1 Type Testing - `is.type()`
-
-Often it is handy to test what types of data you are working with. Similar to `class()` we can see what data type an object is with `is.type`. A logical response is returned, as opposed to the name of the type when using `class()`:
-```{r}
-is.numeric(numeric_variable) 
-is.logical(is_R_cool)
-
-is.logical(nonsense)
-class(nonsense)
-```
-
-## 4.2 Type Coercion - `as.type()`
-
-You can coerce (or change) data types with `as.type()`. 
-
-[Brunsdon and Comber 2015, page 102](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) also offer an excellent summary table of data types and associate test/coercion functions in R.
+[Brunsdon and Comber 2015, page 102](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) also offer an excellent summary table of data types in R.
 
 Type        | Test          | Conversion
 ----------- | ------------- | ----------
@@ -802,108 +495,353 @@ numeric     | is.numeric    | as.numeric
 single      | is.single     | as.single
 raw         | is.raw        | as.raw
 
-To coerce data you simply call the appropriate `to.type()` function on the variable to coerce:
 ```{r}
 # Create some character data
-some_number_string <- "9"
-class(some_number_string)
+char_data <- "9"
+class(char_data)
 
 # Coerce this character data to numeric data type
-as.numeric(some_number_string)
-class(some_number_string)
-
+as.numeric(char_data)
+class(char_data)
 # What happened here? Why did `char_data` not change classes? (hint: we did not overwrite the object!)
-some_number <- as.numeric(some_number_string)
-class(some_number)
-some_number
+
+char.data <- as.numeric(char_data)
+class(char.data)
+char.data
 ```
 
+##  Data testing and type coercion - `as.integer()` and `L`
+You can change numeric type to integer type using `as.integer()` and `L`
+```{r}
+num <- 4
+class(num)
+
+int <- as.integer(num)
+class(int)
+
+# or
+int <- 2L
+class(int)
+```
 Now, create some character data and try to convert it to integer type:
 ```{r}
 # Create a new object
-another_number_string <- "three"
-another_number_string   #Note that the word three is contained within " " 
-class(another_number_string)
+char.num <- "three"
+char.num   #Note that the word three is contained within " " 
+class(char.num)
 
 # What happens if we try to coerce character to numeric data type? 
-as.integer(another_number_string)
+as.integer(char.num)
 ```
-Why did this fail? Can R change character data to numbers? Why not? (hint: think about what R SHOULD do that makes sense to you). The only kind of character that can be coerced to a number is one that is just the character form of the number values. For example:
-```{r}
-another_number <- as.integer('three') # doesn't work
-another_number <- as.integer('3') # does work
-```
-**NOTE**: Any type can be coerced into a character, but only some characters can be coerced into other types. 
+Why did this fail? Can R change character data to numbers? Why not? (hint: R has no protocol for automatically coerce words to numbers). As you can see, trying to coerce data types can lead to weird behavior sometimes. 
 
-## Challenge 3
-1. Create a variable whose value is `"TRUE"`. What type will this be? Use one of the `is.type()` functions to answer this.
-2. Try to change ("coerce") this variable from either a logical to a character, or vice-versa, using one of the `as.type()` functions.
+# **Challenge 3**
+1. Create a character object and check its type using `is.type`  
+2. Try to change ("coerce") this object to another data type using `as.type`  
 3. Create an object of class "integer"  
-4. Why is 1 == "1" true?   Why is -1 < FALSE true?   Why is "one" < 2 false? 
+4. Why is 1 == "1" true?   Why is -1 < FALSE true?   Why is "one" < 2 false?
 
-#  5. Reading and Writing Files: File (I/O) 
+# 5.  Data structures
+There are several kinds of data structures in R. Data structures are collections of data objects (e.g., numeric, character, and logical vectors, lists, and matrices) that work together. These four are the most common:
 
-In order to save and share your work with others it's necessary to write, and then read in, data files that you create. This is known as file input and output, or **file I/0**. There are many ways to do this, and we'll cover the two most frequently used methods here, comma separated (or CSV) files, and .RData environment files.
+1. vector
+2. list
+3. matrix
+4. dataframe
 
-In addition to reading and writing data files, R can also save out plots in many formats, such as .png, .svg and .pdf. We'll cover this on day 3 of this workshop.
+##  4.  Data structures - vector
+A **VECTOR** is an ordered group of the same kind of data. "Ordered" means that their position matters. Vectors are one-dimensional and homogenous, and are thus referred to by their type (e.g., character vector, numeric vector, logical vector). 
 
-## 5.1 Saving/Loading your Global Environment - `save.image()`
-
-We've learned that the **global environment** is where R stores all the variables you've created. To save out all of these variables to a file you use the `save.image()` function. This creates a .RData file, that can be read back in with the `load()` function. Let's take a look:
-```{r}
-save.image('Day1_data.RData')
-getwd()
+Create a numeric vector by combining/concatenating elements with `c()` 
+```{r, eval=FALSE}
+?c
 ```
-Now check in the folder that's set as your **working directory**, which the above code should print out. If you see the file there, then let's try cleaning out your environment from all the variables using the following code:
 ```{r}
-rm(list=ls())
-ls()
+numeric_vector <- c(3, 5, 6, 5, 3)
+numeric_vector
 ```
-All your variables should now be cleared. Now let's reload them:
+You can also add items to a vector using `c()` and a comma `,` (as long as it is the same data type)
 ```{r}
-load('Day1_data.RData')
-ls()
+numeric_vector2 <- c(numeric_vector, 78)
+numeric_vector2
 ```
-You should now see all your variables back in your **global environment**!
 
-## 5.2  Reading/Writing your Data - `write.csv()`
+It doesn't matter what the datatype is for a vector, as long as it is all the same
+```{r}
+logical_vector <- c(TRUE, TRUE, FALSE, FALSE, TRUE)
+logical_vector
 
-Comma separated files (CSV) contain spreadsheet like data in rows and columns. Tomorrow we'll learn all about this kind of 2-dimensional data and how R deals with it, but for now let's just learn how to read and write it. Since we' haven't created any 2D data yet, let's read in the dataframe we'll be using for tomorrow. 
+logical_vector2 <- c(logical_vector, c(FALSE, FALSE, FALSE))
+logical_vector2
+```
+
+You can also add and multiply vectors, but they need to be the same length
+```{r}
+logical_vector * logical_vector
+```
+
+What happens when we multiply `c(1,2,3,4) * c(TRUE, FALSE)` ? 
+```{r}
+c(1,2,3,4) * c(TRUE, FALSE)
+```
+Since the number of elements in the first vector (four) is a multiple of the length of the second vector (two), the second vector gets concatenated against itself two times. This is called "recycling".
+
+##  4.  Data structures - vector - `seq()`
+You might need to create vectors that are sequences of numbers. You can do this via `seq()`. Here we specify a vector from zero to the length of our object `logical_vector2` (eight). The argument `by=2` tells R that we want only the even numbers!
+```{r, eval=FALSE}
+?length
+```
+```{r}
+length(logical_vector2)
+seq(from=0,to=length(logical_vector2),by=2)
+```
+
+##  4.  Data structures - vector - `:`
+R also gives you a shorthand operator for creating sequences in whole number increments of 1. This is the colon symbol `:`
+```{r}
+0:8
+
+sequence_object <- c(28:36)
+sequence_object 
+
+0:length(logical_vector2)
+```
+
+##  4.  Data structure - vector - random sampling
+You can also sample random groups of numbers. Use `set.seed()` to ensure that we all always get the same random draws from the parent universe, even on different machines
+```{r}
+?set.seed
+?runif
+?rnorm
+?sample
+```
+Set the seed, and then choose our values:
+```{r}
+set.seed(1)
+
+uniform <- runif(20, 3, 7) # 20 random samples from uniform distribution between the numbers 3 and 7
+uniform
+
+normal <- rnorm(20, 0, 1) # 20 random samples from the normal distribution with a mean of 0 and standard deviation of 1
+normal
+
+integer <- sample(5:10, 20, replace=TRUE) # 20 random samples from between the numbers 5 and 10. Note that `replace=TRUE` signifies that it is OK to reuse numbers already selected.
+integer
+
+character <- sample(c("Cat", "Dog", "Pig"), 20, replace=TRUE) # 20 random samples of character data
+character
+
+logical <- sample(c(TRUE, FALSE), 20, replace=TRUE) # 20 random samples of logical data
+logical
+```
+
+##  4.  Data structures - list
+A **LIST** is an ordered group of data that are not of the same type. Lists are heterogenous. Instead of using `c()` like in vector creation, use `list()` to create a list:
+```{r, eval=FALSE}
+?list
+```
+```{r}
+list_object <- list(TRUE, "one", 1) # include three kinds of data: logical, character, and integer
+list_object
+class(list_object)
+```
+Lists are simple containers and are not additive or multiplicative like vectors and matrices are:
+```{r, eval=FALSE}
+list_object * list(FALSE, "zero", 0) # Error
+```
+
+##  4.  Data structures - matrix
+**MATRICES** are homogenous like vectors. They are tables comprised of data all of the same type. Matrices are organized into rows and columns. 
+
+Use `matrix()` to create a matrix
+```{r, eval=FALSE}
+?matrix
+```
+We can also specify how we want the matrix to be organized using the `nrow` and `ncol` arguments:
+```{r}
+matrix1 <- matrix(1:12, nrow = 4, ncol = 3) # this makes a 4 x 3 matrix
+matrix1
+class(matrix1)
+```
+We can also coerce a vector to a matrix, because a vector is comprised of homogenous data of the same kind, just like a matrix is:
+```{r}
+# Create a numeric vector from 1 to 20
+vec1 <- c(1:20)
+vec1
+class(vec1)
+
+# Coerce this vector to a matrix with 10 rows and 2 columns:
+matrix2 <- matrix(vec1, ncol=2)
+matrix2
+class(matrix2)
+```
+
+##  4.  Data structures - data frame
+_It is worth emphasizing the importance of data frames in R!_ Inside R, a **DATA FRAME** is a list of equal-length vectors. These vectors can be of different types. Data frames are heterogenous like lists.
+
+Let's create a dataframe called `animals` using the vectors we already created:
+```{r, eval=FALSE}
+uniform
+normal
+integer
+character
+logical
+```
+We do this using `data.frame()`
+```{r, eval=FALSE}
+?data.frame
+```
+```{r}
+animals <- data.frame(uniform, normal, integer, character, logical, stringsAsFactors=FALSE)
+# NOTE: `stringsAsFactors=FALSE` means that R will NOT try to interpret character data as factor type. More on this below. 
+```
+Take a peek at the `animals` data frame to see what it looks like:
+```{r}
+head(animals)
+```
+We can change the names of the columns by passing into it a vector with our desired names
+```{r}
+# Create a vector called `new_df_names` with the new column names:
+new_df_names <- c("Weight", "Progress", "Height", "Type", "Healthy")
+
+# Pass this vector into `colnames()`
+colnames(animals) <- new_df_names
+head(animals)
+```
+We can check the structure of our data frame via `str()`
+```{r, eval=FALSE}
+?str
+```
+```{r}
+str(animals)
+```
+Here, we can see that a data frame is just a list of equal-length vectors! In `str()`, our columns are displayed top to bottom, while the data are displayed left to right. 
+
+##  4.  Data structures - data frame - learn about your data frame
+```{r}
+# View the dimensions (nrow x ncol) of the data frame:
+dim(animals) 
+
+# View column names:
+colnames(animals)
+
+# View row names (we did not change these, so they default to character type)
+rownames(animals)
+class(rownames(animals))
+```
+
+##  4.  Data structures - data frame - change the order of the columns
+You can change the order of the columns by specifying their new order using `c()` within what is called "bracket notation" `[]`. 
+
+> This will be covered with the rest of subsetting in Part 2. 
+
+```{r}
+animals <- animals[,c("Type", "Healthy", "Weight", "Height", "Progress")]
+head(animals)
+```
+
+##  4.  Data structures - data frame - factor data type
+Factor data are categorical types used to make comparisons between data. Factors group the data by their "levels" (the different categories within a factor) for comparative purposes.  
+
+For example, in our `animals` dataframe, we can coerce "Type" from character to factor data type. Cat, Dog, and Pig are the factor levels. If we might want to compare heights and weights between Cat, Dog, and Pigs, we set the character "Type" vector to factor data type. We can do so with `factor()` 
+
+The dollar sign operator `$` is used to call a single vector from a data frame. This will be discussed more in Part 2 along with the rest of subsetting.
+```{r}
+str(animals)   # "Name" is character data type. See how each column name is preceded by `$`? 
+animals$Type <- factor(animals$Type)
+str(animals)   # "Name" is now factor data type!
+```
+Notice that R stores factors internally as integers and uses the character strings as labels. Also notice that by default R orders factors alphabetically and returns them when we call the "Type" vector.
+```{r}
+animals$Type
+levels(animals$Type)
+```
+
+##  4.  Data structures - data frame - factor data type - changing factor "levels"
+Each animal type (Cat, Dog, and Pig) within the factor `animals$Type` vector are the factor levels. 
+
+If we want to change how R stores the factor levels, we can specify their levels using the `levels()` argument. For example:
+```{r}
+animals$Type  # Levels: Cat Dog Pig (default alphabetical sort)
+# What if we want to change the factor level sort to Levels: Dog Pig Cat?
+animals$Type <- factor(animals$Type, levels = c("Dog", "Pig", "Cat"))
+animals$Type # Now when we call animals$Name, we can see that the levels have changed
+```
+
+> NOTE: Make sure to keep the `animals` data frame saved in your working folder because we will use it for Parts 2, 3 and 4.
+
+# **Challenge 4**
+Vectors  
+1.1 Create a vector of a sequence of numbers between 1 to 10.  
+1.2 Coerce that vector into a character vector  
+1.3 Add the element "11" to the end of the vector  
+1.4 Evaluate the `str` of the vector.  
+1.5 Create a sentence from separate words using `paste()`. Can you guess how to add another word to this vector without creating a new vector?  
+
+Lists  
+2.1 How does a list differ from an atomic vector?  
+2.2 Create three objects of different types and lengths and then combine them into a list names `x`.  
+2.3 If `x` is a list, what is the class of `x[1]`? How about `x[[1]]`? (this is a preview of Part 2).  
+
+Data frames  
+3.1 Create a 3x2 data frame called `basket`. List the name of each fruit in the first column and its price in teh second column.  
+3.2 Now give your dataframe appropriate column and row names.  
+3.3 We can add a new column using `$` (this will be covered with data subsetting in Part 2). Can you guess how to add a third column called "Color", that shows the color of each fruit?  
+
+Basket example solution:  
+```{r}
+f <- factor(c("Apple", "Orange", "Pear"))
+p <- c(10, 28, 36)
+basket <- data.frame(f, p)
+basket
+
+colnames(basket) <- c("Fruit", "Price")
+basket
+
+basket$Color <- factor(c("Red", "Orange", "Green"))
+str(basket)
+basket
+```
+
+# 5.  Saving your work - `write.csv()`
+It is always handy to save your work. Saving a dataframe as a .CSV file is a convenient way to store it for future use. **Anything saved will be placed into your working directory!** 
 
 The syntax looks like this:
-`dataframe_output <- read.csv(filename, header = TRUE)`
-```{r, eval=FALSE}
-?read.csv
-```
-```{r, eval=FALSE}
-emotion_df <- read.csv('data/emotions.csv', header=TRUE)
-str(emotion_df)
-```
-Notice that the filename I passed in as the first argument is a **path** and not just a filename. R can read and write files from any folder on your computer. In this case I told it to look in the data sub-folder to find the emotions file (which we'll use for all of your examples in the coming days).
-
-Now let's make a simple change to this dataframe, and then write it out as a new file. Let's imagine we've learned that the first participant's data was corrupted, so we want to mark it all as missing, or NA. Don't worry about this code for now, you'll understand it by the end of the day tomorrow!
-```{r, eval=FALSE}
-emotion_modified_df <- emotion_df
-emotion_modified_df[1,] <- NA
-```
-
-Here's the syntax for the function we'll use, `write.csv()`, which is very similar to the `read.csv()` file:
-`write.csv(dataframe_input, "nameOfFile.csv", row.names=TRUE)`
+`write.csv(object_name, "nameOfFile.csv", row.names=TRUE)`
 ```{r, eval=FALSE}
 ?write.csv
 ```
-```{r, eval=FALSE}
-write.csv(emotion_modified_df, "data/emotions_modified.csv", row.names=FALSE)
+```{r}
+write.csv(animals, "animals.csv", row.names=FALSE)
+write.csv(basket, "basket.csv", row.names=TRUE)
 ```
-We pass `FALSE` the optional argument `row.names` to tell the function that we want don't want the first column of the CSV file to have the row names. You can change this to `TRUE` if you have meaninful row names. We'll learn more about this tomorrow.
+Check your working directory! :) 
 
-# 6.  Homework (optional) 
+##  6.  Saving your work - `sink()`
+You can also save a dataframe as a .txt file using sink(). To use a sink, put `sink("FileName.txt")` as the line before the code they want to save, and `sink()` as the line after. 
+
+```{r}
+?sink
+```
+```{r, eval=FALSE}
+sink("animals.txt")
+animals
+sink()
+```
+If you ever find that your code stops working after saving via `sink()`, you are probably stuck in the sink! Run `sink()` as many times as necessary until you get a warning message that says "no sink to remove".
+
+> We will talk about saving plots as .PNG and .PDF file types in Part 3!
+
+# 7.  Homework (optional) 
 swirl is a package that helps you learn R by using R. Visit the [swirl](http://swirlstats.com/) homepage to learn more
 ```{r, eval=FALSE}
 library(swirl)
 swirl()
 # follow the instructions until you can select number 1 "R Programming: The basics of programming in R"
 ```
+
+# **Challenge 5**
+1. Begin a swirl walkthrough with the class.  
 
 # Acknowledgements
 [Wickham H. 2014. Advanced R](http://adv-r.had.co.nz/)  
