@@ -3,11 +3,11 @@ title: 'R Fundamentals Part 1: Introduction'
 author: "D-Lab"
 date: "2017/09/03"
 output:
-  word_document:
-    toc: yes
   html_document:
     toc: yes
     toc_float: yes
+  word_document:
+    toc: yes
 ---
  
 ```{r setup, include=FALSE}
