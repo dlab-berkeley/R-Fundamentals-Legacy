@@ -47,7 +47,7 @@ Part 1 learning objectives:
 5. Saving your work  
 6. Homework (optional)  
 
-# Part 1 - Introduction (30 minutes)
+# Part 1 - Introduction
 ### 1.1 The student
 This document is designed as a resource for **the student**. Use these documents if you choose to follow along or need to review. 
 
