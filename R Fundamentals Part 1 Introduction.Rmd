@@ -249,7 +249,7 @@ ls()
 ```
 Now, all objects are gone from our global environment.
 
-# ** Challenge 1** 
+# **Challenge 1** 
 What do the following commands do? 
 ```{r, eval=FALSE}
 ?"<-"
