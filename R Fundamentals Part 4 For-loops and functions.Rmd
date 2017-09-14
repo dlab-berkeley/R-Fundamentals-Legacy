@@ -1,7 +1,7 @@
 ---
 title: 'R Fundamentals Part 4: For loops and functions'
-author: "Guadalupe Tuñón, Dillon Niederhut, Shinhye Choi, Rochelle Terman, Evan Muzzall"
-date: "February 20, 2017"
+author: "D-Lab"
+date: "September 12, 2017"
 output:
   html_document:
     toc: yes
@@ -12,67 +12,80 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Part 4 Learning objectives
-1. Introduction
+This is an R markdown file (.Rmd). Check out (yihui)[https://yihui.name] to learn a little about the creator of `knitr` and a contributor to (`rmarkdown`)[http://rmarkdown.rstudio.com/lesson-1.html].  
+
+Part 1 review:  
+1. Variable definition (three part recipe)
+2. Data types
+3. Data structures
+
+Part 2 review:  
+1. Set your working directory to the R-Fundamentals "data" folder.
+2. Load the `sleep_VIM` data set. 
+3. One (`$`) versus two dimensional (`[ , ]`) subsetting
+```{r}
+sleep_VIM <- read.csv("./data/sleep_VIM.csv", header=T)
+```
+
+Part 3 review:  
+1. Summarizing data  
+  `summary`, `describe`, `table`
+2. Plotting data  
+  `hist`, `plot`, `boxplot`
+3. ggplot2 - what do you need to use `ggplot`?
+  a) a dataset
+  b) aesthetics
+  c) geoms
+4. Statistical testing
+  `t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`
+  
+# Part 4 Learning objectives  
+1. Introducing for-loops and functions
 2. For loops
 3. Functions
-4. Monte Carlo simulations
+4. Monte Carlo simulation
+5. (The birthday problem)[http://mathforum.org/dr.math/faq/faq.birthdayprob.html]
 
-Load your `sleep_VIM.csv` file from Part 2:
-```{r, eval=FALSE}
-sleep <- read.csv("sleep_VIM.csv", header=TRUE, stringsAsFactors = FALSE)
-```
+# 1.  Introduction  
+Commands such as `mean` are actually functions. Functions in R are a set of instructions that together can provide smart, reusable ways to conduct research. Assign functions in a way similar to how you assign an object (with `<-`). Functions are generally meant to be mapped to data structures or are used to write other functions. Using functions might allow you to write your code more efficiently.  
 
-# 1.  Introduction
-Commands such as `mean()` are actually functions. Functions in R are a set of statements that together can provide smart, reusable ways to conduct our research. Assign functions in a way similar to how you assign an object (with `<-`). Functions are generally meant to be mapped to data structures or are used to write other functions. Using functions might allow you to write your code more efficiently. 
-
-What do you think the `nrow()` function does? Type a function name without the parentheses to see its underlying functional structure. Let's try `nrow()`, which returns the number of rows in a data frame. 
-```{r}
+What do you think the `nrow` function does? Type a function name without the parentheses to see its underlying functional structure. Let's try `nrow`, which returns the number of rows in a data frame. 
+```{r, eval=F}
 nrow
-mean
-mean(c(1,2,3))
-
-# Now we can give nrow() an argument
-nrow(sleep)
 ```
+```{r}
+# Note that doing this manually or via nrow gives the same result:
+dim(sleep_VIM)[1L] == nrow(sleep_VIM)
+```
+
+We can do the same with the mean function as well: 
+```{r}
+mean
+(1+2+3)/3 == mean(c(1,2,3))
+```
+
 However, before we get to functions, let us review for loops because many functions have for loops embedded in them.   
 
-Load the `animals` data frame - we will return to this a little later:
-```{r}
-animals <- read.csv("animals.csv", header=TRUE, stringsAsFactors=FALSE)
-
-animals <- read.csv("/Users/evanmuzzall/Desktop/R-Fundamentals/data/animals.csv", header=TRUE, stringsAsFactors=FALSE)
-str(animals)
-
-colnames(animals) <- c("Type", "Healthy", "Weight", "Height", "Progress")
-str(animals)
-```
-
-# 2.  For loops
-Before we introduce how functions work and learn how to write them, let us discuss how a for loop works in R. A for loop repeats a block of code a certain number of times until a certain condition is met (or is no longer satisfied), telling the code to stop and potentially print/return some sort of output. 
+# 2.  For loops  
+Before we introduce how functions work and learn how to write them, let us discuss how a for loop works in R. A for loop repeats a block of code a certain number of times until a certain condition is met (or is no longer met), telling the code to stop and potentially print/return some sort of output. 
 
 The basic syntax looks like this:
 
-syntax: `for (variable in sequence) {statement}`
+syntax: `for(variable in sequence) {statement}`
 
 All for loops are precluded by `for` so that R knows you want to iterate over a loop. 
 
-The `variable` in `(variable in sequence)` is generally denoted with an `i`, which stands for "iterator". However, `i` should be thought of as a placeholder and can be represented by other means (e.g., `x`, `donut`, `n`, etc.). `sequence` is some sequence of numbers telling R how many times you want to iterate the code. 
+The `variable` in `(variable in sequence)` is generally denoted with an `i`, which stands for "iterator". However, `i` should be thought of as a placeholder and can be represented by other means (e.g., `x`, `donut`, etc.). `sequence` is some number telling R how many times you want to iterate the code. 
 
-"{statement}" refers to the code that you want run over the sequence at each iteration `i`. Notice that it is contained within curly braces { } - this defines the boundary of the statement in the for loop.
+`{statement}` refers to the code that you want run over the sequence at each iteration `i`. Notice that it is contained within curly braces { } - this defines the boundary of the statement in the for loop.  
 
-##  2.  For loops - Example 1
+### 2.1 For-loops - Example 1  
 Let's create a matrix of 2 to the power of `i` where `i` is 1 to 10. First we create an NA vector called `vec` which will serve as a placeholder for the output of the loop.
-```{r, eval=FALSE}
-?rep
-?"for"
-?"in"
-```
 ```{r}
 vec <- c(rep(NA, 10))
 vec
 ```
-Now, let's create a matrix of 2 to the power of i where i is 1 to 10
+Now, let's use a for-loop to create a matrix of 2 to the power of i where i is 1 to 10. 
 ```{r}
 for(i in 1:10){
     vec[i] <- 2^(i)
@@ -82,9 +95,9 @@ class(vec)
 ```
 This code tells R that we want to raise 2 to the power of `i`, where `i` is 1:10.
 
-We can also use indexing to modify only some elements. We now have an object called `vec` with defined values. What if we want to replace the first 5 elements of `vec` with 3 to the power of `i` instead? 
+We can also use indexing to modify only some elements. We now have an object called `vec` with defined values. What if we want to replace the first 5 elements of `vec` with 3 to the power of `i` instead?  
 
-You can change the `sequence` to tell R just to overwrite the first five positions!
+You can change the `sequence` to tell R just to overwrite the first five positions!  
 ```{r}
 for(i in 1:5){
     vec[i] <- 3^i
@@ -92,6 +105,8 @@ for(i in 1:5){
 vec
 #This has changed only the first five entries of `vec`
 ```
+
+### 2.2 For-loops - Example 2
 You can also loop over character data. First, create a name vector:
 ```{r}
 animal.names <- c("Cat", "Dog", "Pig", "Elephant", "Giraffe")
@@ -109,32 +124,28 @@ animals.length  #See how we are building this from scratch?
 ```
 Finally, perhaps you want to perform some operation across `animals.length`. For example, count the number of characters in each animal name like this:
 ```{r}
-?nchar
-```
-```{r}
 for(i in animal.names){
   animals.length[i] <- nchar(i)
 }
 animals.length
 ```
 
-## 2.  For loops - `break` and `stopifnot`
-For long loops, many intermediate commands can help us "end the looping" once a condition is met, or when a condition is no longer satisfied. Two particular useful ones are `break` and `stopifnot`.
+### 2.3 For loops (`break` and `stopifnot`)  
+For long loops, many intermediate commands can help us "end the looping" once a condition is met, or when a condition is no longer satisfied. Two particular useful ones are `break` and `stopifnot`.  
 
 `break` ends the looping once a certain condition is met.
 
-`stopifnot` ends the loop when a certain condition is NOT met. 
+`stopifnot` ends the loop when a certain condition is NOT met.  
 
-Let's begin by writing a for loop that outputs the numbers of the sequence 1:100
+Let's begin by writing a for loop that outputs the numbers of the sequence 1:100  
 ```{r, eval=FALSE}
 for(i in 1:100){
     print(i) 
     }
 ```
-`if` statements are frequently used to specify code to be evaluated when the condition is held. Here we tell the code that when `i` is equal to 50, stop the code:
-```{r, eval=FALSE}
-?break
-```
+
+##### 2.3.1 For-loops (`if`)
+`if` statements are frequently used to specify code to be evaluated when the condition is held. Here we tell the code that when `i` is equal to 50, stop the code.  
 
 We usually have data that we pass into a for loop. Let's create an object called `my_nums` that contains the integer vector 40:70. Let's test the _value_ (rather than the index):
 ```{r}
@@ -154,41 +165,29 @@ my_nums
 
 `stopifnot` works similarly. Here we tell the code to stop if `i` reaches a missing value (`NA`):
 ```{r, eval=FALSE}
-?stopifnot
-
 for(i in 1:length(my_nums)){
     print(my_nums[i])  
     stopifnot(!is.na(my_nums[i]))
 }
 ```
 
-# **Challenge 1**
-1. Write a for loop that outputs something
+#**Challenge 1**
+1. Write a for loop that outputs something. 
 ```{r}
 
-loop <- 1:500
-for(i in 1:length(loop)){
-  print(loop[i])
-  if(loop[i] == 25/5)break
-}
-
-```
-2. Insert a `break` or `stopifnot` command to tell it when to stop
-```{r}
 # your code here
+
 ```
 
-## 2.  For loops - `if`, `else`, and `ifelse`
-`if` and `else` statements are control structures that let you control how a code should be iterated within a single for loop. You saw `if` above and is handy when you want to assign different tasks to different subsets of data using a single for loop. 
+### 2.4 For loops (`if`, `else`, and `ifelse`)
+`if` and `else` statements are control structures that let you control how a code should be iterated within a single for loop. You saw `if` above and is handy when you want to assign different tasks to different subsets of data using a single for loop.  
 
-`if` something happens, do "this"      if something `else` happens, do "that"!
+`if` something happens, do "this",    
+if something `else` happens, do "that"!
 
 syntax: `if (condition) {statement} else {other statement}`
 
 ```{r, eval=FALSE}
-?"if"
-```
-```{r}
 x <- 1
 if(x > 7){
   print(x)
@@ -196,12 +195,11 @@ if(x > 7){
   print("NOT BIG ENOUGH!!")
 }
 ```
-Reassign `x <- 10` here - what happens? Does indentation matter? Let me show you how I like to format my code (which is considered hard to read by most). 
-
+Reassign `x <- 10` here - what happens? Does indentation matter?  
 This also works in a loop. Here, we get all outputs for the loop:
 ```{r}
 x <- 1:10
-for (i in 1:10){
+for (i in 1:length(x)){
     if(x[i] > 7){
         print(x[i])
     }else{                     
@@ -215,10 +213,7 @@ The `ifelse` function can be handy to recode data as long as you have two condit
 
 syntax: `ifelse(test, yes, no)`
 
-Let us begin by generating 10 random draws of two common housepets "cat" and "dog":
-```{r, eval=FALSE}
-?"ifelse"
-```
+Think back to the random sampling portion of part 1. Generate ten random draws of two common housepets "cat" and "dog":
 ```{r}
 set.seed(1)
 animal <- sample(c("cat", "dog"), 10, replace=TRUE)
@@ -226,50 +221,46 @@ animal
 ```
 Now we can recode the character data to numeric using `ifelse()`:
 ```{r}
-animal <- ifelse(animal=="cat", 1, 0)       
-animal
+animal_int <- ifelse(animal == "cat", 1, 0)       
+animal_int
 ```
 ... or recode the numeric data to some other character type:
 ```{r}
-animal <- ifelse(animal==1, "meow!?", "WOOF")
-animal
+animal_char <- ifelse(animal_int == 1, "meow!?", "WOOF")
+animal_char
 ```
 ... and recode the new character data type to logical type:
 ```{r}
-animal <- ifelse(animal=="meow!?", TRUE, FALSE)
-animal
+animal_bool <- ifelse(animal_char == "meow!?", TRUE, FALSE)
+animal_bool
 ```
 
-# **Challenge 2**
-1. Write a for loop that uses `if`
+Finally, we can recode it back to its original format:
 ```{r}
+animal2 <- ifelse(animal_bool == TRUE, "cat", "dog")
+animal2
+
+animal == animal2 # or
+sum(animal != animal2)
+```
+
+#**Challenge 2**
+1. Write a for loop that uses `if` and `else`
+```{r}
+
 # your code here
-```
-2. Write a for loop that uses `if` and `else`
-```{r}
-mine <- 1:20
-for(i in 1:length(mine)){
-  if(mine[i] > 4){
-  print(mine[i])
-}else{
-  print("ERROR")
-}
-}
 
 ```
-3. Create and then recode some binary data using `ifelse`
-```{r}
-set.seed(94702)
-fruit <- sample(c("Apple", "Pear"), 20, replace=TRUE)
-fruit
 
-fruit_recode <- ifelse(fruit=="Apple", "red", "green")
-fruit_recode
+2. Create and then recode some binary data using `ifelse`
+```{r}
+
+# your code here
 
 ```
 
 # 3.  Functions
-In R, a function is a set of code that might be more useful if it is self-contained and/or is to be used repeatedly. For example, if you want to run the same satatistical tests on several datasets, you might want to write a function that contains instructions for all the tests once, so that you do not have to rewrite the code each time.
+In R, a function is a set of code that might be more useful if it is self-contained and/or is to be used repeatedly. For example, if you want to run the same satatistical tests on several datasets, you might want to write a function that contains instructions for all the tests once, so that you do not have to rewrite the code each time.  
 
 Every function has four parts and its basic syntax looks like this:  
 
@@ -277,15 +268,12 @@ Every function has four parts and its basic syntax looks like this:
 >   body of function
 > }
 
-1. `function.name` - like objects in R, it is helpful if you give your function a relevant name.
+1. `function.name` - like saving variables in R, it is helpful if you give your function a relevant name.
 2. `function(x)` - `function` lets R know you are writing a function and `(x)` contains the inputs/arguments.
 3. `{body of function}` - the body of the function is contained within curly braces { } and denotes the statements that you want R to evaluate.
 4. The `environment` (global environment) that the function operates within. 
 
-For example:
-```{r, eval=FALSE}
-?"function"
-```
+### 3.1 Functions - Example 1
 ```{r}
 test_function <- function(x){
   x + 1
@@ -304,10 +292,11 @@ To evaluate this function, call the name of the function with your argument `x` 
 
 If we want to see what `x + 1` is equal to when `x` = 2, we type:
 ```{r}
+test_function
 test_function(2)
 ```
 
-## 3.  Functions/ default arguments
+### 3.2 Functions - Example 2 - default arguments  
 We can also add a predetermined value for one or more arguments, which serves as a default value that we can change in particular applications. You can change the value of "y" - it is an optional argument because it is named and it has a default value. By convenction, required arguments do not have default values and are listed first in the function definition.
 ```{r}
 f <- function(x, y=2){
@@ -321,6 +310,7 @@ f(4, y=4) # this is the same as f(4, 4)
 f(y=4, 4)
 ```
 
+### 3.3 Functions - Example 3 - function environment
 Let's try one more example where we define object `z` within the function. 
 ```{r}
 f <- function(x, y=2){
@@ -349,7 +339,7 @@ ls()
 ```
 `z` is now defined in the global environment and the function can pull objects from the global namespace. For example, using constants that never change, define them in the global namespace. If it is unique to the function however, keep it in the function! Scope is tricky! 
 
-## 3.  Functions - functions-within-functions
+### 3.4 Functions - functions-within-functions
 It is also common for functions to be declared within another function.
 ```{r}
 f <- function(x) {
@@ -425,43 +415,32 @@ R is a bit quirky in that there is no such thing as an uncontained value, e.g. t
 ```
 This means that R automatically broadcasts functions across vectors of any length. Notice that there is only one argument ("height.vec") even though it contains four different heights.
 ```{r}
-height.vec <- c(74,64,73,82)
-in_to_m(height.vec)
+height_vec <- c(74,64,73,82)
+in_to_m(height_vec)
 ```
 Note this doesn't work with lists:
-```{r}
-height.list <- list(74,64,73,82)
-```
-```{r, eval=FALSE}
-in_to_m(height.list)
+```{r, eval=F}
+height_list <- list(74,64,73,82)
+in_to_m(height_list)
 ```
 
 Instead, a functional such as `lapply()` might be used to do so. Remember that a functional is a function that takes functions as arguments. 
-```{r}
-lapply(height.list, in_to_m)
+```{r, eval=F}
+lapply(height_list, in_to_m)
 ```
 
-# **Challenge 3**
-1. Write two functions so that the output of one serves as an input for the other.  
-```{r}
-A <- function(x){
-  x <x^2
-B <- function(x){
-  A + 2
-}
-B(x)
-  }
+Although the "dplyr" R package is perhaps more useful for quickly applying functions to a matrix, there exists a whole family of functionals for this sort of thing in base R. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html).  
 
-B(4)
+Also see (this helpful walkthrough)[http://adv-r.had.co.nz/Functions.html].  
 
-```
+# Break
 
-Although the "dplyr" R package is perhaps more useful for quickly applying functions to a matrix, there exists a whole family of functionals for this sort of thing in base R. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html) 
+# 4.  Monte Carlo simulations
+A Monte Carlo simulation is an algorithm that relies on repeated random sampling to obtain numerical results. In R, loops and functions are key for Monte Carlo simulations.  
 
-# 3.  Monte Carlo simulations
-A Monte Carlo simulation is an algorithm that relies on repeated random sampling to obtain numerical results. In R, loops and functions are key for Monte Carlo simulations. 
+See (this example)[https://www.manufacturing.net/article/2012/11/demystifying-monte-carlo] to learn more.  
 
-For example, we can simulate a die roll by taking a random sample from a 1:6 vector.
+We can simulate a die roll by taking a random sample from a 1:6 vector.
 ```{r}
 sample(1:6, 1)
 
@@ -480,7 +459,7 @@ for (i in 1:iter){
 ```
 Another alternative is to write a function that produces one iteration of the process and then use the `replicate` command to repeat the process 100 times. 
 
-##  4.  Monte Carlo simulations - Step 1
+### 4.1 Monte Carlo simulation - Step 1
 Write a function that works through the process once
 ```{r}
 die_roll_mean <- function(nr_rolls){
@@ -491,18 +470,17 @@ die_roll_mean <- function(nr_rolls){
 die_roll_mean(nr_rolls = 100)
 ```
 
-##  4.  Monte Carlo simulations - Step 2
-Now we use `replicate` to iterate the function 200 times:
-```{r, eval=FALSE}
-?replicate
-```
+### 4.2 Monte Carlo simulation - Step 2
+Now we use `replicate` to iterate the function 200 times. However, what happens to the mean variation based on 100 rolls? What about on just five rolls?  
 ```{r}
+# 100 roll mean
 reps <- replicate(200, die_roll_mean(nr_rolls = 100)) 
 ```
 ```{r, eval=FALSE}
 reps
 ```
 ```{r}
+# 5 roll mean
 reps <- replicate(200, die_roll_mean(nr_rolls = 5)) 
 ```
 ```{r, eval=FALSE}
@@ -511,8 +489,8 @@ reps
 
 What happens to the values with more rolls? With less rolls?  
 
-##  4.  Monte Carlo simulations - include a plotting function
-Again, we can use functions with plotting functions as well:
+##### 4.2.1 Monte Carlo simulation - include a plotting function
+We can use functions with plotting functions as well:
 ```{r}
 hist(reps)
 
@@ -527,7 +505,7 @@ my_hist <- function(sims){
 my_hist(sims=reps)
 ```
 
-##  4.  Monte Carlo simulations - Step 3
+### 4.3 Monte Carlo simulation - Step 3
 How would we update the function to add the number of die rolls as the title of the plot?
 ```{r}
 my_hist <- function(sims, n){
@@ -561,7 +539,7 @@ for (i in 1:length(nr_die_rolls)){
 }
 ```
 
-# **Challenge 4:** The Birthday Problem
+#**Challenge 3:** The Birthday Problem
 Say we choose 25 people at random. What is the probability two or more of them have the same birthday?'
 
 Model simplifications:
@@ -579,7 +557,7 @@ We now want to know how many of those birthdays are repeated. For that we can us
 unique(birthdays)
 length(unique(birthdays))
 ```
-23 birthdays are unique. Two people have the same birthday!  
+24 birthdays are unique. Two people have the same birthday!  
 
 Note this is just one realization of the process. To use R to approximate the probability we would need to repeat this process many, many times. 
 
@@ -618,7 +596,7 @@ mean(many_sims)
 ```
 Say we now want to use R to see how this probability changes as the number of people in the room changes. How can we do this? We can use our function but incorporating it into a loop which varies the number of people in the room:
 ```{r}
-people <- 4:100
+people <- 2:100
 sims <- matrix(NA, length(people), 2)
 
 for(i in 1:length(people)){
@@ -639,10 +617,10 @@ plot(sims[,1], sims[,2], pch=16, col="blue",
      xlab="Nr of People", ylab="Probability of at Least One Match")
 ```
 
-
 Learn more about the birthday problem [here](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)
 
 # Acknowledgements
 [Software Carpentry](https://swcarpentry.github.io/)  
 [Hadley Wickham](http://adv-r.had.co.nz/)  
 [more Hadley Wickham](http://r-pkgs.had.co.nz/)
+- Contributions by Guadalupe Tuñón, Dillon Niederhut, Shinhye Choi, Rochelle Terman, Evan Muzzall. 
