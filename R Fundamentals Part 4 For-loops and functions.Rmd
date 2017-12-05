@@ -55,12 +55,17 @@ nrow
 ```
 ```{r}
 # Note that doing this manually or via nrow gives the same result:
-dim(sleep_VIM)[1L] == nrow(sleep_VIM)
+data(iris)
+dim(iris)[1L]
+nrow(iris)
+dim(iris)[1L] == nrow(iris)
 ```
 
 We can do the same with the mean function as well: 
 ```{r}
 mean
+(1+2+3)/3
+mean(c(1,2,3))
 (1+2+3)/3 == mean(c(1,2,3))
 ```
 
@@ -79,8 +84,16 @@ The `variable` in `(variable in sequence)` is generally denoted with an `i`, whi
 
 `{statement}` refers to the code that you want run over the sequence at each iteration `i`. Notice that it is contained within curly braces { } - this defines the boundary of the statement in the for loop.  
 
-### 2.1 For-loops - Example 1  
-Let's create a matrix of 2 to the power of `i` where `i` is 1 to 10. First we create an NA vector called `vec` which will serve as a placeholder for the output of the loop.
+### 2.2 For-loops - Example 1
+Let's start simple! An easy for loop could look like this: 
+```{r}
+for(x in 1:10){
+  print(x)
+}
+```
+
+### 2.1 For-loops - Example 2  
+Now, let's perform some sort of calculation in our loop. Create a matrix of 2 to the power of `i` where `i` is 1 to 10. First we create an NA vector called `vec` which will serve as a placeholder for the output of the loop.
 ```{r}
 vec <- c(rep(NA, 10))
 vec
@@ -106,7 +119,7 @@ vec
 #This has changed only the first five entries of `vec`
 ```
 
-### 2.2 For-loops - Example 2
+### 2.2 For-loops - Example 3
 You can also loop over character data. First, create a name vector:
 ```{r}
 animal.names <- c("Cat", "Dog", "Pig", "Elephant", "Giraffe")
@@ -131,7 +144,7 @@ animals.length
 ```
 
 ### 2.3 For loops (`break` and `stopifnot`)  
-For long loops, many intermediate commands can help us "end the looping" once a condition is met, or when a condition is no longer satisfied. Two particular useful ones are `break` and `stopifnot`.  
+For long loops, many intermediate commands called "control structures" can help us "end the looping" once a condition is met, or when a condition is no longer satisfied. Two particular useful ones are `break` and `stopifnot`.  
 
 `break` ends the looping once a certain condition is met.
 
@@ -147,7 +160,15 @@ for(i in 1:100){
 ##### 2.3.1 For-loops (`if`)
 `if` statements are frequently used to specify code to be evaluated when the condition is held. Here we tell the code that when `i` is equal to 50, stop the code.  
 
-We usually have data that we pass into a for loop. Let's create an object called `my_nums` that contains the integer vector 40:70. Let's test the _value_ (rather than the index):
+For example: 
+```{r}
+for(x in 1:10){
+  if(x < 5)
+    print(x)
+}
+```
+
+We usually have data that we pass into a for loop. Let's create an object called `my_nums` that contains the numeric vector 40:70:
 ```{r}
 my_nums <- 40:70
 for(i in 1:length(my_nums)){
@@ -157,9 +178,9 @@ for(i in 1:length(my_nums)){
 # Numbers up to and including 50 are printed! 
 ```
 
-Let's quickly change our `my_nums` object to include one `NA` in position 15: 
+Let's quickly amend our `my_nums` variable to include one `NA` in position 15: 
 ```{r}
-my_nums[15] <-  as.numeric(NA)
+my_nums[15] <- as.numeric(NA)
 my_nums
 ```
 
@@ -192,18 +213,19 @@ x <- 1
 if(x > 7){
   print(x)
 }else{   #`else` should not start its own line. Always let it be preceded by a closing brace on the same line.
-  print("NOT BIG ENOUGH!!")
+  print("Error: number not big enough")
 }
 ```
 Reassign `x <- 10` here - what happens? Does indentation matter?  
+
 This also works in a loop. Here, we get all outputs for the loop:
 ```{r}
 x <- 1:10
 for (i in 1:length(x)){
-    if(x[i] > 7){
-        print(x[i])
+    if(i > 7){
+        print(i)
     }else{                     
-      print("NOT BIG ENOUGH!!")
+      print("Error: number not big enough")
     }
 }
 #Super cool! :) 
@@ -276,7 +298,7 @@ Every function has four parts and its basic syntax looks like this:
 ### 3.1 Functions - Example 1
 ```{r}
 test_function <- function(x){
-  x + 1
+  x ^ 2
 }
 
 class(test_function)        # Returns the class of `test_function`
@@ -294,6 +316,7 @@ If we want to see what `x + 1` is equal to when `x` = 2, we type:
 ```{r}
 test_function
 test_function(2)
+test_function(1:10) # is this the same as c(1:10) ^ 2?
 ```
 
 ### 3.2 Functions - Example 2 - default arguments  
@@ -371,69 +394,35 @@ f(1)
 f(10)
 ```
 
-## 3.  Functions - unit conversion example
-Unit conversion is a common obstacle in research. Let us write a function that converts inches to centimeters. For now however, pretend that we think that one inch is equal to 2.5 centimeters - we will show you how to update it below. 
-
-Define a function called `in_to_cm` and then enter Evan's height (74 inches):
+# 3.5 Functions - more examples
 ```{r}
-in_to_cm <- function(x){
-  x * 2.5
+function_multi = function(a, b, c, d){
+  print(a)
+  print(a + b)
+  print(a + b * c)
+  print(a + b * c / d)
 }
-in_to_cm(74)
-#Evan is 185 cm tall (incorrectly assuming that 1 inch = 2.5 cm)
-```
-What if we want to know how tall I am in meters?
+function_multi(a = 1, b = 2, c = 3, d = 4)
 
-You could type:
-```{r, eval=FALSE}
-function(x){
-  x * 2.5 / 100
+function_squared = function(x){
+  for(i in 1:x){
+    y <- i ^ 2
+  print(y)
+  }
 }
+function_squared(5)
 ```
-...but this would be repeating yourself!
 
-Then, when you figure out that the conversion factor is really *2.54*, not 2.5, you might update one function and forget to update the other - these inconsistencies can cause problems.
-
-Instead, let's define a new function called `in_to_m` so that the output of `in_to_cm` is used in the new function! 
+You can even use columns from a dataframe:
 ```{r}
-in_to_m <- function(x){
-  in_to_cm(x) / 100
+cylinders = data.frame(height = c(3,4,5,6,7),
+                       radius = c(1,3,2,1,5))
+cylinders_function = function(height, radius){
+  volume = pi * radius ^ 2 * height
+  print(volume)
 }
-in_to_m(74)
+cylinders_function(height = cylinders$height, radius = cylinders$radius)
 ```
-Now, if we go back and update `in_to_cm`, those changes automatically get propogated to `in_to_m` and we do not have to worry about updating it: 
-```{r}
-in_to_cm <- function(x){
-  x * 2.54
-}
-in_to_m(74)
-#Evan is actually 1.8796 meters tall
-```
-R is a bit quirky in that there is no such thing as an uncontained value, e.g. the number `74` is really a vector with length of one, and a value of 74 in position 1
-```{r}
-74 == c(74)
-```
-This means that R automatically broadcasts functions across vectors of any length. Notice that there is only one argument ("height.vec") even though it contains four different heights.
-```{r}
-height_vec <- c(74,64,73,82)
-in_to_m(height_vec)
-```
-Note this doesn't work with lists:
-```{r, eval=F}
-height_list <- list(74,64,73,82)
-in_to_m(height_list)
-```
-
-Instead, a functional such as `lapply()` might be used to do so. Remember that a functional is a function that takes functions as arguments. 
-```{r, eval=F}
-lapply(height_list, in_to_m)
-```
-
-Although the "dplyr" R package is perhaps more useful for quickly applying functions to a matrix, there exists a whole family of functionals for this sort of thing in base R. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html).  
-
-Also see (this helpful walkthrough)[http://adv-r.had.co.nz/Functions.html].  
-
-# Break
 
 # 4.  Monte Carlo simulations
 A Monte Carlo simulation is an algorithm that relies on repeated random sampling to obtain numerical results. In R, loops and functions are key for Monte Carlo simulations.  
@@ -618,6 +607,10 @@ plot(sims[,1], sims[,2], pch=16, col="blue",
 ```
 
 Learn more about the birthday problem [here](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)
+
+Although the "dplyr" R package is perhaps more useful for quickly applying functions to a matrix, there exists a whole family of functionals for this sort of thing in base R. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html).  
+
+Also see [this helpful walkthrough](http://adv-r.had.co.nz/Functions.html)    
 
 # Acknowledgements
 [Software Carpentry](https://swcarpentry.github.io/)  

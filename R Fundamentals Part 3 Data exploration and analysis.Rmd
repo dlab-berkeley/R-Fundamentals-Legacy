@@ -3,11 +3,11 @@ title: 'R Fundamentals Part 3: Data exploration and analysis'
 author: "D-Lab"
 date: "September 12, 2017"
 output:
-  word_document:
-    toc: yes
   html_document:
     toc: yes
     toc_float: yes
+  word_document:
+    toc: yes
 ---
  
 ```{r setup, include=FALSE}
@@ -28,7 +28,7 @@ setwd("/Users/evan.muzzall/Desktop/R-Fundamentals/data")
 
 Read in the `animals` data frame you created on Day 1
 ```{r}
-animals <- read.csv("/Users/evan.muzzall/Desktop/R-Fundamentals/data/animals.csv", header=TRUE, stringsAsFactors=FALSE)
+animals <- read.csv("/Users/evanmuzzall/Desktop/R-Fundamentals/data/animals.csv", header=TRUE, stringsAsFactors=FALSE)
 head(animals)
 ```
 
@@ -371,7 +371,7 @@ TukeyHSD(aov1)
 ```
 
 # **Challenge 6**
-1. Using the `iris` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three flower species. In general, what are differences between t-tests and ANOVAs that you should keep in mind?  
+1. Using the `iris` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three species. In general, what are differences between t-test and ANOVA that you should keep in mind?  
 
 ### 4.4 Statistical testing (`cor.test()`)  
 Correlation is a useful way to see if two numeric variables are related. "Pearson's r" is the default coefficient in `cor.test()`.  
@@ -410,15 +410,6 @@ names(lin_model1)
 lin_model1$residuals
 ```
 
-# **Challenge 7**
-1. Using the `mtcars` dataset, create boxplots for one numeric variable as parsed by a factor variable.  
-2. How do you load the "mtcars" dataset?  
-3. How do you view the variable names of this dataset?  
-4. Might you surmise a relationship about something like engine size and miles per gallon?  
-5. What does `cor.test` reveal about engine size and miles per gallon?  
-6. Create a scatterplot of two variables using `plot()`.  
-7. Can one of these variables be used to predict another in a linear regression model?  
-
 # 5.  ggplot2
 The "ggplot2" R package is a powerful way to graph your data. The syntax is similar to what is used in "dplyr", except instead of a pipe `%>%`, a plus-symbol `+` is used:
 ```{r}
@@ -448,6 +439,15 @@ ggplot(iris, aes(x = Petal.Length, y = Petal.Width, color = Species)) +
   theme(axis.text.x=element_text(angle=45, hjust=1)) + 
   theme(axis.text.y=element_text(angle=45, hjust=1))
 ```
+
+# **Challenge 7**
+1. Load the `mtcars` dataset.  
+2. When you load new data into R, what functions are good ones to run to learn more about the data?  
+3. Create boxplots for mpg as parsed by cyl (NOTE: you might have to first convert cyl to a factor!).  
+4. Might you surmise a relationship about something like engine size and miles per gallon?  
+5. What does `cor.test` reveal about mpg and cyl?  
+6. Create a scatterplot of two variables using `ggplot()`.  
+7. Can cyl be used to predict mpg in a linear regression model?  
 
 > REMEMBER: If you have research questions, [schedule an appointment with a D-Lab consultant!](http://dlab.berkeley.edu/consulting)
 

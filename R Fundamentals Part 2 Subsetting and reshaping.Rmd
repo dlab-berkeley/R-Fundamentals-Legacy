@@ -29,13 +29,10 @@ Part 2 learning objectives:
 7. Exploring data and plotting - preview
 
 # 1.  Loading data from files
-Set your working directory to the R-Fundamentals data folder:
-```{r, eval=FALSE}
-getwd()
-setwd("/Users/evanmuzzall/Desktop/R-Fundamentals")
-```
+# **Challenge 1**
+1. Set your working directory to the R-Fundamentals data folder (remember, there are two ways to do this!
 
-Now, load the animals dataset that you created in Part 1. It is conveniently located in the "data" folder. Note that we can also specify the file path within `read.csv`:
+Now we can load the animals dataset that you created in Part 1. It is conveniently located in the "data" folder. Note that we can also specify the file path within `read.csv`:
 ```{r}
 ?read.csv
 ```
@@ -51,16 +48,14 @@ animals <- read.csv("/Users/evanmuzzall/Desktop/R-Fundamentals/data/animals.csv"
 ```
 > Notice that `stringsAsFactors = FALSE`. If set to `TRUE`, R will try to guess which character vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical and increasing numeric factor level sorting. This might not matter for your data, but it is recommended to set `stringsAsFactors = FALSE` and manually convert your desired character vectors to factors. Refer back to the end of Part 1 for these instructions. `header = TRUE` will include the header row; `header = FALSE` will turn your header row into the first row of actual data. `na.strings = TRUE` allows you to specify data that should be automatically converted to `NA` upon importation. 
 
-# **Challenge 1**
-1. Load the mammals "sleep" dataset from the data folder. Name is `sleep_VIM`.
+# **Challenge 2**
+1. Load the mammals "sleep_VIM" dataset from the data folder. 
 
-This dataset is part of the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf). I looks at sleep patterns in various mammal species and contains missing (`NA`) values. Click  [here](http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf) to see the original research article. 
-
-```{r, eval = TRUE}
-
-sleep_VIM <- read.csv("./data/sleep_VIM.csv", header = T)
-
+```{r}
+sleep_VIM = read.csv("/Users/evanmuzzall/Desktop/R-Fundamentals/data/sleep_VIM.csv", header = T)
 ```
+
+This dataset is part of the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf). It looks at sleep patterns in various mammal species and contains missing (`NA`) values. Click  [here](http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf) to see the original research article. 
 
 > NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. 
 
@@ -91,6 +86,7 @@ tail(sleep_VIM, n = 4) # show the last "n" rows
 ```
 `names()` and `colnames()` both return column names of the data frame:
 ```{r}
+
 names(sleep_VIM)  
 colnames(sleep_VIM)
 ```
@@ -129,7 +125,7 @@ sleep_VIM$Dream #Returns only the "Dream" vector from the `sleep_VIM` data frame
 2. Plot them in a histogram using `hist()`
 3. Can all data types be visualized with histograms? Why or why not?
 
-### 3.2 Subsetting rows and columns (`[c(:), c(:)]`)
+### 3.2 Subsetting in two dimensions: rows and columns (`[c(:), c(:)]`)
 However, we do not have to specify all rows or columns when subsetting with bracket notation. We can specify dimensions of both rows and columns that we want.
 
 ### 3.3 Bracket notation (`[ , ]`)
@@ -191,7 +187,7 @@ We can also use logical tests to subset our data. For example, what if we want t
 ?"=="
 ```
 ```{r}
-sleep_logical <- sleep_VIM[sleep_VIM$Exp == 5, ] # why blank after the comma? 
+sleep_logical <- sleep_VIM[sleep_VIM$Exp == 5, ] # why is the comma included? 
 sleep_logical
 ```
 Only rows with values of 5 for "Exp" are returned! 
@@ -216,7 +212,6 @@ sleep_numeric_character
 sleep_rows_only <- sleep_VIM[sleep_VIM$Exp == 4, ]
 sleep_rows_only
 ```
-
 
 # 4.  Subsetting lists with double bracket notation (`[[]]`)
 You can also subset lists. 
@@ -245,9 +240,9 @@ example_list[[1]]
 
 # **Challenge 3**
 1. Load the `iris` dataset!  
-2. What can you say about the this dataset? How do you find out? 
-3. Subset the `iris` dataset in a variety of ways using column names and positive and negative integers.
-4. Subset `iris` using logical tests, `&`, and `|`
+2. What is this dataset? How do you find out?  
+3. Subset the `iris` dataset in a variety of ways using column names and positive and negative integers.  
+4. Subset `iris` using logical tests, `&`, and `|`  
 
 # 5.  Missing data (`NA`)
 Identifying missing data can be important for subsetting purposes. R codes missing values as `NA`. Identifying missing data is important because dealing with it might be necessary to run basic tests like `mean()`. 
@@ -333,7 +328,10 @@ subset_2
 ```
 
 # **Challenge 4**
-1. Try and subset the `sleep` dataset at least once.  
+1. Subset the `animals` dataframe: 
+a) in one dimension  
+b) in two dimensions  
+c) using logical tests
 
 # 6.  Merging data
 Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column. The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match.  
@@ -398,11 +396,12 @@ df_rbind
 
 # **Challenge 5** 
 1. Make sure your `animals` dataset is loaded. Remember to use `read.csv()` to import the data from the `data` folder. 
-2. Create a subsetted data frame called `cats_dogs` that contains only cats and dogs. (hint: what does "and" actually mean here?)  
-3. Create a subsetted data frame that only contains healthy pigs! (hint: what is the meaning of "and" here in contrast to #2)  
+2. Create a subsetted data frame called `cats_dogs` that contains only cats and dogs. (hint: does "and" actually mean "and" here?)  
+3. Create a subsetted data frame that only contains healthy pigs! (hint: what is the meaning of "and" here in contrast to question #2)  
 4. load the `mtcars` dataset. How might you find out what it is and how do you load it?  
 5. subset `mtcars` in five different ways.  
-6. you can also order your data using `order`, for example:
+
+You can also order your data using `order`, for example:
 ```{r, eval=FALSE}
 data(mtcars)
 new_cars <- mtcars[order(mtcars$cyl, -mtcars$mpg),] # sort by ascending cyl and descending mpg

@@ -250,7 +250,7 @@ ls()
 Now, all objects are gone from our global environment.
 
 # **Challenge 1** 
-What do the following commands do? 
+1. What do the following commands do? 
 ```{r, eval=FALSE}
 ?"<-"
 ?ls
@@ -259,12 +259,15 @@ What do the following commands do?
 ?iris
 ?mtcars
 ```
+2. What is the three-piece recipe for variable definition?
+3. Define two numeric variables
+4. What does ls do? Where else do you see this information?
 
-> NOTE: We will also use the "iris" and "mtcars" datasets in Parts 2 and 3 of this workshop series.  
+> NOTE: We will use the "iris" and "mtcars" datasets in Parts 2 and 3 of this workshop series.  
 
 Double question marks ?? will lead you to coding walkthroughs called "vignettes". These usually come with preloaded data and examples:  
 ```{r}
-??iris
+??psych
 ```
 You will often find that your questions are not answered by the help pages nor vignettes. In that case you should Google-search your question or error message along with the name of a free help website.  
 
@@ -288,6 +291,9 @@ Tell R you would like to set your working directory to the R-Fundamentals folder
 Substitute your computer name for "computer.name". The "R-Fundamentals-master" folder I downloaded from GitHub is located on the Desktop, so the file path would look like this:
 ```{r, eval=FALSE}
 setwd("/Users/computer.name/Desktop/R-Fundamentals-master")
+
+# or, simply click Session -> Set Working Directory -> Choose Directory
+
 getwd()
 ```
 
@@ -420,7 +426,7 @@ bool_object <- TRUE
 bool_object
 class(bool_object)
 ```
-We recommend to always spell out `TRUE` and `FALSE` instead of abbreviating them `T` and `F` which might be mistaken for previously defined objects. Thus, there are certain words that do not make good variable names. R has many reserved words that you should avoid using. See `?reserved` for more information.
+We recommend to always spell out `TRUE` and `FALSE` instead of abbreviating them `T` and `F` which might be mistaken for previously defined variables - therefore, you should not save anything as `T`, `F`, or `TRUE` or `FALSE`! Thus, there are certain words that do not make good variable names. R has many reserved words that you should avoid using. See `?reserved` for more information.
 
 Note that logical data also take on numeric properties. Remember that `TRUE` is stored as the numeral 1 and `FALSE` is stored as 0. 
 ```{r}
@@ -454,7 +460,7 @@ FALSE >= TRUE
 1. Define a numeric object as 0 and check its class
 2. Define a boolean object as "FALSE" and check its class
 3. Use `==` to compare your numeric and boolean object. Are they equivalent? Why or why not?
-4. Define a character object that uses `paste()` to combine more than one word into a sentence. Then use `substr()` to redefine a part of this sentence. Finally, use `gsub()` to substitute part of this new sentence with something new.  
+4. Define a character object that uses `paste()` to combine more than one word into a sentence.   
 
 [Brunsdon and Comber 2015, page 15](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031) offer a useful summary table of logical operators in R. These are useful for comparing two data variables to each other:    
 
@@ -549,9 +555,9 @@ as.integer(char.num)
 Why did this fail? Can R change character data to numbers? Why not? (hint: R has no protocol for automatically coerce words to numbers). As you can see, trying to coerce data types can lead to weird behavior sometimes. 
 
 # **Challenge 4**
-1. Create a character object and check its type using `is.type`  
-2. Try to change ("coerce") this object to another data type using `as.type`  
-3. Create an object of class "integer"  
+1. Create a character object and check its type using `is.character` and `class`. What is the difference between these two methods?    
+2. Try to change ("coerce") this object to another data type using `as.integer`, `as.numeric`, or `as.logical`.  
+3. Create an object of class "integer". Remember, there are two ways to do this!  
 4. Why is 1 == "1" true?   Why is -1 < FALSE true?   Why is "one" < 2 false?  
 
 # 3.  Data structures
@@ -573,7 +579,7 @@ Create a numeric vector by combining/concatenating elements with `c()`
 numeric_vector <- c(3, 5, 6, 5, 3)
 numeric_vector
 ```
-This vector contains five elements.  
+This numeric vector contains five elements.  
 
 You can also add items to a vector using `c()` and a comma `,` (as long as it is the same data type)
 ```{r}
@@ -786,21 +792,20 @@ animals$Type # Now when we call animals$Name, we can see that the levels have ch
 
 # **Challenge 5**
 Vectors  
-1.1 Create a vector of a sequence of numbers between 1 to 10.  
-1.2 Coerce that vector into a character vector  
-1.3 Add the element "11" to the end of the vector  
-1.4 Evaluate the `str` of the vector.  
-1.5 Create a sentence from separate words using `paste()`. Can you guess how to add another word to this vector without creating a new vector?  
+1. Create a vector of a sequence of numbers between 1 to 10.  
+2. Coerce that vector into a character vector  
+3. Add the element "11" to the end of the vector  
+4. Evaluate the `str` of the vector.  
 
 Lists  
-2.1 How does a list differ from an atomic vector?  
-2.2 Create three objects of different types and lengths and then combine them into a list names `x`.  
-2.3 If `x` is a list, what is the class of `x[1]`? How about `x[[1]]`? (this is a preview of Part 2).  
+5. How does a list differ from an atomic vector?  
+6. Create three objects of different types and lengths and then combine them into a list names `x`.  
+7. If `x` is a list, what is the class of `x[1]`? How about `x[[1]]`? (this is a preview of Part 2).  
 
 Data frames  
-3.1 Create a 3x2 data frame called `basket`. List the name of each fruit in the first column and its price in teh second column.  
-3.2 Now give your dataframe appropriate column and row names.  
-3.3 We can add a new column using `$` (this will be covered with data subsetting in Part 2). Can you guess how to add a third column called "Color", that shows the color of each fruit?  
+8. Create a 3x2 data frame called `basket`. List the name of each fruit in the first column and its price in teh second column.  
+9. Now give your dataframe appropriate column and row names.  
+10. We can add a new column using `$` (this will be covered with data subsetting in Part 2). Can you guess how to add a third column called "Color", that shows the color of each fruit?  
 
 Basket example solution:  
 ```{r}
@@ -825,7 +830,7 @@ The syntax looks like this:
 
 #**Challenge 6**
 1. Save the "animals data frame as a .CSV" file. 
-2. How many arguments do you need to save using the `write.csv` function? 
+2. How many basic arguments should you use to save using the `write.csv` function? 
 
 - Check your working directory to see if it worked!  
 ```{r, eval=FALSE}
