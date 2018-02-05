@@ -1,4 +1,4 @@
-# UC Berkeley Social Sciences R-Fundamentals introductory workshop
+# D-Lab R-FUN!damentals introductory workshop series
 This is the repository for D-Lab's introductory R-Fundamentals workshop series.  
 
 #Learning objectives
