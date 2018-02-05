@@ -30,7 +30,7 @@ This is a [.HTML](https://html.com/) file generated using R markdown (.Rmd). Let
 sleep_VIM <- read.csv("./data/sleep_VIM.csv", header=T)
 animals <- read.csv("/Users/evan.admin/Desktop/R-Fundamentals/data/animals.csv")
 ls()
-```
+```  
 4. Subsetting: _one (`$`) versus two dimensions (`[ , ]`)_  
 5. Identify and count missing data: _`sum` and `is.na`_  
 6. Wide and long format data: _`melt` and `dcast`_  
@@ -171,7 +171,7 @@ for(x in 1:10){
 
 #**Challenge 1**
 1. Write a for loop that outputs something. 
-```{r}
+```{r, include = F}
 for (time in c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)){
   print(paste("The time is", time, "AM"))
 }
@@ -261,7 +261,7 @@ sum(animal != animal2)
 
 #**Challenge 2**
 1. Write a for loop that uses `if` and `else`
-```{r}
+```{r, include = F}
 # 1. 
 for(i in 1:12) # what happened to the curly braces? 
     if(i < 10){
@@ -381,7 +381,7 @@ cylinders_function = function(height, radius){
 cylinders_function(height = cylinders$height, radius = cylinders$radius)
 ```
 
-# 4.  Monte Carlo simulations
+# 4.  Monte Carlo simulation
 A Monte Carlo simulation is an algorithm that relies on repeated random sampling to obtain numerical results. In R, loops and functions are key for Monte Carlo simulations.  
 
 See (this example)[https://www.manufacturing.net/article/2012/11/demystifying-monte-carlo] to learn more.  

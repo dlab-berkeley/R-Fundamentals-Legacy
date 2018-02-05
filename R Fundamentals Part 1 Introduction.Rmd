@@ -1,7 +1,7 @@
 ---
 title: 'R Fundamentals Part 1: Introduction'
 author: "D-Lab"
-date: "2017/09/03"
+date: "February 4, 2018"
 output:
   html_document:
     toc: yes
@@ -13,8 +13,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-# test commit
 
 #  About the UC Berkeley Social Sciences Data Laboratory (D-Lab)
 > D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as this one, one-to-one consulting, and working groups that cover a variety of topics and programming languages.  
