@@ -1,4 +1,4 @@
-# D-Lab R-FUN!damentals introductory workshop series <span style="color:green4">green</span>,
+# D-Lab R-FUN!damentals introductory workshop series <span style="color:green4">green4</span>,
 This is the repository for D-Lab's introductory R-Fundamentals workshop series.  
 
 #Learning objectives
