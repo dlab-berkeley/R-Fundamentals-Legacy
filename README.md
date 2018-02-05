@@ -29,24 +29,31 @@ This is the repository for D-Lab's introductory R-Fundamentals workshop series.
 3. Automation - Monte Carlo simulation: `sample`, `die_roll_mean`, `replicate`, `hist`  
 4. [The birthday problem](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)  
 
+__  
+
+Laptop required. Before Part 1 be sure to:  
+1) Download and install [R](https://cloud.r-project.org/)  
+2) Download and install [RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
+3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
+__  
+
 Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](http://dlab.berkeley.edu/calendar-node-field-date). We offer a variety of:  
 1. [workshop trainings](http://dlab.berkeley.edu/training)    
 2. [working groups](http://dlab.berkeley.edu/working-groups)  
 3. [consulting services](http://dlab.berkeley.edu/consulting)  
 4. [data services](http://dlab.berkeley.edu/data-resources)  
 
-Laptop required. Before Part 1 be sure to:  
-1) Download and install [R](https://cloud.r-project.org/)  
-2) Download and install [RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
-3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
-  _  
+__  
+
 Visit these sites for R help:  
 [Quick-R](http://statmethods.net/)  
 [UCLA idre](http://www.ats.ucla.edu/stat/r/)  
 [R-bloggers](https://www.r-bloggers.com/)  
 [Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
 
-#####View course offerings at UC Berkeley:  
+__  
+
+View course offerings at UC Berkeley:  
 [Department of Statistics](http://statistics.berkeley.edu/)  
 [Data Science](http://data.berkeley.edu/)  
 [School of Information](https://datascience.berkeley.edu/)  
