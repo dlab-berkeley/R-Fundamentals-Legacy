@@ -35,6 +35,7 @@ Laptop required. Before Part 1 be sure to:
 1) Download and install [R](https://cloud.r-project.org/)  
 2) Download and install [RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
 3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
+
 __  
 
 Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](http://dlab.berkeley.edu/calendar-node-field-date). We offer a variety of:  
