@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #  About the UC Berkeley Social Sciences Data Laboratory (D-Lab)
 > D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as this one, one-to-one consulting, and working groups that cover a variety of topics and programming languages.  
-> [D-Lab Workshop Calendar](http://dlab.berkeley.edu/calendar-node-field-date)  
+> [D-Lab Calendar](http://dlab.berkeley.edu/calendar-node-field-date)  
 > [D-Lab Consulting](http://dlab.berkeley.edu/consulting)  
 > [D-lab Working Groups](http://dlab.berkeley.edu/working-groups)  
 
@@ -27,11 +27,11 @@ This is an R markdown (.Rmd) file. It allows you create documents of various kin
 [download R here](https://cran.r-project.org/)  
 [download RStudio here (RStudio Desktop Free version)](https://www.rstudio.com/products/rstudio/download/)  
 
-- Visit [github.com/dlab-berkeley/R-Fundamentals](github.com/dlab-berkeley/R-Fundamentals) to download the course materials and save them to your desktop. You can either:  
+- Visit [https://github.com/dlab-berkeley/R-Fundamentals](https://github.com/dlab-berkeley/R-Fundamentals) to download the course materials and save them to your desktop. You can either:  
 
 1. click the green `download zip` button on the right hand side of the screen and click `download zip`, or    
 
-2. `git clone https://github.com/dlab-berkeley/R-Fundamentals.git`  
+2. `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`  
  
 # Workshop goals
 Part 1) Introduction to R, data types, data structures (emphasis on data frame)  
