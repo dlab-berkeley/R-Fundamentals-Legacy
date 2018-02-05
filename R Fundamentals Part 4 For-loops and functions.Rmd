@@ -26,11 +26,6 @@ This is a [.HTML](https://html.com/) file generated using R markdown (.Rmd). Let
 1. Set your working directory to the R-Fundamentals "data" folder.  
 2. Load the `animals` data frame  
 3. Load the `sleep_VIM` data set  
-```{r, include = F}
-sleep_VIM <- read.csv("./data/sleep_VIM.csv", header=T)
-animals <- read.csv("/Users/evan.admin/Desktop/R-Fundamentals/data/animals.csv")
-ls()
-```  
 4. Subsetting: _one (`$`) versus two dimensions (`[ , ]`)_  
 5. Identify and count missing data: _`sum` and `is.na`_  
 6. Wide and long format data: _`melt` and `dcast`_  

@@ -235,14 +235,10 @@ div.tocify {
 <p><strong>Part 2:</strong><br />
 1. Set your working directory to the R-Fundamentals “data” folder.<br />
 2. Load the <code>animals</code> data frame<br />
-3. Load the <code>sleep_VIM</code> data set</p>
-<ol start="4" style="list-style-type: decimal">
-<li>Subsetting: <em>one (<code>$</code>) versus two dimensions (<code>[ , ]</code>)</em><br />
-</li>
-<li>Identify and count missing data: <em><code>sum</code> and <code>is.na</code></em><br />
-</li>
-<li>Wide and long format data: <em><code>melt</code> and <code>dcast</code></em></li>
-</ol>
+3. Load the <code>sleep_VIM</code> data set<br />
+4. Subsetting: <em>one (<code>$</code>) versus two dimensions (<code>[ , ]</code>)</em><br />
+5. Identify and count missing data: <em><code>sum</code> and <code>is.na</code></em><br />
+6. Wide and long format data: <em><code>melt</code> and <code>dcast</code></em></p>
 <p><strong>Part 3:</strong><br />
 1. Summarizing data: <em><code>summary</code>, <code>describe</code>, <code>table</code></em><br />
 2. Plotting data: <em><code>hist</code>, <code>plot</code>, <code>boxplot</code></em><br />
@@ -527,9 +523,9 @@ f(4, 4)  </code></pre>
 <pre><code>## [1] 1.6</code></pre>
 <pre class="r"><code>ls() # objects defined in the function environment only exist inside the function; they are not found in the global environment! </code></pre>
 <pre><code>##  [1] &quot;animal&quot;         &quot;animal_sound&quot;   &quot;animal.names&quot;   &quot;animal2&quot;       
-##  [5] &quot;animals&quot;        &quot;animals_int&quot;    &quot;animals.length&quot; &quot;f&quot;             
-##  [9] &quot;i&quot;              &quot;iris&quot;           &quot;nrow_function&quot;  &quot;sleep_VIM&quot;     
-## [13] &quot;test_function&quot;  &quot;time&quot;           &quot;vec&quot;            &quot;x&quot;</code></pre>
+##  [5] &quot;animals_int&quot;    &quot;animals.length&quot; &quot;f&quot;              &quot;i&quot;             
+##  [9] &quot;iris&quot;           &quot;nrow_function&quot;  &quot;test_function&quot;  &quot;time&quot;          
+## [13] &quot;vec&quot;            &quot;x&quot;</code></pre>
 <p>Now we ask: does <code>z</code> appear in your global environment? Why not? <code>z</code> is protected from what is happening outside the function!</p>
 <p>Now define <code>z</code> in the global environment and see if the function can access it:</p>
 <pre class="r"><code>z &lt;- 5 # define z outside of the function environment
@@ -541,10 +537,9 @@ f(4, 4)</code></pre>
 <pre><code>## [1] 1.6</code></pre>
 <pre class="r"><code>ls() # the function envrionment can indeed use objects defined in the global environment. </code></pre>
 <pre><code>##  [1] &quot;animal&quot;         &quot;animal_sound&quot;   &quot;animal.names&quot;   &quot;animal2&quot;       
-##  [5] &quot;animals&quot;        &quot;animals_int&quot;    &quot;animals.length&quot; &quot;f&quot;             
-##  [9] &quot;i&quot;              &quot;iris&quot;           &quot;nrow_function&quot;  &quot;sleep_VIM&quot;     
-## [13] &quot;test_function&quot;  &quot;time&quot;           &quot;vec&quot;            &quot;x&quot;             
-## [17] &quot;z&quot;</code></pre>
+##  [5] &quot;animals_int&quot;    &quot;animals.length&quot; &quot;f&quot;              &quot;i&quot;             
+##  [9] &quot;iris&quot;           &quot;nrow_function&quot;  &quot;test_function&quot;  &quot;time&quot;          
+## [13] &quot;vec&quot;            &quot;x&quot;              &quot;z&quot;</code></pre>
 <p><code>z</code> is now defined in the global environment and the function can pull objects from the global namespace.</p>
 <p>For example, when using constants that never change, you might want to consider defining them in the global namespace. If it is unique to the function, keep it in the function! Scope is tricky!</p>
 </div>
