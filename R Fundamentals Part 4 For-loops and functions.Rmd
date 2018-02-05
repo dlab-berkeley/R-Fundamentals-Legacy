@@ -12,39 +12,39 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This is an R markdown file (.Rmd). Check out (yihui)[https://yihui.name] to learn a little about the creator of `knitr` and a contributor to (`rmarkdown`)[http://rmarkdown.rstudio.com/lesson-1.html].  
+This is a [.HTML](https://html.com/) file generated using R markdown (.Rmd). Check out [the R markdown pages](http://rmarkdown.rstudio.com/) (yihui)[https://yihui.name] to learn more.  
 
-Part 1 review:  
-1. Variable definition (three part recipe)
-2. Data types
-3. Data structures
+**Learning objectives review - Part 1:**  
+1. Variable definition (three piece recipe): _`X <- 5`_  
+2. Data types: _numeric, integer, character, logical, factor_  
+3. Data structures: _vector, list, matrix, data frame_  
+4. Pseudo-random generation: _`set.seed`, `seq`, `:`, `runif`, `rnorm`, `sample`_  
+5. Save and practice: _`write.csv()` and `swirl()`_  
 
-Part 2 review:  
-1. Set your working directory to the R-Fundamentals "data" folder.
-2. Load the `sleep_VIM` data set. 
-3. One (`$`) versus two dimensional (`[ , ]`) subsetting
+**Part 2:**  
+1. Set your working directory to the R-Fundamentals "data" folder.  
+2. Load the `animals` data frame  
+3. Load the `sleep_VIM` data set  
 ```{r}
 sleep_VIM <- read.csv("./data/sleep_VIM.csv", header=T)
+animals <- read.csv("/Users/evan.admin/Desktop/R-Fundamentals/data/animals.csv")
+ls()
 ```
+4. Subsetting: _one (`$`) versus two dimensions (`[ , ]`)_  
+5. Identify and count missing data: _`sum` and `is.na`_  
+6. Wide and long format data: _`melt` and `dcast`_  
 
-Part 3 review:  
-1. Summarizing data  
-  `summary`, `describe`, `table`
-2. Plotting data  
-  `hist`, `plot`, `boxplot`
-3. ggplot2 - what do you need to use `ggplot`?
-  a) a dataset
-  b) aesthetics
-  c) geoms
-4. Statistical testing
-  `t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`
+**Part 3:**  
+1. Summarizing data: _`summary`, `describe`, `table`_  
+2. Plotting data: _`hist`, `plot`, `boxplot`_  
+3. ggplot2: layers; _three parts: data, aes, geom_  
+4. Testing: _`t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`_  
   
-# Part 4 Learning objectives  
-1. Introducing for-loops and functions
-2. For loops
-3. Functions
-4. Monte Carlo simulation
-5. (The birthday problem)[http://mathforum.org/dr.math/faq/faq.birthdayprob.html]
+**Part 4:**  
+1. For loops: _`for`, `if`, `else`, `ifelse`_  
+2. Functions: _`function`_  
+3. Automation - Monte Carlo simulation: `sample`, `die_roll_mean`, `replicate`, `hist`  
+4. [The birthday problem](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)  
 
 # 1.  Introduction  
 Commands such as `mean` are actually functions. Functions in R are a set of instructions that together can provide smart, reusable ways to conduct research. Assign functions in a way similar to how you assign an object (with `<-`). Functions are generally meant to be mapped to data structures or are used to write other functions. Using functions might allow you to write your code more efficiently.  
@@ -90,6 +90,8 @@ Let's start simple! An easy for loop could look like this:
 for(x in 1:10){
   print(x)
 }
+
+# ?reserved
 ```
 
 ### 2.1 For-loops - Example 2  
@@ -102,7 +104,7 @@ Now, let's use a for-loop to create a matrix of 2 to the power of i where i is 1
 ```{r}
 for(i in 1:10){
     vec[i] <- 2^(i)
-    }                
+}                
 vec
 class(vec)
 ```
@@ -150,15 +152,15 @@ For long loops, many intermediate commands called "control structures" can help 
 
 `stopifnot` ends the loop when a certain condition is NOT met.  
 
-Let's begin by writing a for loop that outputs the numbers of the sequence 1:100  
+Let's begin by writing a for loop that outputs the numbers of the sequence 1:10  
 ```{r, eval=FALSE}
-for(i in 1:100){
+for(i in 1:10){
     print(i) 
     }
 ```
 
 ##### 2.3.1 For-loops (`if`)
-`if` statements are frequently used to specify code to be evaluated when the condition is held. Here we tell the code that when `i` is equal to 50, stop the code.  
+`if` statements are frequently used to specify code to be evaluated when the condition is held. Here we tell the code that when `i` is equal to 5, stop the code.  
 
 For example: 
 ```{r}
@@ -190,12 +192,15 @@ for(i in 1:length(my_nums)){
     print(my_nums[i])  
     stopifnot(!is.na(my_nums[i]))
 }
+# hint: ! is "logical not"
 ```
 
 #**Challenge 1**
 1. Write a for loop that outputs something. 
 ```{r}
-
+for (year in 2010:2015){
+  print(paste("The year is", year))
+}
 # your code here
 
 ```
@@ -325,7 +330,7 @@ We can also add a predetermined value for one or more arguments, which serves as
 f <- function(x, y=2){
   (x + y) / y
 }
-f(5)
+f(x=5)
 f(4, 4) # here, we do not need to specify `x` and `y` because R knows that the second argument is "y"
 f(4, y=4) # this is the same as f(4, 4)
 
@@ -586,7 +591,7 @@ mean(many_sims)
 Say we now want to use R to see how this probability changes as the number of people in the room changes. How can we do this? We can use our function but incorporating it into a loop which varies the number of people in the room:
 ```{r}
 people <- 2:100
-sims <- matrix(NA, length(people), 2)
+sims <- matrix(NA, nrow = length(people), ncol = 2)
 
 for(i in 1:length(people)){
     many_sims <- replicate(5000, birthday_function(people=people[i]))
@@ -602,8 +607,10 @@ sims
 Plot the probability: 
 ```{r}
 par(mfrow=c(1,1))
-plot(sims[,1], sims[,2], pch=16, col="blue", 
-     xlab="Nr of People", ylab="Probability of at Least One Match")
+plot(x = sims[,1], y = sims[,2], 
+     pch=16, col="blue", 
+     xlab="Nr of People", 
+     ylab="Probability of at Least One Match")
 ```
 
 Learn more about the birthday problem [here](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)
