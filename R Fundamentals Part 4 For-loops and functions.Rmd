@@ -116,7 +116,7 @@ You can change the `sequence` to tell R just to overwrite the first five positio
 ```{r}
 for(i in 1:5){
     vec[i] <- 3^i
-    }                
+}                
 vec
 #This has changed only the first five entries of `vec`
 ```
@@ -171,6 +171,9 @@ for (time in c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)){
   print(paste("The time is", time, "AM"))
 }
 
+for(i in 1:10){
+  print(i / 12)
+}
 # your code here
 
 ```
@@ -265,6 +268,14 @@ for(i in 1:12) # what happened to the curly braces?
         print("It is getting late!")
 }
 
+for(x in c(2,4,6,8,10,12))
+  if(x < 8){
+    print(paste("Whoa the number is", x))
+  }else{
+    print("nahhh...")
+}
+  
+
 # your code here
 
 ```
@@ -314,6 +325,7 @@ f <- function(x, y=2){
   (x + y) / y
 }
 f(x=5)
+f(x=5, y=10)
 ```
 
 ### 3.3 Functions - Example 3 - function environment
@@ -364,6 +376,7 @@ You can even use the columns of a data frame
 # construct a dummy data frame 
 cylinders = data.frame(height = c(3,4,5,6,7),
                        radius = c(1,3,2,1,5))
+cylinders
 
 # write a function that computes the volume of these cylinders
 # the two arguments are defined as the height and radius columns
@@ -371,6 +384,8 @@ cylinders_function = function(height, radius){
   volume = pi * radius ^ 2 * height
   print(volume)
 }
+
+str(cylinders)
 
 # plug in height and radius
 cylinders_function(height = cylinders$height, radius = cylinders$radius)
@@ -405,6 +420,7 @@ Another alternative is to write a function that produces one iteration of the pr
 ### 4.1 Monte Carlo simulation - Step 1
 Write a function that works through the process once
 ```{r}
+set.seed(1)
 die_roll_mean <- function(nr_rolls){
     rolls <- sample(1:6, nr_rolls, replace=TRUE)
     mean(rolls)
@@ -552,6 +568,7 @@ for(i in 1:length(people)){
 }
 
 head(sims)
+sims
 ```
 ```{r, eval=FALSE}
 sims
