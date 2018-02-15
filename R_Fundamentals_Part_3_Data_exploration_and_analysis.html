@@ -368,19 +368,17 @@ animals_simple</code></pre>
 #`row.names=TRUE` ensures that row names &quot;Weight&quot;, &quot;Height&quot;, and &quot;Progress&quot; labels are printed.</code></pre>
 <p>Check your working directory for the new .CSV file!</p>
 <pre class="r"><code>dir()</code></pre>
-<pre><code>##  [1] &quot;data&quot;                                                    
-##  [2] &quot;LICENSE&quot;                                                 
-##  [3] &quot;R Fundamentals Part 1 Introduction.Rmd&quot;                  
-##  [4] &quot;R Fundamentals Part 2 Subsetting and reshaping.Rmd&quot;      
-##  [5] &quot;R Fundamentals Part 3 Data exploration and analysis.Rmd&quot; 
-##  [6] &quot;R Fundamentals Part 4 For-loops and functions.Rmd&quot;       
-##  [7] &quot;R_Fundamentals_Part_1_Introduction.html&quot;                 
-##  [8] &quot;R_Fundamentals_Part_2_Subsetting_and_reshaping.html&quot;     
-##  [9] &quot;R_Fundamentals_Part_3_Data_exploration_and_analysis.html&quot;
-## [10] &quot;R_Fundamentals_Part_3_Data_exploration_and_analysis.Rmd&quot; 
-## [11] &quot;R_Fundamentals_Part_4_For-loops_and_functions.html&quot;      
-## [12] &quot;R-Fundamentals.Rproj&quot;                                    
-## [13] &quot;README.md&quot;</code></pre>
+<pre><code>##  [1] &quot;data&quot;                                                   
+##  [2] &quot;LICENSE&quot;                                                
+##  [3] &quot;R Fundamentals Part 1 Introduction.Rmd&quot;                 
+##  [4] &quot;R Fundamentals Part 2 Subsetting and reshaping.Rmd&quot;     
+##  [5] &quot;R Fundamentals Part 3 Data exploration and analysis.Rmd&quot;
+##  [6] &quot;R Fundamentals Part 4 For-loops and functions.Rmd&quot;      
+##  [7] &quot;R_Fundamentals_Part_1_Introduction.html&quot;                
+##  [8] &quot;R_Fundamentals_Part_2_Subsetting_and_reshaping.html&quot;    
+##  [9] &quot;R_Fundamentals_Part_3_Data_exploration_and_analysis.Rmd&quot;
+## [10] &quot;R-Fundamentals.Rproj&quot;                                   
+## [11] &quot;README.md&quot;</code></pre>
 <p>We can also describe our data by a grouping variable using <code>describeBy()</code>. What if we want summary statistics not for the whole sample like above, but for each animal type (i.e., Cat, Dog, and Pig?)</p>
 <pre class="r"><code>#Output summary statistics by one grouping variable:
 summary_sub &lt;- describeBy(animals[,c(3:5)], group = animals$Type)
