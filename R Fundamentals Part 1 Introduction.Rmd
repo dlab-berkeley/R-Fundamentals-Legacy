@@ -822,7 +822,7 @@ swirl()
 # follow the instructions until you can select number 1 "R Programming: The basics of programming in R"
 ```
 
-# **Challenge 6**
+# **Challenge 7**
 1. Begin a swirl walkthrough with the class.  
 
 # Acknowledgements
