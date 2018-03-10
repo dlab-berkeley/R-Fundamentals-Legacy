@@ -250,20 +250,9 @@ ls()
 Now, all objects are gone from our global environment.
 
 # **Challenge 1** 
-1. What do the following commands do? 
-```{r, eval=FALSE}
-?"<-"
-?ls
-?dir
-?rm
-?iris
-?mtcars
-```
-2. What is the three-piece recipe for variable definition?
-3. Define two numeric variables
-4. What does ls do? Where else do you see this information?
-
-> NOTE: We will use the "iris" and "mtcars" datasets in Parts 2 and 3 of this workshop series.  
+1. What is the three-piece recipe for variable definition?
+2. Define two numeric variables
+3. What does `ls()` do? Where else do you see this information?
 
 Double question marks ?? will lead you to coding walkthroughs called "vignettes". These usually come with preloaded data and examples:  
 ```{r}
@@ -279,40 +268,11 @@ You should take a few minutes sometime to browse the contents of these help site
 [R-bloggers](https://www.r-bloggers.com/)  
 [Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
 
-### 1.13  Living in R (`getwd`)  
-Like in Unix, in R you are always in a directory. Your actions are all relative to that directory. You will find this useful for loading data from files and when you save your output it will be located here.  
-
-Figure out where you are with `getwd()`
-```{r}
-getwd()
-```
-Tell R you would like to set your working directory to the R-Fundamentals folder you just downloaded with `setwd()`. Follow the format as shown by `getwd()`
-
-Substitute your computer name for "computer.name". The "R-Fundamentals-master" folder I downloaded from GitHub is located on the Desktop, so the file path would look like this:
-```{r, eval=FALSE}
-setwd("/Users/computer.name/Desktop/R-Fundamentals-master")
-
-# or, simply click Session -> Set Working Directory -> Choose Directory
-
-getwd()
-```
-
-Note the difference between Mac and PC users:
-```{r, eval=FALSE}
-setwd("/Users/computer.name/Desktop/R-Fundamentals-master") # Mac     
-setwd("C:/Users/computer.name/Desktop/R-Fundamentals-master")  # Windows uses "C:/..."
-```
-You can view the contents of your working directory with `dir()`.  
-```{r}
-dir()
-```
-
 # **Challenge 2**
 1. Define two numeric objects
 2. Define a character object
 3. Remove an individual object using `rm`
-4. Wipe your environment using `rm(list=ls())`
-5. Set your working directory to your "Downloads" folder. Now set it back to the "R-Fundamentals" folder.
+4. Wipe your environment using `rm(list=ls())` or the broom icon
 
 # 2.  Atomic data types in R
 Numeric, character, and logical (aka "boolean") data types all exist at the atomic level. Normally this means that they cannot be broken down any further and are the raw inputs for commands in R. Other R variables are frequently built upon these atomic types.
@@ -581,6 +541,12 @@ numeric_vector
 ```
 This numeric vector contains five elements.  
 
+You can index a vector using square brackets (more on this in the subsetting section of Part 2). For example, to see what value lives in the third position of the object `numeric_vector`, you could type: 
+```{r}
+numeric_vector[3]
+```
+
+
 You can also add items to a vector using `c()` and a comma `,` (as long as it is the same data type)
 ```{r}
 numeric_vector2 <- c(numeric_vector, 78)
@@ -825,30 +791,26 @@ basket
 # 4.  Saving your work (`write.csv`)  
 It is always good to save your work. Saving a dataframe as a .CSV file is a convenient way to store it for future use. **Anything saved will be placed into your working directory!** 
 
+See where your data frame is saved by typing: 
+```{r}
+getwd()
+```
+
+> NOTE: we will begin Part 2 with a discussion about how to check and set the working directory. 
+
 The syntax looks like this:
-`write.csv(object_name, "nameOfFile.csv", row.names=TRUE)`
+`write.csv(object_name, file = "nameOfFile.csv", row.names = TRUE)`
 
 #**Challenge 6**
-1. Save the "animals data frame as a .CSV" file. 
+1. Save the "animals" data frame as a .csv file named "animals.csv". 
 2. How many basic arguments should you use to save using the `write.csv` function? 
 
 - Check your working directory to see if it worked!  
 ```{r, eval=FALSE}
 ?write.csv
+# answer = 
+# write.csv(animals, file = "animals.csv", row.names = T)
 ```
-
-# 5.  Saving your work (`sink`)  
-You can also save a dataframe as a .txt file using sink(). To use a sink, put `sink("FileName.txt")` as the line before the code they want to save, and `sink()` as the line after. 
-
-```{r}
-?sink
-```
-```{r, eval=FALSE}
-sink("animals.txt")
-animals
-sink()
-```
-If you ever find that your code stops working after saving via `sink()`, you are probably stuck in the sink! Run `sink()` as many times as necessary until you get a warning message that says "no sink to remove".
 
 > We will talk about saving plots as .PNG and .PDF file types in Part 3!  
 
