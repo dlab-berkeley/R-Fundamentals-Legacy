@@ -568,7 +568,6 @@ for(i in 1:length(people)){
 }
 
 head(sims)
-sims
 ```
 ```{r, eval=FALSE}
 sims
