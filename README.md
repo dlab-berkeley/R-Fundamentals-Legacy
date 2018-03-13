@@ -14,7 +14,7 @@ Laptop required. Before Part 1 be sure to:
 
 __  
 
-#Learning objectives
+_Learning objectives_  
 **Part 1:**  
 1. Variable definition (three piece recipe): _`X <- 5`_  
 2. Data types: _numeric, integer, character, logical, factor_  
