@@ -1,6 +1,19 @@
 # D-Lab R-FUN!damentals introductory workshop series  
 This is the repository for D-Lab's introductory R-Fundamentals workshop series.  
 
+__  
+
+Laptop required. Before Part 1 be sure to:  
+1) Download and install [R](https://cloud.r-project.org/)  
+2) Download and install [RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
+3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
+- Click the green “Clone or download” button  
+- Click “Download Zip”  
+- Extract the files some place convenient (i.e., Desktop)  
+  - if you are a Git user, simply clone this repository
+
+__  
+
 #Learning objectives
 **Part 1:**  
 1. Variable definition (three piece recipe): _`X <- 5`_  
@@ -28,17 +41,6 @@ This is the repository for D-Lab's introductory R-Fundamentals workshop series.
 2. Functions: _`function`_  
 3. Automation - Monte Carlo simulation: `sample`, `die_roll_mean`, `replicate`, `hist`  
 4. [The birthday problem](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)  
-
-__  
-
-Laptop required. Before Part 1 be sure to:  
-1) Download and install [R](https://cloud.r-project.org/)  
-2) Download and install [RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
-3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
-- Click the green “Clone or download” button  
-- Click “Download Zip”  
-- Extract the files some place convenient (i.e., Desktop)  
-  - if you are a Git user, simply clone this repository
 
 __  
 
