@@ -35,10 +35,10 @@ Laptop required. Before Part 1 be sure to:
 1) Download and install [R](https://cloud.r-project.org/)  
 2) Download and install [RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
 3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
-*Click the green “Clone or download” button
-*Click “Download Zip”
-*Extract the files some place convenient (i.e., Desktop)
-  *(if you are a Git user, simply clone this repository)
+- Click the green “Clone or download” button  
+- Click “Download Zip”  
+- Extract the files some place convenient (i.e., Desktop)  
+  - if you are a Git user, simply clone this repository
 
 __  
 
