@@ -3,6 +3,8 @@ title: 'R Fundamentals Part 4: For loops and functions'
 author: "D-Lab"
 date: "February 4, 2018"
 output:
+  word_document:
+    toc: yes
   html_document:
     toc: yes
     toc_float: yes
