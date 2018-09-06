@@ -1,0 +1,239 @@
+---
+title: "R-Fundamentals solutions"
+author: "Evan"
+date: "September 5, 2018"
+output: html_document
+---
+
+# Part 1
+
+### Part 1 - Challenge 1
+1. What is the three-piece recipe for variable definition?
+2. Define two numeric objects.
+3. Define two character objects.
+4. What does the `ls()` function do? Where else do you see this information?
+5. Remove an individual object using `rm`.
+6. Wipe your environment using `rm(list=ls())` or the broom icon. 
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 1 - Challenge 2
+1. Define a numeric object as 0 and check its class.  
+2. Define a boolean object as "FALSE" and check its class.  
+3. Use `==` to compare your numeric and boolean object. Are they equivalent? Why or why not?  
+4. Define a character object that uses `paste()` to combine more than one word into a sentence.  
+5. Use `substr` to extract the first word of your sentence.  
+6. Use `gsub` to replace a character in your sentence with some other character.  
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 1 - Challenge 3
+1. Create a character object and check its type using `is.character` and `class`. What is the difference between these two methods?    
+2. Try to change ("coerce") this object to another data type using `as.integer`, `as.numeric`, or `as.logical`.  
+3. Create an object of class "integer". Remember, there are two ways to do this!  
+4. Why is 1 == "1" true?   Why is -1 < FALSE true?   Why is "one" < 2 false?  
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 1 - Challenge 4
+Vectors  
+1. Create a vector of a sequence of numbers between 1 to 10.  
+2. Coerce that vector into a character vector  
+3. Add the element "11" to the end of the vector  
+4. Evaluate the `str` of the vector.  
+```{r}
+## YOUR CODE HERE
+```
+
+Lists  
+5. How does a list differ from an atomic vector?  
+6. Create three objects of different types and lengths and then combine them into a list names `x`.  
+7. If `x` is a list, what is the class of `x[1]`? How about `x[[1]]`? (this is a preview of Part 2).  
+```{r}
+## YOUR CODE HERE
+```
+
+Data frames  
+8. Create a 3x2 data frame called `basket`. List the name of each fruit in the first column and its price in teh second column.  
+9. Now give your dataframe appropriate column and row names.  
+10. We can add a new column using `$` (this will be covered with data subsetting in Part 2). Can you guess how to add a third column called "Color", that shows the color of each fruit?  
+```{r}
+## YOUR CODE HERE
+```
+Basket example solution:  
+```{r}
+f <- factor(c("Apple", "Orange", "Pear"))
+p <- c(10, 28, 36)
+basket <- data.frame(f, p)
+basket
+
+colnames(basket) <- c("Fruit", "Price")
+basket
+
+basket$Color <- factor(c("Red", "Orange", "Green"))
+str(basket)
+basket
+```
+
+### Part 1 - Challenge 5
+```{r}
+# install.packages("swirl")
+library(swirl)
+swirl()
+```
+
+# Part 2
+
+### Part 2 - Challenge 1
+1. Load the mammals "sleep_VIM" dataset from the data folder using `read.csv` (what is shown is another way to load datasets that are included in R and packages). Save it in a variable named "Sleep_VIM"
+2. Remember what `ls()` does? What does `dir()` do? 
+```{r}
+# 1
+sleep_VIM = read.csv("sleep_VIM.csv", header = T, stringsAsFactors = F)
+
+# 2
+# ls() lists variables defined in the global environment; dir() lists the contents of yoru working directory
+```
+
+### Part 2 - Challenge 2
+1. Practice extracting two different variables (columns) from the `animals` dataframe using the dollar sign `$`
+2. Plot them in a histogram using the `hist()` function. How do you do this? 
+3. Can all data types be visualized with histograms? Why or why not?
+```{r}
+
+```
+
+### Part 2 - Challenge 3
+1. Load the `iris` dataset! Type `data(iris)` to load it.  
+2. What is this dataset? How do you find out?  
+3. Subset the `iris` dataset in three ways using column names and positive and negative integers.  
+4. Subset `iris` using logical tests, `&`, and `|`    
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 2 - Challenge 4
+Subset the `animals` dataframe:  
+1. in one dimension.  
+2. in two dimensions using either bracket notation `[ , ]` or `subset`.  
+3. using logical tests.  
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 2 - Challenge 5
+1. Using the "animals" data frame, create a subsetted data frame called `cats_dogs` that contains only cats and dogs. (hint: does "and" actually mean "and" here?)  
+2. Create a subsetted data frame that only contains healthy pigs! (hint: what is the meaning of "and" here in contrast to question #1?)  
+3. load the `mtcars` dataset. How might you find out what it is and how do you load it?  
+4. subset `mtcars` in five different ways.  
+```{r}
+## YOUR CODE HERE
+```
+
+# Part 3
+
+### Part 3 - Challenge 1
+Use `summary()`, `table()` and `describeBy()` to investigate variables in the `iris` dataset. Create a histogram of one of the numeric variables.  
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 3 - Challenge 2
+Create boxplots for one of the numeric variables in the `iris` dataset and export it to your working directory as a .TIFF file. 
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 3 - Challenge 3
+Using the `iris` dataset, plot two numeric variables and export the graph to your working directory as a .PNG file. 
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 3 - Challenge 4
+In lines 374 - 377 in the chunk above, what are the arguments inside of our second "theme" argument doing?
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 3 - Challenge 5
+Subsetting review! Subset your "iris" data frame into three new dataframes: setosa, versicolor, and virginica that each contain only their respective Species. 
+```{r}
+setosa <- iris[iris$Species == "setosa",]
+versicolor <- iris[iris$Species == "versicolor",]
+virginica <- iris[iris$Species == "virginica",]
+
+setosa
+versicolor
+virginica
+```
+
+### Part 3 - Challenge 6
+Create two numeric vectors. Perform a t.test on them:
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 3 - Challenge 7
+Using the `mtcars` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three species. In general, what are differences between t-test and ANOVA that you should keep in mind?  
+```{r}
+## YOUR CODE HERE
+```
+
+### Part 3 - Challenge 8
+1. Load the `mtcars` dataset.  
+2. When you load new data into R, what functions are good ones to run to learn more about the data?  
+3. Create boxplots for mpg as parsed by cyl. 
+4. Might you surmise a relationship about something like engine size and miles per gallon?  
+5. What does `cor.test` reveal about mpg and cyl?  
+6. Create a scatterplot of the "mpg" and "hp" variables using `ggplot()`. What happens?  
+7. Can cyl be used to predict mpg in a linear regression model?  
+```{r}
+## YOUR CODE HERE
+```
+
+# Part 4
+
+### Part 4 - Challenge 1
+1. Write a for loop that outputs something. 
+```{r}
+for (i in 1:10) {
+  print(i / 12)
+}
+
+# or
+
+for (time in c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)) {
+  print(paste("The time is", time, "AM"))
+}
+```
+
+### Part 4 - Challenge 2
+```{r}
+for (x in c(2,4,6,8,10,12)) {
+  if (x < 8) {
+    print(paste("Whoa the number is", x))
+  }else{
+    print("nope...")
+  }
+}
+
+# or
+
+for (i in 1:12) # what happened to the curly braces? 
+    if (i < 10) {
+        print(paste("The time is", i, "o'clock"))
+        }else{
+        print("It is getting late!")
+}
+```
+
+### Part 4 - Challenge 3
+Say we choose 25 people at random. What is the probability two or more of them have the same birthday?'
+```{r}
+## See the Part 4 .Rmd file for the answer
+```
+

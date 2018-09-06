@@ -1,13 +1,14 @@
 ---
 title: 'R Fundamentals Part 2: Subsetting and reshaping'
 author: "D-Lab"
-date: "February 4, 2018"
+date: "September 5, 2018"
 output:
-  word_document:
-    toc: yes
-  html_document:
+  html_document: 
+    number_sections: yes
     toc: yes
     toc_float: yes
+  word_document:
+    toc: yes
 ---
   
 ```{r setup, include=FALSE}
@@ -27,66 +28,54 @@ Part 2 learning objectives:
 4. Missing data (NA)  
 5. Merging data frames  
 
-# 1.  Loading data from files
-1. Set your working directory to the R-Fundamentals data folder (remember, there are two ways to do this!  
+# Loading data from files
+Set your working directory to the R-Fundamentals data folder by clicking "Session" --> "Set working directory" --> "Choose directory". 
 
 This is what a [hierarchical file system (Mac)](https://en.wikipedia.org/wiki/Hierarchical_File_System) looks like:
-![Hierarchical File System (Mac)](/Users/evan.admin/Desktop/SOC106-R/HFS_new.png)  
+![Hierarchical File System (Mac)](/Users/evan.admin/Desktop/R-Fundamentals/hfs.png)  
 
-Load the animals dataset from the data folder inside R-Fundamentals. Note that both relative and absolute file paths work inside the `read.csv` function:
+Load the animals dataset from the data folder inside the R-Fundamentals data folder. 
 ```{r, eval = F}
 ?read.csv
 ```
 ```{r}
 # relative file path
-animals <- read.csv("./data/animals.csv", 
-                    header=TRUE, 
-                    stringsAsFactors=FALSE)
-animals
-# . means "current folder"
-# .. means "folder above"
-```
-```{r, eval=F}
-# or with "absolute" file path:
-animals <- read.csv("/Users/evan.admin/Desktop/R-Fundamentals/data/animals.csv", 
-                    header=TRUE, 
-                    stringsAsFactors = FALSE) 
+animals <- read.csv("animals.csv", 
+                    header = TRUE, 
+                    stringsAsFactors = FALSE,
+                    na.strings = " ")
 animals
 ```
 
-> Notice that `stringsAsFactors = FALSE`. If set to `TRUE`, R will try to guess which character vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical and increasing numeric factor level sorting. This might not matter for your data, but it is recommended to set `stringsAsFactors = FALSE` and manually convert your desired character vectors to factors. See the Part 1 help file to review these instructions.  
+> Notice that `stringsAsFactors = FALSE`. If set to `TRUE`, R will try to guess which **character** vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical and increasing numeric factor level sorting. This might not matter for your data, but it is recommended to set `stringsAsFactors = FALSE` and manually convert your desired character vectors to factors. See the Part 1 help file to review these instructions.  
 
 > `header = TRUE` will include the header row; `header = FALSE` will turn your header row into the first row of actual data. `na.strings = c(" ", 999)` indicates that blank cells and cells coded 999 allows you to specify data that should be automatically converted to `NA` upon importation. We do not have any here, so nothing is altered. 
 
-# **Challenge 2**
-1. Load the mammals "sleep_VIM" dataset from the data folder. 
-
+# **Challenge 1**
+1. Load the mammals "sleep_VIM" dataset from the data folder using `read.csv` (what is shown is another way to load datasets that are included in R and packages). Save it in a variable named "Sleep_VIM"
+2. Remember what `ls()` does? What does `dir()` do? 
 ```{r}
-sleep_VIM = read.csv("/Users/evan.admin/Desktop/R-Fundamentals/data/sleep_VIM.csv", header = T, stringsAsFactors = F)
-sleep_VIM
+library(VIM)
+data(sleep)
+sleep_VIM = sleep
+## YOUR CODE HERE
 ```
 
-This dataset is part of the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf). It looks at sleep patterns in various mammal species and contains missing (`NA`) values. Click  [here](http://people.stat.sfu.ca/~cschwarz/Stat-650/Notes/MyPrograms/MultReg/AnimalSleep/AllisonScience1976.pdf) to see the original research article. 
+This dataset is part of the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf). It looks at sleep patterns in various mammal species and contains missing (`NA`) values. Click  [here](http://science.sciencemag.org/content/194/4266/732) to see the original research article. 
 
-> NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. 
+> NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. Your sleep dataset should have **62 rows and 10 columns**.  
 
-> Your sleep dataset should have **62 rows and 10 columns**.  
+When dealing with Microsoft Excel files (.xlsx), you will find it more convenient to save them first as .csv files in Excel and then import them using `read.csv()`. However, you can also install the "foreign" package to load data from SPSS, Stata, Weka, Systat, Minitab, SAS, S, and MATLAB. See [this helpful rio documentation as well](https://cran.r-project.org/web/packages/rio/vignettes/rio.html). 
 
-When dealing with Microsoft Excel files (.xlsx), you might find it more convenient to save them first as .csv files in Excel and then import them using `read.csv()`.  
-
-R can load data from a variety of other formats, such as SPSS, Stata, Weka, Minitab, SAS, S, and MATLAB. See the [`foreign`](https://cran.r-project.org/web/packages/foreign/foreign.pdf) package to learn more!
-
-To load excel files, check out the [`xlsx`](https://cran.r-project.org/web/packages/xlsx/xlsx.pdf) package and its many options.  
-
-# 2.  Inspecting the data frame
+# Inspecting the data frame
 Remember from Part 1 that we can learn a lot about data in R. For dataframes, the following commands are useful:
 ```{r, eval=FALSE}
 str(sleep_VIM)    # returns the structure of the dataframe
 dim(sleep_VIM)    # dataframe dimensions; remember, we want 62 rows and 10 columns! 
 
 rownames(sleep_VIM)   #row names (they have not been named and default to character type)
-# for example:
-class(rownames(sleep_VIM))
+
+class(rownames(sleep_VIM)) # returns character type, even though they are numbers! 
 
 nrow(sleep_VIM)   # number of rows
 ncol(sleep_VIM)   # number of columns
@@ -102,10 +91,10 @@ names(sleep_VIM)
 colnames(sleep_VIM)
 ```
 
-# 3.  Subsetting in base R
+# Subsetting in base R
 Efficiently subsetting your data will save you time and stress. Fortunately, there are several different ways to subset data in base R.
 
-### 3.1 Subsetting in base R (`$`)
+### Subsetting in base R (`$`)
 Remember from Part 1 that the dollar sign operator `$` will extract only a single vector/column within the data frame:
 ```{r, eval=FALSE}
 ?"$" # Remember to wrap symbols in quotation marks to view their help pages
@@ -114,12 +103,18 @@ Remember from Part 1 that the dollar sign operator `$` will extract only a singl
 sleep_VIM$Dream #Returns only the "Dream" vector from the `sleep_VIM` data frame.
 ```
 
+> Type sleep_VIM$ and press the TAB key - a handy list of the columns in your data will appear! 
+
+```{r, eval = F}
+sleep_VIM$
+```
+
 # **Challenge 2**
 1. Practice extracting a few variables from the `animals` dataframe using the dollar sign `$`
-2. Plot them in a histogram using `hist()`
+2. Plot them in a histogram using the `hist()` function. How do you do this? 
 3. Can all data types be visualized with histograms? Why or why not?
 
-### 3.2 Subsetting in two dimensions with bracket notation `[ , ]` 
+### Subsetting in two dimensions with bracket notation `[ , ]` 
 However, we do not have to specify all rows or columns when subsetting with bracket notation. We can specify dimensions of both rows and columns that we want. You might find subsetting using **bracket notation** `[ , ]` along with variable names, positive and negative integers, and/or logical values is easier because you can subset multiple elements at once.  
 
 > Inside the brackets, everything before the comma refers to rows. Everything after the comma refers to columns! 
@@ -128,7 +123,7 @@ However, we do not have to specify all rows or columns when subsetting with brac
 
 Let's start just with the columns!  
 
-### 3.3 Variable names (`[ ,c("Variable Names")]`)
+### Variable names (`[ , c("Variable Names")]`)
 You can subset your data by specifying variable names within bracket notation and using the `c()` command to create a column name character vector of names you want to keep.
 
 We can create a new dataframe object `sleep_varnames` that includes only "BodyWgt" and "BrainWgt" variable names from the `sleep` data frame:
@@ -136,7 +131,7 @@ We can create a new dataframe object `sleep_varnames` that includes only "BodyWg
 ?"["
 ```
 ```{r}
-sleep_varnames <- sleep_VIM[ ,c("BodyWgt", "BrainWgt")]
+sleep_varnames <- sleep_VIM[ , c("BodyWgt", "BrainWgt")]
 str(sleep_varnames)
 head(sleep_varnames)
 
@@ -148,7 +143,7 @@ sleep_VIM
 
 ##### Remember that in bracket notation `[ , ]` everything **before** the comma refers to rows, and everything **after** the comma refers to columns!
 
-### 3.4 Subsetting with positive integers `[ , c()]`
+### Subsetting with positive integers `[ , c()]`
 Subsetting by **positive** integers works as well. This will **include** only the specified columns as referenced by their indicies - we do not have to type out their names!  
 
 Create an object `sleep_posint` that includes only "NonD", "Sleep", and "Exp" columns.  
@@ -161,7 +156,7 @@ str(sleep_posint)
 head(sleep_posint)
 ```
 
-### 3.5 Subsetting with negative integers `[ , -c()]`
+### Subsetting with negative integers `[ , -c()]`
 Subsetting by **negative** integers will **exclude** the specified columns. Notice the `-` symbol before `c()` inside our bracket notation.
 
 We can create an object called `sleep_negint` that includes everything **except** columns 1 and 2 ("BodyWgt" and "BrainWgt"):
@@ -172,8 +167,8 @@ str(sleep_negint_VIM)
 head(sleep_negint_VIM)
 ```
 
-### 3.6 Subsetting with logical tests
-We can also use logical tests to subset our data. For example, what if we want to include only the rows that have a value of 4 for "Exp"? We can use the relational operator `==`:
+### Subsetting with logical tests
+We can also use logical tests to subset our data. For example, what if we want to include only the _**rows**_ that have a value of 4 for "Exp"? We can use the relational operator `==`:
 ```{r, eval=FALSE}
 ?"=="
 ```
@@ -207,7 +202,7 @@ In `sleep_logical_and`, "Exp" must equal 1 _and_ "Danger" must equal 2 to be inc
 
 In `sleep_logical_or`, "Exp" must equal 1 _or_ "Danger" can equal 2 to be included - only one of these two conditions must be TRUE, hence the greater number of rows returned by "or".  
 
-### 3.7.  Subsetting lists with double bracket notation `[[ ]]`
+### Subsetting lists with double bracket notation `[[ ]]`
 You can also subset lists. 
 ```{r, eval=FALSE}
 ?"[["
@@ -218,9 +213,7 @@ example_list <- list(TRUE, "string data", 5)
 example_list
 ```
 
-Single brackets `[]` will return the list container as well as its value. 
-
-Consider the analogy of going through airport security. When you place your shoes in the plastic bin and then place it on the conveyor belt, you have placed two things: 1) your shoes inside the 2) plastic bin. 
+> Consider the analogy of going through airport security. When you place your shoes in the plastic bin and then place it on the conveyor belt, you have placed two things: 1) your shoes inside the 2) plastic bin. 
 
 Use single brackets `[]` retrieves _both the placeholder and its value (the bin and your shoes)_ 
 ```{r}
@@ -235,10 +228,10 @@ example_list[[1]]
 # **Challenge 3**
 1. Load the `iris` dataset! Type `data(iris)` to load it.  
 2. What is this dataset? How do you find out?  
-3. Subset the `iris` dataset in a variety of ways using column names and positive and negative integers.  
+3. Subset the `iris` dataset in three ways using column names and positive and negative integers.  
 4. Subset `iris` using logical tests, `&`, and `|`    
 
-# 4.  Missing data (`NA`)
+# Missing data (`NA`)
 Identifying missing data can be important for subsetting purposes. R codes missing values as `NA`. Identifying missing data is important because dealing with it might be necessary to run basic tests like `mean()`. 
 ```{r, eval=FALSE}
 ?NA
@@ -248,37 +241,39 @@ Identifying missing data can be important for subsetting purposes. R codes missi
 mean(sleep_VIM$NonD) # This returns NA because R is unsure how to deal with NA cells for the `mean` computation.
 ```
 
-However, we can use `na.rm = TRUE` to properly calculate the mean of the NonD column by now excluding the NAs. 
+Look at the "Usage" portion of the help file - we know what `rm` is, and we now know what `NA` is, so what do you think the logical argument `na.rm =` will do? That's right! We can use `na.rm = TRUE` to properly calculate the mean of the NonD column by now excluding the NAs. 
 ```{r}
 mean(sleep_VIM$NonD, na.rm = TRUE) #Now `mean()` returns the mean!
 ```
+
 While `na.rm()` nor `str()` will not tell us which data are missing in a convenient way, `is.na()` does. Wrap the name of your data frame in `is.na()` to return logical values. Missing data is coded as `TRUE`, while present data are coded as `FALSE`
 ```{r, eval=FALSE}
 ?is.na
 is.na(sleep_VIM)
 ```
-Data are coded as missing in many different ways besides `NA`, so don't be surprised if you see some other signifier. 
 
-## 4.1  Missing data (NA) - recoding missing data
-Make a copy of `sleep_VIM` so we do not alter the original, then recode NA values in place to say "NONE":
+People code data in very strange ways besides `NA`, so don't be surprised if you see some other signifier. But, whatever you do, do not use the number zero! 
+
+## Missing data (`NA`) - recoding missing data
+Make a copy of `sleep_VIM` named sv so we do not alter the original, then recode NA values in place to say "NONE":
 ```{r}
-s_VIM <- sleep_VIM
+sv <- sleep_VIM
 
-s_VIM[is.na(s_VIM)] <- "NONE"
-s_VIM
+sv[is.na(sv)] <- "NONE"
+sv
 ```
 
 They now say `NONE`.
 
-However, for R to handle them correctly, we want to recode them to say `NA`. We can do this with a combination of the name of our data set, bracket notation, our relational operator `==` and our old friend the assignment operator `<-` ! 
+However, for R to handle them correctly, we want to recode them to say `NA`. We can do this with a combination of the name of our data set, bracket notation, our relational operator `==` and our old friend the assignment operator `<-` ! Can we still use the `is.na` function? Why or why not?  
 ```{r}
-s_VIM[s_VIM == "NONE"] <- NA
+sv[sv == "NONE"] <- NA
 ```
 ```{r, eval=FALSE}
-s_VIM
+sv
 ```
 
-> NOTE: here `<NA>` and `NA` are synonymous and R will treat them both as missing.  
+> NOTE: here `<NA>` and `NA` are virtually synonymous and R will treat them both as missing.  
 
 We can also subset only rows without any missing data using bracket notation. `complete.cases()` will find rows with no missing values.
 ```{r, eval=FALSE}
@@ -293,7 +288,7 @@ Remember to include the comma here to tell R you want ALL of the columns for the
 Then, test it to see if it contains missing values. All cells are `FALSE`
 ```{r,eval=FALSE}
 is.na(s_complete)
-sum(is.na(s_complete))
+sum(is.na(s_complete)) # what did we do here?
 ```
 
 Conversely, we can subset the sleep_VIM data to include only rows with missing data by adding the logical bash operator `!` (not). 
@@ -305,57 +300,64 @@ s_NA <- sleep_VIM[!complete.cases(sleep_VIM),]
 ```
 ```{r, eval=FALSE}
 s_NA # All rows have at least one cell with missing data
-sum(is.na(s_NA)) # Now we see TRUE values where data is missing
+is.na(s_NA) # We see TRUE values where data is missing
+sum(is.na(s_NA)) # 38 cells have missing data
 
-sum(is.na(s_NA)) == sum(is.na(sleep_VIM)) # both data objects contain 38 NA values! 
+# Do the number of missing cases in s_NA equal that to the whole data set? 
+sum(is.na(s_NA)) == sum(is.na(sleep_VIM)) # ... yes! Both data objects contain 38 NA values! 
 ```
 
 # Subset with `subset`
-`subset` can also be used to subset your data. See `?subset` for more information. For example:
+`subset` can also be used to subset your data. How do you use the help (hint `?subset`) to see what the `x`, `subset`, and `select` arguments do?For example:
+```{r, eval = F}
+?subset
+```
 ```{r}
 # subset rows where "BrainWgt" is less than 5 and "Danger" equals 4 and "Exp" equals 3:
-subset_1 <- subset(sleep_VIM, BrainWgt < 60 & Danger == 4 & Exp == 3)
+subset_1 <- subset(x = sleep_VIM, 
+                   subset = BrainWgt < 60 & Danger == 4 & Exp == 3,
+                   select = c("Sleep", "Span"))
 subset_1
 
 # or
 
-# subset rows where BrainWgt is less than 100 or Danter equals 4 along with the "BrainWgt", "Danger", and "Exp" columns:
-subset_2 <- subset(sleep_VIM, BrainWgt < 100 | Danger == 4, select=c(BrainWgt, Danger, Exp))
+# subset all rows where BrainWgt is less than 100 or Danger equals 4 along with the "BrainWgt", "Danger", and "Exp" columns:
+subset_2 <- subset(sleep_VIM, BrainWgt < 100 | Danger == 4, select = c(BrainWgt, Danger, Exp))
 subset_2
 ```
 
 # **Challenge 4**
-1. Subset the `animals` dataframe:  
-a) in one dimension  
-b) in two dimensions  
-c) using logical tests  
+Subset the `animals` dataframe:  
+1. in one dimension.  
+2. in two dimensions using either bracket notation `[ , ]` or `subset`.  
+3. using logical tests.  
 
-# 5.  Merging data with `merge`
+# Merging data with `merge`
 Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column. The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match.  
 
-Also note this shorthand way for creating a dataframe. Get your typing fingers ready! For example: 
+Also note this shorthand way for creating a dataframe. For example: 
 ```{r, eval=FALSE}
-?merge #Click the "Merge two data frames" link
+?merge
 ```
 ```{r}
-df1 <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
-                  City=c("Berkeley", "Berkeley", "Oakland", "Oakland"),
-                  Math=c(42, 48, 50, 46),
-                  Reading=c(8, 10, 10, 10))
+df1 <- data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
+                  City = c("Berkeley", "Berkeley", "Oakland", "Oakland"),
+                  Math = c(42, 48, 50, 46),
+                  Reading = c(8, 10, 10, 10))
 df1
 
-df2 <- data.frame(Name=c("Joe", "Susan", "Jack", "Kelly"),
-                    Science=c(99, 100, 99, 100),
-                    Music=c(19, 18, 20, 20),
-                    Art=c(20, 20, 19, 18))
+df2 <- data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
+                    Science = c(99, 100, 99, 100),
+                    Music = c(19, 18, 20, 20),
+                    Art = c(20, 20, 19, 18))
 df2
 
-df_merge <- merge(df1, df2, by="Name")
+df_merge <- merge(df1, df2, by = "Name")
 df_merge
 #What happened here? 
 ```
 
-### 6.1  Merging data - `cbind()` and `rbind()`
+### Merging data - `cbind()` and `rbind()`
 Other useful functions include `cbind()` and `rbind()`.  
 
 `cbind()` will bind two data frames by their columns. Let's cbind `df1` and a new dataframe, `df3`:
@@ -366,10 +368,10 @@ Other useful functions include `cbind()` and `rbind()`.
 ```{r}
 df1
 
-df3 <- data.frame(Name=c("Heather", "Billy", "Hector", "Jane"),
-                  City=c("San Francisco", "Los Angeles", "San Francisco", "Chico"),
-                  Math=c(49, 44),
-                  Reading=c(10,10))
+df3 <- data.frame(Name = c("Heather", "Billy", "Hector", "Jane"),
+                  City = c("San Francisco", "Los Angeles", "San Francisco", "Chico"),
+                  Math = c(49, 44),
+                  Reading = c(10,10))
 df3
 
 df_cbind <- cbind(df1, df3)
@@ -381,14 +383,13 @@ df_cbind
 ```{r}
 df1 
 
-dfB <- data.frame(Name=c("James", "Cher", "Elizabeth", "Barack"),
-                  City=c("Cleveland", "Memphis", "Detroit", "Chicago"),
-                  Math=c(44, 49, 50, 49),
-                  Reading=c(9, 9, 9, 10))
+dfB <- data.frame(Name = c("James", "Tanisha", "Elizabeth", "Barack"),
+                  City = c("Cleveland", "Memphis", "Detroit", "Chicago"),
+                  Math = c(44, 49, 50, 49),
+                  Reading = c(9, 9, 9, 10))
 df_rbind <- rbind(df1, dfB)
 df_rbind
 ```
-
 > NOTE: for rbind to work, you should have the same column names for both of your data frames! 
 
 # **Challenge 5** 
@@ -404,7 +405,7 @@ new_cars <- mtcars[order(mtcars$cyl, -mtcars$mpg),]
 new_cars
 ```
  
-# 6. Reshaping your data
+# Reshaping your data
 You will probably find that certain plotting and testing functions require that the data be formatted in "long" or "wide" format. The "reshape2" R package offers a handy way to reformat your data. 
 
 In base R, `t` will quickly transpose your dataframe or matrix. The rows will become the columns, and the columns will become the rows:
@@ -412,7 +413,7 @@ In base R, `t` will quickly transpose your dataframe or matrix. The rows will be
 ?t
 ```
 ```{r}
-mat1 <- matrix(1:10, nrow=5, ncol=2)
+mat1 <- matrix(1:10, nrow = 5, ncol = 2)
 mat1
 mat1_t <- t(mat1)
 mat1_t
@@ -423,7 +424,7 @@ animals_t <- t(animals)
 animals_t
 ```
 
-### 7.1 The "reshape2" package 
+### The "reshape2" package 
 In addition to many other ways, data are frequently formatted as "wide" or "long" type.  "Wide" format means that each variable is shown in a column, more like in our animals dataframe:
 ```{r}
 head(animals)
@@ -431,9 +432,10 @@ head(animals)
 
 "Long" format means that each row is a unique combination of our "id" variable (animal "Type") and each variable ("Healthy", "Weight", "Height", and "Progress").  
 
-##### `melt` and `cast`
+##### `melt` and `dcast`
 Melt is a handy way to reshape data from "wide" to "long" format:
 ```{r, eval=F}
+library(reshape2)
 ?melt
 ?dcast
 ```
@@ -448,7 +450,7 @@ str(animals_melt)
 animals_melt
 ```
 
-"animals" now has 80 rows and just 3 columns! What do you notice about the nature of each row? (hint: each row is a unique combination of the `id` variable ("Type") and the values for each of the other four columns: Healthy, Weight, Height, and Progress!  
+`animals` now has 80 rows and just 3 columns! What do you notice about the nature of each row? (hint: each row is a unique combination of the `id` variable ("Type") and the values for each of the other four columns: Healthy, Weight, Height, and Progress!  
 
 `dcast` is handy to perform some basic summary operations. For example, let's compute the mean Weight of each animal Type:
 ```{r}
