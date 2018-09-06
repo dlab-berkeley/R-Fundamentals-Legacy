@@ -15,7 +15,27 @@ output: html_document
 5. Remove an individual object using `rm`.
 6. Wipe your environment using `rm(list=ls())` or the broom icon. 
 ```{r}
-## YOUR CODE HERE
+# 1. 
+# A) Unique name does on left side
+# B) Assignment operator <- goes in the middle (a single equals sign works just as well)
+# C) Definition/statement/expression goes on right side
+
+# 2. 
+x = 15
+y = 88
+
+# 3. 
+my_name = "Oski"
+my_city = "Berkeley, California"
+
+# 4. 
+# ls() will list the variables defined in the global environment
+
+# 5.
+rm(my_city)
+
+# 6. 
+rm(list = ls()) # or simply click the broom icon in the upper-right Environment tab
 ```
 
 ### Part 1 - Challenge 2
@@ -26,7 +46,28 @@ output: html_document
 5. Use `substr` to extract the first word of your sentence.  
 6. Use `gsub` to replace a character in your sentence with some other character.  
 ```{r}
-## YOUR CODE HERE
+# 1. 
+num_object = 0
+class(num_object)
+
+# 2. 
+bool_object = FALSE
+class(bool_object)
+
+# 3. 
+num_object == bool_object # remember FALSE is stored internally as 0, and TRUE as 1
+
+# 4. 
+sentence = paste("This", "is", "how", "to", "use", "paste!")
+sentence
+
+# 5.
+first_word = substr(sentence, 1, 4)
+first_word
+
+# 6. 
+new_sentence = gsub("to", "we", sentence)
+new_sentence
 ```
 
 ### Part 1 - Challenge 3
@@ -35,7 +76,30 @@ output: html_document
 3. Create an object of class "integer". Remember, there are two ways to do this!  
 4. Why is 1 == "1" true?   Why is -1 < FALSE true?   Why is "one" < 2 false?  
 ```{r}
-## YOUR CODE HERE
+# 1.
+char_var = "This is character aka string aka text data"
+is.character(char_var) # returns logical TRUE or FALSE value
+class(char_var) # returns the actual data type
+
+# 2. 
+char_int = as.integer(char_var) # error
+char_num = as.numeric(char_var) # error
+char_logical = as.logical(char_var) # "soft fail!"
+char_logical
+
+# 3. 
+int1 = as.integer(12)
+class(int1)
+
+int2 = 5L
+class(int2)
+
+# 4.
+1 == "1" # R can see the number inside of the quotations
+
+-1 < FALSE # Remember FALSE is stored internally as 0, TRUE as 1
+
+"one" < 2 # Cannot see if a word is less than a number
 ```
 
 ### Part 1 - Challenge 4
@@ -45,7 +109,22 @@ Vectors
 3. Add the element "11" to the end of the vector  
 4. Evaluate the `str` of the vector.  
 ```{r}
-## YOUR CODE HERE
+# 1.
+vector_1 = 1:10
+#or
+vector_1 = c(1,2,3,4,5,6,7,8,9,10)
+
+# 2.
+vec1_char = as.character(vector_1)
+vec1_char
+class(vec1_char)
+
+# 3.
+vec1_more = c(vec1_char, "11")
+vec1_more
+
+# 4.
+str(vec1_more)
 ```
 
 Lists  
@@ -53,29 +132,45 @@ Lists
 6. Create three objects of different types and lengths and then combine them into a list names `x`.  
 7. If `x` is a list, what is the class of `x[1]`? How about `x[[1]]`? (this is a preview of Part 2).  
 ```{r}
-## YOUR CODE HERE
+# 5. 
+# Lists are not additive or duplicative like an atomic vector; lists contain a placeholder and a value.
+
+# 6.
+obj1 = c(1,4,5)
+obj2 = c(T, F)
+obj3 = c(15L, 22L, 98L, 10050L)
+
+x = list(obj1, obj2, obj3)
+x
+class(x)
+
+# 7.
+class(x[1])
+class(x[[1]])
 ```
 
 Data frames  
 8. Create a 3x2 data frame called `basket`. List the name of each fruit in the first column and its price in teh second column.  
 9. Now give your dataframe appropriate column and row names.  
-10. We can add a new column using `$` (this will be covered with data subsetting in Part 2). Can you guess how to add a third column called "Color", that shows the color of each fruit?  
+10. We can add a new column using `$`. Can you guess how to add a third column called "Color", that shows the color of each fruit?  
 ```{r}
-## YOUR CODE HERE
-```
-Basket example solution:  
-```{r}
-f <- factor(c("Apple", "Orange", "Pear"))
-p <- c(10, 28, 36)
-basket <- data.frame(f, p)
+# 8. 
+f = factor(c("Apple", "Orange", "Pear"))
+p = c(10, 28, 36)
+basket = data.frame(f, p)
 basket
 
-colnames(basket) <- c("Fruit", "Price")
+# 9. 
+colnames(basket) = c("Fruit", "Price")
 basket
 
+rownames(basket) = c("Berkeley Bowl", "Mi Tierra", "Target")
+basket
+
+# 10. 
 basket$Color <- factor(c("Red", "Orange", "Green"))
-str(basket)
 basket
+str(basket)
 ```
 
 ### Part 1 - Challenge 5
@@ -103,7 +198,16 @@ sleep_VIM = read.csv("sleep_VIM.csv", header = T, stringsAsFactors = F)
 2. Plot them in a histogram using the `hist()` function. How do you do this? 
 3. Can all data types be visualized with histograms? Why or why not?
 ```{r}
+# 1.
+animals$Type
+# and
+height = animals$Height
 
+# 2.
+hist(height)
+
+# 3.
+# No, histograms are used to visualize distributions of one numeric/integer variable.
 ```
 
 ### Part 2 - Challenge 3
@@ -112,7 +216,34 @@ sleep_VIM = read.csv("sleep_VIM.csv", header = T, stringsAsFactors = F)
 3. Subset the `iris` dataset in three ways using column names and positive and negative integers.  
 4. Subset `iris` using logical tests, `&`, and `|`    
 ```{r}
-## YOUR CODE HERE
+# 1.
+data(iris)
+
+# 2. 
+str(iris)
+head(iris)
+?iris
+# Google! 
+
+# 3.
+iris_colnames = iris[, c("Sepal.Length", "Species")]
+head(iris_colnames)
+
+iris_posint = iris[, c(1,5)]
+head(iris_posint)
+
+iris_negint = iris[, -c(2,3,4)]
+head(iris_negint)
+
+# 4. 
+iris_setosa_only = iris[iris$Species == "setosa", ]
+table(iris_setosa_only$Species)
+
+iris_setosa_and = iris[iris$Species == "setosa" & iris$Sepal.Length > 5, ]
+iris_setosa_and
+
+iris_setosa_or = iris[iris$Species == "setosa" | iris$Species == "versicolor", ]
+table(iris_setosa_or$Species)
 ```
 
 ### Part 2 - Challenge 4
@@ -121,7 +252,16 @@ Subset the `animals` dataframe:
 2. in two dimensions using either bracket notation `[ , ]` or `subset`.  
 3. using logical tests.  
 ```{r}
-## YOUR CODE HERE
+# 1.
+one_dim = animals$Healthy
+one_dim
+
+# 2. 
+two_dim_bracket = animals[1:5 , 1:2]
+two_dim_bracket
+
+two_dim_subset = subset(animals, select = c("Type", "Healthy"))
+two_dim_subset
 ```
 
 ### Part 2 - Challenge 5
@@ -130,7 +270,20 @@ Subset the `animals` dataframe:
 3. load the `mtcars` dataset. How might you find out what it is and how do you load it?  
 4. subset `mtcars` in five different ways.  
 ```{r}
-## YOUR CODE HERE
+# 1.
+cats_dogs = animals[animals$Type == "Cat" | animals$Type == "Dog", ] 
+cats_dogs
+
+# 2.
+healthy_pigs = animals[animals$Type == "Pig" & animals$Healthy == TRUE, ]
+healthy_pigs
+
+# 3.
+data(mtcars)
+str(mtcars)
+?mtcars
+
+# 4. 
 ```
 
 # Part 3
