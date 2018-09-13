@@ -1,7 +1,7 @@
 ---
 title: 'R Fundamentals Part 3: Data exploration and analysis'
 author: "D-Lab"
-date: "February 4, 2018"
+date: "September 8, 2018"
 output:
   html_document:
     toc: yes
@@ -379,7 +379,7 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width, color = Species, shap
 ```
 
 # **Challenge 4** 
-In lines 374 - 377 in the chunk above, what are the arguments inside of our second "theme" argument doing?
+In lines the ggplot code above, what are the arguments inside of our second "theme" argument doing?
 
 # Statistical testing
 Now that we have sufficiently summarized and explored our data, it is time to formally investigate the basics of a few statistical methods. Remember that you must investigate the assumptions of all of these tests, which are not covered here.  
@@ -414,16 +414,9 @@ A "t.test" formally compares **one or two group means** for statistically signif
 The null hypothesis states that there are no actual mean differences between the two groups. 
 
 # **Challenge 5**
-Subsetting review! Subset your "iris" data frame into three new dataframes: setosa, versicolor, and virginica that each contain only their respective Species:
+Subsetting review! Subset your "animals" data frame into three new dataframes: setosa, versicolor, and virginica that each contain only their respective Species:
 ```{r, inclue = F}
 ## YOUR CODE HERE
-setosa <- iris[iris$Species == "setosa",]
-versicolor <- iris[iris$Species == "versicolor",]
-virginica <- iris[iris$Species == "virginica",]
-
-setosa
-versicolor
-virginica
 ```
 
 Now, we can compare petal lengths between two of the three iris species (we will use an ANOVA to compare all three group means while correcting for family wise error - see below). 
@@ -461,7 +454,7 @@ TukeyHSD(aov1)
 This allows us to see mean differences bewteen the multiple species, with adjusted p-values. All are "0". However, we are provided with the mean difference ("diff") and the lower ("lwr") and upper ("upr") confidence interval boundaries.  
 
 # **Challenge 7**
-Using the `mtcars` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three species. In general, what are differences between t-test and ANOVA that you should keep in mind?  
+Using the `mtcars` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three cyl sizes. In general, what are differences between t-test and ANOVA that you should keep in mind?  
 ```{r}
 ## YOUR CODE HERE
 ```

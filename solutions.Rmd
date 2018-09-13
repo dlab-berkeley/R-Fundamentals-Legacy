@@ -200,7 +200,7 @@ sleep_VIM = read.csv("sleep_VIM.csv", header = T, stringsAsFactors = F)
 ```{r}
 # 1.
 animals$Type
-# and
+# or
 height = animals$Height
 
 # 2.
@@ -282,8 +282,23 @@ healthy_pigs
 data(mtcars)
 str(mtcars)
 ?mtcars
+# Google!
 
 # 4. 
+# six cylinder cars only
+(mt_sub1 = mtcars[mtcars$cyl == 6, ])
+
+# disp greater than 400
+(mt_sub2 = mtcars[mtcars$disp > 400, ])
+
+# 5 speed gear and 8 barrel carburetor
+(mt_sub3 = mtcars[mtcars$gear == 5 & mtcars$carb == 8, ])
+
+# disp < 100 or hp < 100
+(mt_sub4 = mtcars[mtcars$disp < 100 | mtcars$hp < 100, ])
+
+# mpg > 33
+(mt_sub5 = subset(mtcars, mpg > 33))
 ```
 
 # Part 3
@@ -291,25 +306,52 @@ str(mtcars)
 ### Part 3 - Challenge 1
 Use `summary()`, `table()` and `describeBy()` to investigate variables in the `iris` dataset. Create a histogram of one of the numeric variables.  
 ```{r}
-## YOUR CODE HERE
+library(psych)
+data(iris)
+summary(iris)
+table(iris$Species)
+describe(iris)
+describeBy(iris, group = iris$Species)
 ```
 
 ### Part 3 - Challenge 2
 Create boxplots for one of the numeric variables in the `iris` dataset and export it to your working directory as a .TIFF file. 
 ```{r}
-## YOUR CODE HERE
+boxplot(x = iris$Sepal.Length,
+        col = "orange",
+        main = "Title goes here",
+        xlab = "Sepal Length",
+        ylab = "cm",
+        las = 1)
+# click "Export" 
+# click "Save as .PDF"
+# open this .PDF
+# click "File" --> "Export"
+# click "TIFF" with compression type "JPEG"
 ```
 
 ### Part 3 - Challenge 3
 Using the `iris` dataset, plot two numeric variables and export the graph to your working directory as a .PNG file. 
 ```{r}
-## YOUR CODE HERE
+plot(x = iris$Sepal.Length, y = iris$Sepal.Width,
+     col = as.numeric(iris$Species),
+     pch = as.numeric(iris$Species))
+
+# better way
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, 
+                 color = Species, shape = Species)) + geom_point(size = 5, alpha = 0.5) + 
+  ggtitle("Title goes here") + xlab("Sepal Length (cm)") + ylab("Sepal Width (cm)") + 
+  theme_bw()
 ```
 
 ### Part 3 - Challenge 4
-In lines 374 - 377 in the chunk above, what are the arguments inside of our second "theme" argument doing?
+In lines the ggplot code above, what are the arguments inside of our second "theme" argument doing?
 ```{r}
-## YOUR CODE HERE
+# change the size of the plot title and justification
+# change the legend title size
+# change the legend text size
+# change the orientaiton and justification of the x-axis text
 ```
 
 ### Part 3 - Challenge 5
@@ -327,13 +369,18 @@ virginica
 ### Part 3 - Challenge 6
 Create two numeric vectors. Perform a t.test on them:
 ```{r}
-## YOUR CODE HERE
+a = c(10, 20, 30, 40, 50, 140)
+b = c(1, 1.1, 1.4, 1.9, 2.1)
+t.test(a,b)
 ```
 
 ### Part 3 - Challenge 7
-Using the `mtcars` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the three species. In general, what are differences between t-test and ANOVA that you should keep in mind?  
+Using the `mtcars` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the cyl sizes. In general, what are differences between t-test and ANOVA that you should keep in mind?  
 ```{r}
-## YOUR CODE HERE
+data(mtcars)
+mt_aov = aov(mpg ~ as.factor(cyl), data = mtcars)
+summary(mt_aov)
+TukeyHSD(mt_aov)
 ```
 
 ### Part 3 - Challenge 8
@@ -345,7 +392,49 @@ Using the `mtcars` dataset, perform an ANOVA and TukeyHSD test for one of the nu
 6. Create a scatterplot of the "mpg" and "hp" variables using `ggplot()`. What happens?  
 7. Can cyl be used to predict mpg in a linear regression model?  
 ```{r}
-## YOUR CODE HERE
+# 1.
+data(mtcars)
+
+# 2.
+str(mtcars)
+?mtcars
+
+# 3.
+boxplot(mpg ~ as.factor(cyl), data = mtcars,
+        col = c("goldenrod", "salmon", "turquoise"),
+        main = "mpg verus cyl",
+        xlab = "Number of cylinders",
+        ylab = "mpg",
+        las = 1)
+
+# or
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) + 
+  geom_boxplot() + 
+  theme_minimal() + 
+  guides(fill = F)
+
+# 4.
+# Yes! The larger the engine, the fewer miles per gallon... (?)
+
+# 5.
+cor.test(mtcars$mpg, mtcars$cyl)
+# they are strongly and significantly negatively correlated! 
+# that is, the more cyl, the less mpg
+
+# 6.
+ggplot(mtcars, aes(x = hp, y = mpg, 
+                   color = as.factor(cyl), shape = as.factor(cyl))) + 
+  geom_point(size = 5, alpha = 0.5) +
+  theme_classic()
+
+# or
+ggplot(mtcars, aes(x = hp, y = mpg, color = cyl)) + 
+  geom_point(size = 5, alpha = 0.5) +
+  theme_light()
+
+# 7.
+mt_model = lm(mpg ~ cyl, data = mtcars)
+summary(mt_model)
 ```
 
 # Part 4
