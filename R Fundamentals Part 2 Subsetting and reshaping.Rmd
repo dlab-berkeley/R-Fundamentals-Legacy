@@ -42,9 +42,10 @@ Load the animals dataset from the data folder inside the R-Fundamentals data fol
 # relative file path
 animals <- read.csv("animals.csv", 
                     header = TRUE, 
-                    stringsAsFactors = FALSE,
+                    stringsAsFactors = T,
                     na.strings = " ")
 animals
+str(animals)
 ```
 
 > Notice that `stringsAsFactors = FALSE`. If set to `TRUE`, R will try to guess which **character** vectors should automatically be converted to factors. This is problematic because 1) R is not always good at guessing and 2) R defaults to alphabetical and increasing numeric factor level sorting. This might not matter for your data, but it is recommended to set `stringsAsFactors = FALSE` and manually convert your desired character vectors to factors. See the Part 1 help file to review these instructions.  
@@ -59,6 +60,10 @@ library(VIM)
 data(sleep)
 sleep_VIM = sleep
 ## YOUR CODE HERE
+
+sleep_VIM = read.csv("sleep_VIM.csv")
+str(sleep_VIM)
+sleep_VIM
 ```
 
 This dataset is part of the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf). It looks at sleep patterns in various mammal species and contains missing (`NA`) values. Click  [here](http://science.sciencemag.org/content/194/4266/732) to see the original research article. 
@@ -113,6 +118,19 @@ sleep_VIM$
 1. Practice extracting a few variables from the `animals` dataframe using the dollar sign `$`
 2. Plot them in a histogram using the `hist()` function. How do you do this? 
 3. Can all data types be visualized with histograms? Why or why not?
+```{r}
+animals$Height
+animals$Type
+animals$Progress
+
+height = animals$Height
+
+hist(animals$Height)
+hist(height, col = "orange")
+
+table(animals$Type)
+
+```
 
 ### Subsetting in two dimensions with bracket notation `[ , ]` 
 However, we do not have to specify all rows or columns when subsetting with bracket notation. We can specify dimensions of both rows and columns that we want. You might find subsetting using **bracket notation** `[ , ]` along with variable names, positive and negative integers, and/or logical values is easier because you can subset multiple elements at once.  
@@ -151,7 +169,7 @@ Create an object `sleep_posint` that includes only "NonD", "Sleep", and "Exp" co
 First use `str()` or `colnames` to see which integer values these columns represent. Because we only want the 3rd, 5th, and 9th columns, we type:  
 ```{r, eval=FALSE}
 str(sleep_VIM)
-sleep_posint <- sleep_VIM[ ,c(3,5,9)] # why does our vector go after the comma?
+sleep_posint <- sleep_VIM[ , c(3, 5, 9)] # why does our vector go after the comma?
 str(sleep_posint)
 head(sleep_posint)
 ```
@@ -162,9 +180,9 @@ Subsetting by **negative** integers will **exclude** the specified columns. Noti
 We can create an object called `sleep_negint` that includes everything **except** columns 1 and 2 ("BodyWgt" and "BrainWgt"):
 ```{r}
 str(sleep_VIM)
-sleep_negint_VIM <- sleep_VIM[,-c(1,2)]
+sleep_negint_VIM <- sleep_VIM[ , -c(1, 2)]
 str(sleep_negint_VIM)
-head(sleep_negint_VIM)
+head(sleep_negint_VIM, n = 3)
 ```
 
 ### Subsetting with logical tests
@@ -173,7 +191,7 @@ We can also use logical tests to subset our data. For example, what if we want t
 ?"=="
 ```
 ```{r}
-sleep_logical <- sleep_VIM[sleep_VIM$Exp == 4, ] # why is the comma included? 
+sleep_logical <- sleep_VIM[sleep_VIM$Exp == 4 , 8:10 ] # why is the comma included? 
 sleep_logical
 ```
 Only rows with values of 4 for "Exp" are returned! 
@@ -230,6 +248,27 @@ example_list[[1]]
 2. What is this dataset? How do you find out?  
 3. Subset the `iris` dataset in three ways using column names and positive and negative integers.  
 4. Subset `iris` using logical tests, `&`, and `|`    
+```{r}
+# 1.
+data(iris)
+
+my_iris = iris
+str(my_iris)
+# 2. 
+str(iris)
+?iris
+
+# 3. 
+(iris_sub1 = iris[iris$Sepal.Length >= 7.7, ] )
+iris_sub2 = iris[iris$Species == "setosa", ]
+iris_sub2
+
+# 4.
+iris_and = iris[iris$Species == "setosa" | iris$Petal.Width > 0.4 , ]
+iris_and
+str(iris_and)
+```
+
 
 # Missing data (`NA`)
 Identifying missing data can be important for subsetting purposes. R codes missing values as `NA`. Identifying missing data is important because dealing with it might be necessary to run basic tests like `mean()`. 
@@ -249,7 +288,7 @@ mean(sleep_VIM$NonD, na.rm = TRUE) #Now `mean()` returns the mean!
 While `na.rm()` nor `str()` will not tell us which data are missing in a convenient way, `is.na()` does. Wrap the name of your data frame in `is.na()` to return logical values. Missing data is coded as `TRUE`, while present data are coded as `FALSE`
 ```{r, eval=FALSE}
 ?is.na
-is.na(sleep_VIM)
+sum(is.na(sleep_VIM))
 ```
 
 People code data in very strange ways besides `NA`, so don't be surprised if you see some other signifier. But, whatever you do, do not use the number zero! 
@@ -259,7 +298,7 @@ Make a copy of `sleep_VIM` named sv so we do not alter the original, then recode
 ```{r}
 sv <- sleep_VIM
 
-sv[is.na(sv)] <- "NONE"
+sv[is.na(sv)] <- "PIZZA"
 sv
 ```
 
@@ -267,7 +306,7 @@ They now say `NONE`.
 
 However, for R to handle them correctly, we want to recode them to say `NA`. We can do this with a combination of the name of our data set, bracket notation, our relational operator `==` and our old friend the assignment operator `<-` ! Can we still use the `is.na` function? Why or why not?  
 ```{r}
-sv[sv == "NONE"] <- NA
+sv[sv == "PIZZA"] <- NA
 ```
 ```{r, eval=FALSE}
 sv
@@ -280,7 +319,7 @@ We can also subset only rows without any missing data using bracket notation. `c
 ?complete.cases
 ```
 ```{r}
-s_complete <- sleep_VIM[complete.cases(sleep_VIM),]  
+s_complete <- sleep_VIM[complete.cases(sleep_VIM) , ]  
 s_complete
 ```
 
@@ -331,6 +370,9 @@ Subset the `animals` dataframe:
 1. in one dimension.  
 2. in two dimensions using either bracket notation `[ , ]` or `subset`.  
 3. using logical tests.  
+```{r}
+## YOUR CODE HERE
+```
 
 # Merging data with `merge`
 Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column. The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match.  

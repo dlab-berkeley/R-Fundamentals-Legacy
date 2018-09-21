@@ -23,8 +23,9 @@ getwd()
 1. Load data from files
 ```{r}
 # load the animals dataframe 
-animals <- read.csv("animals.csv", header = TRUE, stringsAsFactors = FALSE)
+animals <- read.csv("animals.csv", header = TRUE, stringsAsFactors = F)
 head(animals)
+str(animals)
 ```
 
 2. One-dimensional subsetting
@@ -35,7 +36,10 @@ head(animals)
 Coerce animals `Type` to factor type. See (this page)[https://www.stat.berkeley.edu/classes/s133/factors.html] for help with factors. 
 ```{r}
 str(animals)
-animals$Type <- factor(animals$Type)
+animals$Type <- factor(animals$Type, 
+                       levels = c("Dog", "Pig", "Cat"),
+                       ordered = T)
+animals$Type
 str(animals)
 ```
 
@@ -80,12 +84,13 @@ summary(animals$Height)
 
 Remember, we installed the 'psych' package on Day 1, so all we have to do is call it into our environment with `library`:
 ```{r}
+install.packages("psych")
 library(psych)
 
 describe(animals) # this works, but causes errors in the non-numeric/integer data
 
 str(animals)
-describe(animals[ , c(3:5)]) # this looks cleaner after we removed columns 1 and 2 ("Type" and "Healthy")
+describe(animals[ , 3:5]) # this looks cleaner after we removed columns 1 and 2 ("Type" and "Healthy")
 ```
 
 We can also subset these outputs to include only the measurements we want. First, save our describe object in a variable: 
@@ -157,7 +162,8 @@ Visualizing data is useful for exploration. R offers a variety of base plots and
 ### Histogram (`hist`)  
 Histograms are a handy way to illustrate the distribution shape of one numeric/integer variable. Let's visualize the "Height" variable from the `animals` data frame:
 ```{r}
-hist(animals$Weight, col = "skyblue")
+hist(animals$Weight, 
+     col = "gray90")
 ```
 
 The `col = ` argument specifies the color of the bars. Look at the colors you can choose from in base R using `colors()`
@@ -174,7 +180,7 @@ Some basic arguments you will want to make note of:
 hist(animals$Weight, 
      col = "gray80",
      main = "Histogram of animal weight",
-     xlab = "Animal weight",
+     xlab = "Animal weight (kg)",
      ylab = "FREQUENCY",
      las = 1)
 ```
@@ -184,7 +190,10 @@ Click the "Zoom" button to pop-out the plot into its own window. Click "Export" 
 # **Challenge 1**
 Use `summary()`, `table()` and `describeBy()` to investigate variables in the `iris` dataset. Create a histogram of one of the numeric variables.  
 ```{r}
-## YOUR CODE HERE
+data(iris)
+summary(iris)
+table(iris$Species)
+describeBy(iris, group = iris$Species)
 ```
 
 ### Boxplots (`boxplot`)  
@@ -230,6 +239,16 @@ Check your working directory again - you now have a .PDF of your boxplots!
 
 # **Challenge 2**
 Create boxplots for one of the numeric variables in the `iris` dataset and export it to your working directory as a .TIFF file. 
+```{r}
+data(iris)
+boxplot(iris$Sepal.Length ~ iris$Species,
+        col = c("red", "blue", "green"),
+        main = "Iris (Sepal Length ~ Species) boxplots",
+        xlab = "Type",
+        ylab = "Sepal Length (cm)",
+        las = 1)
+```
+
 
 ### Scatterplots (`plot()`)  
 What if we want to know more about the relationships between two numeric or integer variables? Base R's `plot()` can be useful for quick scatterplots. 
@@ -314,6 +333,7 @@ ggplot2 functions work in layers. Each time you wish to add a geom, title, axis 
 
 Check out the help files and then see the below examples using the "iris" dataset:
 ```{r}
+install.packages("ggplot2")
 library(ggplot2)
 ?ggplot2
 data(iris)
@@ -336,9 +356,10 @@ ggplot(data = iris, aes(x = Petal.Length)) +
 You can also change the color of the bars by adding the `fill` argument to the global aes, change the background color by adding `theme_` in a new layer, and the title by adding `ggtitle` in a new layer. The `bins` argument will change the number and width of the histogram bars.
 ```{r}
 ggplot(data = iris, aes(x = Petal.Length)) + 
-    geom_histogram(fill = "blue", bins = 10) + 
-    theme_bw() + 
-    ggtitle("This is a ggplot histogram")
+    geom_histogram(fill = "blue", color = "black", bins = 10) + 
+    theme_classic() + 
+    ggtitle("This is a ggplot histogram") + 
+  ylab("Ice Cream")
 ```
 
 # ggplot boxplots

@@ -45,25 +45,55 @@ _Learning objectives_
 __  
 
 Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](http://dlab.berkeley.edu/calendar-node-field-date). We offer a variety of:  
-1. [workshop trainings](http://dlab.berkeley.edu/training)    
-2. [working groups](http://dlab.berkeley.edu/working-groups)  
-3. [consulting services](http://dlab.berkeley.edu/consulting)  
-4. [data services](http://dlab.berkeley.edu/data-resources)  
+
+* [workshop trainings](http://dlab.berkeley.edu/training)    
+* [working groups](http://dlab.berkeley.edu/working-groups)  
+* [consulting services](http://dlab.berkeley.edu/consulting)  
+* [data services](http://dlab.berkeley.edu/data-resources)  
 
 __  
 
 Visit these sites for R help:  
-[Quick-R](http://statmethods.net/)  
-[UCLA idre](http://www.ats.ucla.edu/stat/r/)  
-[R-bloggers](https://www.r-bloggers.com/)  
-[Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
+
+* [Quick-R](http://statmethods.net/)  
+* [UCLA idre](http://www.ats.ucla.edu/stat/r/)  
+* [R-bloggers](https://www.r-bloggers.com/)  
+* [Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
+
+__
+
+Resources for the advanced beginner:  
+
+* [R for Data Science](http://r4ds.had.co.nz/)  
+* [Introduction to Probability and Statistics Using R, 3rd ed.](https://cran.r-project.org/web/packages/IPSUR/vignettes/IPSUR.pdf)  
+* [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)  
+* [The tidyverse style guide](http://style.tidyverse.org/)  
+* [bookdown](https://bookdown.org/)  
+* [Quick Intro to Parallel Computing in R](https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html)  
 
 __  
 
 View course offerings at UC Berkeley:  
-[Department of Statistics](http://statistics.berkeley.edu/)  
-[Data Science](http://data.berkeley.edu/)  
-[School of Information](https://datascience.berkeley.edu/)  
-[Interdepartmental Group in Biostatistics](https://www.stat.berkeley.edu/biostat/)  
-[data8](http://data8.org/sp17/)  
-[EECS](https://cs.berkeley.edu/)  
+
+* [Department of Statistics](http://statistics.berkeley.edu/)  
+* [Data Science](http://data.berkeley.edu/)  
+* [School of Information](https://datascience.berkeley.edu/)  
+* [Interdepartmental Group in Biostatistics](https://www.stat.berkeley.edu/biostat/)  
+* [data8](http://data8.org/)  
+* [EECS](https://cs.berkeley.edu/)  
+
+__
+
+Don't know where to start researching classes? Look up some of these to see if they pique your interest:    
+
+* Data 8, CS61A, CS61B, CS 61C, CS70/Math 55, CS 188, CS 189, Math 53, Math 54, Math 110, Stat 28, Stat 20/21, Stat 133, Stat 134/140, Data 100.  
+
+Also check out these excellent UC Berkeley online courses:  
+
+* [D-Lab's Introduction to Data Science for Social Scientists](https://campus.sagepub.com/introduction-to-data-science-for-social-scientists#introduction-to-data-science-for-social-scientists/intro)
+* [Data 8X: Foundations of Data Science](https://data.berkeley.edu/education/data-8x)  
+
+Also be sure to visit:  
+
+* [Graduate Data Science Organization](https://gdso.berkeley.edu/)  
+* [Berkeley Division of Data Sciences](https://data.berkeley.edu/)  
