@@ -51,6 +51,13 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](htt
 * [consulting services](http://dlab.berkeley.edu/consulting)  
 * [data services](http://dlab.berkeley.edu/data-resources)  
 
+__
+
+Other D-Lab R offerings:  
+* [Data Wrangling and Manipulation in R](https://github.com/dlab-berkeley/R-wrang)  
+* [R Graphics](https://github.com/dlab-berkeley/R-graphics)  
+* [Machine Learning in R](https://github.com/dlab-berkeley/Machine-Learning-in-R)  
+* [Machine Learning Working Group](https://github.com/dlab-berkeley/MachineLearningWG)  
 __  
 
 Visit these sites for R help:  
@@ -62,7 +69,7 @@ Visit these sites for R help:
 
 __
 
-Resources for the advanced beginner:  
+Other resources:  
 
 * [R for Data Science](http://r4ds.had.co.nz/)  
 * [Introduction to Probability and Statistics Using R, 3rd ed.](https://cran.r-project.org/web/packages/IPSUR/vignettes/IPSUR.pdf)  
