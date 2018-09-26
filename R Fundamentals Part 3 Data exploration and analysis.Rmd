@@ -23,7 +23,7 @@ getwd()
 1. Load data from files
 ```{r}
 # load the animals dataframe 
-animals <- read.csv("animals.csv", header = TRUE, stringsAsFactors = F)
+animals <- read.csv("/Users/evan.admin/Desktop/R-Fundamentals/data/animals.csv", header = TRUE, stringsAsFactors = F)
 head(animals)
 str(animals)
 ```
@@ -52,13 +52,13 @@ Part 3 Learning objectives
 # Data exploration and analysis in R
 Research design, data collection, exploration, visualization, and analysis are fundamental aspects of research. Learning how to explore and analyze data will help you "think with the data" so that you become able to formulate better research designs and more efficient data collection protocols for your own research.  
 
-Furthermore, when you read peer-reviewed work in your field, having an understanding of basic summaries, plots, and statistical tests will help you better grasp arguments that the authors are making and will allow you to more critically evaluate their rationale.  
+Furthermore, when you read peer-reviewed work in your field, having an understanding of basic summaries, plots, and statistical tests will help you better grasp arguments that the authors are making and will allow you to more critically evaluate their rationale. This can be used to contextualize tests on your own data.  
 
 Think about this as a research pathway of some sort. It is common to have some _a priori_ defined research questions, hypotheses, and expectations of the data. You have learned a little R and have identified a problem to solve. It's always good to first define your purpose, goals, and aims clearly. Then, you probably want to:  
 
-1) subset/clean up your data  
+1) collect/find, import, and subset your data  
 2) compute descriptive statistics  
-3) make some plots  
+3) plot graphs and other visualizations  
 4) run statistical tests  
 
 Descriptive statistics and plots help us check for any obvious (or not so obvious) signals or relationships. Statistical testing can then be employed to test such relationships.  
@@ -84,7 +84,6 @@ summary(animals$Height)
 
 Remember, we installed the 'psych' package on Day 1, so all we have to do is call it into our environment with `library`:
 ```{r}
-install.packages("psych")
 library(psych)
 
 describe(animals) # this works, but causes errors in the non-numeric/integer data
@@ -333,7 +332,6 @@ ggplot2 functions work in layers. Each time you wish to add a geom, title, axis 
 
 Check out the help files and then see the below examples using the "iris" dataset:
 ```{r}
-install.packages("ggplot2")
 library(ggplot2)
 ?ggplot2
 data(iris)
@@ -517,15 +515,6 @@ You can also pull items out of return objects using `names()`. To extract the re
 names(lin_model1)
 hist(lin_model1$residuals, col = "lightgreen")
 ```
-
-# **Challenge 8**
-1. Load the `mtcars` dataset.  
-2. When you load new data into R, what functions are good ones to run to learn more about the data?  
-3. Create boxplots for mpg as parsed by cyl. 
-4. Might you surmise a relationship about something like engine size and miles per gallon?  
-5. What does `cor.test` reveal about mpg and cyl?  
-6. Create a scatterplot of the "mpg" and "hp" variables using `ggplot()`. What happens?  
-7. Can cyl be used to predict mpg in a linear regression model?  
 
 > REMEMBER: If you have research questions, [schedule an appointment with a D-Lab consultant!](http://dlab.berkeley.edu/consulting)
 

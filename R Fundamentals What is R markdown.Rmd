@@ -1,0 +1,63 @@
+---
+title: "What is R markdown?"
+author: "D-Lab"
+date: "9/25/2018"
+output: 
+  html_document: 
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+### So what does it help you do? 
+It allows you create documents of various kinds. Check out the [R Markdown Quick Tour](http://rmarkdown.rstudio.com/authoring_quick_tour.html). Some highlights:
+1. Enter text as normal. No special formatting is required for regular text.   
+2. Code should be entered inside "chunks" that look like this:  
+```{r}
+2 + 2
+# hashtag text within a chunk to comment it.
+
+# click "Code" and "Insert chunk" to see the keyboard shortcut.  
+```
+3. Run a line of code like normal - remember you can select multiple lines to run at once.  
+4. Click the green "Play" button on the right side of a chunk to run the entire chunk.  
+5. Click the "Run" button (top right portion of your R Markdown window) to see various run options.  
+6. Click "Tools" --> "Global options" --> "Code" and make sure the box is checked that says "soft wrap R source files".  
+7. Click "Tools" --> "Global options" --> "Appearance" to change your color and font settings.  
+8. Click "Tools" --> "Global options" --> "R Markdown" and make sure to uncheck the box "Show output inline for all R Markdown documents" _and_ check the box that says "Show document outline by default". (otherwise, click "Code" --> "Show document outline").  
+9. Use "knitr" to generate [.HTML](https://html.com/), .docx, .pdf files, slideshows, and fancy applications. Click [here](https://rmarkdown.rstudio.com/) and [here](https://bookdown.org/yihui/rmarkdown/) for walkthroughs and examples.  
+
+Make sure you have correctly installed and libraried the "rmarkdown" and "knitr" packages. _**Visit**_ [D-Lab](http://dlab.berkeley.edu/) to learn more! 
+
+```{r}
+# install.packages("ggplot2")
+library(ggplot2)
+ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width, 
+                        color = Species, shsape = Species)) + 
+  geom_point(size = 7.8, alpha = 0.25) + 
+  theme_classic() + theme(legend.position = "top")
+```
+
+

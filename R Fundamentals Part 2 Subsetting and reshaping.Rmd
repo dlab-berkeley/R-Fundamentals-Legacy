@@ -39,7 +39,6 @@ Load the animals dataset from the data folder inside the R-Fundamentals data fol
 ?read.csv
 ```
 ```{r}
-# relative file path
 animals <- read.csv("animals.csv", 
                     header = TRUE, 
                     stringsAsFactors = T,
@@ -73,7 +72,7 @@ This dataset is part of the [VIM package](https://cran.r-project.org/web/package
 When dealing with Microsoft Excel files (.xlsx), you will find it more convenient to save them first as .csv files in Excel and then import them using `read.csv()`. However, you can also install the "foreign" package to load data from SPSS, Stata, Weka, Systat, Minitab, SAS, S, and MATLAB. See [this helpful rio documentation as well](https://cran.r-project.org/web/packages/rio/vignettes/rio.html). 
 
 # Inspecting the data frame
-Remember from Part 1 that we can learn a lot about data in R. For dataframes, the following commands are useful:
+Remember from Part 1 that we can learn a lot about data in R. For dataframes, the following functions are useful:
 ```{r, eval=FALSE}
 str(sleep_VIM)    # returns the structure of the dataframe
 dim(sleep_VIM)    # dataframe dimensions; remember, we want 62 rows and 10 columns! 
@@ -142,7 +141,7 @@ However, we do not have to specify all rows or columns when subsetting with brac
 Let's start just with the columns!  
 
 ### Variable names (`[ , c("Variable Names")]`)
-You can subset your data by specifying variable names within bracket notation and using the `c()` command to create a column name character vector of names you want to keep.
+You can subset your data by specifying variable names within bracket notation and using the `c()` function to create a column name character vector of names you want to keep.
 
 We can create a new dataframe object `sleep_varnames` that includes only "BodyWgt" and "BrainWgt" variable names from the `sleep` data frame:
 ```{r, eval=FALSE}

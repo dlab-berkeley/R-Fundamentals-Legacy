@@ -1,7 +1,7 @@
 ---
 title: 'R Fundamentals Part 1: Introduction'
 author: "D-Lab"
-date: "September 5, 2018"
+date: "September 26, 2018"
 output:
   html_document: 
     number_sections: yes
@@ -62,7 +62,7 @@ Then, the instructor will:
 1) provide a few motivating examples for the class  
 2) describe how to apply R to social science research  
 3) mention some of its pitfalls  
-4) lead typing walkthoughs of these R commands  
+4) lead typing walkthoughs of these R functions  
 
 Remember, our goal is to teach you responsible computational programming with R - not statistics or math. To learn statistics and math, check out UC Berkeley:  
 [Department of Statistics](http://statistics.berkeley.edu/)  
@@ -74,7 +74,7 @@ Remember, our goal is to teach you responsible computational programming with R 
 [EECS](https://cs.berkeley.edu/)  
 
 ### R and RStudio
-R is a programming language based on the "S" and "S-PLUS" language and graphics user interface (GUI) and is **functional**, **object oriented**, and **interpreted**. These themes make R highly extensible.  
+R is a programming language based on the [S](https://en.wikipedia.org/wiki/S_(programming_language)) and [S-PLUS](https://en.wikipedia.org/wiki/S-PLUS) language and graphical user interface (GUI) and is **functional**, **object oriented**, and **interpreted**. These themes make R highly extensible.  
 
 However, we do not need to think of R in such complicated terms. In this workshop, we want to provide you with basic programming competencies so you can apply what you learn to your own research starting after Part 1!  
 
@@ -94,7 +94,7 @@ enter code in this savable `script` file.
 code output is displayed here in the `console`.  
 
 **Top right pane**  
-contains the defined objects currently in the `global environment` and command `history`.  
+contains the defined objects currently in the `global environment` and value, data, and function `history`.  
 
 **Bottom right pane**  
 contains file import/export, plot view, package installations, and help
@@ -124,22 +124,6 @@ the name of your script file is in the tab at the top of your script window - th
 If the name is red and followed by an asterisk `*` it means **your script is not saved**. 
 
 **Save your script** by clicking "File" then "Save", or `command + s` (Mac) or `Ctrl + s` (PC). You can also click the 
-
-### R markdown
-This is an R markdown (.Rmd) file. It allows you create documents of various kinds. Check out the [R Markdown Quick Tour](http://rmarkdown.rstudio.com/authoring_quick_tour.html). Some highlights:
-1. Enter text as normal!  
-2. Code must be entered as "chunks" that look like this:  
-```{r}
-2 + 2
-# but hashtag text within a chunk to add a comment to it.
-```
-3. Run a line of code like normal - remember you can select multiple lines to run at once.  
-4. Click the green "Play" button on the right side of a chunk to run the entire chunk.  
-5. Click the "Run" button (top right portion of your R Markdown window) and "Run All" to run all! 
-6. Click "Tools" --> "Global options" --> "Code" and make sure the box is checked that says "soft wrap R source files".  
-7. Click "Tools" --> "Global options" --> "Appearance" to change your color and font settings.  
-8. Click "Tools" --> "Global options" --> "R Markdown" and make sure to uncheck the box "Show output inline for all R Markdown documents" _and_ check the box that says "Show document outline by default". (otherwise, click "Code" --> "Show document outline").  
-9. Use "knitr" to generate [.HTML](https://html.com/), .docx, .pdf files, slideshows, and fancy applications. Click [here](https://rmarkdown.rstudio.com/) and [here](https://bookdown.org/yihui/rmarkdown/) for walkthroughs and examples.  
 
 ### Package installation
 Many people write clever software that makes R smarter/better/faster/stronger. You can install packages by clicking the "Packages" tab in the bottom-right window, clicking install, and then searching for the package you wish to install.
@@ -184,7 +168,7 @@ You define objects through `variable assignment` and they are stored in your `gl
 
 You define objects through variable assignment using the **assignment operator** `<-`. This is a "less than" `<` symbol immediately followed by a hyphen `-`
 
-You will also see that `=` is frequently used in place of the assignment operator. This works the same, but we recommend using the assignment operator for consistency. Arguments and functions frequently use `=` and it is best to consistently assign your variables with `<-` until you understand the basics.  
+> You will also see that `=` is frequently used in place of the assignment operator. This works the same, but we recommend using the assignment operator for consistency. Arguments and functions frequently use `=` and it is best to consistently assign your variables with `<-` until you understand the basics.  
 
 **Object definition/variable assignment requires three pieces of information**:  
 1) object_name  
@@ -252,10 +236,13 @@ welcome_object2
 
 ### Variable classes (`class`)
 Each variable in R has a `class` that summarizes the type of the data stored within the object. We will talk more about data types below.
+
+> NOTE! "numeric" is the default data type for numbers in R:
+
 ```{r}
-class(numeric_object)
-class(welcome_object)
-class(welcome_object2)
+class(numeric_object) # this is numeric (NOT integer) data type!
+class(welcome_object) # character type
+class(welcome_object2) # character type
 ```
 
 ### Removing variables (`rm`)
@@ -289,18 +276,20 @@ You should take a few minutes sometime to browse the contents of these help site
 [Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
 
 # **Challenge 1**
-1. What is the three-piece recipe for variable definition?
-2. Define two numeric objects.
-3. Define two character objects.
-4. What does the `ls()` function do? Where else do you see this information?
-5. Remove an individual object using `rm`.
-6. Wipe your environment using `rm(list=ls())` or the broom icon. 
+1. What is the three-piece recipe for variable definition? What piece goes where?  
+2. Define two numeric variables.  
+3. Define two character variables.  
+4. How do you check what types of data these variables are?  
+5. What does the `ls()` function do? Where else do you see this information?  
+6. Remove one of your numeric and one of your character variables.  
+7. Try to subract your remaining character variable from your numeric one. What happens? What might this tell you about data of different types?  
+8. Wipe your environment clean.  
 ```{r}
 ## YOUR CODE HERE
 ```
 
 # Atomic data types in R
-Numeric, character, and logical (aka "boolean") data types all exist at the atomic level. Normally this means that they cannot be broken down any further and are the raw inputs for commands in R. Other R variables are frequently built upon these atomic types.
+Numeric, character, and logical (aka "boolean") data types all exist at the atomic level. Normally this means that they cannot be broken down any further and are the raw inputs for functions in R. Other R variables are frequently built upon these atomic types.
 
 ### Numeric type
 Numeric data are numbers and integers. You may also hear numeric data referred to as `float` or `double` data types. By default, R stores everything as `doubles` (64 bit floating point numbers) which makes R very memory hungry. 
@@ -350,10 +339,10 @@ char3
 ```
 Note here that R is not a zero-indexed language - lists begin at the number 1. The one and only element in this object is the sentence "Hey momma I'm a string". 
 
-Character data have some useful commands such as `grep`, `substr`, `strsplit`, and `gsub`. Use your help commands to learn more!  
+Character data have some useful functions such as `grep`, `substr`, `strsplit`, and `gsub`. Use your help commands to learn more!  
 
 ### Function arguments
-Arguments go inside of the parentheses of R commands. Unnamed arguments are things like the number 4. `split = " "` is what is called a named argument. This argument goes inside the parentheses of another command such as `strsplit`. 
+Arguments go inside of the parentheses of R functions. Unnamed arguments are things like the number 4. `split = " "` is what is called a named argument. This argument goes inside the parentheses of another function such as `strsplit`. 
 ```{r}
 char4 <- "This/is/slash/separated/text"
 char4
@@ -361,7 +350,7 @@ split1 <- strsplit(char4, split = "/")
 split1 # a list is returned. 
 ```
 
-Most commands require one or two arguments to be defined in order for the command to properly run. You will find that commands are full of default, positional, and optional arguments that you can manipulate.  
+Most functions require one or two arguments to be defined in order for it to properly run. You will find that functions are full of default, positional, and optional arguments that you can manipulate.  
 
 ### imple string subset example (`substr`)
 `substr` lets you extract text from certain character positions in character data. Refer back to `char2`
@@ -826,6 +815,8 @@ library(swirl)
 swirl()
 # follow the instructions until you can select number 1 "R Programming: The basics of programming in R"
 ```
+
+> NOTE: type `bye()` to exist swirl. 
 
 Acknowledgements
 - [Wickham H. 2014. Advanced R](http://adv-r.had.co.nz/)  

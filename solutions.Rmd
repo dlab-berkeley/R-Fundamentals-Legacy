@@ -5,20 +5,24 @@ date: "September 5, 2018"
 output: html_document
 ---
 
+> Remember to click "Code" --> "Show document outline" to see a clickable list of the answers.  
+
 # Part 1
 
 ### Part 1 - Challenge 1
-1. What is the three-piece recipe for variable definition?
-2. Define two numeric objects.
-3. Define two character objects.
-4. What does the `ls()` function do? Where else do you see this information?
-5. Remove an individual object using `rm`.
-6. Wipe your environment using `rm(list=ls())` or the broom icon. 
+1. What is the three-piece recipe for variable definition? What piece goes where?  
+2. Define two numeric variables.  
+3. Define two character variables.  
+4. How do you check what types of data these variables are?  
+5. What does the `ls()` function do? Where else do you see this information?  
+6. Remove one of your numeric and one of your character variables.  
+7. Try to subract your remaining character. What happens? What might this tell you about data of different types?  
+8. Wipe your environment clean.  
 ```{r}
 # 1. 
 # A) Unique name does on left side
 # B) Assignment operator <- goes in the middle (a single equals sign works just as well)
-# C) Definition/statement/expression goes on right side
+# C) Definition/statement/expression/ (aka some sort of "code to be evaluated") goes on right side
 
 # 2. 
 x = 15
@@ -28,14 +32,25 @@ y = 88
 my_name = "Oski"
 my_city = "Berkeley, California"
 
-# 4. 
-# ls() will list the variables defined in the global environment
+# 4.
+class(x)
+class(y)
+class(my_name)
+class(my_city)
 
-# 5.
+# 5. 
+# ls() will list the variables defined in the global environment (upper right pane in RStudio)
+
+# 6.
+rm(x)
 rm(my_city)
 
-# 6. 
-rm(list = ls()) # or simply click the broom icon in the upper-right Environment tab
+# 7. 
+y - my_name
+# we receive an error message! data type is important because it determines what we can do to that specific variable, or group of variables. here, we cannot subtract a string from a numeric variable. 
+
+# 8. 
+rm(list = ls()) # or simply click the broom icon in the upper-right RStudio pane
 ```
 
 ### Part 1 - Challenge 2
@@ -438,8 +453,71 @@ summary(mt_model)
 ```
 
 # Part 4
+# Example project
 
-### Part 4 - Challenge 1
+You are given a dataset you have never seen before. You want to use RStudio to import the dataset and learn about it a little before you proceed with preprocessing tasks. 
+
+##### 1. Load the `mtcars` dataset.  
+##### 2. What are some useful functions to learn more about the data? 
+##### 3. Might you surmise a relationship about something like engine size and miles per gallon?  
+##### 4. Create boxplots for mpg as parsed by cyl. 
+##### 5. What does `cor.test` reveal about mpg and cyl? 
+##### 6. Create a scatterplot of the "mpg" and "hp" variables using `ggplot()`. What happens?  
+##### 7. Can cyl be used to predict mpg in a linear regression model? Why must you learn about the assumptions of a statistical test before applying it? 
+
+```{r}
+# 1. 
+data()
+data(mtcars)
+
+# 2. 
+?mtcars
+str(mtcars)
+head(mtcars)
+mtcars
+View(mtcars)
+
+# field notes, lab reports, scientific instruments, Google, etc. 
+
+# 3. 
+# Larger engine equals less miles per gallon? 
+
+# 4. 
+boxplot(mpg ~ cyl, data = mtcars,
+        col = c("red", "green", "gold"),
+        main = "mtcars boxplots",
+        xlab = "# of cylinders",
+        ylab = "mpg", las = 1)
+
+# or
+
+plot_box = ggplot(mtcars, aes(cyl, mpg, 
+                              fill = as.factor(cyl))) + 
+  geom_boxplot() + 
+  theme(legend.position = "top") + 
+  labs(fill = "Cylinders")
+plot_box
+
+# 5. 
+cor.test(mtcars$mpg, mtcars$cyl)
+
+# 6. 
+plot_scatter = ggplot(mtcars, aes(hp, mpg, color = mpg)) + 
+  geom_point(size = 8, alpha = 0.8) +
+  theme_minimal() 
+plot_scatter
+
+# 7. 
+lm1 = lm(mpg ~ cyl, data = mtcars)
+lm1
+summary(lm1)
+```
+  
+# Bioarch dataset
+(in class example)
+
+# Bonus 
+### Challenge 1
 1. Write a for loop that outputs something. 
 ```{r}
 for (i in 1:10) {
@@ -453,7 +531,7 @@ for (time in c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)) {
 }
 ```
 
-### Part 4 - Challenge 2
+### Challenge 2
 ```{r}
 for (x in c(2,4,6,8,10,12)) {
   if (x < 8) {
@@ -473,7 +551,7 @@ for (i in 1:12) # what happened to the curly braces?
 }
 ```
 
-### Part 4 - Challenge 3
+### Challenge 3
 Say we choose 25 people at random. What is the probability two or more of them have the same birthday?'
 ```{r}
 ## See the Part 4 .Rmd file for the answer
