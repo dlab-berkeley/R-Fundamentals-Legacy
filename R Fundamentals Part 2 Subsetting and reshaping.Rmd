@@ -59,10 +59,6 @@ library(VIM)
 data(sleep)
 sleep_VIM = sleep
 ## YOUR CODE HERE
-
-sleep_VIM = read.csv("sleep_VIM.csv")
-str(sleep_VIM)
-sleep_VIM
 ```
 
 This dataset is part of the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf). It looks at sleep patterns in various mammal species and contains missing (`NA`) values. Click  [here](http://science.sciencemag.org/content/194/4266/732) to see the original research article. 
@@ -118,17 +114,7 @@ sleep_VIM$
 2. Plot them in a histogram using the `hist()` function. How do you do this? 
 3. Can all data types be visualized with histograms? Why or why not?
 ```{r}
-animals$Height
-animals$Type
-animals$Progress
-
-height = animals$Height
-
-hist(animals$Height)
-hist(height, col = "orange")
-
-table(animals$Type)
-
+## YOUR CODE HERE
 ```
 
 ### Subsetting in two dimensions with bracket notation `[ , ]` 
@@ -248,26 +234,8 @@ example_list[[1]]
 3. Subset the `iris` dataset in three ways using column names and positive and negative integers.  
 4. Subset `iris` using logical tests, `&`, and `|`    
 ```{r}
-# 1.
-data(iris)
-
-my_iris = iris
-str(my_iris)
-# 2. 
-str(iris)
-?iris
-
-# 3. 
-(iris_sub1 = iris[iris$Sepal.Length >= 7.7, ] )
-iris_sub2 = iris[iris$Species == "setosa", ]
-iris_sub2
-
-# 4.
-iris_and = iris[iris$Species == "setosa" | iris$Petal.Width > 0.4 , ]
-iris_and
-str(iris_and)
+## YOUR CODE HERE
 ```
-
 
 # Missing data (`NA`)
 Identifying missing data can be important for subsetting purposes. R codes missing values as `NA`. Identifying missing data is important because dealing with it might be necessary to run basic tests like `mean()`. 
@@ -438,6 +406,9 @@ df_rbind
 2. Create a subsetted data frame that only contains healthy pigs! (hint: what is the meaning of "and" here in contrast to question #1?)  
 3. load the `mtcars` dataset. How might you find out what it is and how do you load it?  
 4. subset `mtcars` in five different ways.  
+```{r}
+## YOUR CODE HERE
+```
 
 You can also order your data using `order`. For example, sort `mtcars` by ascending cyl and descending mpg: 
 ```{r, eval=FALSE}

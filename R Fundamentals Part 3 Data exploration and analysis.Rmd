@@ -189,10 +189,7 @@ Click the "Zoom" button to pop-out the plot into its own window. Click "Export" 
 # **Challenge 1**
 Use `summary()`, `table()` and `describeBy()` to investigate variables in the `iris` dataset. Create a histogram of one of the numeric variables.  
 ```{r}
-data(iris)
-summary(iris)
-table(iris$Species)
-describeBy(iris, group = iris$Species)
+## YOUR CODE HERE
 ```
 
 ### Boxplots (`boxplot`)  
@@ -239,13 +236,7 @@ Check your working directory again - you now have a .PDF of your boxplots!
 # **Challenge 2**
 Create boxplots for one of the numeric variables in the `iris` dataset and export it to your working directory as a .TIFF file. 
 ```{r}
-data(iris)
-boxplot(iris$Sepal.Length ~ iris$Species,
-        col = c("red", "blue", "green"),
-        main = "Iris (Sepal Length ~ Species) boxplots",
-        xlab = "Type",
-        ylab = "Sepal Length (cm)",
-        las = 1)
+## YOUR CODE HERE
 ```
 
 
@@ -316,7 +307,10 @@ dev.off()
 Voilà! Check your working directory - we now have a publishable quality figure that can be copy and pasted into your manuscript.   
 
 # **Challenge 3**
-Using the `iris` dataset, plot two numeric variables and export the graph to your working directory as a .PNG file. 
+Using the `iris` dataset, plot two numeric variables and export the graph to your working directory as a .TIFF file with JPEG compression. (remember to export as .PDF first)
+```{r}
+
+```
 
 # ggplot2
 The "ggplot2" R package is a powerful way to graph your data. The syntax is similar to what is used in "dplyr", except instead of a pipe `%>%`, a plus-symbol `+` is used.  
@@ -399,6 +393,9 @@ ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width, color = Species, shap
 
 # **Challenge 4** 
 In lines the ggplot code above, what are the arguments inside of our second "theme" argument doing?
+```{r}
+## 
+```
 
 # Statistical testing
 Now that we have sufficiently summarized and explored our data, it is time to formally investigate the basics of a few statistical methods. Remember that you must investigate the assumptions of all of these tests, which are not covered here.  

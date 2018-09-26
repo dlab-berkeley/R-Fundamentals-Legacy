@@ -192,7 +192,9 @@ str(basket)
 ```{r}
 # install.packages("swirl")
 library(swirl)
-swirl()
+
+# unhashtag the line below and run it to get started
+# swirl()
 ```
 
 # Part 2
