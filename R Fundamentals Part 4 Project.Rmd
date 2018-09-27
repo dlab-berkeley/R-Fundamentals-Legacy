@@ -1,16 +1,16 @@
 ---
 title: "R Fundamentals Part 4 Project"
-author: "Evan"
-date: "9/25/2018"
+author: "D-Lab"
+date: "9/27/2018"
 output: 
   html_document: 
     toc: yes
     toc_float: yes
 ---
 
-# Example project
+# Example workflow
 
-You are given a dataset you have never seen before. You want to use RStudio to import the dataset and learn about it a little before you proceed with preprocessing tasks. 
+You are given a dataset you have never seen before. You want to use RStudio to import the dataset and learn about it a little before you proceed with preprocessing tasks, exploratory data analysis, and statistical testing. 
 
 ##### 1. Load the `mtcars` dataset.  
 ```{r}
@@ -23,6 +23,9 @@ You are given a dataset you have never seen before. You want to use RStudio to i
 ```
 
 ##### 3. Might you surmise a relationship about something like engine size and miles per gallon?  
+```{r}
+## 
+```
 
 ##### 4. Create boxplots for mpg as parsed by cyl. 
 ```{r}
@@ -34,100 +37,66 @@ You are given a dataset you have never seen before. You want to use RStudio to i
 ## YOUR CODE HERE
 ```
 
-##### 6. Create a scatterplot of the "mpg" and "hp" variables using `ggplot()`. What happens?  
+##### 6. Create a scatterplot of the "mpg" and "hp" variables using `ggplot()`. What do you notice?  
 ```{r}
 ## YOUR CODE HERE
 ```
 
-##### 7. Can cyl be used to predict mpg in a linear regression model? Why must you learn about the assumptions of a statistical test before applying it? 
+##### 7. Can cyl be used to predict mpg in a linear regression model? Why must you learn about the assumptions of a statistical test before applying it (or any other statistical test)? 
 ```{r}
 ## YOUR CODE HERE
 ```
   
-# Bioarch dataset
+# Gapminder dataset
 ### 1. 
-Now that you are warmed up, click the play button of the one-line chunk below to generate the bioarch dataset. 
-```{r generate bioarchaeology dataset, eval = F, echo = F}
-bioarch = data.frame(
-  Site = c(Group = c(rep("Huaca Loro", 8),
-          rep("Halstatt", 8),
-          rep("Çatalhöyük", 8),
-          rep("Odai Yamamoto", 8),
-          rep("Shum Laka", 8))),
-  Sex_est = c("Male","Male","Female","Male","Female","Female","Male","Female",
-          "Male","Female","Male","Female","Male","Male","Female","Male",
-          "Male","Male","Female","Male","Female","Female","Male","Female",
-          "Male","Male","Female","Female","Male","Female","Female","Male",
-          "Female","Female","Female","Female","Female","Female","Female","Female"),
-  Health = c("Average","Poor","Excellent","Excellent","Poor","Excellent","Poor","Excellent",
-             "Average","Average","Average","Average","Excellent","Average","Average","Excellent",
-             "Average","Average","Average","Average","Average","Average","Average","Average",
-             "Average","Average","Average","Excellent", "Poor","Average","Excellent", "Poor",
-             "Excellent","Excellent","Excellent","Excellent","Excellent","Excellent","Excellent","Excellent"),
-  Burial_location = c("Cemetery","Temple","Temple","Temple","Cemetery","Temple","Temple","Cemetery",
-                    "Hillside","Beach","Hillside","Hillside","Beach","Hillside","Hillside","Beach",
-                    "Shrine","Basket","Basket","Basket","Rockshelter","Basket","Basket","Rockshelter",
-                    "Temple","Temple","Beach","Temple","Beach","Beach","Temple","Beach",
-                    "Cave","Shrine","Rockshelter","Cave","Cave","Rockshelter","Cave","Cave"),
-  Depth = as.integer(c(110,120,120,100,80,30,30,30,
-                     40,40,50,60,40,40,40,40,
-                     80,80,70,80,60,60,60,70,
-                     100,120,90,100,90,90,100,120,
-                     20,10,20,10,10,15,15,20)),
-  Burial_items = as.integer(c(10,8,7,4,6,2,1,1,
-                            0,0,1,2,5,8,9,3,
-                            3,2,4,4,3,4,3,2,
-                            15,18,12,12,14,2,15,18,
-                            1,2,0,0,0,0,0,0)),
-  Ceramic_vessels = as.integer(c(10,11,14,15,13,1,1,0,
-                               3,4,2,2,9,19,1,0,
-                               2,3,2,5,6,8,9,3,
-                               1,1,1,1,3,0,0,0,
-                               1,1,0,0,0,0,0,0)),
-  Femur_length = c(480.1,481.0,400.3,482.9,405.7,390.4,380.3,462.5,
-                 490.4,440.1,499.8,442.5,502.1,440.0,430.0,490.0,
-                 460.5,469.2,455.4,462.1,459.0,460.1,460.2,460.5,
-                 480.6,479.9,420.4,422.9,478.7,491.6,490.0,420.0,
-                 470.1,469.2,473.4,478.7,471.0,472.4,469.6,419.2))
-                  
-str(bioarch)
-bioarch
+Now that you are warmed up, load the "gapminder-FiveYearData.csv" file for yet another dataset you have never seen before. Save it in a variable named `gap`:
+```{r}
+## YOUR CODE HERE
 ```
 
 ### 2. 
-How would you learn more about this `bioarch` dataset? Where are these sites located? What do the real-life data say about these sites? Can we compare our toy data somehow? What types of questions can we use data to investigate? 
+How would you learn more about this dataset? 
 ```{r}
 ## YOUR CODE HERE
 ```
 
 ### 3. 
-Pretend you are a bioarchaeologist for the next two hours. You hope to follow the research framework below:
+Accomplish the following tasks: 
 
-### A) Although you have never seen these data before or know anything about [Bioarchaeology](https://en.wikipedia.org/wiki/Bioarchaeology), write two sentences describing this dataset and write one sentence that proposes one research question to be investigated. 
+### A) Write three sentences describing this dataset and write one sentence that proposes a research question to be investigated. 
 ```{r}
-##
-##
-##
+## 
+## 
+## 
+
+## 
 ```
 
-### B) Compute descriptive statistics for each variable in the dataset.  
+### B) Turn your research question into a testable hypothesis:
+```{r}
+## 
+```
+
+### C) Compute descriptive statistics for each variable in the dataset.  
 ```{r}
 ## YOUR CODE HERE
 ```
 
-### C) Can you visualize the data from every single column in this dataset? Create a histogram, boxplot, or scatterplot for the ones you can, and explain in writing the ones you cannot.  
+### D) Can you visualize the data from every single column in this dataset? Create a histogram, boxplot, or scatterplot for the ones you can, and explain in writing the ones you cannot.  
 ```{r}
 ## YOUR CODE HERE
+
+## 
 ```
 
-### D) Do these plots inform you about anything specific that fits your hypothesis and that you can justifiably test? 
+### E) Do these plots inform you about anything specific that fits your hypothesis and that you can justifiably test? 
 ```{r}
 ## 
 ##
 ##
 ```
 
-### E) How might you try to interpret your plots and statistical output? Why? 
+### F) Interpret your plots and your statistical tests - what is going on? 
 ```{r}
 ##
 ##

@@ -515,7 +515,7 @@ lm1
 summary(lm1)
 ```
   
-# Bioarch dataset
+# Gapminder dataset
 (in class example)
 
 # Bonus 
