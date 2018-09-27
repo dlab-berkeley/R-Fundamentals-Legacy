@@ -36,7 +36,8 @@ _Learning objectives_
 3. ggplot2: _`+`, three parts: data, aes, geom_  
 4. Testing: _`t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`_  
 
-**Part 4:** 
+**Part 4:**  
+
 Apply what you have learned to two example workflows.  
 
 **Bonus:**  
