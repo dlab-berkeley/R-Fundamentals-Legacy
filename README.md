@@ -93,16 +93,18 @@ View course offerings at UC Berkeley:
 * [data8](http://data8.org/)  
 * [EECS](https://cs.berkeley.edu/)  
 
-__
-
 Don't know where to start researching classes? Look up some of these to see if they pique your interest:    
 
 * Data 8, CS61A, CS61B, CS 61C, CS70/Math 55, CS 188, CS 189, Math 53, Math 54, Math 110, Stat 28, Stat 20/21, Stat 133, Stat 134/140, Data 100.  
+
+__
 
 Also check out these excellent UC Berkeley online courses:  
 
 * [D-Lab's Introduction to Data Science for Social Scientists](https://campus.sagepub.com/introduction-to-data-science-for-social-scientists#introduction-to-data-science-for-social-scientists/intro)
 * [Data 8X: Foundations of Data Science](https://data.berkeley.edu/education/data-8x)  
+
+__
 
 Also be sure to visit:  
 
