@@ -35,8 +35,11 @@ _Learning objectives_
 2. Plotting data: _`hist`, `plot`, `boxplot`_  
 3. ggplot2: _`+`, three parts: data, aes, geom_  
 4. Testing: _`t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`_  
-  
-**Part 4:**  
+
+**Part 4:** 
+Apply what you have learned to two example workflows.  
+
+**Bonus:**  
 1. For loops: _`for`, `if`, `else`, `ifelse`_  
 2. Functions: _`function`_  
 3. Automation - Monte Carlo simulation: `sample`, `die_roll_mean`, `replicate`, `hist`  
