@@ -9,37 +9,39 @@ output: html_document
 
 **Part 1:**  
 1. Learn to navigate RStudio; install and library packages  
-2. Variable assignment (three piece recipe): `x = 5`, `ls()`, `class()`, `rm()`  
+2. Variable assignment (three piece recipe): `x = 5`, `ls`, `class`, `rm`  
 3. Data types: numeric, integer, character, logical, factor  
 4. Data coercion: `as.integer`, `as.numeric`, `as.character`, `as.logical`, `as.factor`  
-5. Data structures: vector, list, matrix, data frame: `paste()`, `c()`, `list()`, `matrix()`, `data.frame()`  
-6. Basic text manipulations: `grep()`, `substr()`, `strsplit()`, `gsub()`
-7. (Pseudo) random generation: `set.seed()`, `seq()`, `:`, `runif()`, `rnorm()`, `sample()`  
-8. Save and practice: `write.csv()` and `swirl()`  
+5. Data structures: vector, list, matrix, data frame: `paste`, `c`, `list`, `matrix`, `data.frame`  
+6. Basic text manipulations: `grep`, `substr`, `strsplit`, `gsub`
+7. (Pseudo) random generation: `set.seed`, `seq`, `:`, `runif`, `rnorm`, `sample`  
+8. Save and practice: `write.csv` and `swirl`  
 
 **Part 2:**  
 1. Set your working directory to the R-Fundamentals "data" folder.  
-2. Load the `gapminder-FiveYearData.csv` data frame  
-3. Load the `sleep_VIM` data set  
-4. Subsetting: one (`$`) versus two dimensions (`[ , ]`)  
-5. Identify and count missing data: `sum` and `is.na`  
-6. Wide and long format data: `melt` and `dcast`  
+2. Load the `gapminder-FiveYearData.csv` and `sleep_VIM.csv` files: `read.csv` and its arguments `header =`, `stringsAsFactors =`, and `na.strings =`  
+3. Subsetting in one and two dimensions: `$`, `[ , ]`, and `subset`  
+4. Using logical/boolean operators to subset: `<`, `>=`, `==`, etc.; and `&`, or `|`  
+5. Identify, count, and recode missing data: `sum` and `is.na`  
+6. Merge and combine data: `merge`, `cbind`, `rbind`  
+7. Reshape data between long and wide format: `melt` and `dcast`  
 
 **Part 3:**  
-1. Summarizing data: _`summary`, `describe`, `table`_  
-2. Plotting data: `hist`, `plot`, `boxplot`  
-3. ggplot2: _+`, three parts: data, aes, geom 
-4. Testing: `t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`  
+1. Learn to use your domain expertise to think systematically about research design!  
+2. Summarize data: `summary`, `describe`, `table`  
+3. Visualize data: `hist`, `boxplot`, `plot`  
+  3. Four parts to a ggplot: data, aes, geom; `+`  
+4. Test data: `t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`  
 
 **Part 4:**  
 Apply what you have learned in Parts 1, 2, and 3 to investigate a heart disease dataset! Goals:  
-1. Learn about data.  
+1. Learn about the data.  
 2. Ask a well-informed research question.  
 3. Design a set of testable hypotheses.  
 4. Import and subset the data.  
 5. Create visualizations.  
 6. Run statistical tests.  
-7. Learn about making inferences from data.  
+7. Introduction to why you should learn about how to make inferences from data.  
 
 **Part 5 (Bonus)**  
 Quick introduction to learn R Markdown and knitr.  
