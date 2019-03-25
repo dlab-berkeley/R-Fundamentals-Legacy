@@ -14,7 +14,7 @@ Laptop required. Before Part 1 be sure to:
 
 Open the [Learning objectives]() file to see the topics covered in this workshop series. 
 
-# About the UC Berkeley Social Sciences Data Laboratory (D-Lab) 
+# About the UC Berkeley D-Lab
 
 D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as R Fundamentals, one-to-one consulting, and working groups that cover a variety of research topics, digital tools, and programming languages.  
 
@@ -82,9 +82,7 @@ Don't know where to start researching classes? Look up some of these to see if t
 * [D-Lab's Introduction to Data Science for Social Scientists](https://campus.sagepub.com/introduction-to-data-science-for-social-scientists#introduction-to-data-science-for-social-scientists/intro)
 * [Data 8X: Foundations of Data Science](https://data.berkeley.edu/education/data-8x)  
 
-__
-
-Contributions to these materials were made by:  
+Contributions to these materials by:  
 * Evan Muzzall  
 * Sam Abdel-Ghaffar  
 * Guadalupe Tuñón  
