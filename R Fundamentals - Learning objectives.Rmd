@@ -1,0 +1,51 @@
+---
+title: "Learning objectives"
+author: "D-Lab"
+date: "3/25/2019"
+output: html_document
+---
+
+# Learning objectives  
+
+**Part 1:**  
+1. Learn to navigate RStudio; install and library packages  
+2. Variable assignment (three piece recipe): `x = 5`, `ls()`, `class()`, `rm()`  
+3. Data types: numeric, integer, character, logical, factor  
+4. Data coercion: `as.integer`, `as.numeric`, `as.character`, `as.logical`, `as.factor`  
+5. Data structures: vector, list, matrix, data frame: `paste()`, `c()`, `list()`, `matrix()`, `data.frame()`  
+6. Basic text manipulations: `grep()`, `substr()`, `strsplit()`, `gsub()`
+7. (Pseudo) random generation: `set.seed()`, `seq()`, `:`, `runif()`, `rnorm()`, `sample()`  
+8. Save and practice: `write.csv()` and `swirl()`  
+
+**Part 2:**  
+1. Set your working directory to the R-Fundamentals "data" folder.  
+2. Load the `gapminder-FiveYearData.csv` data frame  
+3. Load the `sleep_VIM` data set  
+4. Subsetting: one (`$`) versus two dimensions (`[ , ]`)  
+5. Identify and count missing data: `sum` and `is.na`  
+6. Wide and long format data: `melt` and `dcast`  
+
+**Part 3:**  
+1. Summarizing data: _`summary`, `describe`, `table`_  
+2. Plotting data: `hist`, `plot`, `boxplot`  
+3. ggplot2: _+`, three parts: data, aes, geom 
+4. Testing: `t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`  
+
+**Part 4:**  
+Apply what you have learned in Parts 1, 2, and 3 to investigate a heart disease dataset! Goals:  
+1. Learn about data.  
+2. Ask a well-informed research question.  
+3. Design a set of testable hypotheses.  
+4. Import and subset the data.  
+5. Create visualizations.  
+6. Run statistical tests.  
+7. Learn about making inferences from data.  
+
+**Part 5 (Bonus)**  
+Quick introduction to learn R Markdown and knitr.  
+
+**Part 6 (Bonus**)
+1. For loops: `for`, `if`, `else`, `ifelse`  
+2. Functions: `function`  
+3. Automation - Monte Carlo simulation: `sample`, `die_roll_mean`, `replicate`, `hist`  
+4. [The birthday problem](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)  

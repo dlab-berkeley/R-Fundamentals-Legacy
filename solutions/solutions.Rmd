@@ -1,7 +1,7 @@
 ---
 title: "R-Fundamentals solutions"
 author: "Evan"
-date: "September 5, 2018"
+date: "March 25, 2019"
 output: html_document
 ---
 
@@ -9,450 +9,81 @@ output: html_document
 
 # Part 1
 
-### Part 1 - Challenge 1
-1. What is the three-piece recipe for variable definition? What piece goes where?  
-2. Define two numeric variables.  
-3. Define two character variables.  
+## Part 1 - Challenge 1
+1. What is the three-piece recipe for variable definition? What piece goes where? Why?  
+2. Define five numeric variables. Write a mathematical expression that uses only these five numeric variable names (not the actual numbers).  
+3. Remove one of your numeric variables. Does your expression still work? Why or why not?  
+4. Wipe you global environment clean.  
+
+
+## Part 1 - Challenge 2
+1. Define two numeric variables.  
+2. Define two character variables.  
+3. Define two logical variables.  
 4. How do you check what types of data these variables are?  
-5. What does the `ls()` function do? Where else do you see this information?  
-6. Remove one of your numeric and one of your character variables.  
-7. Try to subract your remaining character. What happens? What might this tell you about data of different types?  
-8. Wipe your environment clean.  
-```{r}
-# 1. 
-# A) Unique name does on left side
-# B) Assignment operator <- goes in the middle (a single equals sign works just as well)
-# C) Definition/statement/expression/ (aka some sort of "code to be evaluated") goes on right side
+5. What does the `ls()` function do? Where else do you see this information?
+6. Can you perform math across these three data classes? Why or why not? 
 
-# 2. 
-x = 15
-y = 88
 
-# 3. 
-my_name = "Oski"
-my_city = "Berkeley, California"
+## Part 1 - Challenge 3
+1. Other `as.` ("as dot") functions exist as well, such as `as.numeric`, `as.character`, `as.logical`, and `as.factor`.  
+2. Using your numeric, character, and logical variables from above:  
+  2a. Can you convert numeric to integer type?  
+  2b. Convert numeric to logical?  
+  2c. Convert numeric to character?  
+  2d. Convert logical to character?  
+  2e. Convert character to numeric?  
+  
+  
+## Part 1 - Challenge 4
+1. Notice how `paste0()` is found within the `paste()` function - this is called "nesting functions". What is the purpose of the `paste0` here? 
 
-# 4.
-class(x)
-class(y)
-class(my_name)
-class(my_city)
 
-# 5. 
-# ls() will list the variables defined in the global environment (upper right pane in RStudio)
+## Part 1 - Challenge 5
+1. `substr` can also be used to reassign parts of text. Fill in the question marks below so that that fox jumps over the cow instead of the dog. 
 
-# 6.
-rm(x)
-rm(my_city)
 
-# 7. 
-y - my_name
-# we receive an error message! data type is important because it determines what we can do to that specific variable, or group of variables. here, we cannot subtract a string from a numeric variable. 
+## Part 1 - Challenge 6
+1. Build a vector of logical data type and save it in a variable named `logical_vector`  
+2. Can you divide `numeric_vector` by `numeric_vector2`? Why or why not?  
+2. Can you multiply `numeric_vector` by `logical_vector`? Why or why not? 
 
-# 8. 
-rm(list = ls()) # or simply click the broom icon in the upper-right RStudio pane
-```
 
-### Part 1 - Challenge 2
-1. Define a numeric object as 0 and check its class.  
-2. Define a boolean object as "FALSE" and check its class.  
-3. Use `==` to compare your numeric and boolean object. Are they equivalent? Why or why not?  
-4. Define a character object that uses `paste()` to combine more than one word into a sentence.  
-5. Use `substr` to extract the first word of your sentence.  
-6. Use `gsub` to replace a character in your sentence with some other character.  
-```{r}
-# 1. 
-num_object = 0
-class(num_object)
+## Part 1 - Challenge 7
+1. Save the "gdp" data frame as a .csv file named "gdp.csv". 
 
-# 2. 
-bool_object = FALSE
-class(bool_object)
 
-# 3. 
-num_object == bool_object # remember FALSE is stored internally as 0, and TRUE as 1
-
-# 4. 
-sentence = paste("This", "is", "how", "to", "use", "paste!")
-sentence
-
-# 5.
-first_word = substr(sentence, 1, 4)
-first_word
-
-# 6. 
-new_sentence = gsub("to", "we", sentence)
-new_sentence
-```
-
-### Part 1 - Challenge 3
-1. Create a character object and check its type using `is.character` and `class`. What is the difference between these two methods?    
-2. Try to change ("coerce") this object to another data type using `as.integer`, `as.numeric`, or `as.logical`.  
-3. Create an object of class "integer". Remember, there are two ways to do this!  
-4. Why is 1 == "1" true?   Why is -1 < FALSE true?   Why is "one" < 2 false?  
-```{r}
-# 1.
-char_var = "This is character aka string aka text data"
-is.character(char_var) # returns logical TRUE or FALSE value
-class(char_var) # returns the actual data type
-
-# 2. 
-char_int = as.integer(char_var) # error
-char_num = as.numeric(char_var) # error
-char_logical = as.logical(char_var) # "soft fail!"
-char_logical
-
-# 3. 
-int1 = as.integer(12)
-class(int1)
-
-int2 = 5L
-class(int2)
-
-# 4.
-1 == "1" # R can see the number inside of the quotations
-
--1 < FALSE # Remember FALSE is stored internally as 0, TRUE as 1
-
-"one" < 2 # Cannot see if a word is less than a number
-```
-
-### Part 1 - Challenge 4
-Vectors  
-1. Create a vector of a sequence of numbers between 1 to 10.  
-2. Coerce that vector into a character vector  
-3. Add the element "11" to the end of the vector  
-4. Evaluate the `str` of the vector.  
-```{r}
-# 1.
-vector_1 = 1:10
-#or
-vector_1 = c(1,2,3,4,5,6,7,8,9,10)
-
-# 2.
-vec1_char = as.character(vector_1)
-vec1_char
-class(vec1_char)
-
-# 3.
-vec1_more = c(vec1_char, "11")
-vec1_more
-
-# 4.
-str(vec1_more)
-```
-
-Lists  
-5. How does a list differ from an atomic vector?  
-6. Create three objects of different types and lengths and then combine them into a list names `x`.  
-7. If `x` is a list, what is the class of `x[1]`? How about `x[[1]]`? (this is a preview of Part 2).  
-```{r}
-# 5. 
-# Lists are not additive or duplicative like an atomic vector; lists contain a placeholder and a value.
-
-# 6.
-obj1 = c(1,4,5)
-obj2 = c(T, F)
-obj3 = c(15L, 22L, 98L, 10050L)
-
-x = list(obj1, obj2, obj3)
-x
-class(x)
-
-# 7.
-class(x[1])
-class(x[[1]])
-```
-
-Data frames  
-8. Create a 3x2 data frame called `basket`. List the name of each fruit in the first column and its price in teh second column.  
-9. Now give your dataframe appropriate column and row names.  
-10. We can add a new column using `$`. Can you guess how to add a third column called "Color", that shows the color of each fruit?  
-```{r}
-# 8. 
-f = factor(c("Apple", "Orange", "Pear"))
-p = c(10, 28, 36)
-basket = data.frame(f, p)
-basket
-
-# 9. 
-colnames(basket) = c("Fruit", "Price")
-basket
-
-rownames(basket) = c("Berkeley Bowl", "Mi Tierra", "Target")
-basket
-
-# 10. 
-basket$Color <- factor(c("Red", "Orange", "Green"))
-basket
-str(basket)
-```
-
-### Part 1 - Challenge 5
-```{r}
-# install.packages("swirl")
+## Part 1 - Challenge 8
+```{r, eval=FALSE}
 library(swirl)
-
-# unhashtag the line below and run it to get started
-# swirl()
+swirl()
+# follow the instructions until you can select number 1 "R Programming: The basics of programming in R"
 ```
+
+Type `bye()` to exit swirl and return to RStudio. 
+
 
 # Part 2
 
-### Part 2 - Challenge 1
-1. Load the mammals "sleep_VIM" dataset from the data folder using `read.csv` (what is shown is another way to load datasets that are included in R and packages). Save it in a variable named "Sleep_VIM"
-2. Remember what `ls()` does? What does `dir()` do? 
-```{r}
-# 1
-sleep_VIM = read.csv("sleep_VIM.csv", header = T, stringsAsFactors = F)
-
-# 2
-# ls() lists variables defined in the global environment; dir() lists the contents of yoru working directory
-```
-
-### Part 2 - Challenge 2
-1. Practice extracting two different variables (columns) from the `animals` dataframe using the dollar sign `$`
-2. Plot them in a histogram using the `hist()` function. How do you do this? 
-3. Can all data types be visualized with histograms? Why or why not?
-```{r}
-# 1.
-animals$Type
-# or
-height = animals$Height
-
-# 2.
-hist(height)
-
-# 3.
-# No, histograms are used to visualize distributions of one numeric/integer variable.
-```
-
-### Part 2 - Challenge 3
-1. Load the `iris` dataset! Type `data(iris)` to load it.  
-2. What is this dataset? How do you find out?  
-3. Subset the `iris` dataset in three ways using column names and positive and negative integers.  
-4. Subset `iris` using logical tests, `&`, and `|`    
-```{r}
-# 1.
-data(iris)
-
-# 2. 
-str(iris)
-head(iris)
-?iris
-# Google! 
-
-# 3.
-iris_colnames = iris[, c("Sepal.Length", "Species")]
-head(iris_colnames)
-
-iris_posint = iris[, c(1,5)]
-head(iris_posint)
-
-iris_negint = iris[, -c(2,3,4)]
-head(iris_negint)
-
-# 4. 
-iris_setosa_only = iris[iris$Species == "setosa", ]
-table(iris_setosa_only$Species)
-
-iris_setosa_and = iris[iris$Species == "setosa" & iris$Sepal.Length > 5, ]
-iris_setosa_and
-
-iris_setosa_or = iris[iris$Species == "setosa" | iris$Species == "versicolor", ]
-table(iris_setosa_or$Species)
-```
-
-### Part 2 - Challenge 4
-Subset the `animals` dataframe:  
-1. in one dimension.  
-2. in two dimensions using either bracket notation `[ , ]` or `subset`.  
-3. using logical tests.  
-```{r}
-# 1.
-one_dim = animals$Healthy
-one_dim
-
-# 2. 
-two_dim_bracket = animals[1:5 , 1:2]
-two_dim_bracket
-
-two_dim_subset = subset(animals, select = c("Type", "Healthy"))
-two_dim_subset
-```
-
-### Part 2 - Challenge 5
-1. Using the "animals" data frame, create a subsetted data frame called `cats_dogs` that contains only cats and dogs. (hint: does "and" actually mean "and" here?)  
-2. Create a subsetted data frame that only contains healthy pigs! (hint: what is the meaning of "and" here in contrast to question #1?)  
-3. load the `mtcars` dataset. How might you find out what it is and how do you load it?  
-4. subset `mtcars` in five different ways.  
-```{r}
-# 1.
-cats_dogs = animals[animals$Type == "Cat" | animals$Type == "Dog", ] 
-cats_dogs
-
-# 2.
-healthy_pigs = animals[animals$Type == "Pig" & animals$Healthy == TRUE, ]
-healthy_pigs
-
-# 3.
-data(mtcars)
-str(mtcars)
-?mtcars
-# Google!
-
-# 4. 
-# six cylinder cars only
-(mt_sub1 = mtcars[mtcars$cyl == 6, ])
-
-# disp greater than 400
-(mt_sub2 = mtcars[mtcars$disp > 400, ])
-
-# 5 speed gear and 8 barrel carburetor
-(mt_sub3 = mtcars[mtcars$gear == 5 & mtcars$carb == 8, ])
-
-# disp < 100 or hp < 100
-(mt_sub4 = mtcars[mtcars$disp < 100 | mtcars$hp < 100, ])
-
-# mpg > 33
-(mt_sub5 = subset(mtcars, mpg > 33))
-```
+## Part 2 - Challenge 1
+## Part 2 - Challenge 2
+## Part 2 - Challenge 3
+## Part 2 - Challenge 4
+## Part 2 - Challenge 5
+## Part 2 - Challenge 6
+## Part 2 - Challenge 7
+## Part 2 - Challenge 8
 
 # Part 3
 
-### Part 3 - Challenge 1
-Use `summary()`, `table()` and `describeBy()` to investigate variables in the `iris` dataset. Create a histogram of one of the numeric variables.  
-```{r}
-library(psych)
-data(iris)
-summary(iris)
-table(iris$Species)
-describe(iris)
-describeBy(iris, group = iris$Species)
-```
-
-### Part 3 - Challenge 2
-Create boxplots for one of the numeric variables in the `iris` dataset and export it to your working directory as a .TIFF file. 
-```{r}
-boxplot(x = iris$Sepal.Length,
-        col = "orange",
-        main = "Title goes here",
-        xlab = "Sepal Length",
-        ylab = "cm",
-        las = 1)
-# click "Export" 
-# click "Save as .PDF"
-# open this .PDF
-# click "File" --> "Export"
-# click "TIFF" with compression type "JPEG"
-```
-
-### Part 3 - Challenge 3
-Using the `iris` dataset, plot two numeric variables and export the graph to your working directory as a .PNG file. 
-```{r}
-plot(x = iris$Sepal.Length, y = iris$Sepal.Width,
-     col = as.numeric(iris$Species),
-     pch = as.numeric(iris$Species))
-
-# better way
-library(ggplot2)
-ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, 
-                 color = Species, shape = Species)) + geom_point(size = 5, alpha = 0.5) + 
-  ggtitle("Title goes here") + xlab("Sepal Length (cm)") + ylab("Sepal Width (cm)") + 
-  theme_bw()
-```
-
-### Part 3 - Challenge 4
-In lines the ggplot code above, what are the arguments inside of our second "theme" argument doing?
-```{r}
-# change the size of the plot title and justification
-# change the legend title size
-# change the legend text size
-# change the orientaiton and justification of the x-axis text
-```
-
-### Part 3 - Challenge 5
-Subsetting review! Subset your "iris" data frame into three new dataframes: setosa, versicolor, and virginica that each contain only their respective Species. 
-```{r}
-setosa <- iris[iris$Species == "setosa",]
-versicolor <- iris[iris$Species == "versicolor",]
-virginica <- iris[iris$Species == "virginica",]
-
-setosa
-versicolor
-virginica
-```
-
-### Part 3 - Challenge 6
-Create two numeric vectors. Perform a t.test on them:
-```{r}
-a = c(10, 20, 30, 40, 50, 140)
-b = c(1, 1.1, 1.4, 1.9, 2.1)
-t.test(a,b)
-```
-
-### Part 3 - Challenge 7
-Using the `mtcars` dataset, perform an ANOVA and TukeyHSD test for one of the numeric variables between the cyl sizes. In general, what are differences between t-test and ANOVA that you should keep in mind?  
-```{r}
-data(mtcars)
-mt_aov = aov(mpg ~ as.factor(cyl), data = mtcars)
-summary(mt_aov)
-TukeyHSD(mt_aov)
-```
-
-### Part 3 - Challenge 8
-1. Load the `mtcars` dataset.  
-2. When you load new data into R, what functions are good ones to run to learn more about the data?  
-3. Create boxplots for mpg as parsed by cyl. 
-4. Might you surmise a relationship about something like engine size and miles per gallon?  
-5. What does `cor.test` reveal about mpg and cyl?  
-6. Create a scatterplot of the "mpg" and "hp" variables using `ggplot()`. What happens?  
-7. Can cyl be used to predict mpg in a linear regression model?  
-```{r}
-# 1.
-data(mtcars)
-
-# 2.
-str(mtcars)
-?mtcars
-
-# 3.
-boxplot(mpg ~ as.factor(cyl), data = mtcars,
-        col = c("goldenrod", "salmon", "turquoise"),
-        main = "mpg verus cyl",
-        xlab = "Number of cylinders",
-        ylab = "mpg",
-        las = 1)
-
-# or
-ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) + 
-  geom_boxplot() + 
-  theme_minimal() + 
-  guides(fill = F)
-
-# 4.
-# Yes! The larger the engine, the fewer miles per gallon... (?)
-
-# 5.
-cor.test(mtcars$mpg, mtcars$cyl)
-# they are strongly and significantly negatively correlated! 
-# that is, the more cyl, the less mpg
-
-# 6.
-ggplot(mtcars, aes(x = hp, y = mpg, 
-                   color = as.factor(cyl), shape = as.factor(cyl))) + 
-  geom_point(size = 5, alpha = 0.5) +
-  theme_classic()
-
-# or
-ggplot(mtcars, aes(x = hp, y = mpg, color = cyl)) + 
-  geom_point(size = 5, alpha = 0.5) +
-  theme_light()
-
-# 7.
-mt_model = lm(mpg ~ cyl, data = mtcars)
-summary(mt_model)
-```
+## Part 3 - Challenge 1
+## Part 3 - Challenge 2
+## Part 3 - Challenge 3
+## Part 3 - Challenge 4
+## Part 3 - Challenge 5
+## Part 3 - Challenge 6
+## Part 3 - Challenge 7
+## Part 3 - Challenge 8
 
 # Part 4
 # Example project
