@@ -16,13 +16,13 @@ Laptop required. Before Part 1 be sure to:
 __
 
 Our goal is to teach you responsible computational programming with R - not math or statistics. To learn more about these topics, check out UC Berkeley:  
-[Department of Statistics](http://statistics.berkeley.edu/)  
-[Department of Mathematics](https://math.berkeley.edu/)  
-[Data Science](http://data.berkeley.edu/)  
-[School of Information](https://datascience.berkeley.edu/)  
-[Interdepartmental Group in Biostatistics](https://www.stat.berkeley.edu/biostat/)  
-[data8](http://data8.org/sp17/)  
-[EECS](https://cs.berkeley.edu/)  
+* [Department of Statistics](http://statistics.berkeley.edu/)  
+*[Department of Mathematics](https://math.berkeley.edu/)  
+*[Biostatistics](http://sph.berkeley.edu/areas-study/biostatistics)  
+*[Data Science](http://data.berkeley.edu/)  
+*[School of Information](https://datascience.berkeley.edu/)  
+*[data8](http://data8.org/sp17/)  
+*[EECS](https://cs.berkeley.edu/)  
 
 __  
 
@@ -121,7 +121,7 @@ View course offerings at UC Berkeley:
 * [Department of Statistics](http://statistics.berkeley.edu/)  
 * [Data Science](http://data.berkeley.edu/)  
 * [School of Information](https://datascience.berkeley.edu/)  
-* [Interdepartmental Group in Biostatistics](https://www.stat.berkeley.edu/biostat/)  
+* [Biostatistics](http://sph.berkeley.edu/course-catalog/schedule-classes)  
 * [data8](http://data8.org/)  
 * [EECS](https://cs.berkeley.edu/)  
 
