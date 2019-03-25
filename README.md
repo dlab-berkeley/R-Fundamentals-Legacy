@@ -1,25 +1,37 @@
 # D-Lab R-FUN!damentals introductory workshop series  
+
 This is the repository for D-Lab's introductory R-Fundamentals workshop series.  
 
 __  
 
 Laptop required. Before Part 1 be sure to:  
-1) Download and install [R](https://cloud.r-project.org/)  
-2) Download and install [RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
+1) [Download and install R](https://cloud.r-project.org/)  
+2) [Download and install RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
 3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
 - Click the green “Clone or download” button  
 - Click “Download Zip”  
 - Extract the files some place convenient (i.e., Desktop)  
   - if you are a Git user, simply clone this repository
 
+__
+
+Our goal is to teach you responsible computational programming with R - not math or statistics. To learn more about these topics, check out UC Berkeley:  
+[Department of Statistics](http://statistics.berkeley.edu/)  
+[Department of Mathematics](https://math.berkeley.edu/)  
+[Data Science](http://data.berkeley.edu/)  
+[School of Information](https://datascience.berkeley.edu/)  
+[Interdepartmental Group in Biostatistics](https://www.stat.berkeley.edu/biostat/)  
+[data8](http://data8.org/sp17/)  
+[EECS](https://cs.berkeley.edu/)  
+
 __  
 
 _Learning objectives_  
 **Part 1:**  
-1. Variable definition (three piece recipe): _`X <- 5`_  
-2. Data types: _numeric, integer, character, logical, factor_  
-3. Data structures: _vector, list, matrix, data frame_  
-4. Pseudo-random generation: _`set.seed`, `seq`, `:`, `runif`, `rnorm`, `sample`_  
+1. Variable definition (three piece recipe): `x = 5`, `ls()`, `class()`, `rm()`  
+2. Data types: numeric, integer, character, logical, factor  
+3. Data structures: vector, list, matrix, data frame  
+4. Pseudo-random generation: `set.seed()`, `seq()`, `:`, `runif()`, `rnorm()`, `sample()`  
 5. Save and practice: _`write.csv()` and `swirl()`_  
 
 **Part 2:**  
@@ -47,6 +59,18 @@ Apply what you have learned to two example workflows.
 4. [The birthday problem](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)  
 
 __  
+
+# Resources
+
+--
+
+# About the UC Berkeley Social Sciences Data Laboratory (D-Lab) 
+
+> D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as this one, one-to-one consulting, and working groups that cover a variety of topics and programming languages.  
+
+- [D-Lab Calendar](http://dlab.berkeley.edu/calendar-node-field-date)  
+- [D-Lab Consulting](http://dlab.berkeley.edu/consulting)  
+- [D-lab Working Groups](http://dlab.berkeley.edu/working-groups)  
 
 Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](http://dlab.berkeley.edu/calendar-node-field-date). We offer a variety of:  
 
@@ -79,6 +103,8 @@ Other resources:
 * [Introduction to Probability and Statistics Using R, 3rd ed.](https://cran.r-project.org/web/packages/IPSUR/vignettes/IPSUR.pdf)  
 * [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)  
 * [The tidyverse style guide](http://style.tidyverse.org/)  
+* [Tidy Text Mining](https://www.tidytextmining.com/tidytext.html)
+* [Regular expressions with stringr](https://stringr.tidyverse.org/articles/regular-expressions.html)
 * [bookdown](https://bookdown.org/)  
 * [Quick Intro to Parallel Computing in R](https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html)  
 
@@ -110,3 +136,11 @@ Also be sure to visit:
 
 * [Graduate Data Science Organization](https://gdso.berkeley.edu/)  
 * [Berkeley Division of Data Sciences](https://data.berkeley.edu/)  
+
+__
+
+Contributions to these materials were made by:  
+* Evan Muzzall  
+* Sam Abdel-Ghaffar  
+* Rochelle Terman  
+* Dillon Niederhut  
