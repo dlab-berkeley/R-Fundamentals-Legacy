@@ -1,51 +1,47 @@
-# D-Lab R-FUN!damentals introductory workshop series  
+# D-Lab R Fundamentals introductory workshop series  
 
 This is the repository for D-Lab's introductory R-Fundamentals workshop series.  
-
-__  
 
 Laptop required. Before Part 1 be sure to:  
 1) [Download and install R](https://cloud.r-project.org/)  
 2) [Download and install RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
 3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
-- Click the green “Clone or download” button  
-- Click “Download Zip”  
-- Extract the files some place convenient (i.e., Desktop)  
-  - if you are a Git user, simply clone this repository
+
+* Click the green “Clone or download” button  
+* Click “Download Zip”  
+* Extract the files some place convenient (i.e., Desktop)  
+  * if you are a Git user, simply clone this repository
 
 Open the [Learning objectives]() file to see the topics covered in this workshop series. 
-__  
 
 # About the UC Berkeley Social Sciences Data Laboratory (D-Lab) 
 
 D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as R Fundamentals, one-to-one consulting, and working groups that cover a variety of research topics, digital tools, and programming languages.  
 
-Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](http://dlab.berkeley.edu/calendar-node-field-date). We offer a variety of:  
+Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](http://dlab.berkeley.edu/calendar-node-field-date). 
+
+## Other D-Lab R offerings:  
+
+* [Data Wrangling and Manipulation in R](https://github.com/dlab-berkeley/R-wrang)  
+* [R Graphics](https://github.com/dlab-berkeley/R-graphics)  
+* [Introduction to Machine Learning in R](https://github.com/dlab-berkeley/Machine-Learning-in-R)  
+* [Introduction to Deep Learning in R](https://github.com/dlab-berkeley/Deep-Learning-in-R)  
+* [Machine Learning Working Group](https://github.com/dlab-berkeley/MachineLearningWG)  
+
+## D-Lab also offers a variety of other:  
 
 * [Workshop trainings](http://dlab.berkeley.edu/training)    
 * [Working groups](http://dlab.berkeley.edu/working-groups)  
 * [Consulting services](http://dlab.berkeley.edu/consulting)  
 * [Data services](http://dlab.berkeley.edu/data-resources)  
 
-__
-
-Other D-Lab R offerings:  
-* [Data Wrangling and Manipulation in R](https://github.com/dlab-berkeley/R-wrang)  
-* [R Graphics](https://github.com/dlab-berkeley/R-graphics)  
-* [Introduction to Machine Learning in R](https://github.com/dlab-berkeley/Machine-Learning-in-R)  
-* [Introduction to Deep Learning in R](https://github.com/dlab-berkeley/Deep-Learning-in-R)  
-* [Machine Learning Working Group](https://github.com/dlab-berkeley/MachineLearningWG)  
-__  
-
-Visit these sites for R help:  
+## Visit these sites for R help:  
 
 * [STHDA](http://www.sthda.com/english/)  
 * [Quick-R](http://statmethods.net/)  
 * [UCLA idre](https://stats.idre.ucla.edu/r/)  
 * [R-bloggers](https://www.r-bloggers.com/)  
 * [Stack Overflow - R](http://stackoverflow.com/questions/tagged/r)  
-
-__
 
 # Resources  
 
@@ -81,9 +77,7 @@ __
 
 Don't know where to start researching classes? Look up some of these to see if they pique your interest: Data 8, CS61A, CS61B, CS 61C, CS70/Math 55, CS 188, CS 189, Math 53, Math 54, Math 110, Stat 28, Stat 20/21, Stat 133, Stat 134/140, Data 100.  
 
-__
-
-Also check out these excellent UC Berkeley online courses:  
+## UC Berkeley online courses:  
 
 * [D-Lab's Introduction to Data Science for Social Scientists](https://campus.sagepub.com/introduction-to-data-science-for-social-scientists#introduction-to-data-science-for-social-scientists/intro)
 * [Data 8X: Foundations of Data Science](https://data.berkeley.edu/education/data-8x)  
