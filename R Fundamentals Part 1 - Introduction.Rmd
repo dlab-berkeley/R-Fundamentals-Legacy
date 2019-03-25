@@ -1,14 +1,14 @@
 ---
 title: 'R Fundamentals Part 1: Introduction'
 author: "D-Lab"
-date: "September 26, 2018"
+date: "March 25, 2018 (updated `r Sys.Date()`)"
 output:
-  word_document:
-    toc: yes
   html_document: 
     number_sections: yes
     toc: yes
     toc_float: yes
+  word_document:
+    toc: yes
 ---
  
 ```{r setup, include=FALSE}
@@ -23,8 +23,8 @@ Part 3) Research design, data exploration, and statistical testing
 Part 4) Mini-projects
 
 **Bonus**  
-- What is RMarkdown? Why you should consider using RMarkdown (.Rmd) instead of a plain-text script  
-- For-loops and functions; Monte Carlo simulation, the "birthday problem"  
+Part 5) What is RMarkdown? Why you should consider using RMarkdown (.Rmd) instead of a plain-text script.  
+Part 6) For-loops and functions; Monte Carlo simulation, the "birthday problem".  
 
 **Part 1 learning objectives:**  
 1. Introduction: What is R? Navigating RStudio variables, global environment, packages, variable assignment, help  
@@ -36,11 +36,11 @@ Part 4) Mini-projects
 
 # Part 1 - Introduction
 
-### The student
+## The student
 
 This document is designed as a resource for **the student**. Use these documents if you choose to follow along, need to review, or choose to read ahead.  
 
-### The instructor
+## The instructor
 
 **The instructor** should emphasize that:  
 1. R is free and open-source
@@ -55,13 +55,13 @@ Then, the instructor will:
 8. Point out some of R's shortcomings along the way    
 9. Lead typing walkthoughs of these R functions  
 
-### R and RStudio
+# R and RStudio
 
 R is a programming language based on the [S](https://en.wikipedia.org/wiki/S_(programming_language)) language and is **functional**, **object oriented**, and **interpreted**. These themes make R highly extensible. However, we do not need to think of R in such complicated terms. In this workshop, we want to provide you with basic programming competencies so you can immediately apply what you learn to your own research. In general, programming languages such as R can simply be thought of as a way to give instructions to a computer to accomplish a task. R is the actually programming language that you will learn to use.  
 
 RStudio is the premier R graphical user interface (GUI) and integrated development environment (IDE) that makes R much easier to use. It can directly interface with [GitHub](https://en.wikipedia.org/wiki/GitHub) for sharing, collaboration, and version tracking and even makes it easy to program in other languages such as [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) and [Python](https://en.wikipedia.org/wiki/Python_(programming_language)). R's many additional user-defined software "packages" (add-ons that provide to you a lot of shortcutted functions) allow for relatively straightforward completion of tasks such as importing and preprocessing data, statistical testing, and producing publication-ready visualizations, especially in areas such as statistical modeling, machine learning, deep learning, natural language processing, and time-series analysis.  
 
-### Tools --> Global Options
+## Tools --> Global Options
 
 Before we begin, let's set a few RStudio settings to improve your experience.  
 
@@ -71,11 +71,11 @@ Before we begin, let's set a few RStudio settings to improve your experience.
 
 3. Click "Tools --> Global Options --> Code --> Display" and check the boxes that say "Highlight selected line" and "Highlight R function calls". 
 
-### The basics: Navigating RStudio
+# The basics: Navigating RStudio
 
 Open RStudio! Then, open a new script by clicking "File --> New File --> R Script" or by pressing `Ctrl + Shift + N` (PC) or `command + shift + N` (Mac). After opening a new script, you should see four window "panes". 
 
-##### 1. Top left pane
+## Top left pane
 
 Enter code in this savable `script` file. This is a plain text file but with a .R extension. Enter `2 + 2` in your script and run a line of code by pressing `command + enter` (Mac) or `Ctrl + enter` (PC).  
 
@@ -83,7 +83,7 @@ A hashtag `#` tells R that you do not want that particular line or block of code
 
 The name of your script file is in the tab at the top of your script window - the name defaults to `Untitled1`. Be sure to save your script by clicking "File --> Save" or `command + s` (Mac) or `Ctrl + s` (PC). You can also click the floppy disk icon to save. 
 
-##### 2. Bottom left pane
+## Bottom left pane
 
 Code output is displayed here in the `console`. This space is also good for just noodling around and trying out code that you do not wish to save in your script.  
 
@@ -93,15 +93,15 @@ R uses `+` when code is broken up across multiple lines and R is still expecting
 
 If the output in your console gets too messy, you can clear it by pressing `control + l` on both Mac and PC. This will not erase any saved data - it will simply make your console easier to read. 
 
-##### 3. Top right pane
+## Top right pane
 
 In R, data are saved as "variables". Variables are simply placeholders for a value, word, function, or dataset! The global "Environment" tab displays the variables you have assigned. "Global" simply means that these variables are available for everything. 
 
-##### 4. Bottom right pane
+## Bottom right pane
 
 Here you find useful tabs for navigating your file system, displaying plots, installing packages, and viewing help pages. Press the `control` key and a number (`1-9`) on your keyboard to shortcut between these panes and tabs. 
 
-### Package installation
+# Package installation
 
 Many people write clever software that makes R smarter/better/faster/stronger. You can install packages by clicking the "Packages" tab in the bottom-right window, clicking install, and then searching for the package you wish to install (or use the `install.packages()` function, but wrap the name of the package in quotation marks). It is generally good to keep RStudio and your packages up to date! Install the packages we will use in the workshop: 
 
@@ -109,7 +109,7 @@ Many people write clever software that makes R smarter/better/faster/stronger. Y
 install.packages(c("ggplot2", "knitr", "psych", "rmarkdown", "reshape2", "swirl"), dependencies = TRUE)
 ```
 
-### The `library` function  
+## The `library` function  
 
 However, installing a package is only the first step of the two-step process of using packages. Installing the package physically puts the files on your computer, but RStudio does not know they are there. Anytime you want to utilize a previously installed package, you must retreive it with `library()` when you begin a new R session. You do not need to reinstall packages each time you quit and restart your R session. 
 
@@ -123,7 +123,7 @@ library(swirl)
 # These packages can now be used in our RStudio session!
 ```
 
-### Getting help  
+## Getting help  
 
 Typing the `?` symbol before a function or dataset name can be used to bring up they help pages for that particular thing. Below are a few that we will use in this workshop series! 
 
@@ -140,17 +140,17 @@ Typing the `?` symbol before a function or dataset name can be used to bring up 
 ?iris
 ```
 
-### Functions and arguments
+## Functions and arguments
 Our coding universe consists of **functions** and **arguments**.  
 - Functions perform actions on things. In the natural language analogy, functions are the verbs in our sentences. An easy way to identify a function is that it contains trailing parentheses such as `mean()`. Most functions can be identified because they have trailing parentheses `()` after their names. 
 
 - Arguments are the things; they consist of virtually anything like values, mathematical expressions, vectors, lists, matrices, words, entire books, functions, and even large datasets. These arguments go inside the parentheses of functions!
 
-### Variable assignment
+# Variable assignment
 
 Variables are how we save things in R's memory so that they can be called (retrieved) when you need them. Assigning/defining these variables is called **variable assignment** and they are stored in your **global environment.** Traditionally, you can define objects using the **assignment operator** `<-`. This is a "less than" `<` symbol immediately followed by a hyphen `-`. You will see this symbol in many tutorials. **However, we will simply use the `=` in place of the assignment operator. This works the same but uses less keystrokes and is less confusing!**  
 
-### Object definition/variable assignment requires three pieces of information  
+## Object definition/variable assignment requires three pieces of information  
 
 1) object_name  
 2) `=`  
@@ -172,7 +172,7 @@ number # 5 is returned
 
 You can also use "tab completion" so that you only have to type the first few letters of your variable and press your tab key to complete it
 
-```{r}
+```{r eval = F}
 numb
 ```
 
@@ -192,7 +192,7 @@ number %% number2 # modulus division
 number %/% number2 # integer division
 ```
 
-### Naming R variables  
+## Naming R variables  
 
 Variable names can be anything, but are always case sensitive. However, they cannot begin with a number and generally do not begin with symbols. Be consistent and give your variables brief descriptions of their contents. Names must be **unique.** If you resuse an old name, the old definition will be overwritten. Instead, you can use an underscore as a placeholder for a space to create variables names with multiple words. Let's overwrite a variable to change its definition. 
 
@@ -221,11 +221,11 @@ ls()
 
 We now have multiple variables defined in our global environment! Note that `welome2` did not overwrite the variable `welcome`. 
 
-### Removing variables
+## Removing variables
 
 We remove individual variables from our environment with `rm()`. For example, to remove `welcome`, we type:
 
-```{r}
+```{r eval = F}
 rm(welcome)
 ls()
 welcome
@@ -250,11 +250,11 @@ All variables have been removed from our global environment.
 ## YOUR CODE HERE
 ```
 
-### Vaiable class
+# Vaiable class
 
 Everything in R has a class (or "type"). This is important because it determines what we can do to it! Variables are no exception. Use the `class` function to check a variable's type: 
 
-##### 1. Numeric data
+## Numeric data
 
 ```{r}
 number = 5
@@ -263,7 +263,7 @@ class(number)
 
 Numeric data is the default data class/type for all numbers in R, even those that look like integers! "numeric" type in R is synonymous with "float" or "double". 
 
-##### 2. Character data
+## Character data
 
 Let's try another example, this time using character data. Note that character data are **always** contained within quotation marks `" "`. Single or double quotes are fine as long as you are consistent. 
 
@@ -275,7 +275,7 @@ class(welcome)
 
 "character" type is synonymous with "string" or "text" data. 
 
-##### 3. Logical data
+## Logical data
 
 The logical data type consists only of `TRUE` or `FALSE`. These are stored internally as 0 and 1 and thus take on mathematical properties. 
 
@@ -334,7 +334,7 @@ The `na.rm` argument is currently set to `FALSE` - what should we do to instruct
 ## YOUR CODE HERE
 ```
 
-##### 4. Integer type and "type coercion"
+## Integer type and "type coercion"
 
 Remember how even whole numbers default to numeric/float/double type? Turning one data type into another requires what is called "type coercion", or changing one data type to another. 
 
@@ -361,11 +361,11 @@ class(int)
 ## YOUR CODE HERE
 ```
 
-##### 5. Factor type
+## Factor type
 
 Factor type is simply how R refers to categorical data. You will learn more about factor type once you understand vectors (see "Vector" section below).  
 
-### Vignettes
+# Vignettes
 Double question marks ?? will lead you to coding walkthroughs called "vignettes". These usually come with preloaded data and examples:  
 
 ```{r}
@@ -384,7 +384,7 @@ If assigning a single value to a variable is good, assigning **more than** one p
 4. `matrix()` - construct matrices  
 5. `data.frame()` - combine vectors into a tabular spreadsheet with rows and columns.  
 
-### 1. `paste` - combine words into character vectors! 
+# `paste` - combine words into character vectors! 
 
 R is very powerful for manipulating text data. Here are some basic functions for working with text. Use `paste()` to concatenate/combine character data. This will paste together separate words to larger texts.
 
@@ -405,10 +405,10 @@ Note here that R is not a zero-indexed language - output begins at the number 1 
 ## YOUR CODE HERE
 ```
 
-### Function arguments in action
+## Function arguments in action
 R also has some useful functions for character data such as `grep`, `substr`, `strsplit`, and `gsub`. Use your help commands to learn more! Recall that arguments go inside of the parentheses of R functions. Unnamed arguments are things like the number 4. `split = " "` is what is called a named argument. This argument goes inside the parentheses of another function such as `strsplit`. Refer back to our `pangram` variable:
 
-### `strsplit` - splitting strings
+## `strsplit` - splitting strings
 
 ```{r, eval=FALSE}
 ?strsplit
@@ -431,7 +431,7 @@ slash_split
 
 Most functions require one or two arguments to be defined in order for it to properly run. You will find that functions are full of default, positional, and optional arguments that you can manipulate.  
 
-### `substr` - subsetting strings
+## `substr` - subsetting strings
 
 `substr` lets you extract text from certain character positions in character data. Refer back to `pangram` - extract just the 4th through the 11th characters.
 
@@ -455,7 +455,7 @@ substr(pangram, start = ?, stop = ?) = ?
 
 How did you do? Counting out all the character positions (indexes or indices) is a pain! Thanksfully there are functions we can use to search for words. 
 
-### `gsub` - string substitution
+## `gsub` - string substitution
 
 You can also substitute with `gsub()`. Let's say we want to substitute cow for frog in `pangram`. We could type:
 ```{r}
@@ -464,14 +464,14 @@ frog = gsub("cow", "frog", pangram)
 frog
 ```
 
-### `grep` - pattern matching and replacement
+## `grep` - pattern matching and replacement
 
 ```{r, eval=FALSE}
 ?grep
 ```
 Learn more about the `grep` function below! Also see the resources section in the README.md file to learn about regular expressions. 
 
-### 2. Vector
+# Vector
 
 A **VECTOR** is an ordered group of the same kind of data. "Ordered" means that position matters. Vectors are one-dimensional and homogenous, and are thus referred to by their type (e.g., character vector, numeric vector, logical vector). It does not matter what type of data are in the vector, as long as it is all the same! 
 
@@ -489,7 +489,7 @@ numeric_vector
 ```
 This numeric vector contains five elements.  
 
-##### 2.1 Indexing vectors
+## Indexing vectors
 
 You can refer to the position of a value within a data structure by calling its "index". Use square brackets to do so (more on this in the subsetting section of Part 2). To see what value occupies the third position of the object `numeric_vector`, you could type: 
 
@@ -497,7 +497,7 @@ You can refer to the position of a value within a data structure by calling its 
 numeric_vector[3]
 ```
 
-##### 2.2 Add items to vectors
+## Add items to vectors
 
 You can also add items to a vector by adding them as additional arguments and separated by commas (as long as they are of the same type!)
 ```{r}
@@ -510,7 +510,7 @@ numeric_vector2
 2. Can you divide `numeric_vector` by `numeric_vector2`? Why or why not?  
 2. Can you multiply `numeric_vector` by `logical_vector`? Why or why not?  
 
-##### 2.3 `seq` generating (pseudo)random numbers  
+## `seq` generating (pseudo)random numbers  
 
 You might need to create vectors that are sequences of numbers. You can do this via `seq`. Define the from, to, and by arguments: 
 
@@ -519,7 +519,7 @@ sequence = seq(from = 0, to = 8, by = 1)
 sequence
 ```
 
-##### 2.4 Sequence where `by = 1` (`:`)
+## Sequence where `by = 1` (`:`)
 
 R also gives you a shorthand operator for creating sequences in whole number increments of 1. This is the colon symbol `:`
 ```{r}
@@ -531,7 +531,7 @@ sequence_object
 0:length(numeric_vector)
 ```
 
-### `set.seed`
+## `set.seed`
 You can also generate pseudo-random groups of numbers. Use `set.seed()` to ensure that we get the same pseudo-random draws from the parent universe, even on different computers! 
 
 Let's generate five different vectors of length 10 for numeric, integer, logical, character, and factor data types. 
@@ -569,7 +569,7 @@ logical = sample(c(TRUE, FALSE), 10, replace = TRUE) # 20 random samples of logi
 logical
 ```
 
-### List
+# List
 A **LIST** is an ordered group of data that are not of the same type. Lists are heterogenous. Instead of using `c()` like in vector creation, use `list()` to create a list:
 ```{r, eval=FALSE}
 ?list
@@ -584,7 +584,7 @@ Lists are simple containers and are not additive or multiplicative like vectors 
 list1 * list(FALSE, "zero", 0) # Error
 ```
 
-### Matrix  
+# Matrix  
 **MATRICES** are homogenous like vectors. They are tables comprised of data all of the same type. Matrices are organized into rows and columns. 
 
 Use `matrix()` to create a matrix
@@ -614,7 +614,7 @@ matrix2
 class(matrix2)
 ```
 
-### Data frame  
+# Data frame  
 _**It is worth emphasizing the importance of data frames in R!**_ Inside R, a **DATA FRAME** is a list of equal-length vectors. These vectors can be of different types. Data frames are thus heterogenous like lists.  
 
 This is simply a spreadsheet!  
@@ -659,7 +659,7 @@ str(gdp)
 ```
 Here, we can see that a data frame is just a list of equal-length vectors! For readability purposes, `str()` displays columns from top to bottom, while the data are displayed left to right. 
 
-##### Learning about your data frame  
+## Learning about your data frame  
 ```{r}
 # View the dimensions (nrow x ncol) of the data frame:
 dim(gdp) 
@@ -672,7 +672,7 @@ rownames(gdp)
 class(rownames(gdp))
 ```
 
-##### Change column order
+## Change column order
 You can change the order of the columns by specifying their new order using `c()` within what is called "bracket notation" `[ , ]`. 
 
 > This will be covered with the rest of subsetting in Part 2. 
@@ -682,7 +682,7 @@ gdp = gdp[,c("Country", "Year", "gdpPercap", "growth_rate", "Happy")]
 gdp
 ```
 
-##### Sorting data
+## Sorting data
 
 You can also sort data by increasing/decreasing alphanumeric order. Sort by Country and then Year by typing: 
 
@@ -694,7 +694,7 @@ gdp_sorted <- gdp[order(gdp$Country, gdp$Year),]
 gdp_sorted
 ```
 
-##### Factor data type  
+## Factor data type  
 
 Factor data are categorical types used to make comparisons between other data. Factors group the data by their "levels" (the different categorical groups within a factor).  
 
@@ -714,7 +714,7 @@ gdp$Country
 levels(gdp$Country)
 ```
 
-##### Changing factor "levels"
+## Changing factor "levels"
 
 If we want to change how R stores the factor levels, we can specify them by using the `levels()` argument. For example:
 
@@ -761,11 +761,4 @@ swirl()
 # follow the instructions until you can select number 1 "R Programming: The basics of programming in R"
 ```
 
-> NOTE: type `bye()` to exist swirl. 
-
-Acknowledgements
-- [Wickham H. 2014. Advanced R](http://adv-r.had.co.nz/)  
-- [Lander J. 2013. R for everyone: Advanced analytics and graphics](http://www.jaredlander.com/r-for-everyone/)  
-- [Matloff N. 2011. The art of R programming: A tour of statistical software design](https://www.nostarch.com/artofr.htm)  
-- [Brunsdon C, Comber L. 2015. An Introduction to R for Spatial Analysis and Mapping](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031)
-- Contributions by Evan Muzzall, Rochelle Terman, Dillon Niederhut, Sam Abdel-Ghaffar
+> NOTE: type `bye()` to exit swirl and return to RStudio. 

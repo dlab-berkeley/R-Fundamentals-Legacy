@@ -108,6 +108,12 @@ Other resources:
 * [bookdown](https://bookdown.org/)  
 * [Quick Intro to Parallel Computing in R](https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html)  
 
+* [Wickham H. 2014. Advanced R](http://adv-r.had.co.nz/)  
+* [Lander J. 2013. R for everyone: Advanced analytics and graphics](http://www.jaredlander.com/r-for-everyone/)  
+* [Matloff N. 2011. The art of R programming: A tour of statistical software design](https://www.nostarch.com/artofr.htm)  
+* [Brunsdon C, Comber L. 2015. An Introduction to R for Spatial Analysis and Mapping](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031)
+
+
 __  
 
 View course offerings at UC Berkeley:  
