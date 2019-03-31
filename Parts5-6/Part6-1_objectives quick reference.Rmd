@@ -1,5 +1,5 @@
 ---
-title: "R Fundamentals: cheatsheet / learning objectives"
+title: "R Fundamentals: learning objectives quick reference"
 author: "D-Lab"
 date: "March 31, 2019 (updated `r Sys.Date()`)"
 output: html_document
