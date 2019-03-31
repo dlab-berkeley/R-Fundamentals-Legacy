@@ -1,0 +1,40 @@
+---
+title: 'R Fundamentals Part2-4: subset function'
+author: "D-Lab"
+date: "March 31, 2019 (updated `r Sys.Date()`)"
+output: html_document
+---
+
+# Subset with `subset`
+
+`subset` can also be used to subset your data. How do you use the help (hint `?subset`) to see what the `x`, `subset`, and `select` arguments do? For example:
+
+```{r, eval = F}
+?subset
+```
+```{r}
+# subset rows where "BrainWgt" is less than 60 and "Danger" equals 4 and "Exp" equals 3. 
+# subset columns "BrainWgt", "Danger", "Exp".
+subset_1 = subset(x = sleep_VIM, 
+                   subset = BrainWgt < 60 & Danger == 4 & Exp == 3,
+                   select = c("BrainWgt", "Danger", "Exp"))
+subset_1
+
+# subset all rows where BrainWgt is less than 100 or Danger equals 4 along with the "BrainWgt", "Danger", and "Exp" columns:
+subset_2 = subset(sleep_VIM, 
+                  subset = BrainWgt < 100 | Danger == 4, 
+                  select = c(BrainWgt, Danger, Exp))
+subset_2
+```
+
+# **Challenge 4**
+
+Subset `gap`:  
+1. Once in one dimension.  
+2. Twice in two dimensions using either bracket notation `[ , ]` or `subset`.  
+3. Three times using logical tests.  
+
+```{r}
+## YOUR CODE HERE
+```
+

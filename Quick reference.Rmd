@@ -49,11 +49,11 @@ Apply what you have learned in Parts 1, 2, and 3 to investigate a heart disease 
 
 ## Part 5
 
-Quick introduction to learn R Markdown and knitr.  
-
-## Part 6
-
 1. For loops: `for`, `if`, `else`, `ifelse`  
 2. Functions: `function`  
 3. Automation - Monte Carlo simulation: `sample`, `die_roll_mean`, `replicate`, `hist`  
 4. [The birthday problem](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)  
+
+## Part 6
+
+Quick introduction to R Markdown and knitr.  

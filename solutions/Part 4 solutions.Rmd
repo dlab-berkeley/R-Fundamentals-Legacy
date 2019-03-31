@@ -1,0 +1,112 @@
+---
+title: "R-Fundamentals Part 4 solutions"
+author: "D-Lab"
+date: "3/30/2019"
+output: html_document
+---
+
+# Part 4 solutions
+
+# Example project
+
+You are given a dataset you have never seen before. You want to use RStudio to import the dataset and learn about it a little before you proceed with preprocessing tasks. 
+
+##### 1. Load the `mtcars` dataset.  
+##### 2. What are some useful functions to learn more about the data? 
+##### 3. Might you surmise a relationship about something like engine size and miles per gallon?  
+##### 4. Create boxplots for mpg as parsed by cyl. 
+##### 5. What does `cor.test` reveal about mpg and cyl? 
+##### 6. Create a scatterplot of the "mpg" and "hp" variables using `ggplot()`. What happens?  
+##### 7. Can cyl be used to predict mpg in a linear regression model? Why must you learn about the assumptions of a statistical test before applying it? 
+
+```{r}
+# 1. 
+data()
+data(mtcars)
+
+# 2. 
+?mtcars
+str(mtcars)
+head(mtcars)
+mtcars
+View(mtcars)
+
+# field notes, lab reports, scientific instruments, Google, etc. 
+
+# 3. 
+# Larger engine equals less miles per gallon? 
+
+# 4. 
+boxplot(mpg ~ cyl, data = mtcars,
+        col = c("red", "green", "gold"),
+        main = "mtcars boxplots",
+        xlab = "# of cylinders",
+        ylab = "mpg", las = 1)
+
+# or
+
+plot_box = ggplot(mtcars, aes(cyl, mpg, 
+                              fill = as.factor(cyl))) + 
+  geom_boxplot() + 
+  theme(legend.position = "top") + 
+  labs(fill = "Cylinders")
+plot_box
+
+# 5. 
+cor.test(mtcars$mpg, mtcars$cyl)
+
+# 6. 
+plot_scatter = ggplot(mtcars, aes(hp, mpg, color = mpg)) + 
+  geom_point(size = 8, alpha = 0.8) +
+  theme_minimal() 
+plot_scatter
+
+# 7. 
+lm1 = lm(mpg ~ cyl, data = mtcars)
+lm1
+summary(lm1)
+```
+  
+# Gapminder dataset
+(in class example)
+
+# Bonus 
+### Challenge 1
+1. Write a for loop that outputs something. 
+```{r}
+for (i in 1:10) {
+  print(i / 12)
+}
+
+# or
+
+for (time in c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)) {
+  print(paste("The time is", time, "AM"))
+}
+```
+
+### Challenge 2
+```{r}
+for (x in c(2,4,6,8,10,12)) {
+  if (x < 8) {
+    print(paste("Whoa the number is", x))
+  }else{
+    print("nope...")
+  }
+}
+
+# or
+
+for (i in 1:12) # what happened to the curly braces? 
+    if (i < 10) {
+        print(paste("The time is", i, "o'clock"))
+        }else{
+        print("It is getting late!")
+}
+```
+
+### Challenge 3
+Say we choose 25 people at random. What is the probability two or more of them have the same birthday?'
+```{r}
+## See the Part 4 .Rmd file for the answer
+```

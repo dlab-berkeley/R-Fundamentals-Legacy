@@ -1,0 +1,87 @@
+---
+title: 'R Fundamentals Part2-6: merging data'
+author: "D-Lab"
+date: "March 31, 2019 (updated `r Sys.Date()`)"
+output: html_document
+---
+
+# Merging data with `merge`
+
+Merging data is useful when we want to combine two different dataframes that share a vector/column. We "merge" by that column ("unique identifier"). The first two arguments in `merge()` are the names of the two data frames, followed by `by` where we tell which column names we want to match.  
+
+First, note this shorthand way for creating a dataframe. For example: 
+
+```{r}
+df1 = data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
+                  City = c("Berkeley", "Berkeley", "Oakland", "Oakland"),
+                  Math = c(42, 48, 50, 46),
+                  Reading = c(8, 10, 10, 10))
+df1
+
+df2 = data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
+                    Science = c(99, 100, 99, 100),
+                    Music = c(19, 18, 20, 20),
+                    Art = c(20, 20, 19, 18))
+df2
+```
+
+Since `df1` and `df2` share the `Name` column, we can merge these two dataframes `by` that column: 
+
+```{r, eval=FALSE}
+?merge
+```
+```{r}
+df_merge = merge(df1, df2, by = "Name")
+df_merge
+#What happened here? 
+```
+
+## Merging data - `cbind()` and `rbind()`
+
+Other useful functions include `cbind()` and `rbind()`. `cbind()` will bind two data frames by their columns. Let's cbind `df1` and a new dataframe, `df3`:
+```{r, eval=FALSE}
+?cbind
+?rbind # Click the "Combine R Objects by Rows or Columns" link
+```
+```{r}
+df3 = data.frame(Name = c("Heather", "Billy", "Hector", "Jane"),
+                  City = c("San Francisco", "Los Angeles", "San Francisco", "Chico"),
+                  Math = c(49, 44),
+                  Reading = c(10,10))
+df3
+
+df_cbind = cbind(df1, df3)
+df_cbind
+```
+
+> NOTE: cbind will not warn you if you have duplicate column names! Which columns have been duplicated? 
+
+`rbind()` will add more rows to an existing data frame. An example:
+
+```{r}
+dfB = data.frame(Name = c("James", "Tanisha", "Elizabeth", "Barack"),
+                  City = c("Cleveland", "Memphis", "Detroit", "Chicago"),
+                  Math = c(44, 49, 50, 49),
+                  Reading = c(9, 9, 9, 10))
+
+df_rbind = rbind(df1, dfB)
+df_rbind
+```
+> NOTE: for rbind to work, you should have the same column names for both of your data frames! 
+
+# **Challenge 5** 
+
+1. Subsetting review. Use `gap` to create a subsetted dataframe named `UnitedStates_Mexico` that contains only data for countries USA and Mexico. (hint: does "and" actually mean "and" here?)  
+2. Create a subsetted data frame that only contains only the country USA and lifeExp greater than 76! (hint: what is the meaning of "and" here in contrast to question #1?)  
+
+```{r}
+## YOUR CODE HERE
+```
+
+You can also order your data using `order`. For example, sort `mtcars` by ascending cyl and descending mpg: 
+```{r, eval=FALSE}
+data(mtcars)
+new_cars = mtcars[order(mtcars$cyl, -mtcars$mpg),] 
+new_cars
+```
+ 

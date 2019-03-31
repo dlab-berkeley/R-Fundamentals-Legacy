@@ -1,0 +1,145 @@
+---
+title: 'R Fundamentals Part2-3: subset in two dimensions'
+author: "D-Lab"
+date: "March 31, 2019 (updated `r Sys.Date()`)"
+output: html_document
+---
+
+### Subsetting in two dimensions with bracket notation `[ , ]` 
+
+However, we do not have to specify all rows or columns when subsetting with bracket notation. We can specify dimensions of both rows and columns that we want. You might find subsetting using **bracket notation** `[ , ]` along with variable names, positive and negative integers, and/or logical values is easier because you can subset multiple elements at once.  
+
+**Inside the brackets, everything before the comma refers to rows. Everything after the comma refers to columns!** 
+
+> [rows , columns]  
+
+Let's start just with the columns!  
+
+## Variable names (`[ , c("Variable Names")]`)
+
+You can subset data by specifying variable names within bracket notation and using the `c()` function to create a vector of the column names you want to keep.  
+
+We can create a new dataframe object `sleep_varnames` that includes only "BodyWgt" and "BrainWgt" variable names from the `sleep` data frame:
+
+```{r, eval=FALSE}
+?"["
+```
+```{r}
+sleep_varnames = sleep_VIM[ , c("BodyWgt", "BrainWgt")]
+str(sleep_varnames)
+head(sleep_varnames)
+```
+
+> The original dataset "sleep_VIM" is unchanged!
+
+Notice that the comma is still included within the bracket notation before the vector of column names. This indicates that we want ALL of the rows corresponding to these two columns. This is the same when we only want to subset rows and include ALL columns (see below).  
+
+Remember that in bracket notation `[ , ]` everything **before** the comma refers to rows, and everything **after** the comma refers to columns!
+
+## Subsetting with positive integers `[ , c()]`
+
+Subsetting by **positive** integers works as well. This will **include** only the specified column indices so we do not have to type out their names!  
+
+Create an object `sleep_posint` that includes only "NonD", "Sleep", and "Exp" columns.  
+
+> HINT: First use `str()` or `colnames` to see which integer values these columns represent. Because we only want the 3rd, 5th, and 9th columns, we type:  
+
+```{r, eval=FALSE}
+str(sleep_VIM)
+sleep_posint = sleep_VIM[ , c(3, 5, 9)] 
+str(sleep_posint)
+head(sleep_posint)
+```
+
+## Subsetting with negative integers `[ , -c()]`
+
+Subsetting by **negative** integers will **exclude** the specified columns. Notice the `-` symbol before `c()` inside our bracket notation.
+
+We can create an object called `sleep_negint` that includes everything **except** columns 1 and 2 ("BodyWgt" and "BrainWgt"):
+
+```{r}
+str(sleep_VIM)
+sleep_negint_VIM = sleep_VIM[ , -c(1, 2)]
+str(sleep_negint_VIM)
+head(sleep_negint_VIM)
+```
+
+## Subsetting with logical tests
+
+We can also use logical tests to subset our data. For example, what if we want to include only the _**rows**_ that have a value of 4 for "Exp"? We can use the relational operator `==`:
+
+```{r, eval=FALSE}
+?"=="
+```
+```{r}
+sleep_logical = sleep_VIM[sleep_VIM$Exp == 4 , 8:10 ] 
+sleep_logical
+```
+Only rows with values of 4 for "Exp" are returned! 
+
+Flash question: what does `, 8:10` refer to? 
+
+What if we want to subset the data so it includes only the rows where "Exp" equals 1 **_and_** "Danger" is equal to 2? We would use the "and" `&` logical operator.  
+
+What if we want to include rows where "Exp" is equal to 1 **_or_** "Danger" is equal to 2? We would use the "or" `|` logical operator: 
+
+```{r, eval=FALSE}
+?"&"
+?"|"
+```
+```{r}
+# & (and) = all conditions must be TRUE
+sleep_logical_and = sleep_VIM[sleep_VIM$Exp == 1 & sleep_VIM$Danger == 2, ] 
+sleep_logical_and
+
+# | (or) = just one of the conditions must be TRUE
+sleep_logical_or = sleep_VIM[sleep_VIM$Exp == 1 | sleep_VIM$Danger == 2, ]
+sleep_logical_or
+
+dim(sleep_logical_and) # 5 rows x 10 columns
+dim(sleep_logical_or) # 36 rows x 10 columns
+```
+
+In `sleep_logical_and`, "Exp" must equal 1 _and_ "Danger" must equal 2 to be included - both conditions must be TRUE.  
+
+In `sleep_logical_or`, "Exp" must equal 1 _or_ "Danger" can equal 2 to be included - only one of these two conditions must be TRUE, hence the greater number of rows returned by "or".  
+
+## Subsetting lists with double bracket notation `[[ ]]`
+
+You can also subset lists. 
+
+```{r, eval=FALSE}
+?"[["
+```
+
+Create an examlpe list:
+
+```{r}
+example_list = list(TRUE, "string data", 5)
+example_list
+```
+
+> Consider the analogy of going through airport security. When you place your shoes in the plastic bin and then place it on the conveyor belt, you have placed two things: 1) your shoes inside the 2) plastic bin. 
+
+Use single brackets `[]` retrieves **both the placeholder and its value (the bin and your shoes).**
+
+```{r}
+example_list[1]
+```
+
+However, double brackets go one layer deeper inside the plastic bin and return only the value (**only your shoes!**).
+
+```{r}
+example_list[[1]]
+```
+
+# **Challenge 3**
+
+1. Load the `iris` dataset! Type `data(iris)` to load it.  
+2. What is this dataset? How do you find out?  
+3. Subset the `iris` dataset in three ways using column names and positive and negative integers.  
+4. Subset `iris` using logical tests, `&`, and `|`    
+
+```{r}
+## YOUR CODE HERE
+```

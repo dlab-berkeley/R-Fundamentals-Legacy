@@ -1,0 +1,188 @@
+---
+title: "R-Fundamentals Part 1 solutions"
+author: "Evan"
+date: "March 25, 2019"
+output: html_document
+---
+
+# Part 1 solutions
+
+## Part 1 - Challenge 1
+1. What is the three-piece recipe for variable definition? What piece goes where? Why?  
+2. Define three numeric variables. Write a mathematical expression that uses only these variable names (not the actual numbers).  
+3. Remove one of your numeric variables. Does your expression still work? Why or why not?  
+4. Wipe you global environment clean.  
+
+```{r}
+# 1. 
+# A) Variable name goes on left side of the equals sign
+# B) Equals sign goes in the middle
+# C) Code to be assigned goes on the right side of the equals sign
+
+# 2. 
+pi
+radius = 2.34
+height = 4.56
+
+cylinder_volume = pi * (radius ** 2) * height
+cylinder_volume
+
+# 3. 
+rm(radius)
+
+# 4. 
+rm(list = ls()) # Or click broom icon!
+
+```
+
+## Part 1 - Challenge 2
+1. Define two numeric variables.  
+2. Define two character variables.  
+3. Define two logical variables.  
+4. How do you check what types of data these variables are?  
+5. What does the `ls()` function do? Where else do you see this information?
+6. Can you perform math across these three data classes? Why or why not? 
+
+```{r}
+# 1. 
+x = 5
+y = 10
+
+# 2. 
+name = "Rex"
+city = "Berkeley"
+
+# 3. 
+logical1 = TRUE
+logical2 = FALSE
+
+# 4. 
+class(x)
+class(y)
+class(name)
+class(city)
+class(logical1)
+class(logical2)
+
+# 5
+# ls() displays the variables saved in your global environment. Also see this information in your "Environment" tab in the upper right pane. 
+ls()
+
+# 6. 
+# You can perform on the numeric variables, logical variables, or numeric/logical variables, but NOT the character data. 
+
+x ** y
+logical2 - logical1
+x ** -logical1
+
+x + name
+```
+
+## Part 1 - Challenge 3
+1. Other `as.` ("as dot") functions exist as well, such as `as.numeric`, `as.character`, `as.logical`, and `as.factor`.  
+2. Using your numeric, character, and logical variables from above:  
+  2a. Can you convert numeric to integer type?  
+  2b. Convert numeric to logical?  
+  2c. Convert numeric to character?  
+  2d. Convert logical to character?  
+  2e. Convert character to numeric?  
+  
+```{r}
+# 1. 
+
+# 2
+x; y; name; city; logical1; logical2
+
+# 2a. 
+numeric_to_integer = as.integer(x)
+class(numeric_to_integer)
+numeric_to_integer
+
+# 2b. 
+numeric_to_logical = as.logical(x)
+class(numeric_to_logical)
+numeric_to_logical # What happened here?
+
+# 2c. 
+numeric_to_character = as.character(x)
+class(numeric_to_character)
+numeric_to_character
+  
+# 2d. 
+logical_to_character = as.character(logical1)
+class(logical_to_character)  
+logical_to_character
+
+# 2e. 
+character_to_numeric = as.numeric(name) # What happened here? 
+```
+
+## Part 1 - Challenge 4
+1. Notice how `paste0()` is found within the `paste()` function - this is called "nesting functions". What is the purpose of the `paste0()` here? 
+
+```{r}
+# 1. 
+# paste0() removes whitespace between characters. 
+paste("North", "South", "East", "West")
+paste0("North", "South", "East", "West")
+```
+
+## Part 1 - Challenge 5
+1. `substr` can also be used to reassign parts of text. Fill in the question marks below so that that fox jumps over the cow instead of the dog. 
+
+```{r}
+# 1. 
+pangram = paste("The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", paste0("dog", "."))
+pangram
+
+substr(pangram, start = 41, stop = 43) = "cow"
+pangram
+```
+
+## Part 1 - Challenge 6
+1. Build a vector of logical data type and save it in a variable named `logical_vector`  
+2. Can you divide `numeric_vector` by `numeric_vector2`? Why or why not?  
+3. Can you multiply `numeric_vector` by `logical_vector`? Why or why not? 
+4. Can you multiply `numeric_vector2` by `logical_vector`? 
+
+```{r}
+# 1. 
+logical_vector = c(TRUE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, FALSE)
+
+numeric_vector = c(234, 31343, 78, 0.23, 0.0000002)
+numeric_vector
+
+numeric_vector2 = c(numeric_vector, c(0.1, 0.2, 0.3))
+numeric_vector2
+
+# 2. Yes, but...
+numeric_vector / numeric_vector2
+
+# 3. Yes, but...
+numeric_vector * logical_vector
+
+# 4. Yes! 
+numeric_vector2 * logical_vector
+```
+
+What does the error message indicate for numbers 2 and 3?
+
+> Warning message:
+In numeric_vector/numeric_vector2 :
+  longer object length is not a multiple of shorter object length
+
+## Part 1 - Challenge 7
+1. Save the "gdp" data frame as a .csv file named "gdp.csv". 
+
+```{r}
+write.csv(gdp, file = "gdp.csv")
+```
+
+## Part 1 - Challenge 8
+```{r, eval=FALSE}
+library(swirl)
+swirl()
+# follow the instructions until you can select number 1 "R Programming: The basics of programming in R"
+```
+
+Type `bye()` to exit swirl and return to RStudio. 

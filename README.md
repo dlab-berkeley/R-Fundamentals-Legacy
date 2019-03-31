@@ -12,7 +12,7 @@ Laptop required. Before Part 1 be sure to:
 * Extract the files some place convenient (i.e., Desktop)  
   * if you are a Git user, simply clone this repository
 
-Open the [Learning objectives]() file to see the topics covered in this workshop series. 
+Open the [quick reference]() file to see the topics covered in this workshop series. 
 
 # About the UC Berkeley D-Lab
 
@@ -56,6 +56,9 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](htt
 * [Regular expressions with stringr](https://stringr.tidyverse.org/articles/regular-expressions.html)
 * [bookdown](https://bookdown.org/)  
 * [Quick Intro to Parallel Computing in R](https://nceas.github.io/oss-lessons/parallel-computing-in-r/parallel-computing-in-r.html)  
+* [Sean C. Anderson's Introduction to the "reshape2" package](http://seananderson.ca/2013/10/19/reshape.html)  
+* [Hadley Wickhams introduction to the "reshape2" package](http://had.co.nz/reshape/introduction.pdf) 
+* [Rob Kabakoff's examples of "reshape2"](http://www.statmethods.net/management/reshape.html)  
 
 ## Books
 
@@ -83,9 +86,10 @@ Don't know where to start researching classes? Look up some of these to see if t
 * [Data 8X: Foundations of Data Science](https://data.berkeley.edu/education/data-8x)  
 
 Contributions to these materials by:  
-* Evan Muzzall  
+* [Evan Muzzall](https://dlab.berkeley.edu/people/evan-muzzall)  
 * Sam Abdel-Ghaffar  
 * Guadalupe Tuñón  
 * Shinhye Choi  
+* Patty Frontiera  
 * Rochelle Terman  
 * Dillon Niederhut  

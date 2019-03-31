@@ -1,0 +1,45 @@
+---
+title: 'R Fundamentals Part1-7: exporting and practice'
+author: "D-Lab"
+date: "March 31, 2019 (updated `r Sys.Date()`)"
+output: html_document
+---
+
+# Saving your work (`write.csv`)  
+
+It is always good to save your work. Saving a dataframe as a .CSV file is a convenient way to store it for future use. **Anything saved will be placed into your working directory by default!** 
+
+See where your data frame is saved by typing: 
+
+```{r}
+getwd()
+```
+
+> NOTE: we will begin Part 2 with a discussion about how to check and set the [working directory](https://en.wikipedia.org/wiki/Working_directory). The easiest way is to click "Session" --> "Set working directory" --> "Choose directory". Do this if you want to change your working directory location. Run `getwd()` again - did the file path change?  
+
+The syntax looks like this:
+`write.csv(object_name, file = "nameOfFile.csv", row.names = TRUE)`
+
+# **Challenge 7**
+
+1. Save the "gdp" data frame as a .csv file named "gdp.csv". 
+
+```{r}
+## YOUR CODE HERE
+```
+
+Check your working directory to see if it worked!  
+
+> We will talk about saving plots as .PDF and .TIFF file types in Part 3!  
+
+# **Challenge 8** Homework (optional)
+
+swirl is a package that helps you learn R by using R. Visit the [swirl](http://swirlstats.com/) homepage to learn more. 
+
+```{r, eval=FALSE}
+library(swirl)
+swirl()
+# follow the instructions until you can select number 1 "R Programming: The basics of programming in R"
+```
+
+> NOTE: type `bye()` to exit swirl and return to RStudio. 
