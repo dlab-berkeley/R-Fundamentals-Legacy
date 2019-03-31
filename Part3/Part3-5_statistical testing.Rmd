@@ -47,7 +47,8 @@ The null hypothesis states that there are no actual mean differences between the
 2. Fit a t-test for Petal Lengths between iris versicolor and virginica species.  
 3. What does this result mean?  
 
-```{r, eval = F}
+```{r}
+gap = read.csv("gapminder-FiveYearData.csv")
 ## YOUR CODE HERE
 ```
 
@@ -121,12 +122,32 @@ summary(gap_lm1)
 
 You can also pull items out of return objects using `names()`. To extract the residuals we would use the dollar sign operator `$`. Let's fit a best fit line to a scatterplot. 
 
-```{r, eval=FALSE}
+```{r}
+library(ggplot2)
 names(gap_lm1)
 
 gap_lm1$coefficients
 
 ggplot(gap, aes(x = gdpPercap, y = lifeExp)) + 
   geom_point() + 
-  geom_smooth(method = "lm", col = "red")
+  geom_smooth(method = "lm", lwd = 2, col = "red") + 
+  ggtitle("gdpPercap and lifeExp") + 
+  xlab("GDP per capita income (USD)") + 
+  ylab("Life expectancy (years)") + 
+  theme_bw() + 
+  theme(plot.title = element_text(hjust = 0.5, size = 40))
+
+# Log transformed x-axis
+ggplot(gap, aes(x = gdpPercap, y = lifeExp)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", lwd = 2, col = "purple") + 
+  scale_x_log10() + 
+  ggtitle("log10 transformed gdpPercap and lifeExp") + 
+  xlab("log10 transformed GDP per capita income (USD)") + 
+  ylab("Life expectancy (years)") + 
+  theme_bw() + 
+  theme(plot.title = element_text(hjust = 0.5, size = 20))
+
 ```
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

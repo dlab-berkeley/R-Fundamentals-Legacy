@@ -15,6 +15,7 @@ output: html_document
 ```{r}
 # subset rows where "BrainWgt" is less than 60 and "Danger" equals 4 and "Exp" equals 3. 
 # subset columns "BrainWgt", "Danger", "Exp".
+sleep_VIM = read.csv("sleep_VIM.csv")
 subset_1 = subset(x = sleep_VIM, 
                    subset = BrainWgt < 60 & Danger == 4 & Exp == 3,
                    select = c("BrainWgt", "Danger", "Exp"))
@@ -38,3 +39,4 @@ Subset `gap`:
 ## YOUR CODE HERE
 ```
 
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

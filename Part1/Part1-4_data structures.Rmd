@@ -228,3 +228,5 @@ logical = sample(c(TRUE, FALSE), 10, replace = TRUE)
 logical
 class(logical)
 ```
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

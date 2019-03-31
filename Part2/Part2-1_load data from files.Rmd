@@ -72,7 +72,7 @@ Notice that the `stringsAsFactors = ` argument is set to `TRUE`. If set to `FALS
 data()
 ```
 ```{r}
-install.packages("VIM")
+# install.packages("VIM")
 library(VIM)
 data(sleep)
 sleep_VIM = sleep
@@ -85,3 +85,5 @@ This dataset is part of the [VIM package](https://cran.r-project.org/web/package
 > NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. Your sleep dataset should have **62 rows and 10 columns**.  
 
 When dealing with Microsoft Excel files (.xlsx), you will find it more convenient to save them first as .csv files in Excel and then import them using `read.csv()`. However, you can also install the "foreign" package to load data from SPSS, Stata, Weka, Systat, Minitab, SAS, S, and MATLAB. See [this helpful documentation to learn more](https://cran.r-project.org/web/packages/rio/vignettes/rio.html). 
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

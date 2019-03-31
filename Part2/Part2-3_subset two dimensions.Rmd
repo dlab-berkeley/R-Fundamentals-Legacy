@@ -25,6 +25,7 @@ We can create a new dataframe object `sleep_varnames` that includes only "BodyWg
 ?"["
 ```
 ```{r}
+sleep_VIM = read.csv("sleep_VIM.csv")
 sleep_varnames = sleep_VIM[ , c("BodyWgt", "BrainWgt")]
 str(sleep_varnames)
 head(sleep_varnames)
@@ -143,3 +144,5 @@ example_list[[1]]
 ```{r}
 ## YOUR CODE HERE
 ```
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

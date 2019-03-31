@@ -134,3 +134,5 @@ Double question marks ?? will lead you to coding walkthroughs called "vignettes"
 ```
 
 Click "PDF" next to "psych::intro" to download the walkthrough. However, you will often find that your questions are not answered by neither the help pages nor vignettes. In that case you should Google-search your question or error message along with the name of a free help website. For example, to get help making a simple histogram, I would Google search "R histogram stack overflow". Take some time to browse the sites listed in the "Resources" section of the README.md file. 
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

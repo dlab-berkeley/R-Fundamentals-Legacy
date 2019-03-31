@@ -14,6 +14,8 @@ This section will cover a few ways to quickly produce descriptive statistics.
 `summary` provides six-number summaries for numeric/integer variables, and frequencies for factor/logical variables:
 
 ```{r}
+gap = read.csv("gapminder-FiveYearData.csv")
+
 summary(gap)
 
 # or of a single vector
@@ -109,3 +111,5 @@ table(gap$year, gap$continent)
 
 1. Load the `iris` dataset.  
 2. Run `summary`, `describe`, `describeBy`, and `table` on iris.  
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

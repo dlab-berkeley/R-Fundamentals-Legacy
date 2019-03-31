@@ -25,10 +25,18 @@ So what does it all mean? As fun as data science is, we do not do it for nothin'
 
 ## Heart disease dataset
 
-You are given a dataset you have never seen before. Can you replicate the above workflow? 
+Load the `heart.csv` dataset and let's live code some examples.
 
-##### Load the `heart.csv` dataset.  
 ```{r}
 ## YOUR CODE HERE
 ```
 
+## More practice
+
+Can you use RStudio to follow follow a workflow like the example one above? [Learn more about the heart disease dataset by clicking here. ](https://archive.ics.uci.edu/ml/datasets/heart+Disease)
+
+```{r}
+## 
+```
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

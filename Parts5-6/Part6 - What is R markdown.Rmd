@@ -52,7 +52,7 @@ data(iris); summary(iris)
 10. You can also embed plots, for example: 
 
 ```{r}
-heart = read.csv("./data/heart.csv")
+heart = read.csv("/Users/evan.admin/Desktop/R-Fundamentals/inbound/heart.csv")
 
 # For sex column, recode 0 = Female, 1 = Male
 heart$sex_fac = ifelse(heart$sex == 0, "Female", "Male")
@@ -78,5 +78,9 @@ cor.test(heart$age, heart$chol)
 ```
 
 Be sure to [check out the RStudio cheatsheet](https://www.rstudio.com/resources/cheatsheets/#rmarkdown) to learn how to format text, tables, lists, and much more!
+
+# Hidden code
+
+The below code, shown in the .Rmd files but not displayed in the .html files, eliminates unnecessary blank space at the end of knitted .html files. 
 
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

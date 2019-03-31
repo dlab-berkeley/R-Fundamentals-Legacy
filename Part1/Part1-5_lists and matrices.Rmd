@@ -60,3 +60,5 @@ class(matrix2)
 > Matrices are useful for doing complex math stuff useful for mathemagicians and statisticians. Beginners should focus on data frames instead of matrices. 
 
 Flash question: read ahead to the Part2 materials to learn about subsetting lists and matrices! In 2-3 minutes of reading/skimming, how do you think subsetting works? 
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

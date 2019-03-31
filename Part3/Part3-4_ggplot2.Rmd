@@ -32,6 +32,7 @@ data(iris)
 Remember how we said the `ggplot` function works in layers? Look what happens if we specifiy our data set ("iris") and our global aesthetic ("aes"), but we do not specify our "geom". We get the coordinate system and a defined X axis (lefExpt), but no representation of the data!
 
 ```{r}
+gap = read.csv("gapminder-FiveYearData.csv")
 ggplot(data = gap, aes(x = lifeExp))
 ```
 
@@ -101,7 +102,6 @@ ggplot(data = gap, aes(x = lifeExp, y = gdpPercap, color = continent, shape = co
     geom_point(size = 5, alpha = 0.5) + 
     theme_classic() +
     ggtitle("Scatterplot of life expectancy by gdpPercap") +
-    theme(legend.position = "top") + 
     xlab("Life expectancy (years)") + 
     ylab("gdpPercap (USD)") + 
     theme(legend.position = "top",
@@ -120,3 +120,5 @@ ggplot(data = gap, aes(x = lifeExp, y = gdpPercap, color = continent, shape = co
 ```
 
 There are many more additional arguments that you can use to tweak your ggplots. [Check out this cheatsheet to learn more!](https://www.rstudio.com/resources/cheatsheets/#ggplot2)
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

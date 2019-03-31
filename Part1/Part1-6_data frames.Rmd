@@ -13,17 +13,17 @@ This is simply a tabular spreadsheet of rows and columns!
 
 Let's create a dataframe called `gdp` using the vectors we already created:
 
-```{r, eval=FALSE}
-uniform
-normal
-integer
-character
-logical
+```{r}
+(uniform = runif(n = 10, min = 10000, max = 10000000000))
+(normal = rnorm(10, 0, 1))
+(integer = sample(1990:2010, 10, replace = FALSE))
+(character = sample(c("Canada", "USA", "Mexico"), 10, replace = TRUE))
+(logical = sample(c(TRUE, FALSE), 10, replace = TRUE))
 ```
 
 We do this using `data.frame()`
 
-```{r, eval=FALSE}
+```{r eval = F}
 ?data.frame
 ```
 ```{r}
@@ -136,3 +136,5 @@ gdp$Country # The level order has changed.
 Flash question: where have you seen something that looks like a dataframe before? 
 
 See (this page)[https://www.stat.berkeley.edu/~s133/factors.html] for help with factors.  
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

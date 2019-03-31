@@ -1,7 +1,7 @@
 ---
-title: "Learning objectives"
+title: "R Fundamentals: cheatsheet / learning objectives"
 author: "D-Lab"
-date: "3/25/2019"
+date: "March 31, 2019 (updated `r Sys.Date()`)"
 output: html_document
 ---
 
@@ -39,13 +39,13 @@ output: html_document
 ## Part 4
 
 Apply what you have learned in Parts 1, 2, and 3 to investigate a heart disease dataset! Goals:  
+
 1. Learn about the data.  
 2. Ask a well-informed research question.  
 3. Design a set of testable hypotheses.  
 4. Import and subset the data.  
 5. Create visualizations.  
-6. Run statistical tests.  
-7. Introduction to why you should learn about how to make inferences from data.  
+6. Test
 
 ## Part 5
 
@@ -57,3 +57,5 @@ Apply what you have learned in Parts 1, 2, and 3 to investigate a heart disease 
 ## Part 6
 
 Quick introduction to R Markdown and knitr.  
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

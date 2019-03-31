@@ -45,6 +45,8 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](htt
 
 # Resources  
 
+* [Software Carpentry](https://swcarpentry.github.io/)  
+
 ## Web
 
 * [Wickham H. 2014. Advanced R](http://adv-r.had.co.nz/)  

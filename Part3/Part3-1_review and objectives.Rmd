@@ -79,3 +79,5 @@ You will find that approaching research of all kinds generally falls into some s
 > DISCLAIMER: Remember that we are not formally teaching you statistics, but instead the basics of responsible statistical programming application in R.  
 
 Flash question: where are participants at in their own workflows? 
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
