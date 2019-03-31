@@ -12,7 +12,7 @@ Laptop required. Before Part 1 be sure to:
 * Extract the files some place convenient (i.e., Desktop)  
   * if you are a Git user, simply clone this repository
 
-Open the [quick reference]() file to see the topics covered in this workshop series. 
+Open the [learning objectives quick reference file]() to see the topics covered in this workshop series. 
 
 # About the UC Berkeley D-Lab
 
