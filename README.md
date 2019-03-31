@@ -12,7 +12,7 @@ Laptop required. Before Part 1 be sure to:
 * Extract the files some place convenient (i.e., Desktop)  
   * if you are a Git user, simply clone this repository
 
-Open the [learning objectives quick reference file](https://github.com/dlab-berkeley/R-Fundamentals/blob/master/Parts5-6/Part6-1_objectives%20and%20cheatsheet.Rmd) to see the topics covered in this workshop series. 
+Open the [learning objectives quick reference file](R-Fundamentals/Parts5-6/Part6-1_objectives quick reference.Rmd) to see the topics covered in this workshop series. 
 
 # About the UC Berkeley D-Lab
 
