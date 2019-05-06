@@ -69,7 +69,7 @@ df_rbind
 ```
 > NOTE: for rbind to work, you should have the same column names for both of your data frames! 
 
-# **Challenge 5** 
+# **Challenge 6** 
 
 1. Subsetting review. Use `gap` to create a subsetted dataframe named `UnitedStates_Mexico` that contains only data for countries USA and Mexico. (hint: does "and" actually mean "and" here?)  
 2. Create a subsetted data frame that only contains only the country USA and lifeExp greater than 76! (hint: what is the meaning of "and" here in contrast to question #1?)  

@@ -7,11 +7,19 @@ output: html_document
 
 # Part 1 solutions
 
-## Part 1 - Challenge 1
+## **Challenge 1**
+What are functions and arguments? Describe a few examples of each.  
+
+* Functions perform actions on things!  
+  * Examples: `mean()`, `plot()`, `lm()`, and `summary()`.   
+* Arguments are the things - values, mathematical expressions, text, datasets, etc.  
+  * Examples: type `?mean`, `?plot`, `?lm`, and `?summary` and look at the "arguments" section.  
+  
+## **Challenge 2**
 1. What is the three-piece recipe for variable definition? What piece goes where? Why?  
-2. Define three numeric variables. Write a mathematical expression that uses only these variable names (not the actual numbers).  
-3. Remove one of your numeric variables. Does your expression still work? Why or why not?  
-4. Wipe you global environment clean.  
+2. Define two numeric variables. Write a mathematical expression that uses only these two variables (not the actual numbers).  
+3. Remove one of these variables. Does your expression still work? Why or why not?  
+4. Wipe you global environment clean.    
 
 ```{r}
 # 1. 
@@ -35,11 +43,11 @@ rm(list = ls()) # Or click broom icon!
 
 ```
 
-## Part 1 - Challenge 2
+## **Challenge 3**
 1. Define two numeric variables.  
 2. Define two character variables.  
 3. Define two logical variables.  
-4. How do you check what types of data these variables are?  
+4. How do you check what class of data these variables are?  
 5. What does the `ls()` function do? Where else do you see this information?
 6. Can you perform math across these three data classes? Why or why not? 
 
@@ -69,16 +77,18 @@ class(logical2)
 ls()
 
 # 6. 
-# You can perform on the numeric variables, logical variables, or numeric/logical variables, but NOT the character data. 
+# You can perform math on numeric/integer variables, and logical variables, but NOT the character variables. 
 
 x ** y
 logical2 - logical1
 x ** -logical1
-
+```
+```{r eval = F}
 x + name
 ```
 
-## Part 1 - Challenge 3
+## **Challenge 4**
+
 1. Other `as.` ("as dot") functions exist as well, such as `as.numeric`, `as.character`, `as.logical`, and `as.factor`.  
 2. Using your numeric, character, and logical variables from above:  
   2a. Can you convert numeric to integer type?  
@@ -89,6 +99,7 @@ x + name
   
 ```{r}
 # 1. 
+NA
 
 # 2
 x; y; name; city; logical1; logical2
@@ -117,17 +128,19 @@ logical_to_character
 character_to_numeric = as.numeric(name) # What happened here? 
 ```
 
-## Part 1 - Challenge 4
-1. Notice how `paste0()` is found within the `paste()` function - this is called "nesting functions". What is the purpose of the `paste0()` here? 
+## **Challenge 5**
+1. Notice that the `paste0()` function is found inside of `paste()`. What is the purpose of the `paste0` here? 
 
 ```{r}
 # 1. 
-# paste0() removes whitespace between characters. 
-paste("North", "South", "East", "West")
-paste0("North", "South", "East", "West")
+pangram = paste("The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", paste0("dog", "."))
+pangram
+# paste0() removes whitespace between characters. Change paste0() to simply paste() - what happened?
+paste("N", "S", "E", "W") # cardinal directions
+paste0("N", "S", "E", "W")
 ```
 
-## Part 1 - Challenge 5
+## **Challenge 6**
 1. `substr` can also be used to reassign parts of text. Fill in the question marks below so that that fox jumps over the cow instead of the dog. 
 
 ```{r}
@@ -139,11 +152,13 @@ substr(pangram, start = 41, stop = 43) = "cow"
 pangram
 ```
 
-## Part 1 - Challenge 6
-1. Build a vector of logical data type and save it in a variable named `logical_vector`  
+## **Challenge 7**
+1. Build three vectors: 1) a logical vector named `logical_vector`, 2) a numeric vector named `numeric_vector`, and 3) another numeric vector named `numeric_vector2`. 
 2. Can you divide `numeric_vector` by `numeric_vector2`? Why or why not?  
 3. Can you multiply `numeric_vector` by `logical_vector`? Why or why not? 
-4. Can you multiply `numeric_vector2` by `logical_vector`? 
+4. Can you multiply `numeric_vector2` by `logical_vector`? Why or why not?
+
+You might get a different answer than your neighbors. What is [Recycling of Vectors in R](http://eriqande.github.io/rep-res-web/lectures/vectorization_recycling_and_indexing.html#recycling)? 
 
 ```{r}
 # 1. 
@@ -171,14 +186,34 @@ What does the error message indicate for numbers 2 and 3?
 In numeric_vector/numeric_vector2 :
   longer object length is not a multiple of shorter object length
 
-## Part 1 - Challenge 7
+## **Challenge 8**
+Where have you seen something that looks like a dataframe before?  
+
+[Microsoft Excel](https://support.office.com/en-us/article/excel-for-windows-training-9bc05390-e94c-46af-a5b3-d7c22f6990bb)
+
+[Download MS Excel](https://products.office.com/en-us/excel)  
+
+[D-Lab Basics of Excel](https://github.com/dlab-berkeley/Basics-of-Excel)
+
+[D-Lab Visualization in Excel](https://github.com/dlab-berkeley/visualization-in-Excel)
+
+## **Challenge 9**
+Read ahead to the Part2 materials to learn about subsetting lists and matrices! In 2-3 minutes of reading/skimming, how do you think subsetting works? 
+
+1) dollar sign `$` operator,  
+2) bracket `[ , ]` notation, and 
+3) `subset()` function
+
+... are just a few ways! 
+
+## **Challenge 10**
 1. Save the "gdp" data frame as a .csv file named "gdp.csv". 
 
-```{r}
+```{r eval = F}
 write.csv(gdp, file = "gdp.csv")
 ```
 
-## Part 1 - Challenge 8
+## **Challenge 11**
 ```{r, eval=FALSE}
 library(swirl)
 swirl()

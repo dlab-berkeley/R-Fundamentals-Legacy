@@ -7,7 +7,7 @@ output: html_document
 
 # Variable assignment
 
-Variables are how we save things in R's memory so that they can be "called" (retrieved) when you need them. Assigning/defining these variables is called [variable assignment](https://en.wikipedia.org/wiki/Assignment_(computer_science)) and they are stored in your **global environment.** Traditionally, you can define objects using the **assignment operator** `<-`. This is a "less than" `<` symbol immediately followed by a hyphen `-`. You will see this symbol in many tutorials. 
+Variables are how we save things in R's memory so that they can be "called" (retrieved) when we need them. Assigning/defining these variables is called [variable assignment](https://en.wikipedia.org/wiki/Assignment_(computer_science)) and they are stored in your **global environment.** Traditionally, you can define objects using the **assignment operator** `<-`. This is a "less than" `<` symbol immediately followed by a hyphen `-`. You will see this symbol in many tutorials. 
 
 > However, we will simply use the `=` in place of the assignment operator. This works the same but uses less keystrokes and is less confusing!  
 
@@ -59,7 +59,11 @@ number %/% number2 # integer division
 
 ## Naming R variables  
 
-Variable names can be anything, but are always case sensitive. However, they cannot begin with a number and generally do not begin with symbols. Be consistent and give your variables brief descriptions of their contents. Names must be **unique.** If you resuse an old name, the old definition will be overwritten. Instead, you can use an underscore as a placeholder for a space to create variables names with multiple words. Let's overwrite a variable to see how its definition changes.  
+Variable names can be anything, but are always case sensitive. However, they cannot begin with a number and generally do not begin with symbols. Be consistent and give your variables brief descriptions of their contents. Names must be **unique.**  
+
+If you reuse an old name, the old definition will be overwritten.  
+
+Use an underscore as a placeholder for a space to create variable names with multiple words. Let's define and overwrite a variable to see how its definition changes.  
 
 ```{r}
 welcome = "UC Berkeley" 
@@ -69,14 +73,7 @@ welcome = "Barrows Hall"
 welcome
 ```
 
-Does this naming convention make sense?
-
-```{r}
-character_data = 12
-character_data
-```
-
-If we want to preserve the original variable `welcome` we have to define a new object. 
+If we want to preserve the `welcome` variable, we should define a new object like so below: 
 
 ```{r}
 welcome2 = "UC Davis"
@@ -86,6 +83,17 @@ ls()
 ```
 
 We now have multiple variables defined in our global environment! Note that `welome2` did not overwrite the variable `welcome`. 
+
+Does the below naming conventions make sense? Remember, it is good to name your variables as brief descriptions of 
+
+```{r}
+this_is_a_pizza = 12
+this_is_a_pizza
+
+my_name = "Douglas Engelbart"
+
+# learn more about him here: https://en.wikipedia.org/wiki/Douglas_Engelbart
+```
 
 ## Removing variables
 
@@ -108,11 +116,11 @@ ls()
 
 All variables have been removed from our global environment.
 
-# **Challenge 1**
+# **Challenge 2**
 
 1. What is the three-piece recipe for variable definition? What piece goes where? Why?  
-2. Define five numeric variables. Write a mathematical expression that uses only these five numeric variable names (not the actual numbers).  
-3. Remove one of your numeric variables. Does your expression still work? Why or why not?  
+2. Define two numeric variables. Write a mathematical expression that uses only these two variables (not the actual numbers).  
+3. Remove one of these variables. Does your expression still work? Why or why not?  
 4. Wipe you global environment clean.  
 
 ```{r}

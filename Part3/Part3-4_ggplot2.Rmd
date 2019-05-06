@@ -24,7 +24,6 @@ Check out the help files:
 ```{r}
 library(ggplot2)
 ?ggplot2
-data(iris)
 ```
 
 # ggplot histogram 
@@ -32,7 +31,7 @@ data(iris)
 Remember how we said the `ggplot` function works in layers? Look what happens if we specifiy our data set ("iris") and our global aesthetic ("aes"), but we do not specify our "geom". We get the coordinate system and a defined X axis (lefExpt), but no representation of the data!
 
 ```{r}
-gap = read.csv("gapminder-FiveYearData.csv")
+load("../data-proc/data.RData")
 ggplot(data = gap, aes(x = lifeExp))
 ```
 
@@ -56,7 +55,8 @@ ggplot(data = gap, aes(x = lifeExp)) +
   theme_classic() 
 ```
 
-# **Challenge 5**
+# **Challenge 6**
+
 1. Create a ggplot histogram of one of the variables from the sleep_VIM dataset. 
 
 ```{r}
@@ -79,7 +79,7 @@ ggplot(data = gap, aes(x = continent, y = lifeExp, fill = continent)) +
 
 What happens if you un-hashtage `guides(fill = FALSE)` and the plus sign in lines 68 and 69 above? 
 
-# **Challenge 6**
+# **Challenge 7**
 
 1. Create ggplot boxplots for 4, 6, and 8 cylinder cars from the mtcars dataset.
 
@@ -111,7 +111,7 @@ ggplot(data = gap, aes(x = lifeExp, y = gdpPercap, color = continent, shape = co
           axis.text.x = element_text(angle = 45, hjust = 1)) 
 ```
 
-# **Challenge 7** 
+# **Challenge 8** 
 
 1. In lines the ggplot code above, what are the arguments inside of our second "theme" argument doing?
 

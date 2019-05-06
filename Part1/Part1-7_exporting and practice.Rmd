@@ -7,7 +7,7 @@ output: html_document
 
 # Saving your work (`write.csv`)  
 
-It is always good to save your work. Saving a dataframe as a .CSV file is a convenient way to store it for future use. **Anything saved will be placed into your working directory by default!** 
+It is always good practice to organize, document, and save your work. Saving a dataframe as a .CSV file is a convenient way to store it for future use. **Anything saved will be placed into your working directory by default!** 
 
 See where your data frame is saved by typing: 
 
@@ -20,7 +20,7 @@ getwd()
 The syntax looks like this:
 `write.csv(object_name, file = "nameOfFile.csv", row.names = TRUE)`
 
-# **Challenge 7**
+# **Challenge 10**
 
 1. Save the "gdp" data frame as a .csv file named "gdp.csv". 
 
@@ -32,7 +32,7 @@ Check your working directory to see if it worked!
 
 > We will talk about saving plots as .PDF and .TIFF file types in Part 3!  
 
-# **Challenge 8** Homework (optional)
+# **Challenge 11** Homework (optional)
 
 swirl is a package that helps you learn R by using R. Visit the [swirl](http://swirlstats.com/) homepage to learn more. 
 

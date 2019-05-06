@@ -1,0 +1,66 @@
+---
+title: 'R Fundamentals Part1-6: lists and matrices'
+author: "D-Lab"
+date: "March 31, 2019 (updated `r Sys.Date()`)"
+output: html_document
+---
+
+# List
+
+A **LIST** is an ordered group of data that are not of the same type. Lists are heterogenous. Instead of using `c()` like in vector composition, use `list()` to create a list:
+
+```{r, eval=FALSE}
+?list
+```
+```{r}
+list1 = list(TRUE, "one", 1) # include three kinds of data: logical, character, and integer
+list1
+class(list1)
+```
+
+Lists are simple containers and are not additive or multiplicative like vectors and matrices are:
+```{r, eval=FALSE}
+list1 * list(FALSE, "zero", 0) # Error
+```
+
+# Matrix  
+
+**MATRICES** are homogenous like vectors. They are tables comprised of data all of the same type. Matrices are organized into rows and columns. 
+
+Use `matrix()` to create a matrix
+
+```{r, eval=FALSE}
+?matrix
+```
+
+We can also specify how we want the matrix to be organized using the `nrow` and `ncol` arguments:
+
+```{r}
+# Construct a 4 x 3 matrix
+matrix1 = matrix(data = 1:12, nrow = 4, ncol = 3) 
+matrix1
+class(matrix1)
+```
+
+We can also coerce a vector to a matrix, because a vector is comprised of homogenous data of the same kind, just like a matrix is:
+
+```{r}
+# Create a numeric vector from 1 to 20
+vec1 = c(1:20)
+vec1
+class(vec1)
+
+# Coerce this vector to a matrix with 10 rows and 2 columns:
+matrix2 = matrix(vec1, ncol = 2)
+matrix2
+class(matrix2)
+```
+
+> 
+
+> It is worth knowing some basics of lists because in Part3 you will see that statistical output is often returned as a list. Matrices are useful for doing complex math and statistical related-stuff. However, beginners should keep their focus on vectors and dataframes instead of lists and matrices.  
+
+# **Challenge 9**
+Read ahead to the Part2 materials to learn about subsetting lists and matrices. In 2-3 minutes of reading/skimming, how do you think subsetting works? 
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

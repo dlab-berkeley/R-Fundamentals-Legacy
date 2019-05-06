@@ -1,0 +1,149 @@
+---
+title: 'R Fundamentals Part4-4: monte carlo simulation'
+author: "D-Lab"
+date: "March 31, 2019 (updated `r Sys.Date()`)"
+output: 
+  html_document: 
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+  word_document:
+    toc: yes
+---
+
+# Monte Carlo simulation
+
+A Monte Carlo simulation is an algorithm that relies on repeated random sampling to obtain numerical results. In R, loops and functions are key for Monte Carlo simulations.  
+
+See (this example)[https://www.manufacturing.net/article/2012/11/demystifying-monte-carlo] to learn more.  
+
+We can simulate a die roll by taking a random sample from a 1:6 vector: 
+
+```{r}
+sample(1:6, 1)
+
+# Or, we could use the sample function to simulate 100 die rolls...
+sample(1:6, 100, replace = TRUE)
+```
+
+But what if we wanted to repeat the process 200 times and get the mean of the die rolls for each iteration? One option is to do that with a loop:
+
+```{r, eval=FALSE}
+iter = 200
+nr_rolls = 100
+
+for (i in 1:iter){
+    rolls = sample(1:6, nr_rolls, replace=TRUE)
+    #print(rolls)
+    print(mean(rolls))
+}
+```
+
+Another alternative is to write a function that produces one iteration of the process and then use the `replicate` command to repeat the process 100 times. 
+
+## Monte Carlo - Step 1: write the function
+
+Write a function that works through the process once
+
+```{r}
+set.seed(1)
+
+die_roll_mean = function(nr_rolls){
+    rolls = sample(1:6, nr_rolls, replace = TRUE)
+    mean(rolls)
+}
+
+die_roll_mean(nr_rolls = 100)
+```
+
+## Monte Carlo - Step 2: replicate
+
+Now we use `replicate` to iterate the function 200 times.  
+
+```{r}
+# 100 roll mean
+reps = replicate(200, die_roll_mean(nr_rolls = 100)) 
+```
+```{r, eval=FALSE}
+reps
+```
+```{r}
+# 5 roll mean
+reps = replicate(200, die_roll_mean(nr_rolls = 5)) 
+```
+```{r, eval=FALSE}
+reps
+```
+
+What happens to the values with more rolls? With less rolls?  
+
+## Monte Carlo - Step 3: include plotting function
+
+We can use functions with plotting functions as well:
+
+```{r}
+hist(reps)
+
+hist(reps, col = "grey")
+abline(v = mean(reps), col = "blue", lwd = 6)
+
+my_hist = function(sims){
+    hist(sims, col = "grey", xlab = "Mean of n die rolls", main = "")
+    abline(v = mean(sims), col = "blue", lwd = 6)
+}
+
+my_hist(sims = reps)
+```
+
+## Monte Carlo - Step 4: automate histogram title
+
+How would we update the function to add the number of die rolls as the title
+of the plot?
+```{r}
+my_hist = function(sims, n){
+    hist(sims, col = "grey",  xlab = "Mean of n die rolls",
+         main = paste0("n=", n), xlim = c(2,5))
+    abline(v = mean(sims), col = "blue", lwd = 2)
+    }
+
+my_hist(sims = reps, n = 5)
+```
+
+How can we use everything we learned today to analyze the changes in the the sampling distribution of the mean of the die rolls as the number of die rolls change?
+
+We can integrate what we did above and write a loop that varies the number of die rolls over which we take the mean and plots the sampling distribution each time.
+
+## Monte Carlo - Step 5: visualize different numbers of rolls
+
+Say we want to see the sampling distribution for $n=10$, $n=25$, $n=50$, $n=100$, $n=200$, and $n=500$.
+```{r}
+nr_die_rolls = c(10, 25, 50, 100, 200, 500)
+```
+
+Let's see how we can first write this for $n=10$. Remember this is the first element of the vector, so we can get it using 1 as the index, `nr_die_rolls[1]`.
+```{r}
+reps = replicate(1000, die_roll_mean(nr_rolls = nr_die_rolls[1])) 
+my_hist(sims = reps, n = nr_die_rolls[1])
+```
+
+We can now write a loop that works through the vector with the numnber of die rolls and produces the relevant plot for each iteration:
+```{r}
+# Change our plotting area to a 2 row by 3 column area
+par(mfrow = c(2,3))
+
+for (i in 1:length(nr_die_rolls)) {
+    reps = replicate(1000, die_roll_mean(nr_rolls = nr_die_rolls[i]))
+    my_hist(sims = reps, n = nr_die_rolls[i])
+}
+```
+
+# **Challenge 5**
+
+1. What is the purpose of the Monte Carlo simulation? 
+
+```{r}
+## YOUR ANSWER HERE
+```
+
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

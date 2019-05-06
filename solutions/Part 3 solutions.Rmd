@@ -7,29 +7,31 @@ output: html_document
 
 # Part 3 solutions
 
-## Part 3 - Challenge 1
+## **Challenge 1**
+
+Where are you in your own research workflow? What are your strengths and weaknesses? What do you still need to learn? 
+
+## **Challenge 2**
 
 1. Load the `iris` dataset.  
 2. Run `summary`, `describe`, `describeBy`, and `table` on iris.  
 
 ```{r}
 # 1. 
-data(iris)
+load("../data-proc/data.RData")
 
 # 2. 
 summary(iris)
 summary(iris$Petal.Length)
 
-describe(iris[, -5])
+psych::describe(iris[, -5])
 
-describeBy(iris[, -5], group = iris$Species)
+psych::describeBy(iris[, -5], group = iris$Species)
 
 table(iris$Species)
 ```
 
-## Part 3 - Challenge 2
-
-# **Challenge 1**
+## **Challenge 3**
 1. Create a histogram of one of the numeric variables from the `iris` dataset.  
 
 ```{r}
@@ -43,7 +45,7 @@ hist(iris$Petal.Length,
      las = 1)
 ```
 
-## Part 3 - Challenge 3
+## **Challenge 4**
 
 1. Create boxplots for one of the numeric variables in the `iris` dataset as parsed by Species.
 
@@ -56,9 +58,9 @@ boxplot(iris$Petal.Length ~ iris$Species,
         las = 1)
 ```
 
-## Part 3 - Challenge 4
-
+## **Challenge 5**
 1. Using the `iris` dataset, plot two numeric variables in a scatterplot. 
+
 
 ```{r}
 plot(x = iris$Petal.Length, 
@@ -74,14 +76,12 @@ legend("topleft", inset = 0, title = "Species", cex = 1,
        horiz = FALSE)
 ```
 
-## Part 3 - Challenge 5
-
+## **Challenge 6**
 1. Create a ggplot histogram of one of the variables from the sleep_VIM dataset. 
 
 ```{r}
-sleep_VIM = read.csv("sleep_VIM.csv")
-
-ggplot(sleep_VIM, aes(x = Gest)) + 
+library(ggplot2)
+ggplot2::ggplot(sleep, aes(x = Gest)) + 
   geom_histogram(fill = "orange", bins = 20) + 
   ggtitle("Gestation lengths for mammals") + 
   xlab("Number of days") + 
@@ -89,15 +89,10 @@ ggplot(sleep_VIM, aes(x = Gest)) +
   theme_light()
 ```
 
-## Part 3 - Challenge 6
-
+## **Challenge 7**
 1. Create ggplot boxplots for mpg for 4, 6, and 8 cylinder cars from the mtcars dataset.
 
 ```{r}
-data(mtcars)
-?mtcars
-str(mtcars)
-
 ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) + 
   geom_boxplot() + 
   ggtitle("Boxplots for mpg by cyl") + 
@@ -107,7 +102,7 @@ ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) +
   guides(fill = F)
 ```
 
-## Part 3 - Challenge 7
+## **Challenge 8**
 
 1. In lines the ggplot code above, what are the arguments inside of our second "theme" argument doing?
 
@@ -128,8 +123,7 @@ theme(legend.position = "top",
       axis.text.x = element_text(angle = 45, hjust = 1)) 
 ```
 
-## Part 3 - Challenge 8
-
+## **Challenge 9**
 1. What are the assumptions for a t-test?  
 2. Fit a t-test for Petal Lengths between iris versicolor and virginica species.  
 3. What does this result mean?  
@@ -147,17 +141,15 @@ virginica = iris[iris$Species == "virginica", ]
 t.test(versicolor$Petal.Length, virginica$Petal.Length)
 ```
 
-## Part 3 - Challenge 9
-
+## **Challenge 10**
 1. What are the assumptions for a one-way analysis of variance?  
 2. Use the `mtcars` dataset to perform an ANOVA and TukeyHSD test for mpg between the three cyl sizes (4, 6, and 8). 
 
 ```{r}
 # 1. 
-https://en.wikipedia.org/wiki/One-way_analysis_of_variance#Assumptions
+# https://en.wikipedia.org/wiki/One-way_analysis_of_variance#Assumptions
 
 # 2. 
-data(mtcars)
 mtcars_aov = aov(mpg ~ as.factor(cyl), data = mtcars)
 summary(mtcars_aov)
 TukeyHSD(mtcars_aov)

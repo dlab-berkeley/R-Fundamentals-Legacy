@@ -31,7 +31,7 @@ Load the `heart.csv` dataset and let's live code some examples.
 ## YOUR CODE HERE
 ```
 
-## More practice
+# **Challenge 1**
 
 Can you use RStudio to follow follow a workflow like the example one above? [Learn more about the heart disease dataset by clicking here. ](https://archive.ics.uci.edu/ml/datasets/heart+Disease)
 

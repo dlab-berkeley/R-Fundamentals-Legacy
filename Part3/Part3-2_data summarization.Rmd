@@ -5,6 +5,37 @@ date: "March 31, 2019 (updated `r Sys.Date()`)"
 output: html_document
 ---
 
+# Saving variables as .RData
+
+Instead of having to use read.csv() to load a file everytime you close and reopen RStudio, it is good to get into the habit of saving your variables in an .RData file. This way, you can just load multiple variables/datasets at once and skip all the preprocessing. 
+
+```{r}
+# Import the gap dataset
+gap = read.csv("gapminder-FiveYearData.csv")
+
+# Load the sleep_VIM dataset
+sleep = read.csv("sleep_VIM.csv")
+
+# Load the iris dataset
+data(iris)
+
+# Load the mtcars dataset
+data(mtcars)
+
+# Save these four datasets to the "data.RData" file in the data-proc folder.
+save(gap, iris, sleep, mtcars,
+     file = "../data-proc/data.RData")
+
+# Remove gap, sleep, and iris from your environment
+rm(gap)
+rm(sleep)
+rm(iris)
+rm(mtcars)
+
+# Load both gap and iris by loading "gap-iris.RData"
+load("/Users/evan.admin/Desktop/R-Fundamentals/data-proc/data.RData")
+```
+
 # Data summarization
 
 This section will cover a few ways to quickly produce descriptive statistics.  
@@ -14,8 +45,6 @@ This section will cover a few ways to quickly produce descriptive statistics.
 `summary` provides six-number summaries for numeric/integer variables, and frequencies for factor/logical variables:
 
 ```{r}
-gap = read.csv("gapminder-FiveYearData.csv")
-
 summary(gap)
 
 # or of a single vector
@@ -42,6 +71,7 @@ describe(gap[ , -c(1,2,4)])
 ```
 
 We can also subset these outputs to include only the measurements we want. First, save our describe object in a variable: 
+
 ```{r}
 gap_describe = describe(gap[ , -c(1,2,4)]) 
 gap_describe
@@ -107,9 +137,9 @@ table(gap$continent, gap$year)
 table(gap$year, gap$continent) 
 ```
 
-# **Challenge 1**
+# **Challenge 2**
 
-1. Load the `iris` dataset.  
+1. Make sure your `iris` dataset is loaded.  
 2. Run `summary`, `describe`, `describeBy`, and `table` on iris.  
 
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

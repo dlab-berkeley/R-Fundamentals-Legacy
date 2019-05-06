@@ -16,7 +16,7 @@ Let's start with "base" plotting functions (functions that are builtin to R and 
 Histograms are a handy way to illustrate the distribution shape of one numeric/integer variable. Let's visualize the "lifeExp" variable from `gap`:
 
 ```{r}
-gap = read.csv("gapminder-FiveYearData.csv")
+load("../data-proc/data.RData")
 
 hist(gap$lifeExp, 
      col = "gray90")
@@ -51,7 +51,8 @@ hist(gap$lifeExp,
 
 Click the "Zoom" button to pop-out the plot into its own window. Click "Export" to save it as an image or .pdf file!  
 
-# **Challenge 2**
+# **Challenge 3**
+
 1. Create a histogram of one of the numeric variables from the `iris` dataset.  
 
 ```{r}
@@ -88,7 +89,7 @@ boxplot(gap$lifeExp ~ gap$continent,
 #That looks better! 
 ```
 
-# **Challenge 3**
+# **Challenge 4**
 
 1. Create boxplots for one of the numeric variables in the `iris` dataset as parsed by Species.
 
@@ -141,7 +142,8 @@ There is extensive help available for finding help with colors and point shapes 
 
 Voilà! Check your working directory - we now have a (near?)publishable quality figure that can be copy and pasted into your manuscript. Our legend is inside of our plotting boundaries which is not ideal. 
 
-# **Challenge 4**
+# **Challenge 5**
+
 1. Using the `iris` dataset, plot two numeric variables in a scatterplot. 
 
 ```{r}

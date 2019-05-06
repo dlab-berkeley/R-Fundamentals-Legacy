@@ -21,6 +21,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 getwd()
 ## "Session" --> "Set working directory" --> "Choose directory"
+## Choose the data-raw folder
 getwd()
 ```
 
@@ -78,6 +79,8 @@ You will find that approaching research of all kinds generally falls into some s
 
 > DISCLAIMER: Remember that we are not formally teaching you statistics, but instead the basics of responsible statistical programming application in R.  
 
-Flash question: where are participants at in their own workflows? 
+# **Challenge 1** 
+
+Approximately where are you in your own research workflow? 
 
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

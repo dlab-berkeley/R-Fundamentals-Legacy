@@ -17,14 +17,15 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Workshop goals
 
-Part 1) Introduction to R, data types, data structures (emphasis on data frame)  
-Part 2) Import, subset, and merge data; type coercion, identifying missing data  
-Part 3) Research design, data visualization, and statistical testing  
-Part 4) Mini-projects
+Part 1) Introduction to R, data types, data structures/data frames  
+Part 2) Import, subset, and merge data; identifying missing data  
+Part 3) Research design, data summarization and visualization  
+Part 4) Statistical testing  
 
 **Bonus**  
-Part 5) For-loops and functions; Monte Carlo simulation, the "birthday problem".  
+Part 5) For-loops and functions; Monte Carlo simulation, the "birthday problem"  
 Part 6) What is RMarkdown?  
+Part 7) Mini-project  
 
 **Part 1 learning objectives:**  
 1. Introduction: What is R? Navigating RStudio, variable assignment, global environment, packages, variable assignment, help  
@@ -38,30 +39,30 @@ Part 6) What is RMarkdown?
 
 ## The student
 
-This document is designed as a resource for **the student**. Use these documents if you choose to follow along, need to review, or choose to read ahead.  
+This document is designed as a resource for **the student**. Use these documents if you choose to review or read ahead.  
 
 ## The instructor
 
 **The instructor** should emphasize that:  
-1. R is free and open-source
-2. Is great for data visualizaiton
-3. Utilizes many analytical packages written for your field
-4. Is ideal for open and reproducible research
-5. Has strong community support and help and is used by virtually all academic disciplines, business, and industry.  
+1. R is free and open-source  
+2. Is great for data visualizaiton  
+3. Utilizes many analytical packages written for your field  
+4. Is ideal for open and reproducible research  
+5. Has strong community support and help and is used by virtually all academic disciplines, business, and industry  
 
 Then, the instructor will:  
 6. Provide motivating examples for the class  
 7. Describe how to apply R to research  
-8. Point out some of R's shortcomings along the way    
-9. Lead typing walkthoughs of these R functions  
+8. Point out some of R's shortcomings along the way  
+9. Lead typing walkthoughs  
 
 # R and RStudio
 
-R is a programming language based on the [S](https://en.wikipedia.org/wiki/S_(programming_language)) language and is [functional](https://en.wikipedia.org/wiki/Functional_programming), [object oriented](https://en.wikipedia.org/wiki/Object-oriented_programming), and [interpreted](https://en.wikipedia.org/wiki/Interpreted_language). These themes make R highly extensible. However, we do not need to think of R in such complicated terms. In this workshop, we provide you with basic programming competencies so you can immediately apply what you learn to your own research. In general, programming languages such as R can simply be thought of as a way to give instructions to a computer to accomplish a task. R is the actual programming language that you will learn to use.  
+R is a programming language based on the [S](https://en.wikipedia.org/wiki/S_(programming_language)) language and is [functional](https://en.wikipedia.org/wiki/Functional_programming), [object oriented](https://en.wikipedia.org/wiki/Object-oriented_programming), and [interpreted](https://en.wikipedia.org/wiki/Interpreted_language). These themes make R highly extensible. However, we do not need to think of R in such complicated terms. In this workshop, we provide you with basic programming competencies so you can immediately apply what you learn to your own research. In general, programming languages such as R can simply be thought of as a way to give instructions to a computer to accomplish a data task. R is the actual programming language you will learn to use.  
 
-RStudio is the premier R graphical user interface (GUI) and integrated development environment (IDE) that makes R much easier to use. It can directly interface with [GitHub](https://en.wikipedia.org/wiki/GitHub) for sharing, collaboration, and version tracking and even makes it easy to program in other languages such as [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) and [Python](https://en.wikipedia.org/wiki/Python_(programming_language)). 
+RStudio is the premier R graphical user interface (GUI) and integrated development environment (IDE) that makes R easier to use. It can directly interface with [GitHub](https://en.wikipedia.org/wiki/GitHub) for sharing, collaboration, and version tracking and even makes it easy to program in other languages such as [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)) and [Python](https://en.wikipedia.org/wiki/Python_(programming_language)). 
 
-R's many additional user-defined software "packages" (add-ons that provide to you a lot of shortcutted functions) allow for relatively straightforward completion of tasks such as importing and preprocessing data, statistical testing, and producing publication-ready visualizations in areas such as statistical modeling, machine learning, deep learning, natural language processing, and time-series analysis.  
+R's many additional user-defined software "packages" (additional software libraries that provide to you tricks and shortcuts) allow for relatively straightforward completion importing and preprocessing data, statistical testing, and producing publication-ready visualizations for statistical modeling, machine learning, deep learning, natural language processing, and time-series analysis.  
 
 ## Tools --> Global Options
 
@@ -91,13 +92,13 @@ Code output is displayed in the `console` in the bottom left pane. This space is
 
 In the console, the prompt `>` looks like a greater than symbol. If your prompt begins to look like a `+` symbol by mistake, simply click in your console and press the `esc` key on your keyboard as many times as necessary to return to the prompt. 
 
-R uses `+` when code is broken up across multiple lines and R is still expecting more code. A line of code does not usually stop until R finds an appropriate stop parameter, or some punctuation that completes some code such as a closed round parenthesis `)`, square bracket `]`, curly brace `}`, or quotation mark `'`.  
+R uses `+` when code is broken up across multiple lines and R is still expecting more code. A line of code does not usually end until R finds an appropriate stop parameter or punctuation that completes some code such as a closed round parenthesis `)`, square bracket `]`, curly brace `}`, or quotation mark `'`.  
 
 If the output in your console gets too messy, you can clear it by pressing `control + l` on both Mac and PC. This will not erase any saved data - it will simply make your console easier to read. 
 
 ## Top right pane (global environment)
 
-Data are saved in R's memory as "variables". Variables are simply placeholders for a value, word, function, or dataset! The global "Environment" tab in the upper right pane displays the variables you have assigned. "Global" simply means that these variables are available for any task.  
+Data are saved in R's memory as "variables". Variables are simply placeholders for a value, mathematical expression, word, function, or dataset! The global "Environment" tab in the upper right pane displays the variables you have assigned/saved. "Global" simply means that these variables are available for any task.  
 
 ## Bottom right pane (files, plots, packages, and help)
 
@@ -148,12 +149,14 @@ Our coding universe consists of **functions** and **arguments**.
 
 * Functions perform actions on things. In the natural language analogy, functions are the verbs in our sentences. An easy way to identify a function is because it contains trailing parentheses such as after `mean()`. 
 
-* Arguments are the things; they consist of virtually anything like values, mathematical expressions, vectors, lists, matrices, words, text of entire books, functions, and even large datasets. These arguments go inside the parentheses of functions!
+* Arguments are the things; they consist of virtually anything like values, expressions, vectors, lists, matrices, words, text of entire books, functions, and even large datasets. These arguments go inside the parentheses of functions!
 
 ```{r}
+# What is the arithmetic mean of 100, 1000, and 10000?
 mean(c(100, 1000, 10000))
 ```
 
-Flash question: what are functions and arguments? 
+# **Challenge 1**
+What are functions and arguments? Describe a few examples of each.  
 
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

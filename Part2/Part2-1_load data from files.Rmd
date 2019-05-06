@@ -30,7 +30,7 @@ Part 2 learning objectives:
 
 # Loading data from files
 
-Set your working directory to the R-Fundamentals **inbound** folder by clicking "Session" --> "Set working directory" --> "Choose directory". 
+Set your working directory to the R-Fundamentals **data-raw** folder by clicking "Session" --> "Set working directory" --> "Choose directory". 
 
 This is what a [hierarchical file system (Mac)](https://en.wikipedia.org/wiki/Hierarchical_File_System) looks like:
 ![Hierarchical File System (Mac)](/Users/evan.admin/Desktop/R-Fundamentals/images/hfs.png)  
@@ -44,12 +44,15 @@ Load the `gapminder-FiveYearData.csv` dataset from the inbound folder inside the
 ```
 ```{r}
 gap = read.csv("gapminder-FiveYearData.csv", 
-                    header = TRUE, 
-                    stringsAsFactors = T,
-                    na.strings = c("", " ", "999", "?", "NONE", "none"))
+               # Place column names in header row outside of the data
+               header = TRUE, 
+               # Automatically convert string vectors to factor type?
+               stringsAsFactors = T,
+               # Tell R to code anything defined here as NA
+               na.strings = c("", " ", "999", "?", "NONE", "none"))
 head(gap)
 str(gap)
-# View(gap)  # View entire dataset in a new tab! 
+# View(gap)  # View entire dataset in a new tab.
 ```
 
 # Common `read.csv()` arguments
@@ -64,7 +67,7 @@ Notice that the `stringsAsFactors = ` argument is set to `TRUE`. If set to `FALS
 
 1. Load the mammals "sleep_VIM" dataset from the data folder using `read.csv()`. Save it in a variable named "Sleep_VIM". 
 
-> NOTE: what is shown is another way to load datasets that are included in R and packages. Just type data() to see some of the many pre-built datasets in R!  
+> NOTE: below is another way to load datasets that are pre-baked into R and packages. Just type data() to see some of the many pre-built datasets in R!  
 
 2. Remember what `ls()` does? What does `dir()` do? 
 
@@ -84,6 +87,8 @@ This dataset is part of the [VIM package](https://cran.r-project.org/web/package
 
 > NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. Your sleep dataset should have **62 rows and 10 columns**.  
 
-When dealing with Microsoft Excel files (.xlsx), you will find it more convenient to save them first as .csv files in Excel and then import them using `read.csv()`. However, you can also install the "foreign" package to load data from SPSS, Stata, Weka, Systat, Minitab, SAS, S, and MATLAB. See [this helpful documentation to learn more](https://cran.r-project.org/web/packages/rio/vignettes/rio.html). 
+When dealing with Microsoft Excel files (.xlsx), you will find it more convenient to save them first as .csv files in Excel and then import them using `read.csv()`. However, you can also install the "foreign" package to load data from SPSS, Stata, Weka, Systat, Minitab, SAS, S, and MATLAB. See [this helpful documentation to learn more](https://cran.r-project.org/web/packages/rio/vignettes/rio.html).  
+
+You can also use the [import dataset](https://support.rstudio.com/hc/en-us/articles/218611977-Importing-Data-with-RStudio) button located on your Environment tab.  
 
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

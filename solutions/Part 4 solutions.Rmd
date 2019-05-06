@@ -7,72 +7,51 @@ output: html_document
 
 # Part 4 solutions
 
-# Example project
+## **Challenge 1**
 
 You are given a dataset you have never seen before. You want to use RStudio to import the dataset and learn about it a little before you proceed with preprocessing tasks. 
 
-##### 1. Load the `mtcars` dataset.  
-##### 2. What are some useful functions to learn more about the data? 
-##### 3. Might you surmise a relationship about something like engine size and miles per gallon?  
-##### 4. Create boxplots for mpg as parsed by cyl. 
-##### 5. What does `cor.test` reveal about mpg and cyl? 
-##### 6. Create a scatterplot of the "mpg" and "hp" variables using `ggplot()`. What happens?  
-##### 7. Can cyl be used to predict mpg in a linear regression model? Why must you learn about the assumptions of a statistical test before applying it? 
-
 ```{r}
-# 1. 
-data()
-data(mtcars)
+# 1. Read the literature in your field. What suggested directions should you proceed in? Where are the gaps in the scientific knowledge? What is missing, is lacking, or otherwise needs to be expanded upon?  
 
-# 2. 
-?mtcars
-str(mtcars)
-head(mtcars)
-mtcars
-View(mtcars)
+# http://archive.ics.uci.edu/ml/datasets/Heart+Disease
 
-# field notes, lab reports, scientific instruments, Google, etc. 
+# https://scholar.google.com/scholar?hl=en&as_sdt=0%2C5&q=heart+disease&btnG=
 
-# 3. 
-# Larger engine equals less miles per gallon? 
+# 2. Ask a well-informed research question using your literature review.  
 
-# 4. 
-boxplot(mpg ~ cyl, data = mtcars,
-        col = c("red", "green", "gold"),
-        main = "mtcars boxplots",
-        xlab = "# of cylinders",
-        ylab = "mpg", las = 1)
-
-# or
-
-plot_box = ggplot(mtcars, aes(cyl, mpg, 
-                              fill = as.factor(cyl))) + 
-  geom_boxplot() + 
-  theme(legend.position = "top") + 
-  labs(fill = "Cylinders")
-plot_box
-
-# 5. 
-cor.test(mtcars$mpg, mtcars$cyl)
-
-# 6. 
-plot_scatter = ggplot(mtcars, aes(hp, mpg, color = mpg)) + 
-  geom_point(size = 8, alpha = 0.8) +
-  theme_minimal() 
-plot_scatter
-
-# 7. 
-lm1 = lm(mpg ~ cyl, data = mtcars)
-lm1
-summary(lm1)
-```
+# Is there a relationship between age and cholestoral?
   
-# Gapminder dataset
-(in class example)
+# 3. Turn your research question into a set of testable hypotheses.  
+  
+# * Null hypotehsis: there is no relationship between age and cholestoral.  
 
-# Bonus 
-### Challenge 1
+# * Alternate hypothesis: there is some sort of relationship between age and cholestoral.  
+
+# 4. Design data collection protocols/obtain data somehow.  
+
+# 5. Import this data into R and clean/subset it.  
+
+heart = read.csv("heart.csv")
+
+# 6. Compute descriptive statistics.  
+
+summary(heart)
+library(psych)
+psych::describeBy(heart, group = heart$target)
+
+# 7. Generate visualizations.  
+boxplot(heart$age)
+boxplot(heart$chol)
+plot(heart$age, heart$chol)
+
+# 8. YDescriptive statistics and plots help check for any obvious (or not so obvious) signals or relationships. Statistical testing can then be employed to test such relationships. 
+cor.test(heart$age, heart$chol)
+```
+
+## **Challenge 2**
 1. Write a for loop that outputs something. 
+
 ```{r}
 for (i in 1:10) {
   print(i / 12)
@@ -85,7 +64,9 @@ for (time in c(12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)) {
 }
 ```
 
-### Challenge 2
+## **Challenge 3**
+1. Write a for loop that uses `if` and `else`
+
 ```{r}
 for (x in c(2,4,6,8,10,12)) {
   if (x < 8) {
@@ -105,8 +86,41 @@ for (i in 1:12) # what happened to the curly braces?
 }
 ```
 
-### Challenge 3
-Say we choose 25 people at random. What is the probability two or more of them have the same birthday?'
+## **Challenge 4**
+Describe what is happening in the below code for a simple combination lock test: 
+
+```{r}
+# combination lock example
+
+# 1. Generate some lock combinations. Define three series of 100 random numbers between 1 and 60 to simulate the combination lock.
+set.seed(123)
+combos = paste0(sample(1:60,100, replace = T), "-",  # paste0 or paste?
+              sample(1:60,100, replace = T), "-", 
+              sample(1:60,100, replace = T))
+combos
+
+# 2. Write a function to test each of the combinations. Define the correct combination to open the lock: 13-24-28.
+lock = function(x) {
+for(x in 1:length(combos)){
+  if(combos[x] == "13-24-48"){
+    print(paste(combos[x], ":", "unlock"))
+}else{
+  print(paste("ERROR", ":", combos[x]))
+}
+}
+}
+
+# 3. Test combinations and view results. Print the loop to see the 100 tries. 
+lock(combos)
+```
+
+## **Challenge 5**
+1. What is the purpose of the Monte Carlo simulation? 
+
+https://stackoverflow.com/questions/2917371/why-use-monte-carlo-method
+
+## **Challenge 6**
+1. Say we choose 25 people at random. What is the probability two or more of them have the same birthday?'
 ```{r}
 ## See the Part 4 .Rmd file for the answer
 ```

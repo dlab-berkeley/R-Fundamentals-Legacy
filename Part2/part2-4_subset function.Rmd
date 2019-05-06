@@ -29,7 +29,6 @@ subset_2
 ```
 
 # **Challenge 4**
-
 Subset `gap`:  
 1. Once in one dimension.  
 2. Twice in two dimensions using either bracket notation `[ , ]` or `subset`.  

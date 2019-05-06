@@ -41,17 +41,16 @@ A t-test formally compares **one or two group means** for statistically signific
 
 The null hypothesis states that there are no actual mean differences between the two groups. 
 
-# **Challenge 8**
+# **Challenge 9**
 
 1. What are the assumptions for a t-test?  
 2. Fit a t-test for Petal Lengths between iris versicolor and virginica species.  
 3. What does this result mean?  
 
 ```{r}
-gap = read.csv("gapminder-FiveYearData.csv")
+load("../data-proc/data.RData")
 ## YOUR CODE HERE
 ```
-
 
 ## One-way analysis of variance 
 
@@ -78,7 +77,7 @@ TukeyHSD(gap_aov)
 
 This allows us to see mean differences bewteen the multiple continents with adjusted p-values. Most adjusted p-values are zero, meaning there is potentially a strong difference in gdpPercap between the paired continents. There appear to be no differences in gdpPercap between Asia and the Americas (p = 0.7767582) and Oceania and Europe (p = 0.1539474) "diff" is the mean difference between the two groups and "lwr" and "upr" are the confidence interval boundaries.  
 
-# **Challenge 9**
+# **Challenge 10**
 
 1. What are the assumptions for a one-way analysis of variance?  
 2. Use the `mtcars` dataset to perform an ANOVA and TukeyHSD test for mpg between the three cyl sizes (4, 6, and 8). 

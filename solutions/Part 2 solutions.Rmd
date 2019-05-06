@@ -7,14 +7,16 @@ output: html_document
 
 # Part 2 solutions
 
-## Part 2 - Challenge 1
-
+## **Challenge 1**
 1. Load the mammals "sleep_VIM" dataset from the data folder using `read.csv()`. Save it in a variable named "Sleep_VIM".  
 2. Remember what `ls()` does? What does `dir()` do?  
 
 ```{r}
 # 1. 
-Sleep_VIM = read.csv("sleep_VIM.csv")
+Sleep_VIM = read.csv("sleep_VIM.csv", 
+                     header = T, 
+                     stringsAsFactors = T, 
+                     na.strings = NULL)
 
 # 2. 
 
@@ -25,31 +27,34 @@ ls()
 dir()
 ```
 
-## Part 2 - Challenge 2
-
-1. Practice extracting a few variables from the `gap` dataframe using the dollar sign `$`  
-2. Plot them in a histogram using the `hist()` function. How do you do this?  
-3. Can all data types be visualized with histograms? Why or why not?  
+## **Challenge 2**
+1. Practice extracting a few variables from the `animals` dataframe using the dollar sign `$`
+2. Plot them in a histogram using the `hist()` function. How do you do this? 
+3. Can all data types be visualized with histograms? Why or why not?
 
 ```{r}
+load("/Users/evan.admin/Desktop/R-Fundamentals/data-proc/data.Rdata")
 # 1. 
 gap$country
 gap$continent
 gap$gdpPercap
-
+```
+```{r eval = F}
 # 2. 
 hist(gap$country) # Error in hist.default(gap$country) : 'x' must be numeric
+```
+```{r}
 hist(gap$gdpPercap)
 
 # 3. No, not all data types can be visualized with histograms. The error message above states that the input variable 'x' must be numeric! 
 ```
 
-## Part 2 - Challenge 3
-
+## **Challenge 3**
 1. Load the `iris` dataset! Type `data(iris)` to load it.  
 2. What is this dataset? How do you find out?  
 3. Subset the `iris` dataset in three ways using column names and positive and negative integers.  
 4. Subset `iris` using logical tests, `&`, and `|`    
+
 
 ```{r}
 # 1. 
@@ -58,7 +63,7 @@ data(iris)
 # 2.
 ?iris
 str(iris)
-https://en.wikipedia.org/wiki/Iris_flower_data_set
+# https://en.wikipedia.org/wiki/Iris_flower_data_set
 
 # 3. 
 iris_varnames = iris[ , c("Sepal.Length", "Species")]
@@ -67,16 +72,15 @@ head(iris_varnames)
 iris_posint = iris[ , c(1, 5)]
 head(iris_posint)
 
-iris_negint = iris[ , -c(1, 5)]
+iris_negint = iris[ , -c(2:4)]
 head(iris_negint)
 ```
 
-## Part 2 - Challenge 4
-
+## **Challenge 4**
 Subset `gap`:  
 1. Once in one dimension.  
 2. Twice in two dimensions using either bracket notation `[ , ]` or `subset`.  
-3. Thrice using logical tests.  
+3. Three times using logical tests. 
 
 ```{r}
 # 1. 
@@ -102,8 +106,15 @@ gap_logical3 = gap[gap$country == "Mexico" | gap$year == 2007, ]
 gap_logical3
 ```
 
-## Part 2 - Challenge 5
+## **Challenge 5**
+1. # Do the number of missing cases in s_NA equal that to the whole data set? 
 
+```{r eval = F}
+sum(is.na(s_NA)) == sum(is.na(sleep_VIM)) 
+# ... yes! Both data objects contain 38 NA values! 
+```
+
+## **Challenge6**
 1. Subsetting review. Use `gap` to create a subsetted dataframe named `UnitedStates_Mexico` that contains only data for countries USA and Mexico. (hint: does "and" actually mean "and" here?)  
 2. Create a subsetted data frame that only contains only the country USA and lifeExp greater than 76. Save this in a variable named `US_lifeExp`. (hint: what is the meaning of "and" here in contrast to question #1?)  
 

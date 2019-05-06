@@ -97,10 +97,14 @@ s_NA = sleep_VIM[!complete.cases(sleep_VIM),]
 s_NA # All rows have at least one cell with missing data
 is.na(s_NA) # We see TRUE values where data is missing
 sum(is.na(s_NA)) # 38 cells have missing data
+```
 
-# Do the number of missing cases in s_NA equal that to the whole data set? 
-sum(is.na(s_NA)) == sum(is.na(sleep_VIM)) 
-# ... yes! Both data objects contain 38 NA values! 
+# **Challenge 5**
+
+1. # Do the number of missing cases in s_NA equal that to the whole data set? 
+
+```{r}
+## YOUR CODE HERE
 ```
 
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

@@ -13,7 +13,7 @@ If assigning a single value to a variable is good, assigning **more than** one p
 2. `c()` - contatenate vectors  
 3. `list()` - create lists  
 4. `matrix()` - construct matrices  
-5. `data.frame()` - combine vectors into a tabular spreadsheet with rows and columns.  
+5. `data.frame()` - combine vectors into a sructured, tabular spreadsheet with rows and columns.  
 
 # `paste` - combine words! 
 
@@ -27,11 +27,11 @@ pangram = paste("The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", 
 pangram
 ```
 
-Note here that R is not a zero-indexed language - it is a one-indexed language. Therefore, output begins at the number 1 and is designated by a number 1 in square brackets on the left side of your console. The one and only element in this object is the sentence "The quick brown fox jumps over the lazy dog." Learn more about vectors below. 
+Note here that R is a one-indexed language - output begins at the number 1 and is designated by a number 1 in square brackets on the left side of the console. The one and only element in this object is the sentence "The quick brown fox jumps over the lazy dog." Learn more about vectors below. 
 
-# **Challenge 4**
+# **Challenge 5**
 
-1. Notice how `paste0()` is found within the `paste()` function - this is called "nesting functions". What is the purpose of the `paste0` here? 
+1. Notice that the `paste0()` function is found inside of `paste()`. What is the purpose of the `paste0` here? 
 
 ```{r}
 ## YOUR CODE HERE
@@ -39,7 +39,9 @@ Note here that R is not a zero-indexed language - it is a one-indexed language. 
 
 # Text manipulations: Function arguments in action
 
-R also has some useful functions for character data such as `grep`, `substr`, `strsplit`, and `gsub`. Use your help function `?` to learn more! Recall that arguments go inside of the parentheses of R functions. Unnamed arguments are things like the number 4. `split = " "` is what is called a named argument. This argument goes inside the parentheses of another function such as `strsplit`. Refer back to our `pangram` variable:
+R also has some useful functions for character data such as `grep`, `substr`, `strsplit`, and `gsub`. Use your help function `?` to learn more! Recall that arguments go inside of the parentheses of R functions. Unnamed arguments are things like the number 4.  
+
+`split = " "` is what is called a named argument. This argument goes inside the parentheses of another function such as `strsplit`. Refer back to our `pangram` variable:
 
 ## `strsplit` - splitting strings
 
@@ -51,7 +53,7 @@ words = strsplit(pangram, split = " ")
 words 
 ```
 
-A list of the individual words split by their blank spaces is returned. Learn more about how lists work below!
+A list of the nine individual words split by their blank spaces is returned. Learn more about how lists work below!
 
 However, anything can be used as the separator. Define some slash separated text and split on the slash:
 
@@ -79,7 +81,7 @@ sub_text
 
 " quick b" is returned. 
 
-# **Challenge 5**
+# **Challenge 6**
 
 1. `substr` can also be used to reassign parts of text. Fill in the question marks below so that that fox jumps over the cow instead of the dog. 
 
@@ -88,16 +90,15 @@ sub_text
 substr(pangram, start = ?, stop = ?) = ?
 ```
 
-How did you do? Counting out all the character positions (indexes or indices) is a pain! Thanksfully there are functions we can use to search for words. 
+How did you do? Counting out all the character positions (indexes or indices) is a pain! Thanksfully there are functions we can use to search for words. Note that our pangram is no longer a pangram!
 
 ## `gsub` - string substitution
 
-You can also substitute with `gsub()`. Let's say we want to substitute cow for hippopotamus in `pangram`. We could type:
+You can also substitute with `gsub()`. Let's say we want to substitute "hippopotamus" for "cow" in `pangram`. We could type:
 
 ```{r eval = F}
 pangram
-#hippo = gsub("dog", "hippopotamus", pangram)
-frog = gsub("cow", "hippopotamus", pangram)
+hippo = gsub("cow", "hippopotamus", pangram)
 hippo
 ```
 
@@ -106,7 +107,7 @@ hippo
 ```{r, eval=FALSE}
 ?grep
 ```
-Learn more about the `grep` function below! Also see the resources section in the README.md file to learn about regular expressions. 
+Learn more about the `grep` function in the data frame section below! Also see the resources section in the README.md file to learn about regular expressions. 
 
 # Vector
 
@@ -128,7 +129,7 @@ options(scipen = 999)
 numeric_vector
 ```
 
-This numeric vector contains five elements.  
+This numeric vector contains five elements (it has a length of five).  
 
 ## Indexing vectors
 
@@ -147,12 +148,14 @@ numeric_vector2 = c(numeric_vector, c(0.1, 0.2, 0.3))
 numeric_vector2
 ```
 
-# **Challenge 6**
+# **Challenge 7**
 
-1. Build a vector of logical data type and save it in a variable named `logical_vector`  
+1. Build three vectors: 1) a logical vector named `logical_vector`, 2) a numeric vector named `numeric_vector`, and 3) another numeric vector named `numeric_vector2`. 
 2. Can you divide `numeric_vector` by `numeric_vector2`? Why or why not?  
 3. Can you multiply `numeric_vector` by `logical_vector`? Why or why not? 
-4. Can you multiply `numeric_vector2` by `logical_vector`? 
+4. Can you multiply `numeric_vector2` by `logical_vector`? Why or why not?
+
+You might get a different answer than your neighbors. What is [Recycling of Vectors in R](http://eriqande.github.io/rep-res-web/lectures/vectorization_recycling_and_indexing.html#recycling)? 
 
 ## `seq` generating (pseudo)random numbers  
 
@@ -178,7 +181,7 @@ sequence_object
 
 ## `set.seed`
 
-You can also generate pseudo-random groups of numbers. Use `set.seed()` to ensure that we get the same pseudo-random draws from the parent universe, even on different computers! 
+You can also generate pseudo-random groups of numbers. Use `set.seed()` to ensure that we get the same pseudo-random draws from the parent universe, even on different computers or at different times!  
 
 Let's generate five different vectors of length 10 for numeric, integer, logical, character, and factor data types. 
 
@@ -202,19 +205,19 @@ Set the seed, and then choose our values:
 ```{r}
 set.seed(1)
 
-# 10 random samples from uniform distribution between the numbers ten-thousand and ten billion
-uniform = runif(n = 10, min = 10000, max = 10000000000) 
+# 10 random samples from the uniform distribution between the numbers one hundred and one million
+uniform = runif(n = 10, min = 100, max = 1000000) 
 uniform
 class(uniform)
 
-# 10 random samples from the normal distribution with a mean of 0 and standard deviation of 1
-normal = rnorm(10, 0, 1) 
+# 10 random samples from the standard normal distribution with a mean of 0 and standard deviation of 1
+normal = rnorm(n = 10, mean = 0, sd = 1) 
 normal
 class(normal)
 
 # 10 random samples from between the numbers 1990 and 2010. 
-# Note that `replace=TRUE` signifies that it is OK to reuse numbers already selected.
-integer = sample(1990:2010, 10, replace = FALSE) 
+# Note that `replace = TRUE` signifies that it is OK to reuse numbers already selected.
+integer = sample(x = 1990:2010, size = 10, replace = FALSE) 
 integer
 class(integer)
 
