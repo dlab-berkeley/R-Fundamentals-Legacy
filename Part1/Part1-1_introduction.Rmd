@@ -108,7 +108,7 @@ Here you find useful tabs for navigating your file system, displaying plots, ins
 
 Many people write clever software that makes R smarter/better/faster/stronger. You can install packages by clicking the "Packages" tab in the bottom-right pane, clicking install, and then searching for the package you wish to install (or use the `install.packages()` function  - but wrap the name of the package in quotation marks. It is generally good to keep RStudio and your packages up to date. Install the packages we will use in the workshop: 
 
-```{r, eval=FALSE}
+```{r}
 install.packages(c("ggplot2", "knitr", "psych", "rmarkdown", "reshape2", "swirl"), dependencies = TRUE)
 ```
 
