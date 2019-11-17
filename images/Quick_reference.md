@@ -1,7 +1,7 @@
 ---
 title: "R Fundamentals: learning objectives quick reference"
 author: "D-Lab"
-date: "March 31, 2019 (updated `r Sys.Date()`)"
+date: "November 17, 2019 (updated `r Sys.Date()`)"
 output: html_document
 ---
 
@@ -33,8 +33,8 @@ output: html_document
 1. Learn to use your domain expertise to think systematically about research design.  
 2. Summarize data: `summary`, `describe`, `table`  
 3. Visualize data: `hist`, `boxplot`, `plot`  
-  3. Four parts to a ggplot: data, aes, geom; `+`  
-4. Test data: `t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`  
+4. Five parts to a ggplot: data, aes, geom, theme; `+`  
+5. Test data: `t.test`, `aov`, `TukeyHSD`, `cor.test`, `lm`  
 
 ## Part 4
 
