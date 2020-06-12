@@ -3,7 +3,9 @@ title: 'R Fundamentals Part1-1: introduction'
 author: "D-Lab"
 date: "March 31, 2019 (updated `r Sys.Date()`)"
 output:
-  html_document: 
+  pdf_document:
+    toc: yes
+  html_document:
     number_sections: yes
     toc: yes
     toc_float: yes
