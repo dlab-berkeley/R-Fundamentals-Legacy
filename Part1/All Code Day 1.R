@@ -51,7 +51,7 @@ ls()
 
 numb
 
-## What happens to "UC Berkeley" when you run this code?
+## Variables will be overwritten if you redefine them. What happens to "UC Berkeley" when you run this code?
 
 welcome = "UC Berkeley" 
 welcome
@@ -66,25 +66,25 @@ welcome2
 class(welcome2)
 ls()
 
-## Removing Variables
+## Removing Variables. rm() will remove a variable, ls() will list all variables in scope
 
 rm(welcome)
 ls()
 welcome
 
-## Remove All Variables
+## Remove All Variables with rm(list = ls())
 
 rm(list = ls()) 
 ls()
 
 # Part 3: Data Classes and Coercion
 
-### Assign 5 to "number" and check its class.
+### Assign 5 to "number" and check its class. 
 
 number = 5
 class(number)
 
-## Character Classes
+## Character Class: Define welcome = "Welcome to the D-Lab" and check its class
 
 welcome = "Welcome to the D-Lab"
 ls()
@@ -100,7 +100,7 @@ contraction = "I'm hungry"
 #### Or, you can use all single quotes along with escape characters
 contraction = 'I\'m hungry'
 
-## Logical Data
+## Logical Data. Logical data will check to see if a condition is TRUE or FALSE.
 
 logical_variable = TRUE
 logical_variable
@@ -109,7 +109,7 @@ class(logical_variable)
 logical_variable + 2
 logical_variable - 4
 
-## Boolean 
+## Boolean. Boolean data types evaluate whether a statement is TRUE. Check the following:
 
 FALSE < TRUE # less than
 TRUE >= TRUE # greater than or equal to
@@ -125,7 +125,7 @@ TRUE & FALSE
 TRUE | TRUE # boolean "or"
 TRUE | FALSE
 
-## Numerical Vectors
+## Numerical Vectors. We can put numeric data together into vectors.
 
 num_vec = c(2, 5, 8, NA, NA)
 num_vec
@@ -138,7 +138,7 @@ mean(num_vec, na.rm = TRUE) # Works properly.
 
 # Part 4 Data Structures
 
-## Paste characters together
+## Paste characters together. 
 
 pangram = paste("The", 
                 "quick", 
@@ -151,7 +151,7 @@ pangram = paste("The",
                 paste0("dog", "."))
 pangram
 
-## Splitting Strings
+## Splitting Strings with the "strsplit" function
 
 words = strsplit(pangram, split = " ")
 words 
@@ -161,7 +161,7 @@ words
 sub_text = substr(pangram, start = 4, stop = 11)
 sub_text
 
-## Gsub string substitution
+## Gsub string substitution. This is an example of a regular expression.
 
 pangram
 hippo = gsub("cow", "hippopotamus", pangram)
@@ -188,7 +188,7 @@ class(numeric_vector[3])
 numeric_vector2 = c(numeric_vector, c(0.1, 0.2, 0.3))
 numeric_vector2
 
-## Generate a sequence
+## Generate a sequence of numbers
 
 sequence = seq(from = 0, to = 8, by = 1)
 sequence
@@ -200,7 +200,7 @@ sequence_object
 
 0:length(numeric_vector)
 
-## Set Seed
+## Set Seed. This ensures that when you use probabilstic functions that they can be replicated. For example, if you sample a dataset, you will always get the same sample.
 
 ?set.seed
 
