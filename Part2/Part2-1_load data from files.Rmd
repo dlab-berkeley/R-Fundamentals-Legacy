@@ -67,22 +67,6 @@ Notice that the `stringsAsFactors = ` argument is set to `TRUE`. If set to `FALS
 
 1. Load the mammals "sleep_VIM" dataset from the data folder using `read.csv()`. Save it in a variable named "Sleep_VIM". 
 
-> NOTE: below is another way to load datasets that are pre-baked into R and packages. Just type data() to see some of the many pre-built datasets in R!  
-
-2. Remember what `ls()` does? What does `dir()` do? 
-
-```{r}
-data()
-```
-```{r}
-# install.packages("VIM")
-library(VIM)
-data(sleep)
-sleep_VIM = sleep
-
-## YOUR CODE HERE
-```
-
 This dataset is part of the [VIM package](https://cran.r-project.org/web/packages/VIM/VIM.pdf). It looks at sleep patterns in various mammal species and contains missing (`NA`) values. Click  [here](http://science.sciencemag.org/content/194/4266/732) to see the original research article. 
 
 > NOTE: you DO NOT want to load the Student's Sleep Dataset from the "datasets" library. Your sleep dataset should have **62 rows and 10 columns**.  

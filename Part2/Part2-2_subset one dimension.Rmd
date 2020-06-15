@@ -64,7 +64,7 @@ sleep_VIM$
 
 # **Challenge 2**
 
-1. Practice extracting a few variables from the `animals` dataframe using the dollar sign `$`
+1. Practice extracting a few variables from the `gap` dataframe using the dollar sign `$`
 2. Plot them in a histogram using the `hist()` function. How do you do this? 
 3. Can all data types be visualized with histograms? Why or why not?
 

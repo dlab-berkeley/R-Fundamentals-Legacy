@@ -24,8 +24,8 @@ install.packages(c("ggplot2",
 library(ggplot2)
 library(knitr)
 library(psych)
-library(rmarkdown)
 library(reshape2)
+library(rmarkdown)
 
 ## Get help documentation Using ?
 
@@ -277,7 +277,11 @@ class(rownames(gdp))
 
 ## Change column order
 
-gdp = gdp[,c("country", "year", "gdpPercap", "growth_rate", "healthy")]
+### Renane columns
+colnames(gdp) = c("gdpPercap", "growth_rate", "year", "country", "healthy")
+### Reorder columns
+gdp = gdp[,c("gdpPercap", "growth_rate", "year", "country", "healthy")]
+### Look at dataframe
 gdp
 
 ## Sort data
