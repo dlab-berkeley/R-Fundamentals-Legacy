@@ -7,7 +7,7 @@
 ## Go to Session -> Set Working Directory -> Choose Directory -> R-Fundamentals
 ## We can also do this with code:
 
-setwd("~/R-Fundamentals")
+#setwd("~/R-Fundamentals")
 
 ## We can read a dataset with the following code
 gap = read.csv("data/gapminder-FiveYearData.csv", 
@@ -117,11 +117,14 @@ sleep_logical
 ?"|"
 
 # & (and) = all conditions must be TRUE
-sleep_logical_and = sleep_VIM[sleep_VIM$Exp == 1 & sleep_VIM$Danger == 2, ] 
+sleep_logical_and = sleep_VIM[sleep_VIM$Exp == 1 & 
+                                sleep_VIM$Danger == 2, ]
+
 sleep_logical_and
 
 # | (or) = just one of the conditions must be TRUE
-sleep_logical_or = sleep_VIM[sleep_VIM$Exp == 1 | sleep_VIM$Danger == 2, ]
+sleep_logical_or = sleep_VIM[sleep_VIM$Exp == 1 | 
+                               sleep_VIM$Danger == 2, ]
 sleep_logical_or
 
 dim(sleep_logical_and) # 5 rows x 10 columns
@@ -131,7 +134,7 @@ dim(sleep_logical_or) # 36 rows x 10 columns
 ?"[["
 
 # Make an example list
-example_list = list(TRUE, "string data", 5)
+example_list = list(TRUE, "string data", 5, list(1, 2, 3))
 example_list
 
 # What happens with one bracket?
@@ -153,7 +156,9 @@ example_list[[1]]
 # subset columns "BrainWgt", "Danger", "Exp".
 sleep_VIM = read.csv("data/sleep_VIM.csv")
 subset_1 = subset(x = sleep_VIM, 
-                  subset = BrainWgt < 60 & Danger == 4 & Exp == 3,
+                  subset = BrainWgt < 60 & 
+                    Danger == 4 & 
+                    Exp == 3,
                   select = c("BrainWgt", "Danger", "Exp"))
 subset_1
 
@@ -224,3 +229,48 @@ s_NA = sleep_VIM[!complete.cases(sleep_VIM),]
 s_NA # All rows have at least one cell with missing data
 is.na(s_NA) # We see TRUE values where data is missing
 sum(is.na(s_NA)) # 38 cells have missing data
+
+## Merging data
+
+### Make dataframe 1
+df1 = data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
+                 City = c("Berkeley", "Berkeley", "Oakland", "Oakland"),
+                 Math = c(42, 48, 50, 46),
+                 Reading = c(8, 10, 10, 10))
+df1
+
+### Make dataframe 2
+
+df2 = data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
+                 Science = c(99, 100, 99, 100),
+                 Music = c(19, 18, 20, 20),
+                 Art = c(20, 20, 19, 18))
+df2
+
+### Merge the dataframes
+
+df_merge = merge(df1, df2, by = "Name")
+df_merge
+
+### cbind and rbind
+
+?cbind
+?rbind
+
+df3 = data.frame(Name = c("Heather", "Billy", "Hector", "Jane"),
+                 City = c("San Francisco", "Los Angeles", "San Francisco", "Chico"),
+                 Math = c(49, 44),
+                 Reading = c(10,10))
+df3
+
+df_cbind = cbind(df1, df3)
+df_cbind
+
+dfB = data.frame(Name = c("James", "Tanisha", "Elizabeth", "Barack"),
+                 City = c("Cleveland", "Memphis", "Detroit", "Chicago"),
+                 Math = c(44, 49, 50, 49),
+                 Reading = c(9, 9, 9, 10))
+
+df_rbind = rbind(df1, dfB)
+df_rbind
+
