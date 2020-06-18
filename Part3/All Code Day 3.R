@@ -50,53 +50,9 @@ load("data/all_data.RData")
 summary(gap)
 
 # or of a single vector
+## Note that newer versions of R will convert to character automatically, not factor so summary will produce different results
 summary(gap$lifeExp)
-summary(gap$continent)
-
-# Some packages have their own functions for doing similar things. See the psych package's describe function for example
-library(psych)
-
-# This works, but we see some asterisks next to our factor/categorical variables. 
-psych::describe(gap) 
-
-# Let's remove country, year, and continent - looks a little nicer!
-describe(gap[ , -c(1,2,4)]) 
-
-# Save describe result in a variable
-gap_describe = describe(gap[ , -c(1,2,4)]) 
-gap_describe
-
-# Subset to only some metrics
-
-gap_simple <- gap_describe[ , c("mean", "median", "sd", "skew", "kurtosis")]
-gap_simple
-
-# Save to csv
-
-write.csv(gap_simple, "data/gap_simple.csv", row.names = TRUE)
-
-# Use describeBy to describe by a subgroup
-
-# Output summary statistics by one grouping variable:
-summary_sub <- describeBy(gap[ , -c(1,2,4)], group = gap$continent)
-summary_sub
-
-# If we just want to view Africa, Asia, or Oceania, we can type:
-summary_sub$Africa
-summary_sub$Asia
-summary_sub$Oceania
-
-# We can also view just the means for Asia, we can type:
-summary_sub$Asia[["mean"]] # or
-summary_sub$Asia[[3]]
-
-# If we just want the second value (lifeExp mean) for Asia (60.0649) we can type:
-summary_sub$Asia[["mean"]][2]
-
-# Or the medians for Oceania:
-summary_sub$Oceania[[5]]
-summary_sub$Oceania[["median"]]
-summary_sub$Oceania[["median"]][1] # just the first value (pop)
+summary(as.factor(as.character(gap$continent)))
 
 # Contingency Tables
 
@@ -123,7 +79,7 @@ colors()
 
 # Histogram Options
 
-hist(gap$lifeExp, 
+histogram <- hist(gap$lifeExp, 
      col = "honeydew1",
      main = "Histogram of life expectancy",
      xlab = "Life expectancy (years)",
@@ -155,7 +111,7 @@ y = gap$gdpPercap
 
 ## Scatterplot with Options
 
-plot(x = x, y = y,    
+scatter <- plot(x = x, y = y,    
      main = "Life expectancy versus gdpPercap", 
      xlab = "Life expectancy (years)", 
      ylab = "gdpPercap (USD)", 
@@ -197,7 +153,7 @@ ggplot(data = gap, aes(x = lifeExp)) +
 
 ## ggplot histogram with options
 
-ggplot(data = gap, aes(x = lifeExp)) + 
+gg_hist <- ggplot(data = gap, aes(x = lifeExp)) + 
   geom_histogram(fill = "blue", color = "black", bins = 10) + 
   ggtitle("Life expectancy for the gap dataset") + 
   xlab("Life expectancy (years)") + 
@@ -206,7 +162,10 @@ ggplot(data = gap, aes(x = lifeExp)) +
 
 ## Boxplots
 
-ggplot(data = gap, aes(x = continent, y = lifeExp, fill = continent)) + 
+gg_box <- ggplot(data = gap, 
+       aes(x = continent, 
+           y = lifeExp, 
+           fill = continent)) + 
   geom_boxplot() + 
   ggtitle("Boxplots for lifeExp by continent") + 
   xlab("Continent") + 
@@ -215,7 +174,7 @@ ggplot(data = gap, aes(x = continent, y = lifeExp, fill = continent)) +
 
 ## Scatterplots
 
-ggplot(data = gap, aes(x = lifeExp, y = gdpPercap, color = continent, shape = continent)) + 
+gg_scatter <- ggplot(data = gap, aes(x = lifeExp, y = gdpPercap, color = continent, shape = continent)) + 
   geom_point(size = 5, alpha = 0.5) + 
   theme_classic() +
   ggtitle("Scatterplot of life expectancy by gdpPercap") +
@@ -226,6 +185,9 @@ ggplot(data = gap, aes(x = lifeExp, y = gdpPercap, color = continent, shape = co
         legend.title = element_text(size = 10),
         legend.text = element_text(size = 5),
         axis.text.x = element_text(angle = 45, hjust = 1)) 
+
+library(gridExtra)
+grid.arrange(gg_hist, gg_box, gg_scatter, ncol = 2)
 
 # Part 5: Statistical Testing
 
