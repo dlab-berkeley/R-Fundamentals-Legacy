@@ -97,6 +97,7 @@ Don't know where to start researching classes? Look up some of these to see if t
 Contributions to these materials by:  
 * [Evan Muzzall](https://dlab.berkeley.edu/people/evan-muzzall)  
 * [Aniket Kesari](https://dlab.berkeley.edu/people/aniket-kesari)
+* [Jae Yeon Kim](https://jaeyk.github.io/)
 * Sam Abdel-Ghaffar  
 * Guadalupe Tuñón  
 * Shinhye Choi  
