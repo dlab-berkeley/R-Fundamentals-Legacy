@@ -29,6 +29,7 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](htt
 ## Other D-Lab R offerings:  
 
 * [Data Wrangling and Manipulation in R](https://github.com/dlab-berkeley/R-wrang)  
+* [Advanced Data Wrangling in R](https://github.com/dlab-berkeley/advanced-data-wrangling-in-R)
 * [R Graphics](https://github.com/dlab-berkeley/R-graphics)  
 * [Introduction to Machine Learning in R](https://github.com/dlab-berkeley/Machine-Learning-in-R)  
 * [Introduction to Deep Learning in R](https://github.com/dlab-berkeley/Deep-Learning-in-R)  
