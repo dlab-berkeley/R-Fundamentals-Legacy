@@ -13,28 +13,42 @@ output:
     toc: yes
 ---
  
+- See the [R Markdown Reference Guide](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf?_ga=2.115917006.916250004.1599550442-103987608.1598213600) to see a list of knitr chunk options. 
+
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+knitr::opts_chunk$set(echo = TRUE) # prevents code, but not the results from appearing in the finished file. 
+
 ```
 
 # Workshop goals
 
 Part 1) Introduction to R, data types, data structures/data frames  
-Part 2) Import, subset, and merge data; identifying missing data  
+Part 2) Import, subset, and merge data; identifying missing data 
+
 Part 3) Research design, data summarization and visualization  
+
 Part 4) Statistical testing  
 
 **Bonus**  
+
 Part 5) For-loops and functions; Monte Carlo simulation, the "birthday problem"  
+
 Part 6) What is RMarkdown?  
+
 Part 7) Mini-project  
 
 **Part 1 learning objectives:**  
+
 1. Introduction: What is R? Navigating RStudio, variable assignment, global environment, packages, variable assignment, help  
 2. Data types: numeric, integer, character, logical, and factor  
+
 3. Data type coercion  
+
 4. Data structures: vector, list, matrix, data frame  
+
 5. Saving your work  
+
 6. Swirl  
 
 # Part 1 - Introduction
@@ -47,8 +61,8 @@ This document is designed as a resource for **the student**. Use these documents
 
 **The instructor** should emphasize that:  
 1. R is free and open-source  
-2. Is great for data visualizaiton  
-3. Utilizes many analytical packages written for your field  
+2. Is great for data visualization  
+3. Utilizes many packages written for your field  
 4. Is ideal for open and reproducible research  
 5. Has strong community support and help and is used by virtually all academic disciplines, business, and industry  
 
@@ -157,8 +171,5 @@ Our coding universe consists of **functions** and **arguments**.
 # What is the arithmetic mean of 100, 1000, and 10000?
 mean(c(100, 1000, 10000))
 ```
-
 # **Challenge 1**
 What are functions and arguments? Describe a few examples of each.  
-
-<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
