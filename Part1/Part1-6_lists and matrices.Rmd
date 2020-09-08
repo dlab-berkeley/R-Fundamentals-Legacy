@@ -12,6 +12,7 @@ A **LIST** is an ordered group of data that are not of the same type. Lists are 
 ```{r, eval=FALSE}
 ?list
 ```
+
 ```{r}
 list1 = list(TRUE, "one", 1) # include three kinds of data: logical, character, and integer
 list1
@@ -19,6 +20,7 @@ class(list1)
 ```
 
 Lists are simple containers and are not additive or multiplicative like vectors and matrices are:
+
 ```{r, eval=FALSE}
 list1 * list(FALSE, "zero", 0) # Error
 ```
@@ -42,7 +44,7 @@ matrix1
 class(matrix1)
 ```
 
-We can also coerce a vector to a matrix, because a vector is comprised of homogenous data of the same kind, just like a matrix is:
+We can also coerce a vector to a matrix, because a vector is comprised of homogeneous data of the same kind, just like a matrix is:
 
 ```{r}
 # Create a numeric vector from 1 to 20
@@ -55,8 +57,6 @@ matrix2 = matrix(vec1, ncol = 2)
 matrix2
 class(matrix2)
 ```
-
-> 
 
 > It is worth knowing some basics of lists because in Part3 you will see that statistical output is often returned as a list. Matrices are useful for doing complex math and statistical related-stuff. However, beginners should keep their focus on vectors and dataframes instead of lists and matrices.  
 

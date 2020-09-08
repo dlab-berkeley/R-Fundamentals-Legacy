@@ -146,6 +146,9 @@ library(reshape2)
 
 Typing the `?` symbol before a built-in function or dataset name can be used to bring up the help pages for that particular thing. Below are a few that we will use in this workshop series! 
 
+* `?` + object opens a help page for that specific object
+* `??` + object searches help pages containing the name of the object
+
 ```{r}
 ?read.csv
 ?class
@@ -172,4 +175,6 @@ Our coding universe consists of **functions** and **arguments**.
 mean(c(100, 1000, 10000))
 ```
 # **Challenge 1**
-What are functions and arguments? Describe a few examples of each.  
+What are functions and arguments? Describe a few examples of each.
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

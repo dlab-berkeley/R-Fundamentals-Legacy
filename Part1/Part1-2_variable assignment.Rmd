@@ -9,13 +9,24 @@ output: html_document
 
 Variables are how we save things in R's memory so that they can be "called" (retrieved) when we need them. Assigning/defining these variables is called [variable assignment](https://en.wikipedia.org/wiki/Assignment_(computer_science)) and they are stored in your **global environment.** Traditionally, you can define objects using the **assignment operator** `<-`. This is a "less than" `<` symbol immediately followed by a hyphen `-`. You will see this symbol in many tutorials. 
 
-> However, we will simply use the `=` in place of the assignment operator. This works the same but uses less keystrokes and is less confusing!  
+> It's okay to use the `=` in place of the assignment operator. This works the same but uses less keystrokes.
+
+> However, it's also important to note that `<-` and `= do not work in the same way. Consider [the following example](https://csgillespie.wordpress.com/2010/11/16/assignment-operators-in-r-vs/). You can see that `=` and `<-` have different scopes. 
+
+```{r}
+mean(x = 1:10) # You can't call x 
+rm(x)
+mean(x <- 1:10) # You can call x 
+rm(x)
+```
+
+Also, the [Google R style guide](https://google.github.io/styleguide/Rguide.html) and Hadley Wickam's [style guide](http://adv-r.had.co.nz/Style.html) recommend `<-` for assignment. 
 
 ## Variable assignment requires three pieces of information  
 
 1) object_name  
 2) `=`  
-3) code to be assgiend  
+3) code to be assigned  
 
 Try it! Define a variable named `number` and assign to it the number 5:
 
@@ -29,7 +40,7 @@ number = 5
 number # 5 is returned
 ```
 
-Note that `number` appears in your global environment tab! You can also use the `ls()` function to see the values saved to your global environment.  
+Note that `number` appears in your global environment tab! You can also use the `ls()` (list) function to see the values saved to your global environment.  
 
 ```{r}
 ls()
@@ -112,6 +123,7 @@ We can also wipe the entire environment with `rm(list = ls())` (or, click the br
 ```{r}
 rm(list = ls()) 
 ls()
+
 ```
 
 All variables have been removed from our global environment.

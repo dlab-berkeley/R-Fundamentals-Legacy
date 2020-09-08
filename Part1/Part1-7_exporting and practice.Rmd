@@ -16,7 +16,6 @@ getwd()
 ```
 
 > NOTE: we will begin Part 2 with a discussion about how to check and set the [working directory](https://en.wikipedia.org/wiki/Working_directory). The easiest way is to click "Session" --> "Set working directory" --> "Choose directory". Do this if you want to change your working directory location. Run `getwd()` again - did the file path change?  
-
 The syntax looks like this:
 `write.csv(object_name, file = "nameOfFile.csv", row.names = TRUE)`
 

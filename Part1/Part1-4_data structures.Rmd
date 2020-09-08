@@ -10,10 +10,10 @@ output: html_document
 If assigning a single value to a variable is good, assigning **more than** one piece of data to a variable is better. R has many different functions to store more complex data structures as variables:  
 
 1. `paste()` - used to concatenate (combine) text  
-2. `c()` - contatenate vectors  
+2. `c()` - concatenate vectors  
 3. `list()` - create lists  
 4. `matrix()` - construct matrices  
-5. `data.frame()` - combine vectors into a sructured, tabular spreadsheet with rows and columns.  
+5. `data.frame()` - combine vectors into a structured, tabular spreadsheet with rows and columns.  
 
 # `paste` - combine words! 
 
@@ -22,6 +22,7 @@ R is very powerful for manipulating text data. Here are some basic functions for
 ```{r, eval=FALSE}
 ?paste
 ```
+
 ```{r}
 pangram = paste("The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", paste0("dog", "."))
 pangram
@@ -39,17 +40,37 @@ Note here that R is a one-indexed language - output begins at the number 1 and i
 
 # Text manipulations: Function arguments in action
 
-R also has some useful functions for character data such as `grep`, `substr`, `strsplit`, and `gsub`. Use your help function `?` to learn more! Recall that arguments go inside of the parentheses of R functions. Unnamed arguments are things like the number 4.  
+R also has some useful functions for character data such as `grep,` `substr,` `strsplit,` and `gsub`. Use your help function `?` to learn more! Recall that arguments go inside of the parentheses of R functions. Unnamed arguments are things like the number 4.  
 
-`split = " "` is what is called a named argument. This argument goes inside the parentheses of another function such as `strsplit`. Refer back to our `pangram` variable:
+`split = " "` is what is called a named argument. This argument goes inside the parentheses of another function such as `strsplit`.
+
+```{r}
+# Example of named arguments 
+addTwoNum <- function(first, second) {first + second}
+
+# Using argument order 
+addTwoNum(2, 3)
+
+# Partial matching 
+addTwoNum(f = 2, s = 3)
+
+# Full matching (named arguments) 
+addTwoNum(first = 2, second = 3)
+```
 
 ## `strsplit` - splitting strings
 
 ```{r, eval=FALSE}
 ?strsplit
 ```
+
 ```{r}
+# Named argument 
 words = strsplit(pangram, split = " ")
+
+# Partial matching 
+# words = strsplit(pangram, split = " ")
+
 words 
 ```
 
@@ -74,6 +95,7 @@ Most functions require one or two arguments to be defined in order for it to pro
 ```{r, eval=FALSE}
 ?substr
 ```
+
 ```{r}
 sub_text = substr(pangram, start = 4, stop = 11)
 sub_text
@@ -90,7 +112,7 @@ sub_text
 substr(pangram, start = ?, stop = ?) = ?
 ```
 
-How did you do? Counting out all the character positions (indexes or indices) is a pain! Thanksfully there are functions we can use to search for words. Note that our pangram is no longer a pangram!
+How did you do? Counting out all the character positions (indexes or indices) is a pain! Thankfully there are functions we can use to search for words. Note that our pangram is no longer a pangram!
 
 ## `gsub` - string substitution
 

@@ -9,6 +9,12 @@ output: html_document
 
 Everything in R has a class (or "type"). This is important because it determines what we can do to that thing! **The five most common data classes are: numeric, integer, character, logical and factor.** Use the `class` function to check a variable's type. 
 
+* numeric (integer or float)
+* integer (just integer)
+* character (or a "string" in Python and Stata)
+* logical (booleans)
+* factor (special vectors that represent categorical data)
+
 ## Numeric data
 
 ```{r}
@@ -70,7 +76,6 @@ TRUE & FALSE
 TRUE | TRUE # boolean "or"
 TRUE | FALSE
 ```
-
 You will also find that logical values are also used to turn certain arguments on or off: 
 
 ```{r}
@@ -84,7 +89,7 @@ mean(num_vec, na.rm = TRUE) # Works properly.
 (2 + 5 + 8) / 3 # Do it manually! (sanity check)
 ```
 
-`c` is the function to contacenate (combine) a vector of data (see "Vector" section below).  
+`c` is the function to concatenate (combine) a vector of data (see "Vector" section below).  
 
 `NA` is how R recognizes missing data (see Part 2 materials).  
 
