@@ -27,7 +27,6 @@ R is very powerful for manipulating text data. Here are some basic functions for
 pangram = paste("The", "quick", "brown", "fox", "jumps", "over", "the", "lazy", paste0("dog", "."))
 pangram
 ```
-
 Note here that R is a one-indexed language - output begins at the number 1 and is designated by a number 1 in square brackets on the left side of the console. The one and only element in this object is the sentence "The quick brown fox jumps over the lazy dog." Learn more about vectors below. 
 
 # **Challenge 5**
@@ -111,7 +110,6 @@ sub_text
 ## YOUR CODE HERE
 substr(pangram, start = ?, stop = ?) = ?
 ```
-
 How did you do? Counting out all the character positions (indexes or indices) is a pain! Thankfully there are functions we can use to search for words. Note that our pangram is no longer a pangram!
 
 ## `gsub` - string substitution
@@ -129,6 +127,7 @@ hippo
 ```{r, eval=FALSE}
 ?grep
 ```
+
 Learn more about the `grep` function in the data frame section below! Also see the resources section in the README.md file to learn about regular expressions. 
 
 # Vector

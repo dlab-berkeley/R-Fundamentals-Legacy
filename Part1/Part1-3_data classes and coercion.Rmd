@@ -7,7 +7,7 @@ output: html_document
 
 # Variable class
 
-Everything in R has a class (or "type"). This is important because it determines what we can do to that thing! **The five most common data classes are: numeric, integer, character, logical and factor.** Use the `class` function to check a variable's type. 
+Everything in R has a class (or "type" in Python; to be precise, class is a [blueprint for creating a particular data structure](https://brilliant.org/wiki/classes-oop/#:~:text=In%20object%2Doriented%20programming%2C%20a,created%20using%20the%20class%20keyword.)). This is important because it determines what we can do to that thing! **The five most common data classes are: numeric, integer, character, logical and factor.** Use the `class` function to check a variable's type. 
 
 * numeric (integer or float)
 * integer (just integer)
@@ -51,7 +51,7 @@ contraction = 'I\'m hungry'
 Logical data consists of `TRUE` or `FALSE` (or abbreviated as `T` and `F`. These are stored internally 1 (`TRUE`) and 0 (`FALSE`) and as such take on mathematical properties. 
 
 ```{r}
-logical_variable = TRUE
+logical_variable == TRUE
 logical_variable
 class(logical_variable)
 
@@ -79,7 +79,9 @@ TRUE | FALSE
 You will also find that logical values are also used to turn certain arguments on or off: 
 
 ```{r}
+
 num_vec = c(2, 5, 8, NA, NA)
+
 num_vec
 
 mean(num_vec, na.rm = FALSE) # Does not work. 
@@ -87,11 +89,12 @@ mean(num_vec, na.rm = FALSE) # Does not work.
 mean(num_vec, na.rm = TRUE) # Works properly. 
 
 (2 + 5 + 8) / 3 # Do it manually! (sanity check)
+
 ```
 
 `c` is the function to concatenate (combine) a vector of data (see "Vector" section below).  
 
-`NA` is how R recognizes missing data (see Part 2 materials).  
+`NA` is how R recognizes explicit missing data (see Part 2 materials).  
 
 The `mean` function computes the arithmetic mean of a vector of numbers. 
 

@@ -24,10 +24,16 @@ We can create a new dataframe object `sleep_varnames` that includes only "BodyWg
 ```{r, eval=FALSE}
 ?"["
 ```
+
 ```{r}
-sleep_VIM = read.csv("sleep_VIM.csv")
+library(here)
+
+sleep_VIM = read.csv(here("data", "sleep_VIM.csv"))
+
 sleep_varnames = sleep_VIM[ , c("BodyWgt", "BrainWgt")]
+
 str(sleep_varnames)
+
 head(sleep_varnames)
 ```
 
@@ -70,11 +76,15 @@ head(sleep_negint_VIM)
 We can also use logical tests to subset our data. For example, what if we want to include only the _**rows**_ that have a value of 4 for "Exp"? We can use the relational operator `==`:
 
 ```{r, eval=FALSE}
+
 ?"=="
+
 ```
+
 ```{r}
+
 sleep_logical = sleep_VIM[sleep_VIM$Exp == 4 , 8:10 ] 
-sleep_logical
+
 ```
 Only rows with values of 4 for "Exp" are returned! 
 
@@ -88,6 +98,7 @@ What if we want to include rows where "Exp" is equal to 1 **_or_** "Danger" is e
 ?"&"
 ?"|"
 ```
+
 ```{r}
 # & (and) = all conditions must be TRUE
 sleep_logical_and = sleep_VIM[sleep_VIM$Exp == 1 & sleep_VIM$Danger == 2, ] 
@@ -125,13 +136,17 @@ example_list
 Use single brackets `[]` retrieves **both the placeholder and its value (the bin and your shoes).**
 
 ```{r}
+
 example_list[1]
+
 ```
 
 However, double brackets go one layer deeper inside the plastic bin and return only the value (**only your shoes!**).
 
 ```{r}
+
 example_list[[1]]
+
 ```
 
 # **Challenge 3**
