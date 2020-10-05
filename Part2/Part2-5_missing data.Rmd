@@ -13,8 +13,12 @@ Identifying missing data can be important for subsetting purposes. R codes missi
 ?NA
 ?mean # Scroll down to `na.rm`
 ```
+
 ```{r}
-sleep_VIM = read.csv("sleep_VIM.csv")
+library(here)
+
+sleep_VIM = read.csv(here("data", "sleep_VIM.csv"))
+
 # This returns NA because R is unsure how to deal with NA cells for the `mean` computation.
 mean(sleep_VIM$NonD) 
 ```

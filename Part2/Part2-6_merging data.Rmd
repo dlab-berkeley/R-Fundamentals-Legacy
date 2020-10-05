@@ -30,6 +30,7 @@ Since `df1` and `df2` share the `Name` column, we can merge these two dataframes
 ```{r, eval=FALSE}
 ?merge
 ```
+
 ```{r}
 df_merge = merge(df1, df2, by = "Name")
 df_merge

@@ -14,7 +14,7 @@ Instead of having to use read.csv() to load a file everytime you close and reope
 gap = read.csv("gapminder-FiveYearData.csv")
 
 # Load the sleep_VIM dataset
-sleep = read.csv("sleep_VIM.csv")
+sleep = read.csv(here("data", "sleep_VIM.csv"))
 
 # Load the iris dataset
 data(iris)
@@ -34,6 +34,7 @@ rm(mtcars)
 
 # Load both gap and iris by loading "gap-iris.RData"
 load("/Users/evan.admin/Desktop/R-Fundamentals/data-proc/data.RData")
+
 ```
 
 # Data summarization

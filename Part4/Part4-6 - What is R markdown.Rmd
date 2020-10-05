@@ -82,5 +82,4 @@ Be sure to [check out the RStudio cheatsheet](https://www.rstudio.com/resources/
 # Hidden code
 
 The below code, shown in the .Rmd files but not displayed in the .html files, eliminates unnecessary blank space at the end of knitted .html files. 
-
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

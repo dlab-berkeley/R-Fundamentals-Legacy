@@ -112,6 +112,6 @@ plot(x = sims[,1], y = sims[,2],
 
 Learn more about the birthday problem [here](http://mathforum.org/dr.math/faq/faq.birthdayprob.html)
 
-Although the "dplyr" R package is perhaps more useful for quickly applying functions to a matrix, there exists a whole family of functionals for this sort of thing in base R. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html).  
+Although the "purrr" R package is perhaps more useful for quickly applying functions to a vector or a list, there exists a whole family of functions for this sort of thing in base R. Learn more about the "apply" functional family [here](https://www.r-bloggers.com/using-the-apply-family-of-functions-in-r/), [here](https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/), and [here](http://adv-r.had.co.nz/Functionals.html).  
 
 <div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

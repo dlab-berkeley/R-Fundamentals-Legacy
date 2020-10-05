@@ -12,10 +12,14 @@ output: html_document
 ```{r, eval = F}
 ?subset
 ```
+
 ```{r}
+library(here)
+
 # subset rows where "BrainWgt" is less than 60 and "Danger" equals 4 and "Exp" equals 3. 
 # subset columns "BrainWgt", "Danger", "Exp".
-sleep_VIM = read.csv("sleep_VIM.csv")
+sleep_VIM = read.csv(here("data", "sleep_VIM.csv"))
+
 subset_1 = subset(x = sleep_VIM, 
                    subset = BrainWgt < 60 & Danger == 4 & Exp == 3,
                    select = c("BrainWgt", "Danger", "Exp"))
