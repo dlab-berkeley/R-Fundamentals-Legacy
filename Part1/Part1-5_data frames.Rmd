@@ -7,17 +7,22 @@ output: html_document
 
 # Data frame  
 
-_**It is worth emphasizing the importance of data frames in R!**_ Inside R, a **DATA FRAME** is a list of equal-length vectors. These vectors can be of different types. Data frames are thus heterogenous like lists. Data frames have the **same type of data within each column**, but **different types of data across columns!** This is simply a tabular spreadsheet of rows and columns.  
+_**It is worth emphasizing the importance of data frames in R!**_ Inside R, a **DATA FRAME** is a list of equal-length vectors. These vectors can be of different types. Data frames are thus heterogeneous like lists. Data frames have the **same type of data within each column**, but **different types of data across columns!** This is simply a tabular spreadsheet of rows and columns.  
 
 Let's create a dataframe called `gdp` using the vectors we already created:
 
 ```{r}
 set.seed(1)
-(uniform = runif(n = 10, min = 100, max = 1000000))
-(normal = rnorm(n = 10, mean = 0, sd = 1))
-(integer = sample(x = 1990:2010, size = 10, replace = FALSE))
-(character = sample(c("Canada", "USA", "Mexico"), 10, replace = TRUE))
-(logical = sample(c(TRUE, FALSE), 10, replace = TRUE))
+
+uniform = runif(n = 10, min = 100, max = 1000000)
+
+normal = rnorm(n = 10, mean = 0, sd = 1)
+
+integer = sample(x = 1990:2010, size = 10, replace = FALSE)
+
+character = sample(c("Canada", "USA", "Mexico"), 10, replace = TRUE)
+
+logical = sample(c(TRUE, FALSE), 10, replace = TRUE)
 ```
 
 We do this using `data.frame()`
@@ -25,6 +30,7 @@ We do this using `data.frame()`
 ```{r eval = F}
 ?data.frame
 ```
+
 ```{r}
 gdp = data.frame(uniform, normal, integer, character, logical, 
                  stringsAsFactors = FALSE)
@@ -53,6 +59,7 @@ We can check the structure of our data frame via `str()`
 ```{r, eval=FALSE}
 ?str
 ```
+
 ```{r}
 str(gdp)
 ```
@@ -91,6 +98,7 @@ You can also sort data by increasing/decreasing alphanumeric order. Sort by Coun
 ```{r}
 ?order
 ```
+
 ```{r}
 gdp_sorted = gdp[order(gdp$country, gdp$year),]
 gdp_sorted

@@ -32,6 +32,7 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](htt
 * [Advanced Data Wrangling in R](https://github.com/dlab-berkeley/advanced-data-wrangling-in-R)
 * [R Graphics](https://github.com/dlab-berkeley/R-graphics)  
 * [Introduction to Machine Learning in R](https://github.com/dlab-berkeley/Machine-Learning-in-R)  
+* [Introduction to Machine Learning with Tidymodels](https://github.com/dlab-berkeley/Machine-Learning-with-tidymodels)
 * [Introduction to Deep Learning in R](https://github.com/dlab-berkeley/Deep-Learning-in-R)  
 * [Machine Learning Working Group](https://github.com/dlab-berkeley/MachineLearningWG)  
 

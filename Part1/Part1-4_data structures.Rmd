@@ -133,13 +133,14 @@ Learn more about the `grep` function in the data frame section below! Also see t
 
 # Vector
 
-A **VECTOR** is an ordered group of the same kind of data. "Ordered" means that position matters. Vectors are one-dimensional and homogenous, and are thus referred to by their type (e.g., character vector, numeric vector, logical vector). It does not matter what type of data are in the vector, as long as it is all the same! 
+A **VECTOR** is an ordered group of the same kind of data. "Ordered" means that position matters. Vectors are one-dimensional and homogeneous, and are thus referred to by their type (e.g., character vector, numeric vector, logical vector). It does not matter what type of data are in the vector, as long as it is all the same! 
 
 Create a numeric vector by combining/concatenating elements with `c()`  
 
 ```{r, eval=FALSE}
 ?c
 ```
+
 ```{r}
 numeric_vector = c(234, 31343, 78, 0.23, 0.0000002)
 numeric_vector
