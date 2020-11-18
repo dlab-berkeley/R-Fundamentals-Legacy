@@ -14,11 +14,7 @@ Laptop required. Before Part 1 be sure to:
 
 # Getting started
 
-Open the [learning objectives quick reference file](https://github.com/dlab-berkeley/R-Fundamentals/blob/master/images/Quick_reference.md) to see the topics covered in this workshop series. 
-
-Then, open the "guides"" folder, select the "Part 1" folder, and open "Part1-1_introduction.html" in your preferred web browser to see what the lessons look like along with the associated code. 
-
-Each of these guides has a matching .Rmd file. In the main "R-Fundamentals" folder, click the "Part1" folder, and open "Part1-1_introduction.Rmd" to get started! 
+(updates coming soon :) 
 
 # About the UC Berkeley D-Lab
 
