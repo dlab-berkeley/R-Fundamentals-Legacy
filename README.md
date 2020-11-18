@@ -72,8 +72,6 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) and [compact calendar](htt
 * [Matloff N. 2011. The art of R programming: A tour of statistical software design](https://www.nostarch.com/artofr.htm)  
 * [Brunsdon C, Comber L. 2015. An Introduction to R for Spatial Analysis and Mapping](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031)
 
-__  
-
 ## UC Berkeley departments and course offerings:
 
 * [Department of Statistics](http://statistics.berkeley.edu/)  
