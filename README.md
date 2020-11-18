@@ -9,7 +9,7 @@ Laptop required. Before Part 1 be sure to:
 * Click the green “Clone or download” button  
 * Click “Download Zip”  
 * Extract the files some place convenient (i.e., Desktop)  
-> if you are a Git user, simply clone this repository by opening a terminal and typing:
+ * If you are a Git user, simply clone this repository by opening a terminal and typing:
 
 `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
 
