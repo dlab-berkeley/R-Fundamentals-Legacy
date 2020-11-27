@@ -15,10 +15,10 @@ This is the repository for D-Lab's introductory R-Fundamentals workshop series. 
 # Workshop goals
 There are four code files in this repository that we will walk through. The following topics will be covered:
 
-Part1.R - Introduction to R, navigating RStudio, variable assignment, data types and coercion, data structures  
-Part2.R - Import, subset, and merge data; identify missing data  
-Part3.R - Research design, data summarization and visualization, statistical testing  
-Part4.R - For-loops, custom functions, basic automation
+**Part1.R** - Introduction to R, navigating RStudio, variable assignment, data types and coercion, data structures  
+**Part2.R** - Import, subset, and merge data; identify missing data  
+**Part3.R** - Research design, data summarization and visualization, statistical testing  
+**Part4.R** - For-loops, custom functions, basic automation
 
 ### Start running the code!
 **Open the file "Part1.R" to begin.** Place your cursor on a line of runnable code (lines without hashtags preceding them) and click the "Run" button or press Ctrl + Enter (PC) or command + Enter (Mac) to run a line of code. The output will appear in the "Console" section of RStudio. 
