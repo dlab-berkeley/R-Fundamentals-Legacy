@@ -13,7 +13,8 @@ Before Part 1 be sure to:
 * Click the green “Clone or download” button  
 * Click “Download Zip”  
 * Extract the files some place convenient (i.e., Desktop)  
- * If you are a Git user, simply clone this repository by opening a terminal and typing: `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
+
+> If you are a Git user, simply clone this repository by opening a terminal and typing: `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
 
 ### Start running the code!
 Open the file "Fast-script.R" to begin. Place your cursor on a line of runnable code (lines without hashtags preceding them) and click the "Run" button or press Ctrl + Enter (PC) or command + Enter (Mac) to run a line of code. The output will appear in the "Console" section of RStudio. 
