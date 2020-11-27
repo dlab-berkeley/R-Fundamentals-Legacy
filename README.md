@@ -20,7 +20,7 @@ There are four code files in this repository that we will walk through. The foll
 **Part3.R** - Research design, data summarization and visualization, statistical testing  
 **Part4.R** - For-loops, custom functions, basic automation
 
-### Start running the code!
+# Start running the code!
 **Open the file "Part1.R" to begin.** Place your cursor on a line of runnable code (lines without hashtags preceding them) and click the "Run" button or press Ctrl + Enter (PC) or command + Enter (Mac) to run a line of code. The output will appear in the "Console" section of RStudio. 
 
 # About the UC Berkeley D-Lab
