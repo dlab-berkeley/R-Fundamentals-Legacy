@@ -16,7 +16,7 @@ This is the repository for D-Lab's introductory R-Fundamentals workshop series. 
 > If you are a Git user, simply clone this repository by opening a terminal and typing: `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
 
 # Workshop goals
-**There are four code files in this repository that we will walk through. The topics to be covered are:**
+**There are four code files in this repository that we will walk through. The following topics will be covered:**
 
 Part1.R - Introduction to R, navigating RStudio, variable assignment, data types and coercion, data structures  
 Part2.R - Import, subset, and merge data; identify missing data  
