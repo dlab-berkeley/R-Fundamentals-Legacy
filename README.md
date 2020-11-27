@@ -19,10 +19,10 @@ Before Part 1 be sure to:
 Open the file "Fast-script.R" to begin. Place your cursor on a line of runnable code (lines without hashtags preceding them) and click the "Run" button or press Ctrl + Enter (PC) or command + Enter (Mac) to run a line of code. The output will appear in the "Console" section of RStudio. 
 
 # Workshop goals
-Part 1) Introduction to R, navigating RStudio, variable assignment, data types and coercion, data structures  
-Part 2) Import, subset, and merge data; identify missing data  
-Part 3) Research design, data summarization and visualization, statistical testing  
-Part 4) For-loops, custom functions, basic automation
+Part 1 - Introduction to R, navigating RStudio, variable assignment, data types and coercion, data structures  
+Part 2 - Import, subset, and merge data; identify missing data  
+Part 3 - Research design, data summarization and visualization, statistical testing  
+Part 4 - For-loops, custom functions, basic automation
 
 # About the UC Berkeley D-Lab
 D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as R Fundamentals, one-to-one consulting, and working groups that cover a variety of research topics, digital tools, and programming languages.  
