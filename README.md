@@ -4,8 +4,7 @@ This is the repository for D-Lab's introductory R-Fundamentals workshop series. 
 # Getting started
 (updates coming soon!) 
 
-### Download and install R and RStudio and the workshop materials
-Before Part 1 be sure to:  
+**Download and install R and RStudio and the workshop materials. Before Part 1 be sure to:**
 1) [Download and install R](https://cloud.r-project.org/)  
 2) [Download and install RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
 3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
