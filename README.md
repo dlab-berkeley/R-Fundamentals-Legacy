@@ -1,7 +1,11 @@
 # D-Lab R Fundamentals introductory workshop series  
-This is the repository for D-Lab's introductory R-Fundamentals workshop series.  
+This is the repository for D-Lab's introductory R-Fundamentals workshop series. Laptop required. 
 
-Laptop required. Before Part 1 be sure to:  
+# Getting started
+(updates coming soon!) 
+
+### Download and install R and RStudio and the workshop materials
+Before Part 1 be sure to:  
 1) [Download and install R](https://cloud.r-project.org/)  
 2) [Download and install RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
 3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
@@ -11,8 +15,14 @@ Laptop required. Before Part 1 be sure to:
 * Extract the files some place convenient (i.e., Desktop)  
  * If you are a Git user, simply clone this repository by opening a terminal and typing: `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
 
-# Getting started
-(updates coming soon!) 
+### Start running the code!
+Open the file "Fast-script.R" to begin. Place your cursor on a line of runnable code (lines without hashtags preceding them) and click the "Run" button or press Ctrl + Enter (PC) or command + Enter (Mac) to run a line of code. The output will appear in the "Console" section of RStudio. 
+
+# Workshop goals
+Part 1) Introduction to R, navigating RStudio, variable assignment, data types and coercion, data structures  
+Part 2) Import, subset, and merge data; identify missing data  
+Part 3) Research design, data summarization and visualization, statistical testing  
+Part 4) For-loops, custom functions, basic automation
 
 # About the UC Berkeley D-Lab
 D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as R Fundamentals, one-to-one consulting, and working groups that cover a variety of research topics, digital tools, and programming languages.  
