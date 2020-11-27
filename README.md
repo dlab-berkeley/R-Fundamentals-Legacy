@@ -17,7 +17,7 @@ Before Part 1 be sure to:
 > If you are a Git user, simply clone this repository by opening a terminal and typing: `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
 
 ### Start running the code!
-Open the file "Fast-script.R" to begin. Place your cursor on a line of runnable code (lines without hashtags preceding them) and click the "Run" button or press Ctrl + Enter (PC) or command + Enter (Mac) to run a line of code. The output will appear in the "Console" section of RStudio. 
+Open the file "Part1.R" to begin. Place your cursor on a line of runnable code (lines without hashtags preceding them) and click the "Run" button or press Ctrl + Enter (PC) or command + Enter (Mac) to run a line of code. The output will appear in the "Console" section of RStudio. 
 
 # Workshop goals
 Part 1 - Introduction to R, navigating RStudio, variable assignment, data types and coercion, data structures  
