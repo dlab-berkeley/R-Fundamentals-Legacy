@@ -47,6 +47,6 @@ cylinders_function <- function(height, radius){
 cylinders_function(height = cylinders$height, 
                    radius = cylinders$radius)
 
-##### Challenge 3 - automation
+##### Challenge 4 - automation
 ##### 1. Automate something! Anything. (i.e., put a for-loop inside of a function and get some output)
 ##### 2. If this is too difficult, think about your own research - what might benefit from simple automation?
