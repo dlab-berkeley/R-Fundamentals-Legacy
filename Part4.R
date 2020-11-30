@@ -1,366 +1,453 @@
-# Script for Day 4
+# R-Fundamentals - Script 4 of 4
 
-## Part 2: For Loops
+# Section 1: How Do Functions Work in R?
 
-### Use the nrow function to get the numbers of rows
-data(iris)
-iris
+## The functions we use actually have a lot going on under the hood. Here we will take a look at how for-loops work, and how they might be integrated into functions to make complex tasks successfully execute. 
 
-### Manually we can use dim(iris)[1L] to get the dimensions of iris and then extract the first element
-dim(iris)[1L]
+##### Challenge 1 - loading data from files
+##### 1. Wipe your global environment clean
+##### 2. Restart your R session by clicking "Session" --> "Restart R"
+##### 3. Load the gap dataset
+##### 4. Load the heart dataset
 
-### Or we can use the nrow function
-nrow(iris)
+## Use the nrow function to get the numbers of rows in gap:
+nrow(gap)
 
-### Function method is equivalent to manual method
+## Now look at the code for nrow by typing the function name without parentheses:
+nrow
+
+## Manually we can use dim(x)[1L] to get the dimensions of gap and then extract the first element
+dim(gap)
+dim(gap)[1L]
+
+## Is the function method equivalent to the manual method? 
 dim(iris)[1L] == nrow(iris) 
 
-### Write a function to do the same. Why would we do this?
-nrow_function = function(x){
+## Or, we could write a function to do the same. Why might we do this?
+custom_function = function(x){
   dim(x)[1L]
 }
-nrow_function(iris)
-nrow_function(mtcars)
+custom_function(gap)
 
-### For Loop. What does this do?
-for (x in 1:10) {
+## Is our custom_function output the same as the nrow function output?
+custom_function(gap) == nrow(gap)
+
+## Does this work for other datasets?
+custom_function(heart) == nrow(heart)
+
+# Section2: For-loops
+
+## Before we talk about custom functions in depth, let's talk about for-loops since many functions have for-loops contained within their code. 
+
+## For-loops in R have four main components
+## The basic syntax looks like this: 
+## for(variable in sequence){statement}
+
+## 1. For loops begin with the `for` function to tell R that you want to iterate over a loop.  
+## 2. The `variable` in `(variable in sequence)` is generally denoted with an `i`, which stands for "iterator". However, `i` should be thought of as a placeholder and can be anything (e.g., x, donut, etc.). 
+## 3. `sequence` is a number telling R how many times you want to iterate the code/run the loop.
+## 4. `{statement}` refers to the code sequence that you want to run at each iteration `i`. Curly braces { } define the statement boundary as the body of the loop.  
+
+## What does this for-loop do?
+for (x in 1:5) {
   print(x)
 }
 
-### Create a matrix of 2^i
+## Below is an in-depth looks at how for-loops work. You don't have to do this each time, but it gives you a glimpse into the process: 
 
-vec = c(rep(NA, 10))
+## Create a matrix of 2^i
+?rep
+vec = c(rep(NA, 5))
 vec
 
-for(i in 1:10){
+## Populate the loop
+for(i in 1:5){
   vec[i] = 2^(i)
 }  # does indentation matter? 
 vec
 class(vec)
 
-### Overwrite the first 5 numbers in the vector
-
-for (i in 1:5) {
+## Overwrite the first 3 numbers in the vector with 3^i
+for (i in 1:3) {
   vec[i] = 3^i
 }                
 vec
 
-### Loop over characters
-
+## We can also loop over characters
 animal_names = c("Cat", "Dog", "Pig", "Elephant", "Giraffe")
 animal_names
 
-### Create a blank vector
+### Create another blank vector
 animals_length = rep(NA, length(animal_names))
 animals_length
 
-### Assign the animal names to the vector
+## Assign the animal names to the vector
 names(animals_length) = animal_names
 animals_length  
 
-### Use a for loop to calculate the length of each one
-
+### Use a for-loop to calculate the length of each name
 for (i in animal_names) {
   animals_length[i] = nchar(i)
 }
 animals_length
 
-### If/else
+## If/else
+##  Intermediate commands called "control structures" help us control what happens to the output based on certain conditions of the data. If and else are two basic ones. 
 
-for (x in 1:10) {
+## Refer to the first loop you ran above: 
+for (x in 1:5) {
   print(x) 
 }
 
-### If to control when a chunk of code runs. When did we talk about these?
-
-for (x in 1:10) {
-  if (x < 5)
+## If statements are used to specify code to be evaluated when some condition is held. Here we tell the code that when `x` is no longer less than 3, stop printing:
+for (x in 1:3) {
+  if (x < 3)
     print(x)
 }
 
-### Else statement to specify behavior if condition isn't met
-
+## Else is used to specify what the code should do when the if condition is no longer satisfied. 
+## Since the if condition is not met, we get an error here because that is what we designated as the "else" output: 
 x = 1
-if (x > 7) {
+if (x > 3) {
   print(x)
 }else{   #`else` should not start its own line. Always let it be preceded by a closing brace on the same line.
   print("Error: number not big enough to print")
 }
 
-### What happens if we change x?
-
+## What happens if we change x to satisfy the if statement?
+## The if output is printed: 
 x = 8
-if (x > 7) {
+if (x > 3) {
   print(x)
 }else{
   print("Error: number not big enough to print")
 }
 
-### Now let's put it in a loop
-
-x = 1:10
+## Now we can put this in a loop for multiple values
+x <- 1:5
 for (x in 1:length(x)) {
-  if (x > 7) {
+  if (x > 3) {
     print(x)
   }else{                     
-    print("Error: number not big enough to print. 'x' must be greater than 7")
+    print("Error: 'x' must be greater than 3 to print")
   }
 }
 
-### ifelse to recode
+## ifelse can be used to recode data:
+set.seed(1)
+countries <- sample(c("Canada", "Mexico"), 5, replace = T)
+countries
 
-weather = ifelse(countries == "Canada", "Snow?", "Sun!")       
+## If country is equal to "Canada", recode it as a 0
+## ... else, recode it as a 1
+weather <- ifelse(countries == "Canada", 0, 1)       
 weather
 
-# Part 3: Functions
+##### Challenge 2 - write a for-loop
+##### 1. Write a for-loop that that uses if and else to output something - anything!
 
-## Write a test function and examine it
+# Section 3: Functions
 
-test_function = function(x){
+# In R, a function is a set of code that might be more useful if it is self-contained and/or is to be used repeatedly. For example, if you want to run the same satatistical tests on several datasets, you could write a function that contains instructions for all the tests once, so that you do not have to rewrite the code each time.  
+
+## Every function has four parts and its basic syntax looks like this:  
+## function.name = function(x){
+##    body of function
+## }
+
+## 1. function_name: like variable assignment, give your function a relevant name
+## 2. function(x): `function` lets R know you are writing a function and `(x)` states that there is one input/argument, x.  
+## {body of function}: is contained within curly braces { } and denotes the statements that you want the function to evaluate.  
+## 4. The environment (global environment in our case) that the function operates within.  
+
+## Write a test function that squares a number and look under the hood!
+squares <- function(x){
   x ^ 2
 }
 
-class(test_function)        # Returns the class of `test_function`
-formals(test_function)      # Shows the defined arguments
-body(test_function)         # Displays the statements to be evaluated
-environment(test_function)  # Returns the "global" environment
-test_function               # Shows your function as you have written it
+class(squares) # Returns the class of `squares`
+formals(squares) # Shows the defined arguments
+body(squares) # Displays the statement(s) to be evaluated
+environment(squares) # Returns the "global" environment
+squares # Shows your function as you have written it
 
 ## Test it out
-
-test_function
-test_function(2)
+squares(3)
 
 ### Also works on vectors and other data stuctures! 
-test_function(1:10) # is this the same as c(1:10) ^ 2?
+squares(1:10) # is this the same as c(1:10) ^ 2?
 
 ## Default arguments
-
-f = function(x, y=2){
+## Default arguments are predefined ones:
+## Define the function `f` that performs (x + y) / y
+f <- function(x, y=2){
   (x + y) / y
 }
 
+## We only have to pass in a definition for the x parameter because y is already defined
 f(x = 5)
+
+## Or, we can overwrite the default y = 2 by defining it as such!
 f(x = 5, y = 10)
 
-### Local v. Global scope
+# Section 4: Local v. Global scope
 
-#### Local Scope
-f = function(x, y=2){
+## Local Scope
+## If a variable is defined within a function, it does not live in the global environment and can only be called by that function
+## Define the variable z inside of the function `f`
+f <- function(x, y=2){
   z = 5
   (x + y) / z
 }
 
-# since we defined two arguments x and y, the function thinks the first one is x and the second one is y. You can overwrite y like this:
-f(4, 4)  
+## Does it appear in your global environment? (it should not)
+ls()
 
-f(x = 4, y = 4) # produces the same result
+## Since we defined two arguments (x and y) when we wrote the function, the function thinks the first one is x and the second one is y (remember that z is already defined within the function itself). Since y is default defined as 2, we only have to pass in one - x:
+f(x = 4)
 
-ls() # objects defined in the function environment only exist inside the function; they are not found in the global environment!
+# Or
+f(4)
 
-### Global Scope
+# You can again overwrite y like this (recall that z is defined within the body of the function)
+f(x = 4, y = 4)
 
-z = 5 # define z outside of the function environment
-f = function(x, y=2){
+# Or
+f(4, 4)
+
+## Global Scope
+## However, if we define z in the global environment, the function can pull from the global environment as well:
+z <- 5 
+
+## Does z live in the global environment? Yes!
+ls()
+
+f <- function(x, y=2){
   (x + y) / z
 }
-f(4, 4)
-ls() # the function envrionment can indeed use objects defined in the global environment. 
+f(4)
 
-## For loop inside a function
+##### Challenge 3 - cylinders example
+##### You can also pass in the columns of a dataframe as arguments
+##### 1. Given this toy data frame of cylinder height and radius, write a function that computes the volumes of the five cylinders
+##### The formula for cylinder volume is: 
+##### v = pi * (radius ^ 2) * height
+##### The data:
+cylinders <- data.frame(height = c(3,4,5,6,7),
+                        radius = c(1,3,2,1,5))
+cylinders
+##### 2. Plug in the height and radius into your function to make it work!
+##### HINT: You should have five outputs - one for each cylinder
 
-function_squared = function(x){
+# Section 5: For-loop Inside a Function
+
+## You will often find for-loops nested inside of functions. These setups provide the basis for simple automation:
+
+## This function takes a single argument x, and the prints the square, x number of times:
+squared <- function(x){
   for (i in 1:x) {
     y = i ^ 2
     print(y)
   }
 }
-function_squared(10)
-
-## Columns of a dataframe as arguments
-
-# construct a dummy data frame 
-cylinders = data.frame(height = c(3,4,5,6,7),
-                       radius = c(1,3,2,1,5))
-cylinders
-
-# write a function that computes the volume of these cylinders
-# the two arguments are defined as the height and radius columns
-cylinders_function = function(height, radius){
-  volume = pi * radius ^ 2 * height
-  print(volume)
-}
-
-str(cylinders)
-
-# plug in height and radius
-cylinders_function(height = cylinders$height, radius = cylinders$radius)
+squared(4)
 
 ## Lock Example
+## This can get pretty complicated! Check out what is happening in this combination lock example:
 
-# combination lock example
-
-# 1.  
-set.seed(123)
-combos = paste0(sample(1:60,100, replace = T), "-",  # paste0 or paste?
+## Generate 100 lock combinations
+set.seed(1)
+combos <- paste0(sample(1:60,100, replace = T), "-",
                 sample(1:60,100, replace = T), "-", 
                 sample(1:60,100, replace = T))
 combos
 
-# 2. 
-lock = function(x) {
+# Write the function that will try these 100 combinations
+lock <- function(x) {
+  # Run the loop 100 times
   for(x in 1:length(combos)){
-    if(combos[x] == "13-24-48"){
+    # If "25-2-57" is selected, open the lock
+    if(combos[x] == "25-2-57"){
       print(paste(combos[x], ":", "unlock"))
-    }else{
+    # Otherwise, print "ERROR:" followed by the faulty combo
+      }else{
       print(paste("ERROR", ":", combos[x]))
     }
   }
 }
 
-# 3. 
+# 3. Pass in the 100 combinations and see if you could open the lock!
 lock(combos)
 
-## Part 4: Monte Carlo Simulations
+## Section 6: Monte Carlo from scratch
 
-### Die Roll
-
+## Remember our sample function? We can simulate a single die roll like this: 
 sample(1:6, 1)
 
-# Or, we could use the sample function to simulate 100 die rolls.
+## Or, we could use the sample function to simulate 100 rolls of a single die: 
 sample(1:6, 100, replace = TRUE)
 
-### 200 simulations
+## Instead, let's set up 200 simulations
 
-iter = 200
-nr_rolls = 100
+## 10 iterations
+iter <- 10
 
+## 100 rolls at each iteration
+nr_rolls <- 100
+
+## Write a for-loop to take the mean of each iteration (take the mean of each of the 100 die rolls)
 for (i in 1:iter){
-  rolls = sample(1:6, nr_rolls, replace=TRUE)
-  #print(rolls)
+  rolls <- sample(1:6, nr_rolls, replace = TRUE)
+  # What do we see if we unhashtag print(rolls) ? 
+  # print(rolls)
   print(mean(rolls))
 }
 
-### Mean dice roll function
-
+## This is good, but what if we defined a mean dice roll function instead?
 set.seed(1)
-
-die_roll_mean = function(nr_rolls){
-  rolls = sample(1:6, nr_rolls, replace = TRUE)
+die_roll_mean <- function(nr_rolls){
+  rolls <- sample(1:6, nr_rolls, replace = TRUE)
   mean(rolls)
 }
 
-die_roll_mean(nr_rolls = 100)
+## Now we can define the number of rolls as we choose
+## Let's try 10,000:
+die_roll_mean(nr_rolls = 10000)
 
-# 100 roll mean
-reps = replicate(200, die_roll_mean(nr_rolls = 100))
+## Use the replicate function to get the mean of 200 iterations of 100 rolls each:
+?replicate
+reps <- replicate(200, die_roll_mean(nr_rolls = 100))
 reps
 
-# 5 roll mean
-reps = replicate(200, die_roll_mean(nr_rolls = 5)) 
+## What do you notice that is different about a 5 roll mean, if anything? 
+reps <- replicate(200, die_roll_mean(nr_rolls = 5)) 
 reps
 
 ## Plot the simulations
-
 hist(reps)
 
+## Change the bar color and add a bold line at the mean
 hist(reps, col = "grey")
 abline(v = mean(reps), col = "blue", lwd = 6)
 
-my_hist = function(sims){
-  hist(sims, col = "grey", xlab = "Mean of n die rolls", main = "")
+## Turn this plotting idea into a function!
+## The function will take just one argument called sims
+my_hist <- function(sims){
+  hist(sims, col = "grey", 
+       xlab = "Mean of n die rolls", main = "")
   abline(v = mean(sims), col = "blue", lwd = 6)
 }
 
+## Now we can plot our 200 means (based on just 5 rolls each) from the variable reps above:
+reps
 my_hist(sims = reps)
 
-## Add title to plot
-
-my_hist = function(sims, n){
+## Add title to the plot function
+## We now have two arguments: sims and n
+## n is the number of rolls
+my_hist <- function(sims, n){
   hist(sims, col = "grey",  xlab = "Mean of n die rolls",
        main = paste0("n=", n), xlim = c(2,5))
   abline(v = mean(sims), col = "blue", lwd = 2)
 }
 
+## For 5 rolls we could define n as 5:
 my_hist(sims = reps, n = 5)
 
-### Sampling Distributions
-nr_die_rolls = c(10, 25, 50, 100, 200, 500)
+## Very neat! But what if we want to loop over multiple sampling distributions? 
+## Imagine we have a different number of die rolls, and we want to plot the distribution of each - 10, 25, 50, 100, 200, and 500:
+nr_die_rolls <- c(10, 25, 50, 100, 200, 500)
+nr_die_rolls
 
-### Test for n = 10
+## Let's perform 1000 replications for the first element in our vector, 10 rolls:
+nr_die_rolls[1]
+reps <- replicate(1000, die_roll_mean(nr_rolls = nr_die_rolls[1])) 
 
-reps = replicate(1000, die_roll_mean(nr_rolls = nr_die_rolls[1])) 
+## Then, plug it into our my_hist function:
 my_hist(sims = reps, n = nr_die_rolls[1])
 
-### Test for all
+## With this knowledge, we can then automate all six sampling distributions: 10, 25, 50, 100, 200, and 500
 
-# Change our plotting area to a 2 row by 3 column area
+## First, change our plotting area to a 2 row by 3 column surface: 
 par(mfrow = c(2,3))
 
+## Second, define our for-loop
+## Keep in mind that this loop has 2 parts:
+## 1. reps: 1000 replications for each of the six sampling distributions, and
+## 2. my_hist: the plotting function
 for (i in 1:length(nr_die_rolls)) {
-  reps = replicate(1000, die_roll_mean(nr_rolls = nr_die_rolls[i]))
+  reps <- replicate(1000, die_roll_mean(nr_rolls = nr_die_rolls[i]))
   my_hist(sims = reps, n = nr_die_rolls[i])
 }
 
-## Part 6: Birthday Problem
+## Section 7: Birthday Problem
 
-# This seed give one matching birthday
-set.seed(94705)  
+## If somebody asked you in a room full of 25 people, "What is the probability that two people have matching birthdays?", what would you say?
 
-birthdays = sample(1:365, 25, replace = TRUE)
+## We will use this seed because it is a Berkeley zip code that gives one matching birthday:
+set.seed(94704)  
+
+## Generate our 25 samples from 365 days of the year:
+birthdays <- sample(1:365, 25, replace = TRUE)
 birthdays
 
-## Check unique birthdays
-unique(birthdays)
+## Check the number of unique birthdays
+## 24 is returned, because 198 appears twice
+## This indicates that out of 25, two people have a matching birthday:
 length(unique(birthdays))
+birthdays
+unique(birthdays)
 
 ## Write a function to find people with the same birthday
-
-set.seed(94705)
-
-birthday_function = function(people = 25){
-  
-  # we populate the room
-  birthdays = sample(1:365, people, replace = TRUE)
-  
-  # get the unique number of bdays
-  unique_bdays = length(unique(birthdays))
-  
-  # and return a 1 if at least one bday is repeated.
+set.seed(94704)
+birthday_function <- function(people = 25){
+  # 1. Populate the room
+  birthdays <- sample(1:365, people, replace = TRUE)
+  # 2. Get the unique number of bdays
+  unique_bdays <- length(unique(birthdays))
+  # 3. Return a 1 if at least one bday is repeated.
   as.numeric(unique_bdays != people)
 }
 
+## 1 is returned (our two 198's)
 birthday_function(people = 25)
 
-## Replicate to repeat the process
-set.seed(94705)
-many_sims = replicate(1000, birthday_function(people = 25))
+## Replicate to repeat the process 1000 times!
+set.seed(94704)
+many_sims <- replicate(1000, birthday_function(people = 25))
 many_sims
 
-## Calculate the probability
-
-mean(many_sims) # 0.578 chance of one matching birthday! 
+## Calculate the probability of a matching birthday
+mean(many_sims) # 0.555 chance of one matching birthday! 
 
 ## How does this probability change as we vary the number of people
-people = 2:100
+people <- 2:100
 
-sims = matrix(NA, nrow = length(people), ncol = 2)
+## Create a blank matrix to store the number of people (first column), and the probability of a matching birthday (second column)
+sims <- matrix(NA, nrow = length(people), ncol = 2)
+head(sims)
 
+## Define the for-loop
+## (this might take a minute to complete)
 for (i in 1:length(people)) {
-  many_sims = replicate(5000, birthday_function(people = people[i]))
-  sims[i,] = c(people[i], mean(many_sims))
+  many_sims <- replicate(5000, birthday_function(people = people[i]))
+  sims[i,] <- c(people[i], mean(many_sims))
 }
 
+## View the populated matrix
 sims
 
 ## Plot the probability
 
-# Change our plotting area to a 1 x 1 surface
+## Change our plotting area back to a 1 x 1 surface: 
 par(mfrow = c(1,1))
 
+## Plot number of people on the x-axis, plot the probability of a matching birthday on the y-axis:
 plot(x = sims[,1], y = sims[,2], 
      pch = 16, col = "blue", 
-     xlab = "Nr of People", 
-     ylab = "Probability of at Least One Match")
+     xlab = "Number of People", 
+     ylab = "Probability of at Least One Matching Birthday")
 
-
+##### Challenge 3 - automation
+##### 1. Automate something! Anything. (i.e., put a for-loop inside of a function and get some output)
+##### 2. If this is too difficult, think about your own research - what might benefit from simple automation?
