@@ -9,14 +9,16 @@
 ## We can also do this with code:
 
 ## If the R-Fundamentals folder is on your Desktop
-setwd("~/Desktop/R-Fundamentals") # Mac
-setwd("C:/Users/YourUserName/Desktop/R-Fundamentals/") # PC
+#setwd("~/Desktop/R-Fundamentals") # Mac
+#setwd("C:/Users/YourUserName/Desktop/R-Fundamentals/") # PC
+library(here)
+setwd(here())
 
 ## We can read a dataset by passing in the file path as a character string
 ## This is the only required argument
 
 ## Why doesn't this work? 
-gap <- read.csv("gapminder-FiveYearData.csv")
+gap <- read.csv("data/gapminder-FiveYearData.csv")
 
 ## There is no such file in this directory! 
 ## View the contents of your working directory with dir:
@@ -50,7 +52,9 @@ View(gap)
 
 ##### Challenge 1 - Load data from file
 ##### 1. Load the heart.csv file. Save it in a variable named heart
+
 ##### 2. Load the sleep_VIM.csv file. Save it in a variable named sleep_VIM
+
 ##### 3. What functions can you use to learn more about the sleep_VIM dataset?
 
 # Section 2: Subset a Data Frame in One Dimension
@@ -62,7 +66,7 @@ View(gap)
 sleep_VIM$Dream 
 
 ## You can also tab complete to see a list of columns. Helpful!
-## sleep_VIM$(press TAB key here)
+sleep_VIM$(press TAB key here)
   
 # Section 3: Subset a Data Frame in Two Dimensions
 
@@ -98,6 +102,7 @@ head(sleep_negint_VIM)
 
 ##### Challenge 2 - Subsetting data frames in one and two dimensions
 ##### 1. Create a subset of heart that returns only the sex, trestbps, and target columns
+
 ##### 2. Create a subset of heart that returns only rows 3 thru 7 and 12 and columns 2, 4, and 14
 
 # Section 4: Subset with Logical Operators
@@ -169,6 +174,7 @@ subset_2
 
 ##### Challenge 3
 ##### 1. Use the subset() function to create a subset of the heart dataset that returns only rows where chol is greater than 400 and all columns 
+
 ##### 2. Use the subset() function to create a subset of the heart dataset for sex equals 1 and chol is greater than 350 as well just the sex and chol columns.
 
 # Section 7: Missing Data
@@ -274,4 +280,5 @@ df_rbind # What happened here?
 
 ##### Challenge 4
 ##### 1. How do you make a histogram of the chol column from the heart dataset?
+
 ##### 2. How do you make a scatterplot of the chol (on the x-axis) and trestbps (on the y-axis) from the heart dataset? 

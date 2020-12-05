@@ -1,5 +1,9 @@
 # R-Fundamentals - Script 1 of 4
 
+install.packages("here")
+library(here)
+setwd(here())
+
 # Section 1: Navigating RStudio
 
 ## By default, this script will open in the upper left pane of RStudio. Open a new script by clicking File --> New File --> R Script
@@ -43,7 +47,7 @@ mea
 welcome <- "UC Berkeley" 
 welcome
 
-welcome <- "Barrows Hall"
+welcome <- "Social Science Building"
 welcome
 
 ## Try saving new values as new variables
@@ -129,17 +133,22 @@ FALSE != FALSE # not equivalent to (not equal to)
 TRUE & TRUE 
 TRUE & FALSE
 
-## Boolean "or" (just one conditino must be satisfied)
+## Boolean "or" (just one condition must be satisfied)
 TRUE | TRUE 
 TRUE | FALSE
 
 ##### Challenge 2 - data type coercion
 ##### Like as.integer, other “as dot” functions exist as well, such as as.numeric, as.character, as.logical, and as.factor.
 ##### 1. Define three variables: one numeric, one character, and one logical
+
 ##### 2a. Can you convert numeric to integer type?
+
 ##### 2b. Convert numeric to logical?
+
 ##### 2c. Convert numeric to character?
+
 ##### 2d. Convert logical to character?
+
 ##### 2e. Convert character to numeric?
 
 # Section 5 Data Structures
@@ -197,7 +206,8 @@ mean(num_vec, na.rm = TRUE) # Works properly.
 
 (2 + 5 + 8) / 3 # Do it manually! (sanity check)
 
-## It does not matter what type the data is contained within the vector, as long as it is all the same:
+## It does not matter what type the data is contained within the vector, 
+## as long as it is all the same:
 
 numeric_vector <- c(234, 31343, 78, 0.23, 0.0000002)
 numeric_vector
@@ -281,7 +291,9 @@ class(logical)
 
 ##### Challenge 3 - concatenating vectors
 ##### 1. Define a vector of length 20 using one of the above methods
+
 ##### 2. Index the 3rd through 7th elements of this vector
+
 ##### 3. Index the 3rd through 7th elements and the 14th element 
 
 ## 3. Data frame

@@ -1,5 +1,8 @@
 # R-Fundamentals - Script 4 of 4
 
+library(here)
+setwd(here())
+
 # Section 1: How Do Functions Work in R?
 
 ## The functions we use actually have a lot going on under the hood. Here we will take a look at how for-loops work, and how they might be integrated into functions to make complex tasks successfully execute. 
@@ -450,4 +453,5 @@ plot(x = sims[,1], y = sims[,2],
 
 ##### Challenge 4 - automation
 ##### 1. Automate something! Anything. (i.e., put a for-loop inside of a function and get some output)
+
 ##### 2. If this is too difficult, think about your own research - what might benefit from simple automation?
