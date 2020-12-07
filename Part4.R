@@ -1,8 +1,5 @@
 # R-Fundamentals - Script 4 of 4
 
-library(here)
-setwd(here())
-
 # Section 1: How Do Functions Work in R?
 
 ## The functions we use actually have a lot going on under the hood. Here we will take a look at how for-loops work, and how they might be integrated into functions to make complex tasks successfully execute. 

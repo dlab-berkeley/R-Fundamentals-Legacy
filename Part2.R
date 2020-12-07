@@ -11,8 +11,6 @@
 ## If the R-Fundamentals folder is on your Desktop
 #setwd("~/Desktop/R-Fundamentals") # Mac
 #setwd("C:/Users/YourUserName/Desktop/R-Fundamentals/") # PC
-library(here)
-setwd(here())
 
 ## We can read a dataset by passing in the file path as a character string
 ## This is the only required argument

@@ -1,9 +1,5 @@
 # R-Fundamentals - Script 1 of 4
 
-install.packages("here")
-library(here)
-setwd(here())
-
 # Section 1: Navigating RStudio
 
 ## By default, this script will open in the upper left pane of RStudio. Open a new script by clicking File --> New File --> R Script

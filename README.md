@@ -2,6 +2,9 @@
 This is the repository for D-Lab's introductory R-Fundamentals workshop series. Laptop required. (updates coming soon!) 
 
 # Download and install R and RStudio and the workshop materials to get started. Before Part 1 be sure to:
+
+You have two options for working with R. You can either access it through your browser using the campus datahub infrastructure by clicking [this link](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fdlab-berkeley%2FR-Fundamentals&urlpath=rstudio%2F&branch=master). Datahub is a great option if you aren't able to install R and RStudio locally. Alternatively, if you would like to install R to use locally on your own machine, follow these instructions:
+
 1) [Download and install R](https://cloud.r-project.org/)  
 2) [Download and install RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
 3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  

@@ -1,8 +1,5 @@
 # R-Fundamentals - Script 3 of 4
 
-library(here)
-setwd(here())
-
 ##### Challenge 1 - load data from files
 
 ##### 1. Load the gapminder-FiveYearData.csv file and save it in a variable named gap
