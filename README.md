@@ -1,5 +1,5 @@
 # D-Lab R Fundamentals introductory workshop series  
-This is the repository for D-Lab's introductory R-Fundamentals workshop series. Laptop required. (updates coming soon!) 
+This is the repository for D-Lab's introductory R-Fundamentals workshop series. Laptop, Internet connection, and Zoom account required.
 
 # Download and install R and RStudio and the workshop materials to get started. Before Part 1 be sure to:
 
