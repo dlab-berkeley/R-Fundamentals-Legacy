@@ -3,17 +3,21 @@ This is the repository for D-Lab's introductory R-Fundamentals workshop series. 
 
 # Download and install R and RStudio and the workshop materials to get started. Before Part 1 be sure to:
 
-You have two options for working with R. You can either access it through your browser using the campus datahub infrastructure by clicking [this link](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fdlab-berkeley%2FR-Fundamentals&urlpath=rstudio%2F&branch=master). Datahub is a great option if you aren't able to install R and RStudio locally. Alternatively, if you would like to install R to use locally on your own machine, follow these instructions:
+To install R to use locally on your own machine, follow these instructions:
 
 1) [Download and install R](https://cloud.r-project.org/)  
 2) [Download and install RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
-3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals) to your Desktop  
+3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals). To run these lessons on your laptop: 
 
 * Click the green “Clone or download” button  
 * Click “Download Zip”  
 * Extract the files some place convenient (i.e., Desktop)  
 
 > If you are a Git user, simply clone this repository by opening a terminal and typing: `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
+
+# Is RStudio not working on your laptop? 
+
+You can also access RStudio through your browser on UC Berkeley's DataHub by clicking [this link](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fdlab-berkeley%2FR-Fundamentals&urlpath=rstudio%2F&branch=master). Datahub is a great option if you aren't able to install R and RStudio locally. CalNet ID credentials required. 
 
 # Workshop goals
 There are four code files in this repository that we will walk through. The following topics will be covered:
