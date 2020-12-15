@@ -52,6 +52,7 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) to learn more about us. Vi
 * [Unsupervised Learning in R](https://github.com/dlab-berkeley/Unsupervised-Learning-in-R)
 * [R Machine Learning with tidymodels](https://github.com/dlab-berkeley/Machine-Learning-with-tidymodels)
 * [Introduction to Deep Learning in R](https://github.com/dlab-berkeley/Deep-Learning-in-R)
+* [Fairness and Bias in Machine Learning](https://github.com/dlab-berkeley/fairML)
 * [R Package Development](https://github.com/dlab-berkeley/R-package-development)
 
 # Visit these sites for R help:  
