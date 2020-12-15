@@ -34,6 +34,7 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) to learn more about us. Vi
 # Other D-Lab R workshops
  
 ### Basic Competency
+* [Fast-R](https://github.com/dlab-berkeley/Fast-R)
 * [R Data Wrangling](https://github.com/dlab-berkeley/R-wrang)
 * [R Graphics with ggplot2](https://github.com/dlab-berkeley/R-graphics)
 * [R Functional Programming](https://github.com/dlab-berkeley/R-functional-programming)
