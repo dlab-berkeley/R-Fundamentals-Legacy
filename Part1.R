@@ -353,7 +353,7 @@ gdp
 
 # Section 6: Factor Data
 
-## Remember above when we talked about factor is how R calls categorical data?
+## Remember above when we talked about factor is how R refers to categorical data?
 ## stringsAsFactors = FALSE ensures that character columns will remain character type
 ## Factor/categorical data can be important when you are performing calculations or making visualizations by group. This way, R knows that the character data should have grouping properties
 ## "Levels" are the groups contained within the factor variable itself
