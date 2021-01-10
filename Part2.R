@@ -16,7 +16,7 @@
 ## This is the only required argument
 
 ## Why doesn't this work? 
-gap <- read.csv("data/gapminder-FiveYearData.csv")
+gap <- read.csv("gapminder-FiveYearData.csv")
 
 ## There is no such file in this directory! 
 ## View the contents of your working directory with dir:
