@@ -174,7 +174,7 @@ squares # Shows your function as you have written it
 ## Test it out
 squares(3)
 
-### Also works on vectors and other data stuctures! 
+### Also works on vectors and other data structures! 
 squares(1:10) # is this the same as c(1:10) ^ 2?
 
 ## Default arguments
