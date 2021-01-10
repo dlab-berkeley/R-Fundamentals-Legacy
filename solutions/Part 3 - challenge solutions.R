@@ -12,7 +12,7 @@ str(sv)
 head(sv)
 
 ##### 3. Load the heart.csv file and save it in a variable named heart
-heart <- read.csv(data/hear)
+heart <- read.csv("data/heart.csv")
 str(heart)
 head(heart)
 
