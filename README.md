@@ -71,6 +71,7 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) to learn more about us. Vi
 * [Software Carpentry](https://swcarpentry.github.io/)  
 
 # Books
+* [Bookdown Featured Books](https://bookdown.org/)  
 * [Kearns GJ. 2010. Introduction to Probability and Statistics in R](http://www.atmos.albany.edu/facstaff/timm/ATM315spring14/R/IPSUR.pdf)
 * [Wickham H. 2014. Advanced R](http://adv-r.had.co.nz/)  
 * [R for Data Science](http://r4ds.had.co.nz/)  
