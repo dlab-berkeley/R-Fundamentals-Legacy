@@ -76,6 +76,7 @@ sum(fruits$total_cost)
 ##### Challenge 5 - export to .csv
 ##### 1. Use ?write.csv to try and figure out how to export this data frame as a .csv file
 ?write.csv
+write.csv(fruits, file = "fruits.csv")
 
 ##### 2. Use getwd() to see where it saved! Were you successful?
 getwd()
