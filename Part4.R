@@ -35,7 +35,7 @@ custom_function(gap) == nrow(gap)
 ## Does this work for other datasets?
 custom_function(heart) == nrow(heart)
 
-# Section2: For-loops
+# Section 2: For-loops
 
 ## Before we talk about custom functions in depth, let's talk about for-loops since many functions have for-loops contained within their code. 
 
