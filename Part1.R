@@ -22,6 +22,10 @@
 number <- 5
 number
 
+# Use a hashtag to comment your code (write notes to your future self and your collaborators) to help keep your script organized. 
+
+# Press Ctrl + l on both Mac and PC to clear your console. This does not erase anything, it simply moves the greater than symbol (>) up to the top to improve readability. 
+
 # Section 3: Functions and Arguments
 
 ## Functions perform actions on things and usually are followed by trailing round parentheses
@@ -173,6 +177,8 @@ pangram
 example <- paste("the", 4, TRUE)
 example
 
+# Type a question mark before a function name to view the help pages. Read the "Description" section for a definition. The "Usage" section shows what arguments can be passed into the function and the "Arguments" section provides definitions of the individual parameters/arguments. Also see the "Details", "References", and "Examples" sections for more information!
+
 ## Split a character string with the strsplit:
 ## Split on the space " " but other separators are allowed such as commas, periods, lines, etc.
 words <- strsplit(pangram, split = " ")
@@ -194,6 +200,7 @@ cow_sentence
 num_vec <- c(2, 5, 8, NA, NA)
 num_vec
 
+# View the help page for the arithmetic mean function
 ?mean
 
 mean(num_vec, na.rm = FALSE) # Does not work due to missing data
@@ -268,21 +275,10 @@ normal <- rnorm(n = 10, mean = 0, sd = 1)
 normal
 class(normal)
 
-# 10 random samples from between the numbers 1990 and 2010. 
-# Note that `replace = TRUE` signifies that it is OK to reuse elements already selected
-integer <- sample(x = 1990:2010, size = 10, replace = FALSE) 
-integer
-class(integer)
-
 # 10 random samples from a character vector
 character <- sample(c("Canada", "USA", "Mexico"), 10, replace = TRUE) 
 character
 class(character)
-
-# 10 random samples from a logical vector
-logical <- sample(c(TRUE, FALSE), 10, replace = TRUE) 
-logical
-class(logical)
 
 ##### Challenge 3 - concatenating vectors
 ##### 1. Define a vector of length 20 using one of the above methods
@@ -302,14 +298,12 @@ class(logical)
 set.seed(1)
 (uniform <- runif(n = 10, min = 100, max = 1000000))
 (normal <- rnorm(n = 10, mean = 0, sd = 1))
-(integer <- sample(x = 1990:2010, size = 10, replace = FALSE))
 (character <- sample(c("Canada", "USA", "Mexico"), 10, replace = TRUE))
-(logical <- sample(c(TRUE, FALSE), 10, replace = TRUE))
 
 ## We can create the data frame with data.frame
 ## The equal-length vectors are the arguments
 ## the "stringsAsFactors = FALSE" argument means that R will keep character columns as character type and will NOT automatically convert them to factor/categorical type:
-gdp <- data.frame(uniform, normal, integer, character, logical, 
+gdp <- data.frame(character, uniform, normal, 
                  stringsAsFactors = FALSE)
 gdp
 
@@ -328,22 +322,22 @@ class(rownames(gdp))
 
 ## Rename columns
 ## You can rename columns by assigning a vector of equal length to the colnames function on the left side of the equation
-colnames(gdp) <- c("gdpPercap", "growth_rate", "year", "country", "healthy")
+colnames(gdp) <- c("Country", "GDP", "Growth Rate")
 gdp
 
 ## Change column order (this is a preview of Part 2 subsetting operations)
-gdp <- gdp[,c("country", "year", "gdpPercap", "healthy", "growth_rate")]
+gdp <- gdp[,c("Growth Rate", "Country", "GDP")]
 gdp
 
 ## Sort the data frame by country and then by year
-gdp_sorted <- gdp[order(gdp$country, gdp$year),]
+gdp_sorted <- gdp[order(gdp$Country, gdp$GDP),]
 gdp_sorted
 
 ## Extract a single column with $
-gdp$gdpPercap
+gdp$GDP
 
 ## Create new columns also with $
-gdp$calculation <- gdp$gdpPercap * gdp$growth_rate
+gdp$calculation <- gdp$GDP * gdp$`Growth Rate`
 gdp
 
 ##### Challenge 4 - make your own data frame
