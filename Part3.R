@@ -40,6 +40,7 @@ summary(as.character(gap$continent)) # Strange output!
 ## Contingency Tables
 ## We can also return return observation frequencies for the different continents
 table(gap$continent) 
+prop.table(table(gap$continent))
 
 ## Tabulate number of observations for continent by year
 table(gap$continent, gap$year) 
@@ -136,7 +137,7 @@ library(ggplot2)
 ## See if you were successful! If so, you should see the help files appear. Read the "Description" section and scroll down to the "Useful links".
 ?ggplot2
 
-## You need three things to make a histogram:
+## You need three things to make a ggplot:
 ## 1. Data!
 ## 2. "aes()" (aesthetics): define the coordinate system, map colors and shapes to points
 ## 3. "geom_" (visual marks): specify how the data should be represented: points, bars, lines, etc.
@@ -206,7 +207,8 @@ gg_scatter <- ggplot(data = gap, aes(x = lifeExp, y = gdpPercap,
         legend.title = element_text(size = 10),
         legend.text = element_text(size = 5),
         # Rotate x-axis text 45 degrees
-        axis.text.x = element_text(angle = 45, hjust = 1)) 
+        axis.text.x = element_text(angle = 45, hjust = 1)) # + 
+  # scale_y_log10()
 gg_scatter
 
 # Section 5: Creating Compound Figures
