@@ -107,7 +107,7 @@ plot(x = gap$lifeExp, y = gap$gdpPercap,
      cex = 1,
      las = 1)
 
-# This is a lot of code! How do we know which color and shape corresponds to each continent? We do not even have a legent yet! :(
+# This is a lot of code! How do we know which color and shape corresponds to each continent? We do not even have a legend yet! :(
 legend("topleft", 
         inset = 0, 
         title = "Continent", 

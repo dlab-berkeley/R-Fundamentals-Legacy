@@ -42,6 +42,7 @@ library(cowplot)
 ## Check out D-Lab's R Data Wrangling workshop for more about how to use dplyr! 
 ## https://github.com/dlab-berkeley/R-wrang
 library(dplyr)
+library(ggplot2) 
 gap_lifeExp_mean = gap %>%
   dplyr::group_by(year, continent) %>%
   dplyr::mutate(mean_lifeExp = mean(lifeExp))

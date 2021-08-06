@@ -1,4 +1,4 @@
-# R-Fundamentals Part 1 - Challenge Problem Solutions
+# R-Fundamentals Part 2 - Challenge Problem Solutions
 
 ##### Challenge 1 - Load data from file
 ##### 1. Load the heart.csv file. Save it in a variable named heart

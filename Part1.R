@@ -11,9 +11,9 @@
 
 ## RStudio also has a lot of helpful customizations to improve your experience:
 
-## Click “Tools –> Global Options –> Appearance” to change your color and font settings
-## Click “Tools –> Global Options –> Code” and check the box that says “Soft-wrap R source files” to wrap the text in your script to the width of the script pane
-## Click “Tools –> Global Options –> Code –> Display” and check the boxes that say “Highlight selected line” and “Highlight R function calls”
+## Click Tools --> Global Options --> Appearance to change your color and font settings
+## Click Tools --> Global Options --> Code and check the box that says "Soft-wrap R source files" to wrap the text in your script to the width of the script pane
+## Click Tools --> Global Options --> Code --> Display and check the boxes that say "Highlight selected line" and "Highlight R function calls"
 
 # Section 2: Variable Assignment
 
@@ -24,7 +24,7 @@ number
 
 # Use a hashtag to comment your code (write notes to your future self and your collaborators) to help keep your script organized. 
 
-# Press Ctrl + l on both Mac and PC to clear your console. This does not erase anything, it simply moves the greater than symbol (>) up to the top to improve readability. 
+# Press Ctrl + l on both Mac and PC to clear your console. This does not erase any data, it simply moves the greater than symbol (>) up to the top to improve readability. 
 
 # Section 3: Functions and Arguments
 
@@ -138,7 +138,7 @@ TRUE | TRUE
 TRUE | FALSE
 
 ##### Challenge 2 - data type coercion
-##### Like as.integer, other “as dot” functions exist as well, such as as.numeric, as.character, as.logical, and as.factor.
+##### Like as.integer, other "as dot" functions exist as well, such as as.numeric, as.character, as.logical, and as.factor.
 ##### 1. Define three variables: one numeric, one character, and one logical
 
 ##### 2a. Can you convert numeric to integer type?

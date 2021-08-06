@@ -64,7 +64,7 @@ View(gap)
 sleep_VIM$Dream 
 
 ## You can also tab complete to see a list of columns. Helpful!
-sleep_VIM$(press TAB key here)
+sleep_VIM$ # press the TAB key here and select a column
   
 # Section 3: Subset a Data Frame in Two Dimensions
 
@@ -213,7 +213,7 @@ sv
 ?complete.cases
 
 ## This will return rows that only contain complete data
-s_complete <- sleep_VIM[complete.cases(sleep_VIM) , ]  
+s_complete <- sleep_VIM[complete.cases(sleep_VIM), ]  
 s_complete
 
 # Sanity check:
