@@ -6,10 +6,10 @@ x <- 4
 y <- 7
 z <- 9
 
-(x * y) / 9
+(x * y) / z
 
 ##### Challenge 2 - data type coercion
-##### Like as.integer, other “as dot” functions exist as well, such as as.numeric, as.character, as.logical, and as.factor.
+##### Like as.integer, other "as dot" functions exist as well, such as as.numeric, as.character, as.logical, and as.factor.
 ##### 1. Define three variables: one numeric, one character, and one logical
 num <- 5
 char <- "Oski"
