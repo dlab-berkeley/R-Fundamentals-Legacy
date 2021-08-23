@@ -1,19 +1,24 @@
 # D-Lab R Fundamentals introductory workshop series  
 This is the repository for D-Lab's introductory R-Fundamentals workshop series. Laptop, Internet connection, and Zoom account required.
 
-# Download and install R and RStudio and the workshop materials to get started. Before Part 1 be sure to:
+# Download and install R and RStudio
 
 To install R to use locally on your own machine, follow these instructions:
 
 1) [Download and install R](https://cloud.r-project.org/)  
 2) [Download and install RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
-3) Download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals). To run these lessons on your laptop: 
 
-* Click the green “Clone or download” button  
-* Click “Download Zip”  
-* Extract the files some place convenient (i.e., Desktop)  
+# Download workshop materials to get started
 
-> If you are a Git user, simply clone this repository by opening a terminal and typing: `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
+To prepare ahead of time for attending this workhsop, download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals).
+To run the lessons from the workshop materials on your laptop:
+
+1) Click the green “Code” button above (top-right) 
+2) Select “[Download ZIP](https://github.com/dlab-berkeley/R-Fundamentals/archive/refs/heads/master.zip)”  
+3) Find the downloaded .zip file and extract it to some place convenient (i.e., Desktop)
+4) Open these materials in R Studio from the location you extracted the files
+
+> (Optionally) If you are a Git user, simply clone this repository by opening a terminal and typing: `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
 
 # Is RStudio not working on your laptop? 
 
