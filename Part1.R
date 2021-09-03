@@ -351,21 +351,21 @@ gdp
 ## stringsAsFactors = FALSE ensures that character columns will remain character type
 ## Factor/categorical data can be important when you are performing calculations or making visualizations by group. This way, R knows that the character data should have grouping properties
 ## "Levels" are the groups contained within the factor variable itself
-str(gdp) # "country" is character type. 
+str(gdp) # "Country" is character type. 
 
-## Convert "country" to factor type
-gdp$country <- factor(gdp$country) 
+## Convert "Country" to factor type
+gdp$Country <- factor(gdp$Country) 
 
 str(gdp) # "country" is now factor type!
-gdp$country
-levels(gdp$country)
+gdp$Country
+levels(gdp$Country)
 
 ## Changing Factor Levels
-gdp$country  # Levels: Canada, Mexico, USA (default alphabetical sort)
+gdp$Country  # Levels: Canada, Mexico, USA (default alphabetical sort)
 
 ## What if we want to change the factor level sort to Levels: Mexico, USA, Canada?
-gdp$country <- factor(gdp$country, levels = c("Mexico", "USA", "Canada"))
-gdp$country # The level order has changed. 
+gdp$Country <- factor(gdp$Country, levels = c("Mexico", "USA", "Canada"))
+gdp$Country # The level order has changed. 
 
 # Section 7: Lists and Matrices
 
