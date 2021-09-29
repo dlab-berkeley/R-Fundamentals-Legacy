@@ -1,4 +1,4 @@
-# R-Fundamentals: Script 1 of 4
+# R Fundamentals: Part 1 of 4
 
 # Section 1: Navigating RStudio
 
@@ -19,8 +19,8 @@
 
 # Section 2: Variable Assignment
 
-## Try assigning the value "5" to the variable 'number' and then run 'number'
-## To run a line of code, place your cursor on a line of runnable code and click the "Run" button or click Ctrl + Enter (PC) or command + Enter (Mac)
+## Try assigning the value "5" to the variable 'number' and then run 'number'.
+## To run a line of code, place your cursor on a line of runnable code and click the "Run" button or click Ctrl + Enter (PC) or command + Enter (Mac).
 number <- 5
 number
 
@@ -36,13 +36,13 @@ number - 2
 number * 3
 number / 4
 
-## Use a hashtag to comment your code (write notes to your future self and your collaborators) to help keep your script organized. 
+## Use a hashtag to comment your code (e.g., write notes to your future self and your collaborators) to help keep your script organized. 
 
 ## Press Ctrl + l on both Mac and PC to clear your console. This does not erase any data. It simply moves the console prompt (the greater-than symbol: >) up to the top to improve readability. 
 
 # Section 3: Functions and Arguments
 
-## Functions perform actions on inputs and usually are followed by trailing round parentheses.
+## Functions perform actions on inputs. They are followed by trailing round parentheses.
 ## Arguments are the inputs - values, expressions, text, entire datasets, etc. You tell a function what arguments it needs inside the parentheses. Sometimes, these arguments are "named". This is helpful when you need to enter multiple arguments: the names tell R which arguments correspond to what variables you're passing into the function.
 
 ## Use the ls() function to see all of the variables you have defined.
@@ -83,8 +83,21 @@ welcome # Error
 rm(list = ls()) 
 ls()
 
+## If we look at the documentation for rm(), we see a '...' for the first argument. This means we simply provide it all the variables we'd like to remove.
+?rm
+## Let's see this in action:
+var1 <- 1
+var2 <- 2
+var3 <- 3
+ls()
+rm(var1, var2)
+## What variables are left?
+ls()
+## Finish removing all variables:
+rm(list = ls())
+
 ### Challenge 1: Variable Assignment
-### Define three variables and then write a mathematical expression using only those variables
+### Define three variables and then write a mathematical expression using only those variables.
 
 # Section 4: Data Classes and Coercion
 
@@ -95,19 +108,19 @@ ls()
 ## 4. logical: TRUE or FALSE (1 or 0).
 ## 5. factor: nominal or ordinal categorical type.
 
-# Section 4.1: Numeric
+# Section 4.1: Numerics
 ## Assign 5 to 'number' and check its class. 
 number <- 5
 number
 class(number)
 
-## Section 4.2: Integer
+# Section 4.2: Integers
 ## Coerce 'number' to integer type with the as.integer() function:
 number_int <- as.integer(number)
 number_int
 class(number_int)
 
-## Section 4.3: Character
+## Section 4.3: Characters
 ## Define welcome <- "Welcome to the D-Lab" and check its class:
 welcome <- "Welcome to the D-Lab"
 class(welcome)
@@ -130,7 +143,8 @@ contraction
 
 ## However, you cannot nest single quotes inside of single quotes.
 
-## 4.4 Logical: Logical data will check to see if a condition is TRUE (1) or FALSE (0).
+## Section: 4.4 Logicals
+## Logical data will check to see if a condition is TRUE (1) or FALSE (0).
 class(TRUE)
 class(FALSE)
 
@@ -155,7 +169,8 @@ TRUE & FALSE
 TRUE | TRUE 
 TRUE | FALSE
 
-## Section 4.5: Factor
+# Section 4.5: Factors
+
 ## A factor variable is a set of categorical or ordinal values. To create a factor variable, we first need a vector. We'll return to factors in the next section after we've learned about vectors.
 
 ### Challenge 2: Data type coercion
@@ -182,7 +197,7 @@ TRUE | FALSE
 
 ## Helpful tip: Type a question mark before a function name to view the help pages. Read the "Description" section for a definition. The "Usage" section shows what arguments can be passed into the function and the "Arguments" section provides definitions of the individual parameters/arguments. Also see the "Details", "References", and "Examples" sections for more information.
 
-## Section 5.1: Vectors
+# Section 5.1: Vectors
 ## A vector is an ordered group of the *same* type of data. We can we can create vectors by concatenating data together with the c() function:
 vec <- c(2, 5, 8, 11, 14)
 vec
@@ -206,7 +221,7 @@ numeric_vector
 class(numeric_vector)
 length(numeric_vector) # There are five elements in this vector.
 
-## Index a vector
+## Indexing a vector
 ## To index a vector means to extract an element based on its position.
 ## For example, if we want to return just the third thing from "numeric_vector", we would use square brackets and type:
 numeric_vector[3]
@@ -251,7 +266,7 @@ class(logical_vector)
 
 ### 3. Index the 3rd through 7th elements and the 14th element.
 
-# Section 4.5: Factors interlude
+# Section 4.5: Factors (interlude)
 
 ## Remember above when we talked about factors are how R refers to categorical data?
 ## Categorical data can be important when you are performing calculations or making visualizations by group. This way, R knows that the numeric or character data should have grouping properties.
@@ -272,7 +287,7 @@ countries_factor
 numeric_factor <- factor(c(1, 2, 1, 2, 3, 1))
 numeric_factor
 
-## Section 5.2: Data frames
+# Section 5.2: Data frames
 ## A data frame is an ordered group of equal-length vectors.
 ## Think of a data frame as a spread sheet you would open in MS Excel.
 ## Since they are vectors, each column can only contain the same data type, but columns of different types can be lined up next to each other.
@@ -341,7 +356,7 @@ class(list1)
 ## Normal arithmetic operates won't work with lists, though:
 list1 * list(FALSE, "zero", 0) # Error
 
-## Section 5.4: Matrix
+# Section 5.4: Matrices
 ## A matrix is like a vector in that it can only contain data of the same type, but it can be organized into rows and columns.
 ## It can also be higher dimensional (i.e., it can have more than two dimensions of rows and columns).
 matrix1 <- matrix(data = 1:12, nrow = 4, ncol = 3) 
@@ -358,4 +373,4 @@ matrix2 <- matrix(vec1, ncol = 2)
 matrix2
 class(matrix2)
 
-## This concludes Part 1 of R Fundamentals! In the following script, we will take a closer look at data frames, which is the main type of data structure we'll work with to perform analyses.
+## This concludes Part 1 of R Fundamentals! In Part 2, we will take a closer look at data frames, which are the main type of data structure we'll work with to perform data analysis.
