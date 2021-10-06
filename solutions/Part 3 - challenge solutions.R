@@ -48,6 +48,7 @@ gap_lifeExp_mean = gap %>%
   dplyr::mutate(mean_lifeExp = mean(lifeExp))
 head(gap_lifeExp_mean)
 
+
 gg_fourth <- ggplot(gap_lifeExp_mean, 
                     aes(x = year, y = mean_lifeExp, 
                         color = continent, 
@@ -57,6 +58,19 @@ gg_fourth <- ggplot(gap_lifeExp_mean,
   xlab("Mean lifeExp") +
   theme(legend.position = "top")
 gg_fourth
+
+### A non dplyr way of doing it. 
+# gap_lifeExp_mean_base <- aggregate(lifeExp ~ year + continent, data = gap, FUN = mean, na.rm = TRUE)
+# 
+# gg_fourth2 <- ggplot(gap_lifeExp_mean_base, 
+#                     aes(x = year, y = lifeExp, 
+#                         color = continent, 
+#                         linetype = continent)) + 
+#   geom_line(lwd = 2) + 
+#   theme_bw() + 
+#   xlab("Mean lifeExp") +
+#   theme(legend.position = "top")
+# gg_fourth2
 
 ##### Challenge 5
 ##### Complete the following tasks using the heart dataset:
