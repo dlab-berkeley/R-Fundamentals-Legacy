@@ -277,6 +277,17 @@ df_rbind <- rbind(df1, df4)
 df_rbind # What happened here?
 
 ##### Challenge 4
-##### 1. How do you make a histogram of the chol column from the heart dataset?
+#Consider the following data frame 
 
-##### 2. How do you make a scatterplot of the chol (on the x-axis) and trestbps (on the y-axis) from the heart dataset? 
+challenge_df <- data.frame(Name = c("James", "Orianna", "Vidit", "Barack"),
+                           City = c("Cleveland", "Minneapolis", "Seattle", "Chicago"),
+                           Science = c(70, 60, 40, 70),
+                           Art = c(15,15,20,20))
+
+##### 1. Use merge to get a dataframe of the common name city pairs?
+df_merge2 <- merge(df4, challenge_df, by = c("City", "Name"))
+df_merge2
+
+##### 2. Now try merging to get just common cities. What happens? 
+df_merge3 <- merge(df4, challenge_df, by = c("City"))
+df_merge3
