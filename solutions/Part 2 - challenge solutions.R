@@ -46,11 +46,22 @@ heart_sub4 <- subset(heart,
 heart_sub4
 
 ##### Challenge 4
-##### 1. How do you make a histogram of the chol column from the heart dataset?
-# Google search something like "how to make histogram r" and read through one of the examples
-hist(heart$chol)
+#Consider the following data frame 
 
-##### 2. How do you make a scatterplot of the chol (on the x-axis) and trestbps (on the y-axis) from the heart dataset? 
-# Google search "how to make scatterplot r" and try one of the examples
-plot(x = heart$chol, 
-     y = heart$trestbps)
+challenge_df <- data.frame(Name = c("James", "Orianna", "Vidit", "Barack"),
+                           City = c("Cleveland", "Minneapolis", "Seattle", "Chicago"),
+                           Science = c(70, 60, 40, 70),
+                           Art = c(15,15,20,20))
+
+##### 1. Use merge to get a dataframe of the common name city pairs?
+df_merge2 <- merge(df4, challenge_df, by = c("City", "Name"))
+df_merge2
+
+##### 2. Now try merging to get just common cities. What happens? 
+df_merge3 <- merge(df4, challenge_df, by = c("City"))
+df_merge3
+
+## There are now two "Name" columns, one named "Name.x" and one named "Name.y". 
+## This happens because Name is a common column, but are not being passed to 
+## merge
+
