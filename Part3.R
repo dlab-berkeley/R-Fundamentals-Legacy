@@ -188,7 +188,7 @@ gg_box
 ## gg Boxplots - hide legend
 ## We can also hide the boxplot legend since it contains duplicative information:
 ## Since we "filled" the bars with the "fill" parameter in the aes function above, we can set that legend ("guide") to false to turn it off
-gg_box <- gg_box + guides(fill = FALSE)
+gg_box <- gg_box + guides(fill = "none")
 gg_box
 
 ## gg Scatterplot
