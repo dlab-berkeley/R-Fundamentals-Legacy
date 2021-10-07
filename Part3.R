@@ -64,7 +64,7 @@ colors()
 
 ## Histogram with options
 histogram <- hist(gap$lifeExp, 
-     col = "honeydew1",
+     col = "steelblue3",
      # Add title
      main = "Histogram of life expectancy", 
      # Change x-axis label
@@ -82,7 +82,8 @@ histogram <- hist(gap$lifeExp,
 ## Boxplots
 ## Think of the tilde as meaning "by"
 ## We can plot life expectancy BY continent
-boxplot(gap$lifeExp ~ gap$continent)
+boxplot(gap$lifeExp ~ gap$continent,
+       col = "red1")
 
 ## Boxplot with options
 boxplot(gap$lifeExp ~ gap$continent,
@@ -216,15 +217,17 @@ gg_scatter
 ## Compound figures are a nice way to combine multiple subplots into a single figure. 
 
 ##### Challenge 3 - installing and librarying packages
-##### 1. Install and library the cowplot package
+##### 1. Install and library the cowplot package, otherwise plot_grid() will not function correctly
 
 ##### 2. How do you know if it installed and libraried correctly? 
 
-##### Challenge 4 - create your own ggplot
+##### Challenge 4 - create your own ggplot (Hint: Load dplyr,ggplot2, and cowplot)
 
 ##### 1. Create a fourth ggplot figure of your choosing. Save it as a variable named gg_fourth
 
 ## We can then use plot_grid to align our figures:
+##first load cowplot library package
+
 ?plot_grid
 compound_figure <- plot_grid(gg_hist, 
                              gg_box, 
