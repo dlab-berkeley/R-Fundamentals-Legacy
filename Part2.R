@@ -1,19 +1,18 @@
-# R-Fundamentals - Script 2 of 4
+# R Fundamentals: Part 2 of 4
 
-# Section 1: Load Data from Files
+# Section 1: Importing Data from Files
 
-## Set Working Directory
-## Click Session -> Set Working Directory -> Choose Directory 
-## Select the R-Fundamentals folder you downloaded or cloned
+## First, we need to set the working directory. This is the folder that RStudio considers "home base".
+## There are a couple ways to set the working directory.
+## Option 1: Click Session -> Set Working Directory -> Choose Directory. Then, select the R-Fundamentals ## folder you downloaded or cloned.
+## Option 2: Using the setwd() function. You need to know the exact path to where the R-Fundamentals is located. Save this in the working_directory variable:
+working_directory <- ""
+## For example, if it's on your desktop, this path might be "~/Desktop/R-Fundamentals" (Mac) or "C:/Users/YourUserName/Desktop/R-Fundamentals/" (PC).
+## Then, run the setwd() function:
+setwd(working_directory)
+## You can double-check that this worked by using the getwd() function. What does this do?
+getwd()
 
-## We can also do this with code:
-
-## If the R-Fundamentals folder is on your Desktop
-#setwd("~/Desktop/R-Fundamentals") # Mac
-#setwd("C:/Users/YourUserName/Desktop/R-Fundamentals/") # PC
-
-## We can read a dataset by passing in the file path as a character string
-## This is the only required argument
 
 ## Why doesn't this work? 
 gap <- read.csv("gapminder-FiveYearData.csv")
@@ -28,11 +27,9 @@ gap <- read.csv("data/gapminder-FiveYearData.csv")
 gap
 
 ## We can also add optional arguments
-gap <- read.csv("data/gapminder-FiveYearData.csv", 
+gap <- read.csv(file = "data/gapminder-FiveYearData.csv", 
                 # Place column names in header row outside of the data
                 header = TRUE, 
-                # Convert character string columns to factor type?
-                stringsAsFactors = T,
                 # Tell R to code anything defined here as NA
                 # We have none of these so they will be ignored
                 na.strings = c("", " ", "999", "?", "NONE", "none"))
