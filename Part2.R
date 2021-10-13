@@ -266,8 +266,8 @@ challenge_df <- data.frame(Name = c("Joe", "Susan", "Juan", "Preeti"),
 
 ### 2. Use the inner_join() function from dplyr to merge df_merge and challenge_df by Name.
 
-### 3. Use the left_join() and right_join() functions to perform the same merge.
+### 3. Use the left_join() function to merge df_merge and challenge_df by Name. Use the right_join() function to merge df_merge and challenge_df by Name.
 
-### 4. Lastly, use the full_join() function to perform this merge.
+### 4. Use the full_join() function to merge df_merge and challenge_df by Name.
 
 ### What do you notice about the differences among 2, 3, and 4?
