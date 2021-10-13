@@ -1,39 +1,59 @@
-# D-Lab R Fundamentals introductory workshop series  
-This is the repository for D-Lab's introductory R-Fundamentals workshop series. Laptop, Internet connection, and Zoom account required.
+# D-Lab's R Fundamentals Workshop
 
-# Download and install R and RStudio
+This repository contains the materials for D-Lab's R Fundamentals workshop. No prior experience with R required.
 
-To install R to use locally on your own machine, follow these instructions:
+## Workshop Goals
 
-1) [Download and install R](https://cloud.r-project.org/)  
-2) [Download and install RStudio Desktop Open Source License FREE](https://www.rstudio.com/products/rstudio/download/)  
+In this workshop, we provide a broad overview of the fundamentals to using R, a programming language geared toward statistical analysis and data science.
 
-# Download workshop materials to get started
+The workshop is divided into four parts, which cover the following topics:
 
-To prepare ahead of time for attending this workhsop, download the [R-Fundamentals workshop materials](https://github.com/dlab-berkeley/R-Fundamentals).
-To run the lessons from the workshop materials on your laptop:
+* **Part 1:** Introduction to R, navigating RStudio, variable assignment, data types and coercion, and data structures.
+* **Part 2:** Working with data frames: importing, subsetting, filtering, and merging.
+* **Part 3:** Data visualization using R and ggplot2.
+* **Part 4:** Functions, for loops, if-else statements.
 
-1) Click the green “Code” button above (top-right) 
-2) Select “[Download ZIP](https://github.com/dlab-berkeley/R-Fundamentals/archive/refs/heads/master.zip)”  
-3) Find the downloaded .zip file and extract it to some place convenient (i.e., Desktop)
-4) Open these materials in R Studio from the location you extracted the files
+Prior experience with R is not required.
+## Installation Instructions
 
-> (Optionally) If you are a Git user, simply clone this repository by opening a terminal and typing: `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`
+We will use RStudio to go through the workshop materials, which requires installation of both the R language and the RStudio software. Complete the following steps:
 
-# Is RStudio not working on your laptop? 
+1. [Download R](https://cloud.r-project.org/): Follow the links according to the operating system that you are running. Download the package, and install R onto your compute. You should install the most recent version (at least version 4.0).
+2. [Download RStudio](https://rstudio.com/products/rstudio/download/#download): Install RStudio Desktop. This should be free. Do this after you have already installed R.
+3. [Download these workshop materials](https://github.com/dlab-berkeley/R-Data-Visualization): 
 
-You can also access RStudio through your browser on UC Berkeley's DataHub by clicking [this link](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fdlab-berkeley%2FR-Fundamentals&urlpath=rstudio%2F&branch=master). Datahub is a great option if you aren't able to install R and RStudio locally. CalNet ID credentials required. 
+* Click the green "Code" button in the top right of the repository information.
+* Click "Download Zip".
+* Extract this file to a folder on your computer where you can easily access it (we recommend Desktop).
 
-# Workshop goals
-There are four code files in this repository that we will walk through. The following topics will be covered:
+4. Optional: if you're familiar with `git`, you can instead clone this repository by opening a terminal and entering `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`.
 
-**Part1.R** - Introduction to R, navigating RStudio, variable assignment, data types and coercion, data structures  
-**Part2.R** - Import, subset, and merge data; identify missing data  
-**Part3.R** - Research design, data summarization and visualization, statistical testing  
-**Part4.R** - For-loops, custom functions, basic automation
+## Run the Code
 
-# Start running the code!
-**Open the file "Part1.R" to begin.** Place your cursor on a line of runnable code (lines without hashtags preceding them) and click the "Run" button or press Ctrl + Enter (PC) or command + Enter (Mac) to run a line of code. The output will appear in the "Console" section of RStudio. 
+Now that you have all the required software and materials, you need to run the code:
+
+1. Launch the RStudio software.
+
+2. Use the file navigator to find the `R-Fundamentals` folder that you downloaded from Github.
+
+3. Open up the file corresponding to the part of the workshop you're attending (`Part1.R`, `Part2.R`, `Part3.R`, `Part4.R`).
+
+4. Place your cursor on a given line and press "Command + Enter" (Mac) or "Control + Enter" (PC) to run an individual line of code. 
+
+5. The folder `solutions` contains the solutions to the challenge problems.
+
+## Is R not working on your laptop?
+
+If you do not have R installed and the materials loaded on your workshop by the time it starts, we *strongly* recommend using the UC Berkeley Datahub to run the materials for these lessons. You can access the DataHub by clicking [this link](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fdlab-berkeley%2FR-Fundamentals&urlpath=rstudio%2F&branch=main).
+
+The DataHub downloads this repository, along with any necessary packages, and allows you to run the materials in an RStudio instance on UC Berkeley's servers. No installation is necessary from your end - you only need an internet browser and a CalNet ID to log in. By using the DataHub, you can save your work and come back to it at any time. When you want to return to your saved work, just go straight to [DataHub](https://datahub.berkeley.edu), sign in, and you click on the `R-Fundamentals` folder.
+
+If you don't have a Berkeley CalNet ID, you can still run these lessons in the cloud, by clicking this button:
+
+[![Binder](http://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/dlab-berkeley/Python-Data-Visualization/HEAD)
+
+By using this button, however, you cannot save your work.
+
 
 # About the UC Berkeley D-Lab
 D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as R Fundamentals, one-to-one consulting, and working groups that cover a variety of research topics, digital tools, and programming languages.  
@@ -41,7 +61,7 @@ D-Lab works with Berkeley faculty, research staff, and students to advance data-
 Visit the [D-Lab homepage](http://dlab.berkeley.edu/) to learn more about us. View our [calendar](http://dlab.berkeley.edu/calendar-node-field-date) for upcoming events, and also learn about how to utilize our [consulting](http://dlab.berkeley.edu/consulting) and [data](http://dlab.berkeley.edu/data-resources) services. 
 
 # Other D-Lab R workshops
- 
+
 ### Basic Competency
 * [Fast-R](https://github.com/dlab-berkeley/Fast-R)
 * [R Data Wrangling](https://github.com/dlab-berkeley/R-wrang)
@@ -93,9 +113,6 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) to learn more about us. Vi
 * [School of Information](https://datascience.berkeley.edu/)  
 * [data8](http://data8.org/sp17/)  
 * [EECS](https://cs.berkeley.edu/)  
-
-### Courses
-Don't know where to start researching classes? Look up some of these to see if they pique your interest: Data 8, CS61A, CS61B, CS 61C, CS70/Math 55, CS 188, CS 189, Math 53, Math 54, Math 110, Stat 28, Stat 20/21, Stat 133, Stat 134/140, Data 100.  
 
 # UC Berkeley online courses:  
 * [D-Lab's Introduction to Data Science for Social Scientists](https://campus.sagepub.com/introduction-to-data-science-for-social-scientists#introduction-to-data-science-for-social-scientists/intro)
