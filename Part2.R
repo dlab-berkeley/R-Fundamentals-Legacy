@@ -2,17 +2,23 @@
 
 # Section 1: Importing Data from Files
 
-## First, we need to set the working directory. This is the folder that RStudio considers "home base".
-## There are a couple ways to set the working directory.
-## Option 1: Click Session -> Set Working Directory -> Choose Directory. Then, select the R-Fundamentals ## folder you downloaded or cloned.
+## First, we need to set the working directory. This is the folder that RStudio considers "home base". There are a couple ways to do this.
+
+## Option 1: Click Session -> Set Working Directory -> Choose Directory. Then, select the R-Fundamentals folder you downloaded or cloned.
+
 ## Option 2: Using the setwd() function. You need to know the exact path to where the R-Fundamentals is located. Save this in the working_directory variable:
 working_directory <- ""
-## For example, if it's on your desktop, this path might be "~/Desktop/R-Fundamentals" (Mac) or "C:/Users/YourUserName/Desktop/R-Fundamentals/" (PC).
+
+## For example, if it's on your desktop, this path might be:
+## "~/Desktop/R-Fundamentals" (Mac) or
+## "C:/Users/YourUserName/Desktop/R-Fundamentals/" (PC).
 ## Then, run the setwd() function:
 setwd(working_directory)
+
 ## You can double-check that this worked by using the getwd() function. What does this do?
 getwd()
 
+## Now, let's read in the data. The dataset we'll look at is the gapminder dataset, which contains information about the GDPs and life expectancies of countries over time. This data is located in a "comma separated value" (csv) file. We'll use the read.csv() function to read in the data.
 
 ## Why doesn't this work? 
 gap <- read.csv("gapminder-FiveYearData.csv")
@@ -21,270 +27,247 @@ gap <- read.csv("gapminder-FiveYearData.csv")
 ## View the contents of your working directory with dir:
 dir()
 
-## We need to go one level deeper into our file system (into the "data" folder)
-## Therefore, we can simply add this to the file path, otherwise we could simply select the "data" folder when setting our working directory
+## We need to go one level deeper into our file system (into the "data" folder).
+## Therefore, we need to select the "data" folder when specifying the file path:
 gap <- read.csv("data/gapminder-FiveYearData.csv")
 gap
 
-## We can also add optional arguments
+## This file path is "relative" to the working directory. We could have also specified an "absolute" file path. The difference between the two is that an absolute path begins with a forward slash.
+
+## We can also add optional arguments to the read.csv() function:
 gap <- read.csv(file = "data/gapminder-FiveYearData.csv", 
                 # Place column names in header row outside of the data
-                header = TRUE, 
+                header = TRUE,
                 # Tell R to code anything defined here as NA
-                # We have none of these so they will be ignored
-                na.strings = c("", " ", "999", "?", "NONE", "none"))
+                na.strings = c("", " ", "?", "NONE", "none"),
+                # Don't automatically convert strings to factor variables
+                stringsAsFactors = FALSE)
 
-## We can preview a dataset with the head() function
-## The first six rows are displayed by default
+## The gapminder dataset is automatically loaded as a dataframe. We can preview a dataframe with the head() function.
+## The first six rows are displayed by default.
 head(gap)
 
-## Or we can see its structure
+## We can see its structure:
 str(gap)
 
-## Or we can view the dataset in a separate tab as well
-## Note the filter buttons in the header row
+## Or we can view the dataset in a separate tab as well:
 View(gap)
 
-##### Challenge 1 - Load data from file
-##### 1. Load the heart.csv file. Save it in a variable named heart
+## Notice that RStudio comes with a "Filter" button in the View panel.
 
-##### 2. Load the sleep_VIM.csv file. Save it in a variable named sleep_VIM
+### Challenge 1: Import data from a file.
+### 1. Load the heart.csv file. Save it in a variable named heart. See more about the heart dataset here:
 
-##### 3. What functions can you use to learn more about the sleep_VIM dataset?
+### https://archive.ics.uci.edu/ml/datasets/heart+Disease
 
-# Section 2: Subset a Data Frame in One Dimension
+### 2. Load the sleep_VIM.csv file. Save it in a variable named sleep_VIM. See more about the sleep VIM dataset here:
 
-## Wrap symbols in quotation marks to view their help pages
-?"$" 
+### https://rdrr.io/cran/VIM/man/sleep.html
 
-## Check out one column by typing the name of the data frame, the dollar sign, then the column name
-sleep_VIM$Dream 
+### 3. What functions can you use to learn more about the heart or sleep_VIM datasets?
+
+# Section 2: Subsetting Columns in a Data Frame
+
+## Subsetting a data frame consists of extracting "slices" of it that are meaningful. This could be getting certain rows, or columns, or both.
+## The dollar sign symbol, $, allows us to subset single columns. Let's take a look at its documentation. Note that you need to wrap symbols in quotation marks to view their help pages:
+?"$"
+
+## Check out one column by typing the name of the data frame, the dollar sign, then the column name.
+sleep_VIM$Dream
 
 ## You can also tab complete to see a list of columns. Helpful!
-sleep_VIM$ # press the TAB key here and select a column
+sleep_VIM   # Place a dollar sign and press TAB to select from the available columns.
   
-# Section 3: Subset a Data Frame in Two Dimensions
+# Section 3: Subsetting a Data Frame in Two Dimensions
 
-## There are many ways to efficiently subset rows and columns in R
-## "Bracket notation" is the simplest
-## Remember that we indexed a vector by typing a number in square brackets? We will do the same here, but will use a comma in the square brackets to designate rows from columns: 
+## There are many ways to efficiently subset rows and columns in R. The simplest is "bracket notation".
+## Remember how we indexed a vector by typing a number in square brackets? We will do the same here, but will use a comma in the square brackets to designate rows from columns: 
 ## dataframe[rows, cols]
 
-## Make a new dataframe called sleep_varnames, subsetting on two columns
-## The space BEFORE the comma is left blank and tells R we want all the rows returned (because we didn't specify a row subset)
+## Make a new dataframe called sleep_sub1, subsetting on two columns.
+## The area BEFORE the comma is left blank and tells R we want ALL the rows returned (because we didn't specify a row subset).
 ## Only the BodyWgt and BrainWgt columns are returned
-sleep_varnames <- sleep_VIM[ , c("BodyWgt", "BrainWgt")]
+sleep_subset_names <- sleep_VIM[, c("BodyWgt", "BrainWgt")]
+dim(sleep_subset_names)
+head(sleep_subset_names)
 
-## Check the structure and first few rows
-str(sleep_varnames)
-head(sleep_varnames)
-
-## Select by column position
-## We can also pass in integers to include particular columns
+## We can also pass in integers to to denote column number. Let's take a look at the columns:
 names(sleep_VIM)
 
-## Suppose we just want the NonD (3rd), Sleep (5th), and Exp (9th) columns
-sleep_posint <- sleep_VIM[ , c(3, 5, 9)] 
-str(sleep_posint)
-head(sleep_posint)
+## Suppose we just want the NonD (3rd), Sleep (5th), and Exp (9th) columns:
+sleep_subset_ints <- sleep_VIM[, c(3, 5, 9)] 
+dim(sleep_subset_ints)
+head(sleep_subset_ints)
 
-## We can also pass in negative integers to exclude specific columns
-## Suppose we want to exclude BodyWgt and BrainWgt
+## We can also pass in negative integers to EXCLUDE specific columns.
+## Suppose we want to exclude BodyWgt and BrainWgt:
 names(sleep_VIM)
-sleep_negint_VIM <- sleep_VIM[ , -c(1, 2)]
-str(sleep_negint_VIM)
-head(sleep_negint_VIM)
+sleep_subset_neg <- sleep_VIM[, -c(1, 2)]
+dim(sleep_subset_neg)
+head(sleep_subset_neg)
 
-##### Challenge 2 - Subsetting data frames in one and two dimensions
-##### 1. Create a subset of heart that returns only the sex, trestbps, and target columns
+### Challenge 2: Subsetting data frames in one and two dimensions
 
-##### 2. Create a subset of heart that returns only rows 3 thru 7 and 12 and columns 2, 4, and 14
+### 1. Create a subset of heart that returns only the sex, trestbps, and target columns.
 
-# Section 4: Subset with Logical Operators
+### 2. Create a subset of heart that returns rows 3-7 and row 12 along with columns 2, 4, and 14.
+
+# Section 4: Subsetting with Logical Operators
 
 ## Remember your logical symbols from Part 1?
 ?"=="
 
-## Subset rows based on a logical condition in one column
-## Then, select by column positions
-sleep_logical <- sleep_VIM[sleep_VIM$Exp == 4 , 8:10 ] 
-sleep_logical
+## We can subset rows based on a logical condition in one column.
+## Let's get the rows where the experiment number is equal to 4, and only choose specific columns:
+sleep_logical <- sleep_VIM[sleep_VIM$Exp == 4, 8:10] 
+dim(sleep_logical)
+head(sleep_logical)
 
-## Subsetting based on multiple conditions
-## What if we want to incorporate multiple conditions?
+## We can also subset based on multiple conditions. We'll need the AND and OR operators for this:
 ?"&"
 ?"|"
 
-## & (and) means that all conditions must be TRUE
-## Subset rows only where Exp is 1 AND Danger is 2
-sleep_logical_and <- sleep_VIM[sleep_VIM$Exp == 1 & 
-                                 sleep_VIM$Danger == 2, ]
-sleep_logical_and
+## & (and) means that all conditions must be TRUE.
+## Let's subset rows where Exp is 1 AND Danger is 2:
+sleep_logical_and <- sleep_VIM[(sleep_VIM$Exp == 1) & (sleep_VIM$Danger == 2), ]
+dim(sleep_logical_and)
+head(sleep_logical_and)
 
-## | (or) means that just one of the conditions must be TRUE
-## Subset rows only where Exp is 1 OR Danger is 2
+## | (or) means that just one of the conditions must be TRUE.
+## Let's subset rows where Exp is 1 OR Danger is 2.
 ## Do you think we will get more or less rows returned? Why or why not?
-sleep_logical_or <- sleep_VIM[sleep_VIM$Exp == 1 | 
-                                sleep_VIM$Danger == 2, ]
-sleep_logical_or
-
-dim(sleep_logical_and) # 5 rows x 10 columns
-dim(sleep_logical_or) # 36 rows x 10 columns
+sleep_logical_or <- sleep_VIM[(sleep_VIM$Exp == 1) | (sleep_VIM$Danger == 2), ]
+dim(sleep_logical_or)
+head(sleep_logical_or)
 
 # Section 5: Subsetting Lists
+
+## Recall that lists are different from vectors and data frames. They can contain heterogeneous data types.
 ## We can also subset lists with double brackets "[[]]"
 ?"[["
 
-## Make an example list
+## Let's make an example list:
 example_list <- list(TRUE, "string data", 5, list(1, 2, 3))
 example_list
 
-## What happens with one bracket?
-## Both the placeholder and the value are returned
+## What happens with one bracket? Both the placeholder and the value are returned:
 example_list[1]
 
-## What about double brackets?
-## Just the value is returned
+## What about double brackets? Just the value is returned:
 example_list[[1]]
 
-## Section 6: Subset function
+## Section 6: Using dplyr to Subset Data Frames
 
-## We can also use the "subset" function to subset data based on logical conditions
-?subset # subset will keep rows, select will keep columns!
+## A modern approach to interacting with data frames is called dplyr. This package is part of the tidyverse, a suite of packages that helps facilitate data science in R.
+## We need to first install this package. We can do so by running the install.packages() function:
+install.packages(dplyr)
 
-# subset rows where "BrainWgt" is less than 60 and "Danger" equals 4 and "Exp" equals 3. 
-# subset columns "BrainWgt", "Danger", "Exp".
-subset_1 <- subset(x = sleep_VIM, 
-                   subset = BrainWgt < 60 & 
-                     Danger == 4 & 
-                     Exp == 3,
-                   select = c("BrainWgt", "Danger", "Exp"))
-subset_1
+## Now that it's installed, we need to import it to our current R session:
+library(dplyr)
 
-# subset all rows where BrainWgt is less than 0.3 or Danger is equal to 5 along with the "BrainWgt", "Danger", and "Exp" columns:
-subset_2 <- subset(sleep_VIM, 
-                   subset = BrainWgt < 0.3 | Danger == 5, 
-                   select = c(BrainWgt, Danger, Exp))
-subset_2
+## In dplyr, we can use the "select" function to select columns:
+sleep_select <- select(sleep_VIM, BodyWgt, BrainWgt)
+dim(sleep_select)
+head(sleep_select)
 
-##### Challenge 3
-##### 1. Use the subset() function to create a subset of the heart dataset that returns only rows where chol is greater than 400 and all columns 
+## Notice how we don't need to use quotation marks. dplyr is smart enough to figure out when we're talking about columns.
+## We can also use the filter() function to subset rows according to logical condition:
+sleep_filter <- filter(sleep_VIM, Exp == 1 & Danger == 2)
+dim(sleep_filter)
+head(sleep_filter)
 
-##### 2. Use the subset() function to create a subset of the heart dataset for sex equals 1 and chol is greater than 350 as well just the sex and chol columns.
+## dplyr comes with a "piping" operator that allows us to perform multiple computations on the same data frame in a single command. 
+## This operator is %>%: you can think of it as taking the output of the left hand side, and passing it into the function on the right hand side. Let's see it in action:
+sleep_pipe <- sleep_VIM %>%
+  filter(Exp == 1 & Danger == 2) %>%
+  select(BodyWgt, BrainWgt)
+dim(sleep_pipe)
+head(sleep_pipe)
+
+## Notice that we didn't need to pass sleep_VIM as the first argument of each function. The piping operator takes care of this for us.
+
+## If you'd like to learn more about how to use dplyr to perform analysis, check out the Data Wrangling in R workshop!
 
 # Section 7: Missing Data
 
-## Let's review missing data from yesterday
+## Let's review missing data:
 ?NA
-?mean # Scroll down to `na.rm`
+?mean # Scroll down to "na.rm".
 
-## Let's see how this works on our sleep_VIM data
+## Let's see how this works on our sleep_VIM data:
 mean(sleep_VIM$NonD) 
 
-## This returns NA because R is unsure how to deal with NA cells for the `mean` computation.
+## This returns NA because R is unsure how to deal with NA cells for the mean computation.
 
-# What happens if we use the na.rm = TRUE argument? It now computes the mean!
+## What happens if we use the na.rm = TRUE argument? It now computes the mean!
 mean(sleep_VIM$NonD, na.rm = TRUE) 
 
-# We can check to see if a cell is missing with is.na:
+## We can check to see if a cell is missing with is.na:
 ?is.na
-
 is.na(sleep_VIM)
 
-## Count the number of total missing cells (total number of TRUE) Why does this work?
+## We can count the number of total missing cells. Why does this work?
 sum(is.na(sleep_VIM))
 
-## Make a copy of sleep_VIM to play with the missing data
-sv <- sleep_VIM
+## Perhaps we'd like to extract rows where NonD is *not* missing. We can do this using the ! operator and dplyr:
+sleep_NonD <- sleep_VIM %>% filter(!is.na(NonD))
+head(sleep_NonD)
 
-## Convert NA to "NONE"
-sv[is.na(sv)] <- "NONE"
-sv
+## How can we check whether the new data frame does in fact have no missing values for NonD?
 
-## Convert back to NA
-## Why can we no longer use is.na?
-sv[sv == "NONE"] <- NA
-sv
+## Maybe we'd like to extract the *rows* that have no missing values (rather than a specific column). Another package in the tidyverse - tidyr - provides us a useful function to do this:
+install.packages(tidyr)
+library(tidyr)
 
-## Now let's explore the complete cases function
-?complete.cases
+## tidyr typically contains functions which allow you to transform your data frames from longer to wider (this is called pivoting). It also contains the drop_na() function, which is useful in this case:
+sleep_non_missing <- sleep_VIM %>% drop_na()
+dim(sleep_non_missing)
+sum(is.na(sleep_non_missing))
 
-## This will return rows that only contain complete data
-s_complete <- sleep_VIM[complete.cases(sleep_VIM), ]  
-s_complete
+# Section 8: Merging Data Frames
 
-# Sanity check:
-is.na(s_complete)
-sum(is.na(s_complete)) # what did we do here?
-
-# Alternatively, we can subset to only include rows with missing data
-?"!"
-
-s_NA <- sleep_VIM[!complete.cases(sleep_VIM),]
-s_NA # All rows have at least one cell with missing data
-
-is.na(s_NA) # We see TRUE values where data is missing
-sum(is.na(s_NA)) # 38 cells have missing data
-
-# Section 8: Merging data
-
-## We can merge dataframes by a column that is shared by both dataframes
+## We can merge two data frames by a column that is shared by both using the merge() function:
 ?merge
 
-## Make a toy dataframe
+## Let's make a toy dataframe:
 df1 <- data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
-                 City = c("Berkeley", "Berkeley", "Oakland", "Oakland"),
-                 Math = c(42, 48, 50, 46),
-                 Reading = c(8, 10, 10, 10))
+                  City = c("Berkeley", "Berkeley", "Oakland", "Oakland"),
+                  Math = c(42, 48, 50, 46),
+                  Reading = c(8, 10, 10, 10))
 df1
 
-## Make a second toy dataframe
+## And a second toy dataframe:
 df2 <- data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
-                 Science = c(99, 100, 99, 100),
-                 Music = c(19, 18, 20, 20),
-                 Art = c(20, 20, 19, 18))
+                  Science = c(99, 100, 99, 100),
+                  Music = c(19, 18, 20, 20),
+                  Art = c(20, 20, 19, 18))
 df2
 
 ## Merge the dataframes
 df_merge <- merge(df1, df2, by = "Name")
 df_merge
 
-## cbind and rbind
-## We can also "bind" two dataframes by rows or columns without anything shared between them
-## How do you think this might be problematic?
-?cbind
-?rbind
+## In dplyr, there are several "join" functions used to perform merges. These include inner_join(), left_join(), right_join(), and full_join().
+## The variations consist of how to treat cases when there might not be a one-to-one mapping between two rows of a data frame.
+## Let's try the full_join() on the above example:
+df_join <- full_join(df1, df2, by = "Name")
+df_join
 
-df3 <- data.frame(Name = c("Heather", "Billy", "Hector", "Jane"),
-                  City = c("San Francisco", "Los Angeles", "San Francisco", "Chico"),
-                  Math = c(49, 44, 50, 50),
-                  Reading = c(9, 7, 10, 10))
-df3
+## Looks basically the same!
 
-df_cbind <- cbind(df1, df3)
-df_cbind # Is this problematic? 
+### Challenge 4
+### Consider the following data frame:
+challenge_df <- data.frame(Name = c("Joe", "Susan", "Juan", "Preeti"),
+                           City = c("Berkeley", "Berkeley", "San Mateo", "San Jose"),
+                           Physics = c(20, 21, 22, 23),
+                           Chemistry  = c(23, 22, 21, 20))
 
-df4 <- data.frame(Name = c("James", "Tanisha", "Elizabeth", "Barack"),
-                  City = c("Cleveland", "Memphis", "Detroit", "Chicago"),
-                  Math = c(44, 50, 50, 49),
-                  Reading = c(9, 9, 9, 10))
-df4
+### 1. Use the merge() function to merge df_merge and challenge_df by Name. What do you notice about the columns? How many rows are there?
 
-df_rbind <- rbind(df1, df4)
-df_rbind # What happened here?
+### 2. Use the inner_join() function from dplyr to merge df_merge and challenge_df by Name.
 
-##### Challenge 4
-#Consider the following data frame 
+### 3. Use the left_join() and right_join() functions to perform the same merge.
 
-challenge_df <- data.frame(Name = c("James", "Orianna", "Vidit", "Barack"),
-                           City = c("Cleveland", "Minneapolis", "Seattle", "Chicago"),
-                           Science = c(70, 60, 40, 70),
-                           Art = c(15,15,20,20))
+### 4. Lastly, use the full_join() function to perform this merge.
 
-##### 1. Use merge to get a dataframe of the common name city pairs?
-df_merge2 <- merge(df4, challenge_df, by = c("City", "Name"))
-df_merge2
-
-##### 2. Now try merging to get just common cities. What happens? 
-df_merge3 <- merge(df4, challenge_df, by = c("City"))
-df_merge3
+### What do you notice about the differences among 2, 3, and 4?
