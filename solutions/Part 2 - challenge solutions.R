@@ -34,34 +34,52 @@ heart_sub2 <- heart[c(3:7, 12), c(2, 4, 14)]
 heart_sub2
 
 ##### Challenge 3
-##### 1. Use the subset() function to create a subset of the heart dataset that returns only rows where chol is greater than 400 and all columns 
-heart_sub3 <- subset(heart, 
-                     subset = chol > 400)
-heart_sub3
+### Consider the following data frame:
+challenge_df <- data.frame(Name = c("Joe", "Susan", "Juan", "Preeti"),
+                           City = c("Berkeley", "Berkeley", "San Mateo", "San Jose"),
+                           Physics = c(20, 21, 22, 23),
+                           Chemistry  = c(23, 22, 21, 20))
 
-##### 2. Use the subset() function to create a subset of the heart dataset for sex equals 1 and chol is greater than 350 as well just the sex and chol columns.
-heart_sub4 <- subset(heart,
-                     subset = sex == 1 & chol > 350, 
-                     select = c("sex", "chol"))
-heart_sub4
+## Data for df_merge
+df1 <- data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
+                  City = c("Berkeley", "Berkeley", "Oakland", "Oakland"),
+                  Math = c(42, 48, 50, 46),
+                  Reading = c(8, 10, 10, 10))
 
-##### Challenge 4
-#Consider the following data frame 
+df2 <- data.frame(Name = c("Joe", "Susan", "Jack", "Kelly"),
+                  Science = c(99, 100, 99, 100),
+                  Music = c(19, 18, 20, 20),
+                  Art = c(20, 20, 19, 18))
 
-challenge_df <- data.frame(Name = c("James", "Orianna", "Vidit", "Barack"),
-                           City = c("Cleveland", "Minneapolis", "Seattle", "Chicago"),
-                           Science = c(70, 60, 40, 70),
-                           Art = c(15,15,20,20))
+## Merge the dataframes
+df_merge <- merge(df1, df2, by = "Name")
 
-##### 1. Use merge to get a dataframe of the common name city pairs?
-df_merge2 <- merge(df4, challenge_df, by = c("City", "Name"))
-df_merge2
+### 1. Use the merge() function to merge df_merge and challenge_df by Name. What do you notice about the columns? How many rows are there?
+merge(df_merge, challenge_df, by = "Name")
 
-##### 2. Now try merging to get just common cities. What happens? 
-df_merge3 <- merge(df4, challenge_df, by = c("City"))
-df_merge3
+# There are two rows and 10 columns. Without doing any additional merging by columns, we end up seeing duplicates. 
+# Here we get duplicates on City. That would go away if we did 
+merge(df_merge, challenge_df, by = c("Name", "City"))
 
-## There are now two "Name" columns, one named "Name.x" and one named "Name.y". 
-## This happens because Name is a common column, but are not being passed to 
-## merge
 
+### 2. Use the inner_join() function from dplyr to merge df_merge and challenge_df by Name. What happens if you merge by Name and City? 
+inner_join(df_merge, challenge_df, by = c("Name"))
+
+# Note that this gives us the same data frame as our first merge. Similarly 
+inner_join(df_merge, challenge_df, by = c("Name", "City"))
+# gives us back the same data frame without two city columns 
+
+### 3. Use the left_join() function to merge df_merge and challenge_df by Name and City. Use the right_join() function to merge df_merge and challenge_df by Name and City.
+
+# The reason we want to merge by multiple columns is to avoid the city.x and city.y issue
+# Here's an example with left join. 
+left_join(df_merge, challenge_df, by = c("Name"))
+
+left_join(df_merge, challenge_df, by =c("Name", "City"))
+right_join(df_merge, challenge_df, by = c("Name", "City"))
+
+### 4. Use the full_join() function to merge df_merge and challenge_df by Name and City.
+full_join(df_merge, challenge_df, by = c("Name", "City"))
+### What do you notice about the differences among 2, 3, and 4?
+
+# There are multiple answers to this, but a basic one is what city variable has NA values. This will change depending on the type of merge. Another difference will be which names are returned. 
