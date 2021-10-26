@@ -264,7 +264,7 @@ challenge_df <- data.frame(Name = c("Joe", "Susan", "Juan", "Preeti"),
 
 ### 1. Use the merge() function to merge df_merge and challenge_df by Name. What do you notice about the columns? How many rows are there?
 
-### 2. Use the inner_join() function from dplyr to merge df_merge and challenge_df by Name.
+### 2. Use the inner_join() function from dplyr to merge df_merge and challenge_df by Name. What happens if you merge by Name and City? 
 
 ### 3. Use the left_join() function to merge df_merge and challenge_df by Name and City. Use the right_join() function to merge df_merge and challenge_df by Name and City.
 
