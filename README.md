@@ -102,7 +102,7 @@ Here are other R workshops offered by the D-Lab:
 * [Fairness and Bias in Machine Learning](https://github.com/dlab-berkeley/fairML)
 * [R Package Development](https://github.com/dlab-berkeley/R-package-development) 
 
-## Contributors
+# Contributors
 * [Evan Muzzall](https://dlab.berkeley.edu/people/evan-muzzall)
 * [Aniket Kesari](https://dlab.berkeley.edu/people/aniket-kesari)
 * [Jae Yeon Kim](https://jaeyk.github.io/)
