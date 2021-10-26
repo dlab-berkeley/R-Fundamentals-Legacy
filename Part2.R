@@ -255,7 +255,7 @@ df_join
 
 ## Looks basically the same!
 
-### Challenge 4
+### Challenge 3
 ### Consider the following data frame:
 challenge_df <- data.frame(Name = c("Joe", "Susan", "Juan", "Preeti"),
                            City = c("Berkeley", "Berkeley", "San Mateo", "San Jose"),
@@ -266,8 +266,8 @@ challenge_df <- data.frame(Name = c("Joe", "Susan", "Juan", "Preeti"),
 
 ### 2. Use the inner_join() function from dplyr to merge df_merge and challenge_df by Name.
 
-### 3. Use the left_join() function to merge df_merge and challenge_df by Name. Use the right_join() function to merge df_merge and challenge_df by Name.
+### 3. Use the left_join() function to merge df_merge and challenge_df by Name and City. Use the right_join() function to merge df_merge and challenge_df by Name and City.
 
-### 4. Use the full_join() function to merge df_merge and challenge_df by Name.
+### 4. Use the full_join() function to merge df_merge and challenge_df by Name and City.
 
 ### What do you notice about the differences among 2, 3, and 4?
