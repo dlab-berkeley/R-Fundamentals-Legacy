@@ -1,27 +1,27 @@
-# R-Fundamentals - Script 4 of 4
+# R Fundamentals: Part 4 of 4
 
 # Section 1: How Do Functions Work in R?
 
 ## The functions we use actually have a lot going on under the hood. Here we will take a look at how for-loops work, and how they might be integrated into functions to make complex tasks successfully execute. 
 
-##### Challenge 1 - loading data from files
-##### 1. Wipe your global environment clean
-##### 2. Restart your R session by clicking "Session" --> "Restart R"
-##### 3. Load the gap dataset
-##### 4. Load the heart dataset
+### Challenge 1: Importing data from files
+### 1. Wipe your global environment clean.
+### 2. Restart your R session by clicking "Session" --> "Restart R".
+### 3. Load the gap dataset.
+### 4. Load the heart dataset.
 
-## Use the nrow function to get the numbers of rows in gap:
+## Use the nrow() function to get the numbers of rows in gap:
 nrow(gap)
 
-## Now look at the code for nrow by typing the function name without parentheses:
+## Now, look at the code for nrow() by typing the function name without parentheses:
 nrow
 
-## Manually we can use dim(x)[1L] to get the dimensions of gap and then extract the first element
+## We can manually use the code dim(x)[1L] to get the dimensions of gap and then extract the first element:
 dim(gap)
 dim(gap)[1L]
 
-## Is the function method equivalent to the manual method? 
-dim(iris)[1L] == nrow(iris) 
+## Is the function output equivalent to the manual method? We can use a Boolean operator to check this:
+dim(gap)[1L] == nrow(gap) 
 
 ## Or, we could write a function to do the same. Why might we do this?
 custom_function = function(x){
@@ -29,7 +29,7 @@ custom_function = function(x){
 }
 custom_function(gap)
 
-## Is our custom_function output the same as the nrow function output?
+## Is our custom_function() output the same as the nrow() output?
 custom_function(gap) == nrow(gap)
 
 ## Does this work for other datasets?
@@ -37,7 +37,7 @@ custom_function(heart) == nrow(heart)
 
 # Section 2: For-loops
 
-## Before we talk about custom functions in depth, let's talk about for-loops since many functions have for-loops contained within their code. 
+## Before we talk about custom functions in depth, let's talk about for-loops, since many functions have for-loops contained within their code. 
 
 ## For-loops in R have four main components
 ## The basic syntax looks like this: 
@@ -61,7 +61,7 @@ vec = c(rep(NA, 5))
 vec
 
 ## Populate the loop
-for(i in 1:5){
+for(i in 1:5) {
   vec[i] = 2^(i)
 }  # does indentation matter? 
 vec
@@ -101,8 +101,9 @@ for (x in 1:5) {
 
 ## If statements are used to specify code to be evaluated when some condition is held. Here we tell the code that when `x` is no longer less than 3, stop printing:
 for (x in 1:3) {
-  if (x < 3)
+  if (x < 3) {
     print(x)
+  }
 }
 
 ## Else is used to specify what the code should do when the if condition is no longer satisfied. 
@@ -110,7 +111,8 @@ for (x in 1:3) {
 x = 1
 if (x > 3) {
   print(x)
-}else{   #`else` should not start its own line. Always let it be preceded by a closing brace on the same line.
+} else{
+  # else should not start its own line. Always let it be preceded by a closing brace on the same line.
   print("Error: number not big enough to print")
 }
 
@@ -119,7 +121,7 @@ if (x > 3) {
 x = 8
 if (x > 3) {
   print(x)
-}else{
+} else{
   print("Error: number not big enough to print")
 }
 
@@ -128,7 +130,7 @@ x <- 1:5
 for (x in 1:length(x)) {
   if (x > 3) {
     print(x)
-  }else{                     
+  } else{                     
     print("Error: 'x' must be greater than 3 to print")
   }
 }
@@ -143,8 +145,8 @@ countries
 weather <- ifelse(countries == "Canada", 0, 1)       
 weather
 
-##### Challenge 2 - write a for-loop
-##### 1. Write a for-loop that that uses if and else to output something - anything!
+### Challenge 2: write a for-loop
+##### 1 TODO
 
 # Section 3: Functions
 
@@ -161,7 +163,7 @@ weather
 ## 4. The environment (global environment in our case) that the function operates within.  
 
 ## Write a test function that squares a number and look under the hood!
-squares <- function(x){
+squares <- function(x) {
   x ^ 2
 }
 
@@ -195,7 +197,7 @@ f(x = 5, y = 10)
 ## Local Scope
 ## If a variable is defined within a function, it does not live in the global environment and can only be called by that function
 ## Define the variable z inside of the function `f`
-f <- function(x, y=2){
+f <- function(x, y=2) {
   z = 5
   (x + y) / z
 }
@@ -244,7 +246,7 @@ cylinders
 ## You will often find for-loops nested inside of functions. These setups provide the basis for simple automation:
 
 ## This function takes a single argument x, and the prints the square, x number of times:
-squared <- function(x){
+squared <- function(x) {
   for (i in 1:x) {
     y = i ^ 2
     print(y)
@@ -258,16 +260,16 @@ squared(4)
 ## Generate 100 lock combinations
 set.seed(1)
 combos <- paste0(sample(1:60,100, replace = T), "-",
-                sample(1:60,100, replace = T), "-", 
-                sample(1:60,100, replace = T))
+                 sample(1:60,100, replace = T), "-", 
+                 sample(1:60,100, replace = T))
 combos
 
 # Write the function that will try these 100 combinations
 lock <- function(x) {
   # Run the loop 100 times
-  for(x in 1:length(combos)){
+  for(x in 1:length(combos)) {
     # If "25-2-57" is selected, open the lock
-    if(combos[x] == "25-2-57"){
+    if(combos[x] == "25-2-57") {
       print(paste(combos[x], ":", "unlock"))
     # Otherwise, print "ERROR:" followed by the faulty combo
       }else{
@@ -296,7 +298,7 @@ iter <- 10
 nr_rolls <- 100
 
 ## Write a for-loop to take the mean of each iteration (take the mean of each of the 100 die rolls)
-for (i in 1:iter){
+for (i in 1:iter) {
   rolls <- sample(1:6, nr_rolls, replace = TRUE)
   # What do we see if we unhashtag print(rolls) ? 
   # print(rolls)
@@ -305,7 +307,7 @@ for (i in 1:iter){
 
 ## This is good, but what if we defined a mean dice roll function instead?
 set.seed(1)
-die_roll_mean <- function(nr_rolls){
+die_roll_mean <- function(nr_rolls) {
   rolls <- sample(1:6, nr_rolls, replace = TRUE)
   mean(rolls)
 }
@@ -332,7 +334,7 @@ abline(v = mean(reps), col = "blue", lwd = 6)
 
 ## Turn this plotting idea into a function!
 ## The function will take just one argument called sims
-my_hist <- function(sims){
+my_hist <- function(sims) {
   hist(sims, col = "grey", 
        xlab = "Mean of n die rolls", main = "")
   abline(v = mean(sims), col = "blue", lwd = 6)
@@ -345,7 +347,7 @@ my_hist(sims = reps)
 ## Add title to the plot function
 ## We now have two arguments: sims and n
 ## n is the number of rolls
-my_hist <- function(sims, n){
+my_hist <- function(sims, n) {
   hist(sims, col = "grey",  xlab = "Mean of n die rolls",
        main = paste0("n=", n), xlim = c(2,5))
   abline(v = mean(sims), col = "blue", lwd = 2)
@@ -380,7 +382,7 @@ for (i in 1:length(nr_die_rolls)) {
   my_hist(sims = reps, n = nr_die_rolls[i])
 }
 
-## Section 7: Birthday Problem
+## Section 7: The Birthday Problem
 
 ## If somebody asked you in a room full of 25 people, "What is the probability that two people have matching birthdays?", what would you say?
 
@@ -400,7 +402,7 @@ unique(birthdays)
 
 ## Write a function to find people with the same birthday
 set.seed(94704)
-birthday_function <- function(people = 25){
+birthday_function <- function(people = 25) {
   # 1. Populate the room
   birthdays <- sample(1:365, people, replace = TRUE)
   # 2. Get the unique number of bdays
@@ -422,16 +424,17 @@ mean(many_sims) # 0.555 chance of one matching birthday!
 
 ## How does this probability change as we vary the number of people
 people <- 2:100
+n_people <- length(people)
 
 ## Create a blank matrix to store the number of people (first column), and the probability of a matching birthday (second column)
-sims <- matrix(NA, nrow = length(people), ncol = 2)
+sims <- matrix(NA, nrow = n_people, ncol = 2)
 head(sims)
 
 ## Define the for-loop
 ## (this might take a minute to complete)
-for (i in 1:length(people)) {
+for (i in 1:n_people) {
   many_sims <- replicate(5000, birthday_function(people = people[i]))
-  sims[i,] <- c(people[i], mean(many_sims))
+  sims[i, ] <- c(people[i], mean(many_sims))
 }
 
 ## View the populated matrix
@@ -442,9 +445,11 @@ sims
 ## Change our plotting area back to a 1 x 1 surface: 
 par(mfrow = c(1,1))
 
-## Plot number of people on the x-axis, plot the probability of a matching birthday on the y-axis:
-plot(x = sims[,1], y = sims[,2], 
-     pch = 16, col = "blue", 
+## Our final plot! Let's plot the probability of matching a birthday (y-axis) against the number of people (x-axis):
+plot(x = sims[,1],
+     y = sims[,2], 
+     pch = 16,
+     col = "blue", 
      xlab = "Number of People", 
      ylab = "Probability of at Least One Matching Birthday")
 
