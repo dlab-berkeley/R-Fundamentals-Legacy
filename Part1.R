@@ -52,9 +52,11 @@ ls()
 ## You can use the "TAB" key to autocomplete a variable.
 ## Place your cursor after the 'b' in 'numb' below and press TAB.
 ## This works for variables and functions alike.
-number
+numb
 
-mean()
+## Place your cursor after the 'e' in 'me' below and press TAB
+## Notice how you can get the mean() function 
+me
 
 ## Variables will be overwritten if you redefine them.
 ## What happens to "UC Berkeley" when you run this code?
