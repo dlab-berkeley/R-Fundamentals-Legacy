@@ -13,8 +13,11 @@
 
 ### Challenge 1: Importing data from files.
 ### 1. Wipe your global environment clean.
+
 ### 2. Restart your R session by clicking "Session" --> "Restart R".
+
 ### 3. Load the gap dataset.
+
 ### 4. Load the heart dataset.
 
 # Section 1: How Do Functions Work in R?
@@ -67,7 +70,7 @@ custom_function(heart) == nrow(heart)
 
 ## Let's write a new function. This one will calculate the square of an input:
 squares <- function(input) {
-  input ^ 2
+  input^2
 }
 
 ## We can apply some built-in functions to other functions:
@@ -128,7 +131,8 @@ f2(1, 3) # neither named
 
 ### Challenge 2: Write your own functions.
 ### 1. Write a function that calculates the area of a circle with radius r. The formula for the area of a circle is A = pi * r^2.
-### 2. TODO
+
+### 2. Write a function that calculates the sample standard deviation given a vector of numeric values. Check that this function returns the same output as the base function sd().
 
 # Section 3: For-loops for Repeating Computation
 
@@ -425,10 +429,14 @@ plot(x = results[, 1],
      xlab = "Number of People", 
      ylab = "Probability of at Least\nOne Matching Birthday")
 
-### Challenge 4: Automating tasks with functions and for-loops.
-### 1. Create a function that takes a number and returns whether it is prime or not. Use a for-loop on the inside of the function.
+### Challenge 3: Automating tasks with functions and for-loops.
+### 1. Create a function that takes a number and returns whether it is prime or not. Use a for-loop and if-statement on the inside of the function. You will need to use the modulus operator, %%. The operation a %% b returns the remainder when a is divided by b.
 
-### 2. TODO
+### 2. Monte Carlo sampling can be used to approximate the value of pi. We can do this by sampling random points in a 1x1 square. The fraction of sampled points that lie within the circle should approximate the area of the circle divided by the area of the square. A circle of radius r = 0.5 can lie within this square. The area of this circle is A = pi * (0.5)^2 = pi / 4. Since the area of the square is 1^2 = 1, this fraction is equal to pi / 4. So, Monte Carlo sampling can be used to approximate pi.
+
+### Create a function the approximates pi. It should accept as an argument the number of points to sample.
+
+### As an extra challenge, you can create a plotting function that plot the sampled points. Color the points that lie within the circle differently from those that lie outside the circle.
 
 ### 3. Think about a research or class project. Is there anything you can automate in those contexts to make your life easier? 
 
