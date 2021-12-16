@@ -39,9 +39,7 @@ gap <- read.csv(file = "data/gapminder-FiveYearData.csv",
                 # Place column names in header row outside of the data
                 header = TRUE,
                 # Tell R to code anything defined here as NA
-                na.strings = c("", " ", "?", "NONE", "none"),
-                # Don't automatically convert strings to factor variables
-                stringsAsFactors = FALSE)
+                na.strings = c("", " ", "?", "NONE", "none"))
 
 ## The gapminder dataset is automatically loaded as a dataframe. We can preview a dataframe with the head() function.
 ## The first six rows are displayed by default.
