@@ -261,6 +261,15 @@ logical_vector <- c(TRUE, FALSE, TRUE, FALSE, TRUE)
 logical_vector
 class(logical_vector)
 
+## R also provides the operator %in% to test if a value belongs to a vector. 
+TRUE %in% logical_vector
+"Canada" %in% character_vector
+26 %in% colon_vector
+
+## The %in% operator can be very useful if you have multiple elements that you want to check. 
+c(29, 31) %in% colon_vector
+c("Canada", "Ethiopia") %in% character_vector
+
 ### Challenge 3: Concatenating vectors
 ### 1. Create a vector starting from 10, and ending with 30, with each entry separated by 2.
 
