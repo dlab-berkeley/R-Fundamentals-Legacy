@@ -32,13 +32,23 @@ save(gap, sv, heart,
 summary(gap)
 
 ## We can also use this function on a single vector
-## Note that newer versions of R will convert to character automatically, not factor so summary will produce different results
 summary(gap$lifeExp)
-summary(as.factor(as.character(gap$continent)))
-summary(as.character(gap$continent)) # Strange output! 
+
+
+## Note that newer versions of R will convert to character automatically, not factor so summary will produce different results
+summary(gap$continent)
+
+## This is happening because R is summarizing a character string
+## Consider the following code. While we can plainly see that there are three "one" entries and two "four" entries, the summary function evaluates the vector as a character vector with five elements
+summary(c("one", "one", "four", "one", "four"))
+
+## We can get summaries that are more reasonable by converting a character vector to a factor vector 
+summary(as.factor(gap$continent))
+
 
 ## Contingency Tables
 ## We can also return return observation frequencies for the different continents
+## Note that for frequency tables, we do not need to convert our character vector into a factor vector
 table(gap$continent) 
 prop.table(table(gap$continent))
 
@@ -82,7 +92,8 @@ histogram <- hist(gap$lifeExp,
 ## Boxplots
 ## Think of the tilde as meaning "by"
 ## We can plot life expectancy BY continent
-boxplot(gap$lifeExp ~ gap$continent)
+boxplot(gap$lifeExp ~ gap$continent,
+        col = "goldenrod")
 
 ## Boxplot with options
 boxplot(gap$lifeExp ~ gap$continent,
@@ -216,7 +227,7 @@ gg_scatter
 ## Compound figures are a nice way to combine multiple subplots into a single figure. 
 
 ##### Challenge 3 - installing and librarying packages
-##### 1. Install and library the cowplot package
+##### 1. Install and load the cowplot package via the library function.
 
 ##### 2. How do you know if it installed and libraried correctly? 
 
@@ -298,6 +309,8 @@ ggplot(gap, aes(x = gdpPercap, y = lifeExp)) +
   theme(plot.title = element_text(hjust = 0.5, size = 40))
 
 ## Log transformed x-axis
+
+## The options() function here changes the way R prints scientific notation. For this example, we prefer to not output values in scientific notation, so we set the scipen argument to a reasonably large number. 
 options(scipen=999)
 ggplot(gap, aes(x = gdpPercap, y = lifeExp)) + 
   geom_point() + 
