@@ -220,7 +220,7 @@ gg_scatter <- ggplot(data = gap, aes(x = lifeExp, y = gdpPercap,
         legend.title = element_text(size = 10),
         legend.text = element_text(size = 5),
         # Rotate x-axis text 45 degrees
-        axis.text.x = element_text(angle = 45, hjust = 1)) # + 
+        axis.text.x = element_text(angle = 45, hjust = 1))
 print(gg_scatter)
 
 ## Looks pretty good, but this data probably needs to be scaled on the y-axis, because the GDP per capita spans many more orders of magnitude than the life expectancy. We can apply a log-transform rather easily:
