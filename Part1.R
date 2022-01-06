@@ -275,7 +275,7 @@ c("Canada", "Ethiopia") %in% character_vector
 
 ### 2. Index the 3rd through 7th elements of this vector.
 
-### 3. Index the 3rd through 7th elements and the 14th element.
+### 3. Index the 3rd through 7th elements and the 10th element.
 
 # Section 4.5: Factors (interlude)
 
@@ -355,7 +355,7 @@ df_sorted
 ### Challenge 4: Make your own data frame.
 ### 1. Create a data frame that contains four different food items and three attributes for each: name, price, and quantity.
 ### 2. Add a fourth column that calculates the total cost for each food item.
-### 3. What function could you use to calculate the total cost of all the fruits combined? How do you find out?
+### 3. What function could you use to calculate the total cost of all the fruits combined?
 
 # Section 5.3: Lists
 ## A list can be used to store heterogeneous data.
