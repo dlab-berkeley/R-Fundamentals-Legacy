@@ -416,7 +416,7 @@ for (index in 1:n_experiments) {
 }
 
 ## We can view the populated matrix:
-head(sims)
+head(results)
 
 ## Now, let's plot the probability. We first change our plotting area back to a 1 x 1 surface: 
 par(mfrow = c(1,1))
