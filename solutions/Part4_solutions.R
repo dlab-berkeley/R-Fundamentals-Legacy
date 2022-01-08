@@ -7,10 +7,10 @@ rm(list = ls())
 ### 2. Restart your R session by clicking "Session" --> "Restart R".
 
 ### 3. Load the gap dataset.
-gap <- read.csv("data/gapminder-FiveYearData.csv")
+gap <- read.csv(here("data/gapminder-FiveYearData.csv"))
 
 ### 4. Load the heart dataset.
-heart <- read.csv("data/heart.csv")
+heart <- read.csv(here("data/heart.csv"))
 
 ### Challenge 2: Write your own functions.
 ### 1. Write a function that calculates the area of a circle with radius r. The formula for the area of a circle is A = pi * r^2.
