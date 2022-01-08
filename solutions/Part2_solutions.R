@@ -1,13 +1,19 @@
 # R Fundamentals Part 2: Challenge Problem Solutions
-
+library(here)
 ### Challenge 1: Import data from a file.
 ### 1. Load the heart.csv file. Save it in a variable named heart.
 heart <- read.csv("data/heart.csv")
 heart
 
+## Alternatively with the here package 
+heart <- read.csv(here("data/heart.csv"))
+
 ### 2. Load the sleep_VIM.csv file. Save it in a variable named sleep_VIM.
 sleep_VIM <- read.csv("data/sleep_VIM.csv")
 sleep_VIM
+
+## Alternatively with the here package
+sleep_VIM <- read.csv("data/sleep_VIM.csv")
 
 ### 3. What functions can you use to learn more about the heart or sleep_VIM datasets?
 # Show compact structure

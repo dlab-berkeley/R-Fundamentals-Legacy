@@ -3,17 +3,17 @@
 ### Challenge 1: Loading Data From Files
 
 ### 1. Load the gapminder-FiveYearData.csv file and save it in a variable named gap.
-gap <- read.csv("data/gapminder-FiveYearData.csv")
+gap <- read.csv(here("data/gapminder-FiveYearData.csv"))
 str(gap)
 head(gap)
 
 ### 2. Load the sleep_VIM.csv file and save it in a variable named sv.
-sv <- read.csv("data/sleep_VIM.csv")
+sv <- read.csv(here("data/sleep_VIM.csv"))
 str(sv)
 head(sv)
 
 ### 3. Load the heart.csv file and save it in a variable named heart.
-heart <- read.csv("data/heart.csv")
+heart <- read.csv(here("data/heart.csv"))
 str(heart)
 head(heart)
 
