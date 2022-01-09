@@ -43,7 +43,10 @@ gap <- read.csv(file = "data/gapminder-FiveYearData.csv",
 
 ## Navigating directory structures can be confusing. We have to remember a lot of aspects of of where our files are located. This can be fragile and dependent on the way we order files on our computers, which are often different than the way our friends and colleagues do it. 
 
-## One way to make this easier is to take advantage of the "here" R package. The "here" package enables easy file referencing by using the top level directory of our project to build the file paths. For more information, check out the "here" package documentation [https://here.r-lib.org/articles/here.html]
+## One way to make this easier is to take advantage of the "here" R package. A package is a set of R code, data, documentation, and tests that are easy to share with others. The set of code usually revolves around some kind of task. We will see several packages through this fundamentals series. 
+
+
+## The "here" package enables easy file referencing by using the top level directory of our project to build the file paths. For more information, check out the "here" package documentation [https://here.r-lib.org/articles/here.html]
 
 ## To use here we need to first install the package. We can do so by running the install.packages() function:
 install.packages(here)
