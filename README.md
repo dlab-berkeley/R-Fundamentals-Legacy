@@ -20,7 +20,7 @@ We will use RStudio to go through the workshop materials, which requires install
 
 1. [Download R](https://cloud.r-project.org/): Follow the links according to the operating system that you are running. Download the package, and install R onto your compute. You should install the most recent version (at least version 4.0).
 2. [Download RStudio](https://rstudio.com/products/rstudio/download/#download): Install RStudio Desktop. This should be free. Do this after you have already installed R.
-3. [Download these workshop materials](https://github.com/dlab-berkeley/R-Data-Visualization): 
+3. [Download these workshop materials](https://github.com/dlab-berkeley/R-Fundamentals): 
 
 * Click the green "Code" button in the top right of the repository information.
 * Click "Download Zip".
