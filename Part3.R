@@ -146,7 +146,7 @@ legend("topleft",
 ## We're now going to create visualizations with the package ggplot2, which is the main way R practitioners create plots. ggplot2 exists as its own package, which we need to download and install. 
 
 ## In the previous lesson, we learned how to install new packages. Now, we'll do the same with ggplot2. First, we install the package:
-install.packages("ggplot2")
+install.packages(c("ggplot2"))
 
 ## Second, we load the installed package in the current session. Remember, you need to do this each time you open a new RStudio session.
 library(ggplot2)

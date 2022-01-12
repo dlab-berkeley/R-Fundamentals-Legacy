@@ -158,7 +158,7 @@ example_list[[1]]
 
 ## A modern approach to interacting with data frames is called dplyr. This package is part of the tidyverse, a suite of packages that helps facilitate data science in R.
 ## We need to first install this package. We can do so by running the install.packages() function:
-install.packages(dplyr)
+install.packages(c("dplyr"))
 
 ## Now that it's installed, we need to import it to our current R session:
 library(dplyr)
@@ -214,7 +214,7 @@ head(sleep_NonD)
 ## How can we check whether the new data frame does in fact have no missing values for NonD?
 
 ## Maybe we'd like to extract the *rows* that have no missing values (rather than a specific column). Another package in the tidyverse - tidyr - provides us a useful function to do this:
-install.packages(tidyr)
+install.packages(c("tidyr"))
 library(tidyr)
 
 ## tidyr typically contains functions which allow you to transform your data frames from longer to wider (this is called pivoting). It also contains the drop_na() function, which is useful in this case:
