@@ -212,6 +212,8 @@ if (x > 3) {
   print("x is greater than 3.")
 } else if (x > 0) {
   print("x is greater than 0.")
+} else if (x == 0){
+  print("x is equal to 0")
 } else {
   print("x is negative.")
 }
@@ -222,7 +224,9 @@ if_checker <- function(x) {
     print(paste0("x = ", x, ", is greater than 3."))
   } else if (x > 0) {
     print(paste0("x = ", x, ", is greater than 0."))
-  } else {
+  } else if (x == 0) {
+    print(paste0("x = ", x, ", is equal to 0."))
+  }else {
     print(paste0("x = ", x, ", is negative."))
   }
 }
