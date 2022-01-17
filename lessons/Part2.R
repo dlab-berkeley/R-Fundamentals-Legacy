@@ -41,6 +41,33 @@ gap <- read.csv(file = "data/gapminder-FiveYearData.csv",
                 # Tell R to code anything defined here as NA
                 na.strings = c("", " ", "?", "NONE", "none"))
 
+## Navigating directory structures can be confusing. We have to remember a lot of aspects of of where our files are located. This can be fragile and dependent on the way we order files on our computers, which are often different than the way our friends and colleagues do it. 
+
+## One way to make this easier is to take advantage of the "here" R package. A package is a set of R code, data, documentation, and tests that are easy to share with others. The set of code usually revolves around some kind of task. We will see several packages through this fundamentals series. 
+
+
+## The "here" package enables easy file referencing by using the top level directory of our project to build the file paths. For more information, check out the "here" package documentation [https://here.r-lib.org/articles/here.html]
+
+## To use here we need to first install the package. We can do so by running the install.packages() function:
+install.packages(here)
+
+## Now that it's installed, we need to import it to our current R session:
+library(here)
+
+## Using here, we can read in our files like this 
+gap <- read.csv(here("data/gapminder-FiveYearData.csv"))
+
+## This doesn't look like much of a difference, which is a good thing! This workshop is built around an R Project, so the file structure looks the same on your machine. As you continue your R journey, we strongly recommend putting your data analyses in a similar structure. 
+
+## We can also add optional arguments to the read.csv() function with calls to "here":
+gap <- read.csv(file = here("data/gapminder-FiveYearData.csv"), 
+                # Place column names in header row outside of the data
+                header = TRUE,
+                # Tell R to code anything defined here as NA
+                na.strings = c("", " ", "?", "NONE", "none"))
+
+## If you take more D-Lab workshops in the future (and we hope you will!) you will notice this pattern to read in files often. 
+
 ## The gapminder dataset is automatically loaded as a dataframe. We can preview a dataframe with the head() function.
 ## The first six rows are displayed by default.
 head(gap)

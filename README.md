@@ -103,13 +103,15 @@ Here are other R workshops offered by the D-Lab:
 * [R Package Development](https://github.com/dlab-berkeley/R-package-development) 
 
 # Contributors
-* [Evan Muzzall](https://dlab.berkeley.edu/people/evan-muzzall)
-* [Aniket Kesari](https://dlab.berkeley.edu/people/aniket-kesari)
+* [Pratik Sachdeva](https://github.com/pssachdeva)
+* [Alex Stephenson](https://github.com/asteves/)
+* [Evan Muzzall](https://github.com/EastBayEv)
+* [Aniket Kesari](https://akesari12.github.io/)
 * [Jae Yeon Kim](https://jaeyk.github.io/)
-* Sam Abdel-Ghaffar
+* [Sam Abdel-Ghaffar](https://github.com/samyag1)
 * Guadalupe Tuñón
 * Shinhye Choi
 * Patty Frontiera
 * Rochelle Terman
 * Dillon Niederhut
-* Pratik Sachdeva
+* [Avery Richards](https://github.com/Averysaurus)
