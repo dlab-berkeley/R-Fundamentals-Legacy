@@ -1,24 +1,23 @@
 # D-Lab's R Fundamentals Workshop
 
-This repository contains the materials for D-Lab's R Fundamentals workshop. No prior experience with R required.
+This repository contains the materials for D-Lab's R Fundamentals workshop. No prior experience with R is required.
 
 ## Workshop Goals
 
-In this workshop, we provide a broad overview of the fundamentals to using R, a programming language geared toward statistical analysis and data science.
-
+In this workshop, we provide a broad overview of the fundamentals of using R, a programming language geared toward statistical analysis and data science.
 The workshop is divided into four parts, which cover the following topics:
-
-* **Part 1:** Introduction to R, navigating RStudio, variable assignment, data types and coercion, and data structures.
-* **Part 2:** Working with data frames: importing, subsetting, filtering, and merging.
-* **Part 3:** Data visualization using R and `ggplot2`.
-* **Part 4:** Functions, for loops, and if-else statements.
+  - Part 1: Introduction to R, navigating RStudio, variable assignment, data types and coercion, and data structures.
+  - Part 2: Working with data frames: importing, subsetting, filtering, and merging.
+  - Part 3: Data visualization using R and ggplot2.
+  - Part 4: Functions, for loops, and if-else statements.
 
 Prior experience with R is not required.
+
 ## Installation Instructions
 
-We will use RStudio to go through the workshop materials, which requires installation of both the R language and the RStudio software. Complete the following steps:
+We will use RStudio to go through the workshop materials, which requires the installation of both the R language and the RStudio software. Complete the following steps::
 
-1. [Download R](https://cloud.r-project.org/): Follow the links according to the operating system that you are running. Download the package, and install R onto your compute. You should install the most recent version (at least version 4.0).
+1. [Download R](https://cloud.r-project.org/): Follow the links according to the operating system you are running. Download the package, and install R onto your computer. You should install the most recent version (at least version 4.0).
 2. [Download RStudio](https://rstudio.com/products/rstudio/download/#download): Install RStudio Desktop. This should be free. Do this after you have already installed R.
 3. [Download these workshop materials](https://github.com/dlab-berkeley/R-Fundamentals): 
 
@@ -26,7 +25,7 @@ We will use RStudio to go through the workshop materials, which requires install
 * Click "Download Zip".
 * Extract this file to a folder on your computer where you can easily access it (we recommend Desktop).
 
-4. Optional: if you're familiar with `git`, you can instead clone this repository by opening a terminal and entering `git clone git@github.com:dlab-berkeley/R-Fundamentals.git`.
+4. Optional: if you're familiar with git, you can instead clone this repository by opening a terminal and entering git clone git@github.com:dlab-berkeley/R-Fundamentals.git.
 
 ## Run the Code
 
@@ -34,7 +33,7 @@ Now that you have all the required software and materials, you need to run the c
 
 1. Launch the RStudio software.
 
-2. Use the file navigator to find the `R-Fundamentals` folder that you downloaded from Github.
+2. Use the file navigator to find the R-Fundamentals folder you downloaded from Github.
 
 3. Open up the file corresponding to the part of the workshop you're attending (`Part1.R`, `Part2.R`, `Part3.R`, `Part4.R`).
 
@@ -44,9 +43,9 @@ Now that you have all the required software and materials, you need to run the c
 
 ## Is R not working on your laptop?
 
-If you do not have R installed and the materials loaded on your workshop by the time it starts, we *strongly* recommend using the UC Berkeley Datahub to run the materials for these lessons. You can access the DataHub by clicking [this link](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fdlab-berkeley%2FR-Fundamentals&urlpath=rstudio%2F&branch=main). Some users may find that they have to click the link twice if the materials do not load initially. 
+If you do not have R installed and the materials loaded on your workshop by the time it starts, we strongly recommend using the UC Berkeley Datahub to run the materials for these lessons. You can access the DataHub by clicking [this link](https://datahub.berkeley.edu/hub/user-redirect/git-pull?repo=https%3A%2F%2Fgithub.com%2Fdlab-berkeley%2FR-Fundamentals&urlpath=rstudio%2F&branch=main). Some users may have to click the link twice if the materials do not load initially.
 
-The DataHub downloads this repository, along with any necessary packages, and allows you to run the materials in an RStudio instance on UC Berkeley's servers. No installation is necessary from your end - you only need an internet browser and a CalNet ID to log in. By using the DataHub, you can save your work and come back to it at any time. When you want to return to your saved work, just go straight to [DataHub](https://datahub.berkeley.edu), sign in, and you click on the `R-Fundamentals` folder.
+The DataHub downloads this repository, along with any necessary packages, and allows you to run the materials in an RStudio instance on UC Berkeley's servers. No installation is needed from your end - you only need an internet browser and a CalNet ID to log in. By using the DataHub, you can save your work and come back to it at any time. When you want to return to your saved work, go straight to [DataHub](https://datahub.berkeley.edu), sign in, and you click on the `R-Fundamentals` folder.
 
 If you don't have a Berkeley CalNet ID, you can still run these lessons in the cloud, by clicking this button:
 
@@ -77,7 +76,8 @@ as well as the following books:
 * [Brunsdon C, Comber L. 2015. An Introduction to R for Spatial Analysis and Mapping](https://us.sagepub.com/en-us/nam/an-introduction-to-r-for-spatial-analysis-and-mapping/book241031)
 * [James G, Witten D, Hastie T, Tibshirani R. 2013. An Introduction to Statistical Learning: With Applications in R, 7th edition](http://faculty.marshall.usc.edu/gareth-james/ISL/)
 # About the UC Berkeley D-Lab
-D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as R Fundamentals, one-to-one consulting, and working groups that cover a variety of research topics, digital tools, and programming languages.  
+
+D-Lab works with Berkeley faculty, research staff, and students to advance data-intensive social science and humanities research. Our goal at D-Lab is to provide practical training, staff support, resources, and space to enable you to use R for your own research applications. Our services cater to all skill levels, and no programming, statistical, or computer science backgrounds are necessary. We offer these services in the form of workshops such as R Fundamentals, one-to-one consulting, and working groups that cover a variety of research topics, digital tools, and programming languages.
 
 Visit the [D-Lab homepage](http://dlab.berkeley.edu/) to learn more about us. View our [calendar](http://dlab.berkeley.edu/calendar-node-field-date) for upcoming events, and also learn about how to utilize our [consulting](http://dlab.berkeley.edu/consulting) and [data](http://dlab.berkeley.edu/data-resources) services. 
 
