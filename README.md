@@ -86,7 +86,7 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) to learn more about us. Vi
 Here are other R workshops offered by the D-Lab:
 ## Basic Competency
 * [Fast-R](https://github.com/dlab-berkeley/Fast-R)
-* [R Data Wrangling](https://github.com/dlab-berkeley/R-wrang)
+* [R Data Wrangling](https://github.com/dlab-berkeley/R-Data-Wrangling)
 * [R Graphics with ggplot2](https://github.com/dlab-berkeley/R-graphics)
 * [R Functional Programming](https://github.com/dlab-berkeley/R-functional-programming)
 * [Project Management in R](https://github.com/dlab-berkeley/efficient-reproducible-project-management-in-R)
@@ -94,8 +94,6 @@ Here are other R workshops offered by the D-Lab:
 * [Census Data in R](https://github.com/dlab-berkeley/Census-Data-in-R)
 
 ## Intermediate/Advanced Competency
-* [Advanced Data Wrangling in R](https://github.com/dlab-berkeley/advanced-data-wrangling-in-R)
-* [Introduction to Machine Learning in R](https://github.com/dlab-berkeley/Machine-Learning-in-R)
 * [Unsupervised Learning in R](https://github.com/dlab-berkeley/Unsupervised-Learning-in-R)
 * [R Machine Learning with tidymodels](https://github.com/dlab-berkeley/Machine-Learning-with-tidymodels)
 * [Introduction to Deep Learning in R](https://github.com/dlab-berkeley/Deep-Learning-in-R)
