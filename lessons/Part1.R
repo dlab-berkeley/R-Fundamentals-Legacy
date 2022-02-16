@@ -158,7 +158,6 @@ FALSE - 4
 FALSE < TRUE # less than
 TRUE >= TRUE # greater than or equal to
 FALSE == FALSE # equivalent to (equal to)
-FALSE == FALSE
 "Mac" == "mac" # R is case sensitive
 FALSE != FALSE # not equivalent to (not equal to)
 "PC" != "Windows"
