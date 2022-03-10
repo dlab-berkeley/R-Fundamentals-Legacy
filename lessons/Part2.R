@@ -10,8 +10,17 @@
 working_directory <- ""
 
 ## For example, if it's on your desktop, this path might be:
-## "~/Desktop/R-Fundamentals" (Mac) or
-## "C:/Users/YourUserName/Desktop/R-Fundamentals/" (PC).
+## "~/Desktop/R-Fundamentals" (Mac) 
+## If you downloaded the zip file of the workshop it 
+## might be:
+## "~/Desktop/R-Fundamentals-main" 
+
+## On a PC this path might be
+## "C:/Users/YourUserName/Desktop/R-Fundamentals/" or
+## If you downloaded the zip file of the workshop it 
+## might be:
+## "C:/Users/YourUserName/Desktop/R-Fundamentals-main/"
+
 ## Then, run the setwd() function:
 setwd(working_directory)
 
