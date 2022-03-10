@@ -15,10 +15,13 @@ Prior experience with R is not required.
 
 ## Installation Instructions
 
-We will use RStudio to go through the workshop materials, which requires the installation of both the R language and the RStudio software. Complete the following steps::
+We will use RStudio to go through the workshop materials, which requires the installation of both the R language and the RStudio software. Complete the following steps:
 
 1. [Download R](https://cloud.r-project.org/): Follow the links according to the operating system you are running. Download the package, and install R onto your computer. You should install the most recent version (at least version 4.0).
 2. [Download RStudio](https://rstudio.com/products/rstudio/download/#download): Install RStudio Desktop. This should be free. Do this after you have already installed R. The D-Lab strongly recommends an RStudio edition of 2022.02.0+443 "Prairie Trillium" or higher.
+
+Some individuals with older operating systems may run into odd issues. If you are running into issues with the installation of RStudio, you may need to install a specific version of RStudio. Please check [this link](https://www.rstudio.com/products/rstudio/older-versions/) if this applies to you. 
+
 3. [Download these workshop materials](https://github.com/dlab-berkeley/R-Fundamentals): 
 
 * Click the green "Code" button in the top right of the repository information.
@@ -33,9 +36,9 @@ Now that you have all the required software and materials, you need to run the c
 
 1. Launch the RStudio software.
 
-2. Use the file navigator to find the R-Fundamentals folder you downloaded from Github.
+2. Use the file navigator to find the R-Fundamentals folder you downloaded from Github. Open `R-Fundamentals.Rproj` by double clicking on the file. RStudio should open.  
 
-3. Open up the file corresponding to the part of the workshop you're attending (`Part1.R`, `Part2.R`, `Part3.R`, `Part4.R`).
+3. Open up the file corresponding to the part of the workshop you're attending (`Part1.R`, `Part2.R`, `Part3.R`, `Part4.R`) via the Files panel in RStudio.
 
 4. Place your cursor on a given line and press "Command + Enter" (Mac) or "Control + Enter" (PC) to run an individual line of code. 
 
