@@ -348,7 +348,7 @@ df$Density <- df$Population / df$Area
 df
 
 ## You can sort the data frame by row value using the order() function:
-df_sorted <- df[order(df$Country)]
+df_sorted <- df[order(df$Area),]
 df_sorted
 
 ### Challenge 4: Make your own data frame.

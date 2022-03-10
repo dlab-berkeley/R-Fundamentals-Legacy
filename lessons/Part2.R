@@ -49,7 +49,7 @@ gap <- read.csv(file = "data/gapminder-FiveYearData.csv",
 ## The "here" package enables easy file referencing by using the top level directory of our project to build the file paths. For more information, check out the "here" package documentation [https://here.r-lib.org/articles/here.html]
 
 ## To use here we need to first install the package. We can do so by running the install.packages() function:
-install.packages(here)
+install.packages("here")
 
 ## Now that it's installed, we need to import it to our current R session:
 library(here)
