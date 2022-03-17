@@ -276,7 +276,7 @@ c("Canada", "Ethiopia") %in% character_vector
 
 ### 3. Index the 3rd through 7th elements and the 10th element.
 
-# Section 4.5: Factors (interlude)
+# Section 5.2: Factors (interlude)
 
 ## Remember above when we talked about factors are how R refers to categorical data?
 ## Categorical data can be important when you are performing calculations or making visualizations by group. This way, R knows that the numeric or character data should have grouping properties.
@@ -297,65 +297,6 @@ countries_factor
 numeric_factor <- factor(c(1, 2, 1, 2, 3, 1))
 numeric_factor
 
-# Section 5.2: Data frames
-## A data frame is an ordered group of equal-length vectors.
-## Think of a data frame as a spread sheet you would open in MS Excel.
-## Since they are vectors, each column can only contain the same data type, but columns of different types can be lined up next to each other.
-## Meanwhile, rows can contain heterogeneous data.
-
-## Let's create a dataframe capturing some information about countries:
-countries <- c("Canada", "Mexico", "United States")
-populations <- c(10, 20, 30)
-areas <- c(30, 10, 20)
-
-## We can create the data frame with the data.frame() function.
-## The equal-length vectors are the arguments.
-## Notice that the name of each variable becomes the name of the column.
-df <- data.frame(countries, populations, areas)
-df
-
-## If we wanted to change the column names, we can specify that with the function argument:
-df <- data.frame(country = countries, population = populations, area = areas)
-df
-
-## Check the compact structure of the data frame:
-str(df)
-
-## View the dimensions (nrow x ncol) of the data frame:
-dim(df) 
-
-## View column names:
-colnames(df)
-
-## View row names (we did not change these and they default to character type):
-rownames(df)
-class(rownames(df))
-
-## Rename columns
-## You can rename columns by assigning a vector of equal length to the colnames function on the left side of the equation:
-colnames(df) <- c("Country", "Population", "Area")
-df
-
-## You can also change column order (this is a preview of Part 2: subsetting operations):
-df <- df[, c("Area", "Country", "Population")]
-df
-
-## You can extract a single column with the $ operator:
-df$Country
-
-## The $ operator can also be used to create new columns:
-df$Density <- df$Population / df$Area
-df
-
-## You can sort the data frame by row value using the order() function:
-df_sorted <- df[order(df$Area),]
-df_sorted
-
-### Challenge 4: Make your own data frame.
-### 1. Create a data frame that contains four different food items and three attributes for each: name, price, and quantity.
-### 2. Add a fourth column that calculates the total cost for each food item.
-### 3. What function could you use to calculate the total cost of all the fruits combined?
-
 # Section 5.3: Lists
 ## A list can be used to store heterogeneous data.
 ## Let's include three different data types: logical, character, and integer.
@@ -366,21 +307,5 @@ class(list1)
 ## Normal arithmetic operates won't work with lists, though:
 list1 * list(FALSE, "zero", 0) # Error
 
-# Section 5.4: Matrices
-## A matrix is like a vector in that it can only contain data of the same type, but it can be organized into rows and columns.
-## It can also be higher dimensional (i.e., it can have more than two dimensions of rows and columns).
-matrix1 <- matrix(data = 1:12, nrow = 4, ncol = 3) 
-matrix1
-class(matrix1)
-
-## You can also coerce vector to matrix. First, let's create a normal vector:
-vec1 <- 1:20
-vec1
-class(vec1)
-
-## We can coerce this vector to a matrix with 10 rows and 2 columns:
-matrix2 <- matrix(vec1, ncol = 2)
-matrix2
-class(matrix2)
 
 ## This concludes Part 1 of R Fundamentals! In Part 2, we will take a closer look at data frames, which are the main type of data structure we'll work with to perform data analysis.
