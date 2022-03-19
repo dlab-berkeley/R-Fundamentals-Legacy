@@ -178,7 +178,6 @@ sleep_VIM   # Place a dollar sign and press TAB to select from the available col
 ## Remember how we indexed a vector by typing a number in square brackets? We will do the same here, but will use a comma in the square brackets to designate rows from columns: 
 ## dataframe[rows, cols]
 
-## Make a new dataframe called sleep_sub1, subsetting on two columns.
 ## The area BEFORE the comma is left blank and tells R we want ALL the rows returned (because we didn't specify a row subset).
 ## Only the BodyWgt and BrainWgt columns are returned
 sleep_subset_names <- sleep_VIM[, c("BodyWgt", "BrainWgt")]
