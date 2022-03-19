@@ -263,7 +263,8 @@ sleep_VIM
 There are many ways to efficiently subset rows and columns in R. The simplest is "bracket notation".
 
 Remember how we indexed a vector by typing a number in square brackets? We will do the same here, but will use a comma in the square brackets to designate rows from columns:
-dataframe[rows, cols]
+
+`dataframe[rows, cols]`
 
 The area BEFORE the comma is left blank and tells R we want ALL the rows returned (because we didn't specify a row subset). Only the BodyWgt and BrainWgt columns are returned
 
