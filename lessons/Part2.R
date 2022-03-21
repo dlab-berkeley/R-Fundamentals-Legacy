@@ -1,7 +1,93 @@
 # R Fundamentals: Part 2 of 4
 
-# Section 1: Importing Data from Files
+# Section 1: Matrices
 
+## We are now going to introduce two types of data structures for handling data that comes in multiple dimensions. In Part 1, every data structure we looked at was in just one dimension. 
+## A matrix is like a vector in that it can only contain data of the same type, but it can be organized into rows and columns.
+## The rows and columns do not have to be the same. A matrix can have more rows than columns or more columns than rows.
+matrix1 <- matrix(data = 1:12, nrow = 4, ncol = 3) 
+matrix1
+class(matrix1)
+
+## You can also coerce vector to matrix. First, let's create a normal vector:
+vec1 <- 1:20
+vec1
+class(vec1)
+
+## We can coerce this vector to a matrix with 10 rows and 2 columns:
+matrix2 <- matrix(vec1, ncol = 2)
+matrix2
+class(matrix2)
+
+## We will see the benefits of matrices in Part 4. 
+
+# Section 2: Data frames
+
+## Why do we care about multiple dimensions? Think about datasets that you have seen before. For example, suppose we collected data on the characteristics of D-Lab Workshop learners. We might want to know the age, degree program, previous familiarity with programming, research interests, and likely many other attributes (variables). 
+
+## This kind of dataset is multidimensional. We have one row for each participant and a number of columns for each attribute we collect data on. If we had forty participants and collected 10 attributes for each participant, then we would have a 40 by 10 dataset.
+
+## The data structure in R that is most suited for this kind of problem is the data frame. 
+## A data frame is an ordered group of equal-length vectors. They are the most common type of data structure used for data analyses. Most of the time when we load real data into R (which we will see in the next section!), we are loading that data into a data frame. 
+## Since they are vectors, each column can only contain the same data type, but columns of different types can be lined up next to each other.
+## Meanwhile, rows can contain heterogeneous data.
+
+## Let's create a data frame capturing some information about countries:
+countries <- c("Canada", "Mexico", "United States")
+populations <- c(10, 20, 30)
+areas <- c(30, 10, 20)
+
+## We can create the data frame with the data.frame() function.
+## The equal-length vectors are the arguments.
+## Notice that the name of each variable becomes the name of the column.
+df <- data.frame(countries, populations, areas)
+df
+
+## If we wanted to change the column names, we can specify that with the function argument:
+df <- data.frame(country = countries, population = populations, area = areas)
+df
+
+## Check the compact structure of the data frame:
+str(df)
+
+## View the dimensions (nrow x ncol) of the data frame:
+dim(df) 
+
+## View column names:
+colnames(df)
+
+## View row names (we did not change these and they default to character type):
+rownames(df)
+class(rownames(df))
+
+## Rename columns
+## You can rename columns by assigning a vector of equal length to the colnames function on the left side of the equation:
+colnames(df) <- c("Country", "Population", "Area")
+df
+
+## You can also change column order (this is a preview of Part 2: subsetting operations):
+df <- df[, c("Area", "Country", "Population")]
+df
+
+## You can extract a single column with the $ operator:
+df$Country
+
+## The $ operator can also be used to create new columns:
+df$Density <- df$Population / df$Area
+df
+
+## You can sort the data frame by row value using the order() function:
+df_sorted <- df[order(df$Area),]
+df_sorted
+
+### Challenge 1: Make your own data frame.
+### 1. Create a data frame that contains four different food items and three attributes for each: name, price, and quantity.
+### 2. Add a fourth column that calculates the total cost for each food item.
+### 3. What function could you use to calculate the total cost of all the fruits combined?
+
+# Section 3: Importing Data from Files
+
+## Data 
 ## First, we need to set the working directory. This is the folder that RStudio considers "home base". There are a couple ways to do this.
 
 ## Option 1: Click Session -> Set Working Directory -> Choose Directory. Then, select the R-Fundamentals folder you downloaded or cloned.
@@ -62,7 +148,7 @@ View(gap)
 
 ## Notice that RStudio comes with a "Filter" button in the View panel.
 
-### Challenge 1: Import data from a file.
+### Challenge 2: Import data from a file.
 ### 1. Load the heart.csv file. Save it in a variable named heart. See more about the heart dataset here:
 
 ### https://archive.ics.uci.edu/ml/datasets/heart+Disease
@@ -73,7 +159,8 @@ View(gap)
 
 ### 3. What functions can you use to learn more about the heart or sleep_VIM datasets?
 
-# Section 2: Subsetting Columns in a Data Frame
+
+# Section 4: Subsetting Columns in a Data Frame
 
 ## Subsetting a data frame consists of extracting "slices" of it that are meaningful. This could be getting certain rows, or columns, or both.
 ## The dollar sign symbol, $, allows us to subset single columns. Let's take a look at its documentation. Note that you need to wrap symbols in quotation marks to view their help pages:
@@ -85,13 +172,12 @@ sleep_VIM$Dream
 ## You can also tab complete to see a list of columns. Helpful!
 sleep_VIM   # Place a dollar sign and press TAB to select from the available columns.
   
-# Section 3: Subsetting a Data Frame in Two Dimensions
+# Section 5: Subsetting a Data Frame in Two Dimensions
 
 ## There are many ways to efficiently subset rows and columns in R. The simplest is "bracket notation".
 ## Remember how we indexed a vector by typing a number in square brackets? We will do the same here, but will use a comma in the square brackets to designate rows from columns: 
 ## dataframe[rows, cols]
 
-## Make a new dataframe called sleep_sub1, subsetting on two columns.
 ## The area BEFORE the comma is left blank and tells R we want ALL the rows returned (because we didn't specify a row subset).
 ## Only the BodyWgt and BrainWgt columns are returned
 sleep_subset_names <- sleep_VIM[, c("BodyWgt", "BrainWgt")]
@@ -113,13 +199,13 @@ sleep_subset_neg <- sleep_VIM[, -c(1, 2)]
 dim(sleep_subset_neg)
 head(sleep_subset_neg)
 
-### Challenge 2: Subsetting data frames in one and two dimensions
+### Challenge 3: Subsetting data frames in one and two dimensions
 
 ### 1. Create a subset of heart that returns only the sex, trestbps, and target columns.
 
 ### 2. Create a subset of heart that returns rows 3-7 and row 12 along with columns 2, 4, and 14.
 
-# Section 4: Subsetting with Logical Operators
+# Section 6: Subsetting with Logical Operators
 
 ## Remember your logical symbols from Part 1?
 ?"=="
@@ -147,7 +233,7 @@ sleep_logical_or <- sleep_VIM[(sleep_VIM$Exp == 1) | (sleep_VIM$Danger == 2), ]
 dim(sleep_logical_or)
 head(sleep_logical_or)
 
-# Section 5: Subsetting Lists
+# Section 7: Subsetting Lists
 
 ## Recall that lists are different from vectors and data frames. They can contain heterogeneous data types.
 ## We can also subset lists with double brackets "[[]]"
@@ -163,7 +249,7 @@ example_list[1]
 ## What about double brackets? Just the value is returned:
 example_list[[1]]
 
-## Section 6: Using dplyr to Subset Data Frames
+## Section 8: Using dplyr to Subset Data Frames
 
 ## A modern approach to interacting with data frames is called dplyr. This package is part of the tidyverse, a suite of packages that helps facilitate data science in R.
 ## We need to first install this package. We can do so by running the install.packages() function:
@@ -198,7 +284,7 @@ head(sleep_pipe)
 
 ## If you'd like to learn more about how to use dplyr to perform analysis, check out the Data Wrangling in R workshop!
 
-# Section 7: Missing Data
+# Section 9: Missing Data
 
 ## Let's review missing data:
 ?NA
@@ -234,7 +320,7 @@ sleep_non_missing <- sleep_VIM %>% drop_na()
 dim(sleep_non_missing)
 sum(is.na(sleep_non_missing))
 
-# Section 8: Merging Data Frames
+# Section 10: Merging Data Frames
 
 ## We can merge two data frames by a column that is shared by both using the merge() function:
 ?merge
@@ -265,7 +351,7 @@ df_join
 
 ## Looks basically the same!
 
-### Challenge 3
+### Challenge 4
 ### Consider the following data frame:
 challenge_df <- data.frame(Name = c("Joe", "Susan", "Juan", "Preeti"),
                            City = c("Berkeley", "Berkeley", "San Mateo", "San Jose"),
