@@ -52,8 +52,8 @@ print(gg_fourth)
 
 ## Here's another example with some data wrangling:
 library(dplyr)
-gap_lifeExp_mean <- gap %>%
-  dplyr::group_by(year, continent) %>%
+gap_lifeExp_mean <- gap |>
+  dplyr::group_by(year, continent) |>
   dplyr::mutate(mean_lifeExp = mean(lifeExp))
 head(gap_lifeExp_mean)
 
