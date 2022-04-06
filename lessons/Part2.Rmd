@@ -390,7 +390,8 @@ We can also subset based on multiple conditions. We'll need the AND and
 OR operators for this:
 
 ```{r}
-?"&" ?"|"
+?"&" 
+?"|"
 ```
 
 `&` (and) means that all conditions must be TRUE. Let's subset rows
@@ -547,7 +548,8 @@ Perhaps we'd like to extract rows where NonD is *not* missing. We can do
 this using the ! operator and dplyr:
 
 ```{r}
-sleep_NonD <- sleep_VIM %>% filter(!is.na(NonD)) head(sleep_NonD)
+sleep_NonD <- sleep_VIM %>% filter(!is.na(NonD)) 
+head(sleep_NonD)
 ```
 
 How can we check whether the new data frame does in fact have no missing
