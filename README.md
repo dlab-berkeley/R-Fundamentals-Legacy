@@ -89,11 +89,9 @@ Visit the [D-Lab homepage](http://dlab.berkeley.edu/) to learn more about us. Vi
 
 Here are other R workshops offered by the D-Lab:
 ## Basic Competency
-* [Fast-R](https://github.com/dlab-berkeley/Fast-R)
 * [R Data Wrangling](https://github.com/dlab-berkeley/R-Data-Wrangling)
 * [R Graphics with ggplot2](https://github.com/dlab-berkeley/R-graphics)
 * [R Functional Programming](https://github.com/dlab-berkeley/R-functional-programming)
-* [Project Management in R](https://github.com/dlab-berkeley/efficient-reproducible-project-management-in-R)
 * [Geospatial Fundamentals in R with sf](https://github.com/dlab-berkeley/Geospatial-Fundamentals-in-R-with-sf)
 * [Census Data in R](https://github.com/dlab-berkeley/Census-Data-in-R)
 

@@ -12,57 +12,76 @@ editor_options:
     wrap: 72
 ---
 
-In the previous lesson, we worked closely with data frames, a data structure available in R. We learned how to manipulate them in a variety of ways. In this lesson, we're going to learn how to create visualizations in R, allowing us to better analyze these data frames.
+In the previous lesson, we worked closely with data frames, a data
+structure available in R. We learned how to manipulate them in a variety
+of ways. In this lesson, we're going to learn how to create
+visualizations in R, allowing us to better analyze these data frames.
 
 ### Challenge 1: Loading Data From Files
 
 Let's warm up by importing the data we're going to use.
 
-1. Load the gapminder-FiveYearData.csv file and save it in a variable named gap.
+1.  Load the gapminder-FiveYearData.csv file and save it in a variable
+    named gap.
 
 ```{r}
 
 ```
 
-2. Load the sleep_VIM.csv file and save it in a variable named sv.
+2.  Load the sleep_VIM.csv file and save it in a variable named sv.
 
 ```{r}
 
 ```
 
-3. Load the heart.csv file and save it in a variable named heart.
+3.  Load the heart.csv file and save it in a variable named heart.
 
 ```{r}
 
 ```
+
 ## Section 1: Saving and Loading RData Files
 
-Often, when we're performing data analysis, we'd like to have access to the dataset at an intermediate point (or end point) in the pipeline. While we could save it to a CSV file, this requires performing some conversions that might be a bit of a hassle.
+Often, when we're performing data analysis, we'd like to have access to
+the dataset at an intermediate point (or end point) in the pipeline.
+While we could save it to a CSV file, this requires performing some
+conversions that might be a bit of a hassle.
 
-It'd be nice if we could just save the data frame exactly as it is in R, and load it the same way. This is the basis for an RData file. These types of files allow us to save objects in R exactly as they are. When we load them, they'll be exactly the same.
+It'd be nice if we could just save the data frame exactly as it is in R,
+and load it the same way. This is the basis for an RData file. These
+types of files allow us to save objects in R exactly as they are. When
+we load them, they'll be exactly the same.
 
-We can use the save() and load() functions to create and load RData files.
+We can use the save() and load() functions to create and load RData
+files.
+
 ```{r}
 save(gap, sv, heart,  file = "data/fun_data.RData")
 ```
 
 ### Challenge 2: Loading RData Files
 
-1. Wipe your global environment clean.
+1.  Wipe your global environment clean.
 
-2. Restart your R session by clicking "Session" --> "Restart R"
+2.  Restart your R session by clicking "Session" --\> "Restart R"
 
+3.  Load "fun_data.RData". If you don't know how to do this, how do you
+    find out?
 
-3. Load "fun_data.RData". If you don't know how to do this, how do you find out? 
 ```{r}
 
 ```
 
 ## Section 2: Data Summarization
 
-Before diving into visualizations, computing basic summary statistics is a good first step after you familiarize yourself with data. These summaries will inform what kinds of visualizations you'll want to create.
+Before diving into visualizations, computing basic summary statistics is
+a good first step after you familiarize yourself with data. These
+summaries will inform what kinds of visualizations you'll want to
+create.
 
-The summary() function will return frequencies for factor variables and six number summaries for continuous variables (minimum, 1st quartile, median, 3rd quartile, maximum, and mean):
+The summary() function will return frequencies for factor variables and
+six number summaries for continuous variables (minimum, 1st quartile,
+median, 3rd quartile, maximum, and mean):
 
 ```{r}
 summary(gap)
@@ -74,26 +93,33 @@ We can also use this function on a single vector:
 summary(gap$lifeExp)
 ```
 
-Note that newer versions of R will convert strings to characters automatically (and not to factors). In this case, summary will produce different results:
+Note that newer versions of R will convert strings to characters
+automatically (and not to factors). In this case, summary will produce
+different results:
 
 ```{r}
 summary(gap$continent)
 ```
 
-This is happening because R is summarizing a character string.
-Consider the following code. While we can plainly see that there are three "one" entries and two "four" entries, the summary function evaluates the vector as a character vector with five elements:
+This is happening because R is summarizing a character string. Consider
+the following code. While we can plainly see that there are three "one"
+entries and two "four" entries, the summary function evaluates the
+vector as a character vector with five elements:
 
 ```{r}
 summary(c("one", "one", "four", "one", "four"))
 ```
 
-We can get summaries that are more reasonable by converting a character vector to a factor vector:
+We can get summaries that are more reasonable by converting a character
+vector to a factor vector:
 
 ```{r}
 summary(as.factor(gap$continent))
 ```
 
-We can also return return observation frequencies for the different continents as contingency tables. Note that for contingency tables, we do not need to convert our character vector into a factor vector.
+We can also return return observation frequencies for the different
+continents as contingency tables. Note that for contingency tables, we
+do not need to convert our character vector into a factor vector.
 
 ```{r}
 table(gap$continent)
@@ -109,24 +135,34 @@ table(gap$year, gap$continent)
 
 ## Section 3: Creating Visualizations in R
 
-Creating visualizations is a fundamental skill in data analysis. Visualizations allow us to convey to the viewer a salient point about the data. Creating good visualizations is important, and takes a bit of practice. Luckily, R provides great resources to create clear and clean visualization.
+Creating visualizations is a fundamental skill in data analysis.
+Visualizations allow us to convey to the viewer a salient point about
+the data. Creating good visualizations is important, and takes a bit of
+practice. Luckily, R provides great resources to create clear and clean
+visualization.
 
 There are two major sets of tools for creating plots in R:
-  
-1. base graphics, which  come with all R installations  
-2. `ggplot2`, a stand-alone package.  
 
-We will introduce base R graphics briefly, and then discuss ggplot2, as it's the most commonly used package for creating visualizations in R.
+1.  base graphics, which come with all R installations\
+2.  `ggplot2`, a stand-alone package.
 
-In presenting R visualization basics, we'll discuss three of the most common data visualizations:
+We will introduce base R graphics briefly, and then discuss ggplot2, as
+it's the most commonly used package for creating visualizations in R.
 
-1. Histograms: visualize the distribution of one continuous (i.e. numeric or integer) variable.
-2. Boxplots: visualize the distribution of one continuous variable, divided amongst a categorical (factor) variable.
-3. Scatter plots: visualize the distribution of two continuous variables against each other (one on each axis).
+In presenting R visualization basics, we'll discuss three of the most
+common data visualizations:
+
+1.  Histograms: visualize the distribution of one continuous (i.e.
+    numeric or integer) variable.
+2.  Boxplots: visualize the distribution of one continuous variable,
+    divided amongst a categorical (factor) variable.
+3.  Scatter plots: visualize the distribution of two continuous
+    variables against each other (one on each axis).
 
 Let's create these plots using the gapminder dataset using base R.
 
-Let's look at histograms. We can create a histogram of life expectancy in the gapminder dataset:
+Let's look at histograms. We can create a histogram of life expectancy
+in the gapminder dataset:
 
 ```{r}
 hist(gap$lifeExp, # data to plot
@@ -139,7 +175,8 @@ We chose a specific color here, but there are many others available!
 colors() 
 ```
 
-We can fully customize the histogram to make it more transparent to the viewer:
+We can fully customize the histogram to make it more transparent to the
+viewer:
 
 ```{r}
 histogram <- hist(gap$lifeExp, 
@@ -159,9 +196,12 @@ histogram <- hist(gap$lifeExp,
                   las = 1)
 ```
 
-Boxplots compare several distributions as a function of a categorical variable.
+Boxplots compare several distributions as a function of a categorical
+variable.
 
-In base R, we use a formula to create a boxplot, along with the boxplot function. The formula uses a tilde - this of it as meaning "by". For example, we can plot life expectancy BY continent:
+In base R, we use a formula to create a boxplot, along with the boxplot
+function. The formula uses a tilde - this of it as meaning "by". For
+example, we can plot life expectancy BY continent:
 
 ```{r}
 boxplot(gap$lifeExp ~ gap$continent,
@@ -181,9 +221,13 @@ boxplot(gap$lifeExp ~ gap$continent,
         las = 1)
 ```
 
-Notice here that we've added color as an option. We did it to demonstrate the point, but it's actually not good practice to use color when we can get that information from elsewhere (in this case, the labels). This is called a "redundant encoding".
+Notice here that we've added color as an option. We did it to
+demonstrate the point, but it's actually not good practice to use color
+when we can get that information from elsewhere (in this case, the
+labels). This is called a "redundant encoding".
 
-Scatter plots can be created with the plot() function. Let's create a scatter plot of GDP per capita vs. life expectancy.
+Scatter plots can be created with the plot() function. Let's create a
+scatter plot of GDP per capita vs. life expectancy.
 
 ```{r}
 plot(x = gap$lifeExp, y = gap$gdpPercap,
@@ -199,7 +243,9 @@ plot(x = gap$lifeExp, y = gap$gdpPercap,
      las = 1)
 ```
 
-This is a lot of code! How do we know which color and shape corresponds to each continent? We do not even have a legend yet! We can add one using the legend() function:
+This is a lot of code! How do we know which color and shape corresponds
+to each continent? We do not even have a legend yet! We can add one
+using the legend() function:
 
 ```{r}
 legend("topleft", 
@@ -212,56 +258,77 @@ legend("topleft",
         horiz = FALSE)
 ```
 
-Base R is nice, but there's a better way to create visualizations: with ggplot2.
+Base R is nice, but there's a better way to create visualizations: with
+ggplot2.
 
 ## Section 4: Creating Visualizations with ggplot2
 
-We're now going to create visualizations with the package ggplot2, which is the main way R practitioners create plots. ggplot2 exists as its own package, which we need to download and install. 
+We're now going to create visualizations with the package ggplot2, which
+is the main way R practitioners create plots. ggplot2 exists as its own
+package, which we need to download and install.
 
-In the previous lesson, we learned how to install new packages. Now, we'll do the same with ggplot2. First, we install the package:
+In the previous lesson, we learned how to install new packages. Now,
+we'll do the same with ggplot2. First, we install the package:
 
 ```{r}
 install.packages(c("ggplot2"))
 ```
 
-Second, we load the installed package in the current session. Remember, you need to do this each time you open a new RStudio session.
+Second, we load the installed package in the current session. Remember,
+you need to do this each time you open a new RStudio session.
 
 ```{r}
 library(ggplot2)
 ```
 
-See if you were successful! If so, you should see the help files appear. Read the "Description" section and scroll down to the "Useful links".
+See if you were successful! If so, you should see the help files appear.
+Read the "Description" section and scroll down to the "Useful links".
 
 ```{r}
 ?ggplot2
 ```
 
 A ggplot is comprised of three fundamental building blocks:
-  
-1. Data: typically as a dataframe.
-2. "aes"thetics: to define your x and y axes, map colors to factor levels, etc.  
-3. "geom_"s: the visual marks to represent your data - points, bars, lines, ribbons, polygons, etc. 
 
-One thing to remember is that `ggplot2` works in layers, similar to photoimaging software such as Photoshop, Illustrator, Inkscape, GIMP, ImageJ, etc. We create a base layer, and then stack layers on top of that base layer. New layers are added to a plot using  the addition (+) symbol. Lastly, plots can be further customized using a host of "theme_" functions.
+1.  Data: typically as a dataframe.
+2.  "aes"thetics: to define your x and y axes, map colors to factor
+    levels, etc.\
+3.  "geom\_"s: the visual marks to represent your data - points, bars,
+    lines, ribbons, polygons, etc.
 
-Note that ggplot2 is the name of the package, but ggplot is the main function call. 
+One thing to remember is that `ggplot2` works in layers, similar to
+photoimaging software such as Photoshop, Illustrator, Inkscape, GIMP,
+ImageJ, etc. We create a base layer, and then stack layers on top of
+that base layer. New layers are added to a plot using the addition (+)
+symbol. Lastly, plots can be further customized using a host of
+"theme\_" functions.
 
-First, let's create the base layer. Here, we have the gray background and coordinate system (lifeExp on the x-axis). The aesthetic links a column to an axis. As in dplyr, ggplot assumes text that you enter is going to be a column in a dataframe. So, we don't need to use quotations. 
+Note that ggplot2 is the name of the package, but ggplot is the main
+function call.
+
+First, let's create the base layer. Here, we have the gray background
+and coordinate system (lifeExp on the x-axis). The aesthetic links a
+column to an axis. As in dplyr, ggplot assumes text that you enter is
+going to be a column in a dataframe. So, we don't need to use
+quotations.
 
 ```{r}
 ggplot(data = gap, aes(x = lifeExp))
 ```
 
-Histograms, ggplot style
+### Histograms, ggplot style
 
-Let's create a histogram. We add a layer on top of the base layer with a plus sign, and add geom_histogram() to overlay the histogram.
+Let's create a histogram. We add a layer on top of the base layer with a
+plus sign, and add geom_histogram() to overlay the histogram.
 
 ```{r}
 ggplot(data = gap, aes(x = lifeExp)) + 
   geom_histogram()
 ```
 
-This looks good, but we need to add some customizations. Let's make our plot have some labels with the corresponding ggplot functions. Then, we'll save the plot in its own variable:
+This looks good, but we need to add some customizations. Let's make our
+plot have some labels with the corresponding ggplot functions. Then,
+we'll save the plot in its own variable:
 
 ```{r}
 gg_hist <- ggplot(data = gap, aes(x = lifeExp)) + 
@@ -278,7 +345,7 @@ gg_hist <- ggplot(data = gap, aes(x = lifeExp)) +
 print(gg_hist)
 ```
 
-Now, let's try boxplots, ggplot style:
+### Boxplots, ggplot style:
 
 ```{r}
 gg_box <- ggplot(data = gap, 
@@ -293,15 +360,19 @@ gg_box <- ggplot(data = gap,
 print(gg_box)
 ```
 
-Let's try and hide the legend, since it provides redundant information. The legend appears automatically since we used the "fill" parameter. To get rid of it, we add an additional layer via the guides() function:
+Let's try and hide the legend, since it provides redundant information.
+The legend appears automatically since we used the "fill" parameter. To
+get rid of it, we add an additional layer via the guides() function:
 
 ```{r}
 gg_box <- gg_box + guides(fill = "none")
 print(gg_box)
 ```
 
-Scatter plots - ggplot style!
-Here, we use the theme to further customize the fonts in our plot. Themes allow us to modify almost everything about our ggplot.
+### Scatter plots - ggplot style! 
+
+Here, we use the theme to further customize the fonts in our plot.
+Themes allow us to modify almost everything about our ggplot.
 
 ```{r}
 gg_scatter <- ggplot(data = gap, aes(x = lifeExp, y = gdpPercap, 
@@ -323,15 +394,21 @@ gg_scatter <- ggplot(data = gap, aes(x = lifeExp, y = gdpPercap,
 print(gg_scatter)
 ```
 
-Looks pretty good, but this data probably needs to be scaled on the y-axis, because the GDP per capita spans many more orders of magnitude than the life expectancy. We can apply a log-transform rather easily:
+Looks pretty good, but this data probably needs to be scaled on the
+y-axis, because the GDP per capita spans many more orders of magnitude
+than the life expectancy. We can apply a log-transform rather easily:
 
 ```{r}
 gg_scatter <- gg_scatter + scale_y_log10()
 print(gg_scatter)
 ```
+
 Looks much better!
 
-We can also add a linear model on top of plots rather easily. This connects our visualizations to models that we can build using our data, to better understand the relationships amongst the features. We can do this using the `geom_smooth()` function:
+We can also add a linear model on top of plots rather easily. This
+connects our visualizations to models that we can build using our data,
+to better understand the relationships among the features. We can do
+this using the `geom_smooth()` function:
 
 ```{r}
 gg_line <- ggplot(gap, aes(x = gdpPercap, y = lifeExp)) + 
@@ -348,30 +425,38 @@ print(gg_line)
 
 ### Challenge 3: Create your own ggplot
 
-Create a fourth ggplot figure of your choosing. Save it as a variable named gg_fourth. What relationships have we not explored yet? How about the relationship between population and other features?
+Create a fourth ggplot figure of your choosing. Save it as a variable
+named gg_fourth. What relationships have we not explored yet? How about
+the relationship between population and other features?
+
 ```{r}
 gg_fourth <- ggplot()
 ```
 
 ## Section 5: Creating Compound Figures
 
-Publication quality figures often incorporate several subplots, which together tell a narrative about the problem being studied. We saw above that `ggplot2` can create something like a subplot using facets, but it can be quite limited. A package called `cowplot` makes it easy to stitch together individual plots into a bigger figure:
-  
+Publication quality figures often incorporate several subplots, which
+together tell a narrative about the problem being studied. We saw above
+that `ggplot2` can create something like a subplot using facets, but it
+can be quite limited. A package called `cowplot` makes it easy to stitch
+together individual plots into a bigger figure:
+
 ### Challenge 4: Installing and loading cowplot.
 
-1. Install and load the cowplot package via the library function.
+1.  Install and load the cowplot package via the library function.
 
 ```{r}
 
 ```
 
-2. How do you know if it installed and libraried correctly? 
+2.  How do you know if it installed and libraried correctly?
 
 ```{r}
 
 ```
 
 We can then use plot_grid to align our figures:
+
 ```{r}
 ?plot_grid
 compound_figure <- plot_grid(gg_hist, 
@@ -389,16 +474,17 @@ print(compound_figure)
 
 Complete the following tasks using the heart dataset:
 
-1. Plot the distribution of the cholesterol variable, chol.
-```{r}
-
-```
-
-2. Visualize the differences in chol between females and males. 
+1.  Plot the distribution of the cholesterol variable, chol.
 
 ```{r}
 
 ```
 
-View this link to learn more about the columns in this dataset: 
-https://archive.ics.uci.edu/ml/datasets/heart+disease
+2.  Visualize the differences in chol between females and males.
+
+```{r}
+
+```
+
+View this link to learn more about the columns in this dataset:
+<https://archive.ics.uci.edu/ml/datasets/heart+disease>
