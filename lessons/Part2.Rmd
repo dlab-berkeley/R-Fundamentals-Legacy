@@ -493,13 +493,13 @@ head(sleep_filter)
 dplyr comes with a "piping" operator that allows us to perform multiple
 computations on the same data frame in a single command.
 
-This operator is `%>%`: you can think of it as taking the output of the
+This operator is `|>`: you can think of it as taking the output of the
 left hand side, and passing it into the function on the right hand side.
 Let's see it in action:
 
 ```{r}
-sleep_pipe <- sleep_VIM %>% 
-  filter(Exp == 1 & Danger == 2) %>%
+sleep_pipe <- sleep_VIM |> 
+  filter(Exp == 1 & Danger == 2) |>
   select(BodyWgt, BrainWgt) 
 dim(sleep_pipe) 
 head(sleep_pipe)
@@ -548,7 +548,7 @@ Perhaps we'd like to extract rows where NonD is *not* missing. We can do
 this using the ! operator and dplyr:
 
 ```{r}
-sleep_NonD <- sleep_VIM %>% filter(!is.na(NonD)) 
+sleep_NonD <- sleep_VIM |> filter(!is.na(NonD)) 
 head(sleep_NonD)
 ```
 
@@ -567,7 +567,7 @@ data frames from longer to wider (this is called pivoting). It also
 contains the `drop_na()` function, which is useful in this case:
 
 ```{r}
-sleep_non_missing <- sleep_VIM %>% 
+sleep_non_missing <- sleep_VIM |> 
   drop_na() 
 dim(sleep_non_missing)
 sum(is.na(sleep_non_missing))
