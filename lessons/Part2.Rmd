@@ -24,10 +24,17 @@ type, but it can be organized into rows and columns.
 The rows and columns do not have to be the same. A matrix can have more
 rows than columns or more columns than rows.
 
+```{r setup, include = F}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(root.dir = "~/Desktop/github/D-Lab/R-Fundamentals/")
+```
+
 ```{r}
 matrix1 <- matrix(data = 1:12, nrow = 4, ncol = 3) 
 matrix1
 class(matrix1)
+matrix1 <- matrix(data = 1:12, nrow = 4, ncol = 3)
+matrix1
 ```
 
 You can also coerce vector to matrix. First, let's create a normal
@@ -37,6 +44,7 @@ vector:
 vec1 <- 1:20
 vec1
 class(vec1)
+length(vec1)
 
 ## We can coerce this vector to a matrix with 10 rows and 2 columns:
 matrix2 <- matrix(vec1, ncol = 2)
@@ -89,8 +97,9 @@ df
 ## If we wanted to change the column names, we can specify that with the function argument:
 df <- data.frame(country = countries, 
                  population = populations, 
-                 area =areas) 
+                 area =areas)
 df
+
 
 ## Check the compact structure of the data frame:
 str(df)
@@ -107,7 +116,7 @@ class(rownames(df))
 ```
 
 You can rename columns by assigning a vector of equal length to the
-colnames function on the left side of the equation:
+colnames() function on the left side of the equation:
 
 ```{r}
 colnames(df) <- c("Country", "Population", "Area") 
@@ -118,9 +127,11 @@ df
 df <- df[, c("Area", "Country", "Population")] 
 df
 
+str(df)
 ## You can extract a single column with the $ operator:
 df$Country
 
+df
 ## The $ operator can also be used to create new columns:
 df$Density <- df$Population / df$Area 
 df
@@ -150,7 +161,7 @@ df_sorted
 ```
 
 3.  What function could you use to calculate the total cost of all the
-    fruits combined?
+    foods combined?
 
 ```{r}
 
@@ -170,7 +181,7 @@ where the R-Fundamentals is located. Save this in the working_directory
 variable:
 
 ```{r}
-working_directory <- ""
+working_directory <- "~/Desktop/github/D-Lab/R-Fundamentals/"
 ```
 
 For example, if it's on your desktop, this path might be:
@@ -220,6 +231,7 @@ the file path:
 ```{r}
 gap <- read.csv("data/gapminder-FiveYearData.csv") 
 gap
+gap = read.csv("")
 ```
 
 This file path is "relative" to the working directory. We could have
@@ -458,8 +470,8 @@ time. The reason for this is that the second argument in
 install.packages() is the place on your computer where you want to
 install packages. R is smart enough to know what you mean by default if
 you just pass a single argument, but install.packages("dplyr",
-"anotherPackage") will lead to a cryptic warning that "lib =
-"anotherPackage" is not writable. Wrapping our packages in c() avoids
+"anotherPackage") will lead to a cryptic warning that "lib
+="anotherPackage" is not writable. Wrapping our packages in c() avoids
 this problem.
 
 ```{r, eval = F}

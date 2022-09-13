@@ -1,6 +1,27 @@
 # R Fundamentals Part 2: Challenge Problem Solutions
 library(here)
-### Challenge 1: Import data from a file.
+
+## Challenge 1: Make your own data frame.
+
+## Create a data frame that contains four different food items and three attributes for each: name, price, and quantity.
+foods <- data.frame(food = c("Apple", "Banana", "Tomato", "Watermelon"),
+                    itemPrice = c(1.25, .5, 1.4, 4.20),
+                    itemQuantity = c(4,6,2,1))
+foods
+colnames(foods) <- c("food", "price", "quantity")
+
+## Add a fourth column that calculates the total cost for each food item.
+foods$totalCost <- foods$price * foods$quantity
+
+
+## What function could you use to calculate the total cost of all the foods combined?
+sum(foods$totalCost)
+example <- c(foods$totalCost, NA)
+example
+sum(example, na.rm = TRUE) 
+
+
+### Challenge 2: Import data from a file.
 ### 1. Load the heart.csv file. Save it in a variable named heart.
 heart <- read.csv("data/heart.csv")
 heart
@@ -36,7 +57,7 @@ rownames(sleep_VIM)
 # Show rows with unique data
 unique(sleep_VIM) 
 
-### Challenge 2: Subsetting data frames in one and two dimensions
+### Challenge 3: Subsetting data frames in one and two dimensions
 
 ### 1. Create a subset of heart that returns only the sex, trestbps, and target columns.
 heart_sub1 <- heart[, c("sex", "trestbps", "target")]
@@ -47,7 +68,7 @@ heart_sub2 <- heart[c(3:7, 12), c(2, 4, 14)]
 heart_sub2
 
 
-### Challenge 3
+### Challenge 4
 ### Consider the following data frame:
 challenge_df <- data.frame(Name = c("Joe", "Susan", "Juan", "Preeti"),
                            City = c("Berkeley", "Berkeley", "San Mateo", "San Jose"),
