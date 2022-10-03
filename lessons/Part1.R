@@ -38,7 +38,7 @@ number / 4
 
 ## Use a hashtag to comment your code (e.g., write notes to your future self and your collaborators) to help keep your script organized. 
 
-## Press Ctrl + l on both Mac and PC to clear your console. This does not erase any data. It simply moves the console prompt (the greater-than symbol: >) up to the top to improve readability. 
+## Press Ctrl + l (as in lemon) on both Mac and PC to clear your console. This does not erase any data. It simply moves the console prompt (the greater-than symbol: >) up to the top to improve readability. 
 
 # Section 3: Functions and Arguments
 
