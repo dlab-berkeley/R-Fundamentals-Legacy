@@ -83,7 +83,7 @@ df_sorted
 ### Challenge 1: Make your own data frame.
 ### 1. Create a data frame that contains four different food items and three attributes for each: name, price, and quantity.
 ### 2. Add a fourth column that calculates the total cost for each food item.
-### 3. What function could you use to calculate the total cost of all the fruits combined?
+### 3. What function could you use to calculate the total cost of all the foods combined?
 
 # Section 3: Importing Data from Files
 

@@ -26,7 +26,7 @@ rows than columns or more columns than rows.
 
 ```{r setup, include = F}
 knitr::opts_chunk$set(echo = TRUE)
-knitr::opts_knit$set(root.dir = "~/Desktop/github/D-Lab/R-Fundamentals/")
+knitr::opts_knit$set(root.dir = "../R-Fundamentals/")
 ```
 
 ```{r}
@@ -181,12 +181,12 @@ where the R-Fundamentals is located. Save this in the working_directory
 variable:
 
 ```{r}
-working_directory <- "~/Desktop/github/D-Lab/R-Fundamentals/"
+working_directory <- ""
 ```
 
 For example, if it's on your desktop, this path might be:
-"\~/Desktop/R-Fundamentals" (Mac). If you downloaded the zip file of the
-workshop it might be:"\~/Desktop/R-Fundamentals-main"
+"~/Desktop/R-Fundamentals" (Mac). If you downloaded the zip file of the
+workshop it might be:"~/Desktop/R-Fundamentals-main"
 
 On a PC this path might be:
 "C:/Users/YourUserName/Desktop/R-Fundamentals/" or
