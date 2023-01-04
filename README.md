@@ -149,7 +149,7 @@ expertise.
 
 * [R Data Wrangling](https://github.com/dlab-berkeley/R-Data-Wrangling)
 * [R Data Visualization](https://github.com/dlab-berkeley/R-Data-Visualization)
-* [Census Data in R](https://github.com/dlab-berkeley/Census-Data-in-R)
+* [R Census Data](https://github.com/dlab-berkeley/Census-Data-in-R)
 
 ## Intermediate and Advanced Workshops
 * [R Geospatial Fundamentals](https://github.com/dlab-berkeley/R-Geospatial-Fundamentals)
