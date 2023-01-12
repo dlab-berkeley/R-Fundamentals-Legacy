@@ -272,10 +272,10 @@ sleep_filter <- filter(sleep_VIM, Exp == 1 & Danger == 2)
 dim(sleep_filter)
 head(sleep_filter)
 
-## dplyr comes with a "piping" operator that allows us to perform multiple computations on the same data frame in a single command. 
-## This operator is |>: you can think of it as taking the output of the left hand side, and passing it into the function on the right hand side. Let's see it in action:
-sleep_pipe <- sleep_VIM |>
-  filter(Exp == 1 & Danger == 2) |>
+## dplyr comes with a "piping" operator that allows us to perform multiple computations on the same data frame in a single command. If you have loaded dplyr then you can access this with the %>%
+## If you have R 4.1 or higher, there is now a native pipe operator |>. For both you can think of the function as taking the output of the left hand side, and passing it into the function on the right hand side. Let's see it in action:
+sleep_pipe <- sleep_VIM %>%
+  filter(Exp == 1 & Danger == 2) %>%
   select(BodyWgt, BrainWgt)
 dim(sleep_pipe)
 head(sleep_pipe)
@@ -306,7 +306,8 @@ is.na(sleep_VIM)
 sum(is.na(sleep_VIM))
 
 ## Perhaps we'd like to extract rows where NonD is *not* missing. We can do this using the ! operator and dplyr:
-sleep_NonD <- sleep_VIM |> filter(!is.na(NonD))
+sleep_NonD <- sleep_VIM %>% 
+  filter(!is.na(NonD))
 head(sleep_NonD)
 
 ## How can we check whether the new data frame does in fact have no missing values for NonD?
@@ -316,7 +317,8 @@ install.packages(c("tidyr"))
 library(tidyr)
 
 ## tidyr typically contains functions which allow you to transform your data frames from longer to wider (this is called pivoting). It also contains the drop_na() function, which is useful in this case:
-sleep_non_missing <- sleep_VIM |> drop_na()
+sleep_non_missing <- sleep_VIM %>%
+  drop_na()
 dim(sleep_non_missing)
 sum(is.na(sleep_non_missing))
 
