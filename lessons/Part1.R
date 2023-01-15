@@ -214,7 +214,7 @@ mean(vec, na.rm = FALSE) # Does not work due to missing data.
 
 mean(vec, na.rm = TRUE) # Works properly. 
 
-(2 + 5 + 8) / 3 # Do it manually! (sanity check)
+(2 + 5 + 8) / 3 # Do it manually! (Confidence check for our work)
 
 ## It does not matter what type the data is contained within the vector, as long as it is all the same:
 numeric_vector <- c(234, 31343, 78, 0.23, 0.0000002)
