@@ -229,6 +229,10 @@ print(gg_scatter)
 
 ## Looks much better!
 
+## We can also split up each of the continents by using facets 
+gg_scatter <- gg_scatter +
+  facet_wrap(~continent)
+print(gg_scatter)
 ## We can also add a linear model on top of plots rather easily. This connects our visualizations to models that we can build using our data, to better understand the relationships amongst the features. We can do this using the geom_smooth() function:
 gg_line <- ggplot(gap, aes(x = gdpPercap, y = lifeExp)) + 
   geom_point() + 
