@@ -65,10 +65,6 @@ class(rownames(df))
 colnames(df) <- c("Country", "Population", "Area")
 df
 
-## You can also change column order (this is a preview of Part 2: subsetting operations):
-df <- df[, c("Area", "Country", "Population")]
-df
-
 ## You can extract a single column with the $ operator:
 df$Country
 
@@ -76,9 +72,6 @@ df$Country
 df$Density <- df$Population / df$Area
 df
 
-## You can sort the data frame by row value using the order() function:
-df_sorted <- df[order(df$Area),]
-df_sorted
 
 ### Challenge 1: Make your own data frame.
 ### 1. Create a data frame that contains four different food items and three attributes for each: name, price, and quantity.
