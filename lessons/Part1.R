@@ -26,7 +26,7 @@ number
 
 ## You can also use the '=' operator to do variable assignment. 
 number = 5
-number
+
 
 ## There are subtle differences between '<-' and '=', which won't matter in most cases. However, using '<-' is considered good code style. You want your code to adhere to good stylistic practices, since that makes it easier to read and use by other users.
 
@@ -119,7 +119,6 @@ class(number)
 # Section 4.2: Integers
 ## Coerce 'number' to integer type with the as.integer() function:
 number_int <- as.integer(number)
-number_int
 class(number_int)
 
 ## Section 4.3: Characters
@@ -234,7 +233,6 @@ length(numeric_vector) # There are five elements in this vector.
 ## To index a vector means to extract an element based on its position.
 ## For example, if we want to return just the third thing from "numeric_vector", we would use square brackets and type:
 numeric_vector[3]
-class(numeric_vector[3])
 
 ## We can also add items to a vector using another c() function:
 numeric_vector2 <- c(numeric_vector, c(0.1, 0.2, 0.3))
@@ -262,11 +260,9 @@ colon_vector
 # Vectors can contain other types, too. Consider the following examples:
 character_vector <- c("Canada", "United States", "Mexico")
 character_vector
-class(character_vector)
 
 logical_vector <- c(TRUE, FALSE, TRUE, FALSE, TRUE)
 logical_vector
-class(logical_vector)
 
 ## R also provides the operator %in% to test if a value belongs to a vector. 
 TRUE %in% logical_vector
@@ -310,7 +306,6 @@ numeric_factor
 ## Let's include three different data types: logical, character, and integer.
 list1 <- list(TRUE, "one", 1) 
 list1
-class(list1)
 
 ## Normal arithmetic operates won't work with lists, though:
 list1 * list(FALSE, "zero", 0) # Error
