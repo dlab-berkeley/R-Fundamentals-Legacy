@@ -154,21 +154,29 @@ class(FALSE)
 TRUE + 2
 FALSE - 4
 
-## Boolean data types evaluate whether a statement is TRUE. Check the following:
-FALSE < TRUE # less than
-TRUE >= TRUE # greater than or equal to
-FALSE == FALSE # equivalent to (equal to)
+## Boolean data types evaluate whether a statement is TRUE. 
+## First let's define some variables 
+berkeley <- 50
+stanford <- 30 
+
+## Check the following:
+stanford < berkeley # less than
+berkeley >= stanford # greater than or equal to
+berkeley == berkeley # equivalent to (equal to)
 "Mac" == "mac" # R is case sensitive
-FALSE != FALSE # not equivalent to (not equal to)
+berkeley != berkeley # not equivalent to (not equal to)
 "PC" != "Windows"
 
 ## Boolean 'and' (all conditions must be satisfied):
-TRUE & TRUE 
-TRUE & FALSE
+cal <- TRUE 
+ucla <- FALSE 
+
+cal & cal 
+cal & ucla
 
 ## Boolean "or" (just one condition must be satisfied):
-TRUE | TRUE 
-TRUE | FALSE
+cal | cal
+cal | ucla
 
 # Section 4.5: Factors
 
