@@ -210,6 +210,9 @@ cal | ucla
 vec <- c(2, 5, 8, 11, 14)
 vec
 
+## We can take the average using the mean function 
+mean(vec)
+
 ## We can also store missing values in a vector using the NA keyword:
 vec <- c(2, 5, 8, NA, NA)
 vec
