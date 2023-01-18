@@ -28,7 +28,8 @@ class(matrix2)
 ## This kind of dataset is multidimensional. We have one row for each participant and a number of columns for each attribute we collect data on. If we had forty participants and collected 10 attributes for each participant, then we would have a 40 by 10 dataset.
 
 ## The data structure in R that is most suited for this kind of problem is the data frame. 
-## A data frame is an ordered group of equal-length vectors. They are the most common type of data structure used for data analyses. Most of the time when we load real data into R (which we will see in the next section!), we are loading that data into a data frame. 
+
+## A data frame is a type of list with some restrictions, chiefly the components of a data frame must be of equal length. They are the most common type of data structure used for data analyses. Most of the time when we load real data into R (which we will see in the next section!), we are loading that data into a data frame. 
 ## Since they are vectors, each column can only contain the same data type, but columns of different types can be lined up next to each other.
 ## Meanwhile, rows can contain heterogeneous data.
 
@@ -67,6 +68,9 @@ df
 
 ## You can extract a single column with the $ operator:
 df$Country
+
+## Because data frames are lists, we can also use list subsetting operations. While we do not cover list subsetting in detail, in your R journey the list subsetting can be useful when writing functions (Part 4!) that involve data frames. 
+df[["Country"]]
 
 ## The $ operator can also be used to create new columns:
 df$Density <- df$Population / df$Area
@@ -165,6 +169,7 @@ sleep_VIM$Dream
 ## You can also tab complete to see a list of columns. Helpful!
 sleep_VIM   # Place a dollar sign and press TAB to select from the available columns.
   
+
 # Section 5: Subsetting a Data Frame in Two Dimensions
 
 ## There are many ways to efficiently subset rows and columns in R. The simplest is "bracket notation".
@@ -226,21 +231,6 @@ sleep_logical_or <- sleep_VIM[(sleep_VIM$Exp == 1) | (sleep_VIM$Danger == 2), ]
 dim(sleep_logical_or)
 head(sleep_logical_or)
 
-# Section 7: Subsetting Lists
-
-## Recall that lists are different from vectors and data frames. They can contain heterogeneous data types.
-## We can also subset lists with double brackets "[[]]"
-?"[["
-
-## Let's make an example list:
-example_list <- list(TRUE, "string data", 5, list(1, 2, 3))
-example_list
-
-## What happens with one bracket? Both the placeholder and the value are returned:
-example_list[1]
-
-## What about double brackets? Just the value is returned:
-example_list[[1]]
 
 ## Section 8: Using dplyr to Subset Data Frames
 
@@ -315,7 +305,7 @@ sleep_non_missing <- sleep_VIM %>%
 dim(sleep_non_missing)
 sum(is.na(sleep_non_missing))
 
-# Section 10: Merging Data Frames
+## (OPTIONAL) Appendix-Merging Data Frames
 
 ## We can merge two data frames by a column that is shared by both using the merge() function:
 ?merge
