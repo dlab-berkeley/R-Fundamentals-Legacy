@@ -148,7 +148,7 @@ f2(1, 3) # neither named
 ## 1. The `for` keyword: This keyword tells R that you want to iterate over a loop.  
 ## 2. The iterator: The parentheses denote what we are iterating over. In the example, it is `(variable in sequence)`. The `variable` is the iterator: it moves through the `sequence` for each step of the for-loop. Often, the `variable` is called `i`, but we could name it anything (`x`, `donut`, etc.).
 ## 3. The `sequence`: This tells R what values the iterator proceeds through. Often, it is a vector of numbers (e.g., 1:5), but it can be more general through that.
-## 4. Loop body: As in functions, curly braces define the body of the loop. For each pass through the for-loop, the body is run. Thus, the body is repeatedly run `n` number of times, where `n`  
+## 4. Loop body: As in functions, curly braces define the body of the loop. For each pass through the for-loop, the body is run. Thus, the body is repeatedly run `n` number of times, where `n` is the length of the sequence.  
 
 ## What does this for-loop do?
 for (x in 1:5) {
