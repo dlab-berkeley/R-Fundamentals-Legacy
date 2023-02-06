@@ -265,6 +265,20 @@ head(sleep_pipe)
 
 ## Notice that we didn't need to pass sleep_VIM as the first argument of each function. The piping operator takes care of this for us.
 
+## dplyr is a powerful library that does more than subsetting. We can also use the function mutate() from the dplyr library to create new columns. Recall that we previously made a new column like this 
+## The $ operator can also be used to create new columns:
+## dataframe$new_column <- some operation
+
+## We can do the same thing with dplyr. To demonstrate let's add a new column to our previous pipe 
+
+sleep_VIM = read.csv("data/sleep_VIM.csv")
+
+sleep_pipe2 <- sleep_VIM %>%
+  filter(Exp == 1 & Danger == 2) %>%
+  select(BodyWgt, BrainWgt) %>%
+  mutate(NewCol = row_number())
+head(sleep_pipe2)
+
 ## If you'd like to learn more about how to use dplyr to perform analysis, check out the Data Wrangling in R workshop!
 
 # Section 9: Missing Data
